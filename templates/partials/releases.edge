@@ -1,0 +1,33 @@
+<h1> 发布版本 </h1>
+<p class="lede">
+  本文档概述了 AdonisJS 核心框架及由AdonisJS核心团队维护的生态系统包的重要发布版本。
+</p>
+
+<div class="table_container table_expanded">
+  <table>
+    <thead>
+      <tr>
+        <th>包</th>
+        <th>变更</th>
+        <th style="width: 120px; text-align: right;">发布于</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(release in await getReleases())
+        <tr>
+          <th style="white-space: nowrap;">
+            <a href="{{ release.release_notes_link }}" target="_blank">
+              <code>{{ release.package }}&commat;{{ release.version }}</code>
+            </a>
+          </th>
+          <td>
+            {{{ release.description }}}.
+          </td>
+          <td style="text-align: right;">
+            {{ dayjs(release.released_on).format('MMM D, YYYY') }}
+          </td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+</div>
