@@ -1,117 +1,118 @@
 ---
-summary: Contributing to AdonisJS projects is a great way to give back to the community. This guide provides a general overview of how you can contribute to any AdonisJS project.
+summary: 为 AdonisJS 项目做出贡献是回馈社区的好方法。本指南概述了如何为任何 AdonisJS 项目做出贡献的一般步骤。
 ---
 
 # Contributing
-This is a general contribution guide for all of the [AdonisJS](https://github.com/adonisjs) repos. Please read this guide thoroughly before contributing to any of the repos 🙏
+这是所有 [AdonisJS](https://github.com/adonisjs) 仓库的通用贡献指南。在贡献任何仓库之前，请仔细阅读本指南 🙏
 
-Code is not the only way to contribute. Following are also some ways to contribute and become part of the community.
+代码并不是贡献的唯一方式。以下也是一些贡献并成为社区一员的方式：
 
-- Fixing typos in the documentation
-- Improving existing docs
-- Writing cookbooks or blog posts to educate others in the community
-- Triaging issues
-- Sharing your opinion on existing issues
-- Help the community in discord and the discussions forum
+- 修正文档中的错别字
+- 改进现有文档
+- 撰写食谱或博客文章以教育社区中的其他人
+- 筛选问题
+- 就现有问题发表意见
+- 在 Discord 和讨论论坛中帮助社区
 
-## Reporting bugs
-Many issues reported on open source projects are usually questions or misconfiguration at the reporter's end. Therefore, we highly recommend you properly troubleshoot your issues before reporting them.
+## 报告错误
+在开源项目中报告的许多问题通常是报告者方面的问题或配置错误。因此，我们强烈建议您在报告问题之前先自行排查。
 
-If you're reporting a bug, include as much information as possible with the code samples you have written. The scale of good to bad issues looks as follows.
+如果您要报告错误，请提供尽可能多的信息以及您编写的代码示例。良好问题和不良问题的范围如下：
 
-- **PERFECT ISSUE**: You isolate the underlying bug. Create a failing test in the repo and open a Github issue around it.
-- **GOOD ISSUE**: You isolate the underlying bug and provide a minimal reproduction of it as a Github repo. Antfu has written a great article on [Why Reproductions are Required](https://antfu.me/posts/why-reproductions-are-required).
-- **DECENT ISSUE**: You correctly state your issue. Share the code that produces the issue in the first place. Also, include the related configuration files and the package version you use.
+- **完美问题**：您隔离了底层错误。在仓库中创建一个失败的测试，并围绕它打开一个 GitHub 问题。
+- **良好问题**：您隔离了底层错误，并提供了一个最小的 GitHub 仓库复现。Antfu 写了一篇关于[为什么需要复现](https://antfu.me/posts/why-reproductions-are-required) 的好文章。
+- **不错的问题**：您准确陈述了问题。分享最初产生问题的代码。同时，包括相关的配置文件和您使用的包版本。
 
-  Last but not least is to format every code block properly by following the [Github markdown syntax guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+  最后但同样重要的是，按照 [GitHub Markdown 语法指南](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) 正确格式化每个代码块。
 
-- **POOR ISSUE**: You dump the question you have with the hope that the other person will ask the relevant questions and help you. These kinds of issues are closed automatically without any explanation.
+- **差劲的问题**：您抛出问题，希望其他人会问相关问题并帮助您。这类问题会自动关闭，且没有任何解释。
 
-## Having a discussion
-You often want to discuss a topic or maybe share some ideas. In that case, create a discussion in the discussions forum under the **💡Ideas** category.
+## 进行讨论
+您可能经常想要讨论某个话题或分享一些想法。在这种情况下，请在讨论论坛的 **💡Ideas** 类别下创建一个讨论。
 
-## Educating others
-Educating others is one of the best ways to contribute to any community and earn recognition.
+## 教育他人
+教育他人是贡献于任何社区并获得认可的最佳方式之一。
 
-You can use the **📚 Cookbooks** category on our discussion forum to share an article with others. The cookbooks section is NOT strictly moderated, except the shared knowledge should be relevant to the project.
+您可以使用我们讨论论坛上的 **📚 Cookbooks** 类别与他人分享文章。食谱部分并不严格受控，但分享的知识应与项目相关。
 
-## Creating pull requests
-It is never a good experience to have your pull request declined after investing a lot of time and effort in writing the code. Therefore, we highly recommend you to [kick off a discussion](https://github.com/orgs/adonisjs/discussions) before starting any new work on your side.
+## 创建拉取请求
+在投入大量时间和精力编写代码后，拉取请求被拒绝绝不是一种好的体验。因此，我们强烈建议您在开始任何新工作之前[先开始讨论](https://github.com/orgs/adonisjs/discussions)。
 
-Just start a discussion and explain what are you planning to contribute?
+只需开始讨论并解释您计划贡献什么？
 
-- **Are you trying to create a PR to fix a bug**: PRs for bugs are mostly accepted once the bug has been confirmed.
-- **Are you planning to add a new feature**: Please thoroughly explain why this feature is required and share links to the learning material we can read to educate ourselves.
+- **您是否试图创建拉取请求以修复错误**：一旦错误得到确认，修复错误的拉取请求通常会被接受。
+- **您是否计划添加新功能**：请详细解释为什么需要此功能，并分享我们可以阅读的学习材料链接以进行自我教育。
 
-  For example: If you are adding support for snapshot testing to Japa or AdonisJS. Then share the links I can use to learn more about snapshot testing in general.
+  例如：如果您正在为 Japa 或 AdonisJS 添加快照测试支持。那么请分享我可以用来了解快照测试的一般信息的链接。
 
-> Note: You should also be available to open additional PRs for documenting the contributed feature or improvement.
+> 注意：您还应准备好为记录贡献的功能或改进打开额外的拉取请求。
 
-## Repository setup
+## 仓库设置
 
-1. Start by cloning the repo on your local machine.
+1. 首先在本地机器上克隆仓库。
 
     ```sh
     git clone <REPO_URL>
     ```
 
-2. Install dependencies on your local. Please do not update any dependencies along with a feature request. If you find stale dependencies, create a separate PR to update them.
+2. 在本地安装依赖项。请不要在功能请求中更新任何依赖项。如果发现依赖项过时，请创建单独的拉取请求来更新它们。
 
-   We use `npm` for managing dependencies, therefore do not use `yarn` or any other tool.
+   我们使用 `npm` 来管理依赖项，因此请不要使用 `yarn` 或任何其他工具。
 
     ```sh
     npm install
     ```
 
-3. Run tests by executing the following command.
+3. 通过执行以下命令运行测试。
 
     ```sh
     npm test
     ```
 
-## Tools in use
-Following is the list of tools in use.
+## 使用的工具
+以下是正在使用的工具列表。
 
-| Tool                   | Usage                                                                                                                                                                                                                                                                  |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TypeScript             | All of the repos are authored in TypeScript. The compiled JavaScript and Type-definitions are published on npm.                                                                                                                                                        |
-| TS Node                | We use [ts-node](https://typestrong.org/ts-node/) to run tests or scripts without compiling TypeScript. The main goal of ts-node is to have a faster feedback loop during development                                                                                  |
-| SWC                    | [SWC](https://swc.rs/) is a Rust based TypeScript compiler. TS Node ships with first-class support for using SWC over the TypeScript official compiler. The main reason for using SWC is the speed gain.                                                               |
-| Release-It             | We use [release-it](https://github.com/release-it/release-it) to publish our packages on npm. It does all the heavy lifting of creating a release and publishes it on npm and Github. Its config is defined within the `package.json` file.                            |
-| ESLint                 | ESLint helps us enforce a consistent coding style across all the repos with multiple contributors. All our ESLint rules are published under the [eslint-plugin-adonis](https://github.com/adonisjs-community/eslint-plugin-adonis) package.                            |
-| Prettier               | We use prettier to format the codebase for consistent visual output. If you are confused about why we are using ESLint and Prettier both, then please read [Prettier vs. Linters](https://prettier.io/docs/en/comparison.html) doc on the Prettier website.            |
-| EditorConfig           | The `.editorconfig` file in the root of every project configures your Code editor to use a set of rules for indentation and whitespace management. Again, Prettier is used for post formatting your code, and Editorconfig is used to configure the editor in advance. |
-| Conventional Changelog | All of the commits across all the repos uses [commitlint](https://github.com/conventional-changelog/commitlint/#what-is-commitlint) to enforce consistent commit messages.                                                                                             |
-| Husky                  | We use [husky](https://typicode.github.io/husky/#/) to enforce commit conventions when committing the code. Husky is a git hooks system written in Node                                                                                                                |
+| 工具                   | 用法                                                                                                                                                                                                                                                                 |
+|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TypeScript             | 所有仓库都用 TypeScript 编写。编译后的 JavaScript 和类型定义发布在 npm 上。                                                                                                                                                                                        |
+| TS Node                | 我们使用 [ts-node](https://typestrong.org/ts-node/) 运行测试或脚本，而无需编译 TypeScript。ts-node 的主要目标是在开发过程中实现更快的反馈循环。                                                                                                                   |
+| SWC                    | [SWC](https://swc.rs/) 是一个基于 Rust 的 TypeScript 编译器。TS Node 提供了一流的支持，可以使用 SWC 而不是 TypeScript 官方编译器。使用 SWC 的主要原因是速度提升。                                                                                 |
+| Release-It             | 我们使用 [release-it](https://github.com/release-it/release-it) 在 npm 上发布我们的包。它负责创建发布的所有繁重工作，并将其发布在 npm 和 GitHub 上。其配置在 `package.json` 文件中定义。                                                                                |
+| ESLint                 | ESLint 帮助我们在所有仓库中强制执行一致的编码风格，这些仓库有多个贡献者。我们所有的 ESLint 规则都发布在 [eslint-plugin-adonis](https://github.com/adonisjs-community/eslint-plugin-adonis) 包下。                                                                                   |
+| Prettier               | 我们使用 prettier 来格式化代码库，以获得一致的视觉输出。如果您对为什么我们同时使用 ESLint 和 Prettier 感到困惑，请阅读 Prettier 网站上的 [Prettier vs. Linters](https://prettier.io/docs/en/comparison.html) 文档。            |
+| EditorConfig           | 每个项目根目录中的 `.editorconfig` 文件配置您的代码编辑器使用一组规则来进行缩进和空白管理。再次强调，Prettier 用于后期格式化您的代码，而 Editorconfig 用于提前配置编辑器。                                                                                     |
+| Conventional Changelog | 所有仓库中的所有提交都使用 [commitlint](https://github.com/conventional-changelog/commitlint/#what-is-commitlint) 来强制执行一致的提交信息。                                                                                                                           |
+| Husky                  | 我们使用 [husky](https://typicode.github.io/husky/#/) 在提交代码时强制执行提交规范。Husky 是一个用 Node 编写的 git 钩子系统。                                                                                                                                    |
 
-## Commands
+## 命令
 
-| Command | Description |
+| 命令               | 描述                                     |
 |-------|--------|
-| `npm run test` | Run project tests using `ts-node` |
-| `npm run compile` | Compile the TypeScript project to JavaScript. The compiled output is written inside the `build` directory |
-| `npm run release` | Start the release process using `np` |
-| `npm run lint` | Lint the codebase using ESlint |
-| `npm run format` | Format the codebase using Prettier | 
-| `npm run sync-labels` | Sync the labels defined inside the `.github/labels.json` file with Github. This command is for the project admin only. |
+| `npm run test`     | 使用 `ts-node` 运行项目测试               |
+| `npm run compile`  | 将 TypeScript 项目编译为 JavaScript。编译后的输出写入 `build` 目录 |
+| `npm run release`  | 使用 `np` 开始发布过程                    |
+| `npm run lint`     | 使用 ESLint 检查代码库                    |
+| `npm run format`   | 使用 Prettier 格式化代码库                |
+| `npm run sync-labels` | 将 `.github/labels.json` 文件中定义的标签与 GitHub 同步。此命令仅供项目管理员使用。 |
 
-## Coding style
-All of our projects are written in TypeScript and are moving to pure ESM.
+## 编码风格
+我们的所有项目都用 TypeScript 编写，并正在转向纯 ESM。
 
-- You can learn more about [my coding style here](https://github.com/thetutlage/meta/discussions/3)
-- Check out the setup I follow for [ESM and TypeScript here](https://github.com/thetutlage/meta/discussions/2)
+- 您可以在此处了解[我的编码风格](https://github.com/thetutlage/meta/discussions/3)
+- 查看我遵循的 [ESM 和 TypeScript 设置](https://github.com/thetutlage/meta/discussions/2)
 
-Also, make sure to run the following commands before pushing the code.
+此外，在推送代码之前，请确保运行以下命令。
 
 ```sh
-# Formats using prettier
+# 使用 prettier 格式化
 npm run format
 
-# Lints using Eslint
+# 使用 ESLint 检查
 npm run lint
 ```
 
-## Getting recognized as a contributor
-We rely on GitHub to list all the repo contributors in the right-side panel of the repo. Following is an example of the same.
+## 成为认可的贡献者
 
-Also, we use the [auto generate release notes](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes#about-automatically-generated-release-notes) feature of Github, which adds a reference to the contributor profile within the release notes.
+我们依赖 GitHub 在仓库右侧面板中列出所有仓库贡献者。以下是一个示例。
+
+此外，我们使用 GitHub 的[自动生成发行说明](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes#about-automatically-generated-release-notes) 功能，该功能会在发行说明中添加对贡献者个人资料的引用。

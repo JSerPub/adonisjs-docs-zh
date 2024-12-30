@@ -1,57 +1,57 @@
 ---
-summary: Manage user sessions inside your AdonisJS application using the @adonisjs/session package. 
+summary: 使用 @adonisjs/session 包在您的 AdonisJS 应用程序中管理用户会话。
 ---
 
-# Session
+# 会话
 
-You can manage user sessions inside your AdonisJS application using the `@adonisjs/session` package. The session package provides a unified API for storing session data across different storage providers. 
+您可以使用 `@adonisjs/session` 包在您的 AdonisJS 应用程序中管理用户会话。会话包提供了一个统一的 API，用于在不同的存储提供者之间存储会话数据。
 
-**Following is the list of the bundled stores.**
+**以下是捆绑的存储列表**：
 
-- `cookie`: The session data is stored inside an encrypted cookie. The cookie store works great with multi-server deployments since the data is stored with the client.
+- `cookie`：会话数据存储在加密的 cookie 中。cookie 存储在多服务器部署中效果很好，因为数据存储在客户端。
 
-- `file`: The session data is saved inside a file on the server. The file store can only scale to multi-server deployments if you implement sticky sessions with the load balancer.
+- `file`：会话数据保存在服务器上的文件中。文件存储只能在您通过负载均衡器实现粘性会话时扩展到多服务器部署。
 
-- `redis`: The session data is stored inside a Redis database. The redis store is recommended for apps with large volumes of session data and can scale to multi-server deployments.
+- `redis`：会话数据存储在 Redis 数据库中。对于会话数据量大的应用程序，建议使用 redis 存储，并且可以扩展到多服务器部署。
 
-- `dynamodb`: The session data is stored inside an Amazon DynamoDB table. The DynamoDB store is suitable for applications that require a highly scalable and distributed session store, especially when the infrastructure is built on AWS.
+- `dynamodb`：会话数据存储在 Amazon DynamoDB 表中。DynamoDB 存储适用于需要高度可扩展和分布式会话存储的应用程序，特别是在基础设施建立在 AWS 上时。
 
-- `memory`: The session data is stored within a global memory store. The memory store is used during testing.
+- `memory`：会话数据存储在全局内存存储中。内存存储用于测试期间。
 
-Alongside the inbuilt backend stores, you can also create and [register custom session stores](#creating-a-custom-session-store).
+除了内置的后端存储，您还可以创建和 [注册自定义会话存储](#creating-a-custom-session-store)。
 
-## Installation
+## 安装
 
-Install and configure the package using the following command :
+使用以下命令安装并配置包：
 
 ```sh
 node ace add @adonisjs/session
 ```
 
-:::disclosure{title="See steps performed by the add command"}
+:::disclosure{title="查看 add 命令执行的步骤"}
 
-1. Installs the `@adonisjs/session` package using the detected package manager.
+1. 使用检测到的包管理器安装 `@adonisjs/session` 包。
 
-2. Registers the following service provider inside the `adonisrc.ts` file.
+2. 在 `adonisrc.ts` 文件中注册以下服务提供者。
 
     ```ts
     {
       providers: [
-        // ...other providers
+        // ...其他提供者
         () => import('@adonisjs/session/session_provider')
       ]
     }
     ```
 
-3. Create the `config/session.ts` file.
+3. 创建 `config/session.ts` 文件。
 
-4. Define the following environment variables and their validations. 
+4. 定义以下环境变量及其验证。
 
     ```dotenv
     SESSION_DRIVER=cookie
     ```
 
-5. Registers the following middleware inside the `start/kernel.ts` file.
+5. 在 `start/kernel.ts` 文件中注册以下中间件。
 
     ```ts
     router.use([
@@ -61,10 +61,11 @@ node ace add @adonisjs/session
 
 :::
 
-## Configuration
-The configuration for the session package is stored inside the `config/session.ts` file.
+## 配置
 
-See also: [Session config stub](https://github.com/adonisjs/session/blob/main/stubs/config/session.stub)
+会话包的配置存储在 `config/session.ts` 文件中。
+
+另请参阅：[会话配置存根](https://github.com/adonisjs/session/blob/main/stubs/config/session.stub)
 
 ```ts
 import env from '#start/env'
@@ -101,10 +102,9 @@ export default defineConfig({
 
 <dd>
 
-Enable or disable the middleware temporarily without removing it from the middleware stack.
+临时启用或禁用中间件，而不从中间件堆栈中移除它。
 
 </dd>
-
 
 <dt>
 
@@ -114,7 +114,7 @@ Enable or disable the middleware temporarily without removing it from the middle
 
 <dd>
 
-The cookie name is used to store the session ID. Feel free to rename it.
+用于存储会话 ID 的 cookie 名称。可以随意重命名。
 
 </dd>
 
@@ -126,7 +126,7 @@ The cookie name is used to store the session ID. Feel free to rename it.
 
 <dd>
 
-When set to true, the session ID cookie will be removed after the user closes the browser window. This cookie is technically known as [session cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#define_the_lifetime_of_a_cookie).
+设置为 true 时，用户关闭浏览器窗口后，会话 ID cookie 将被移除。这种 cookie 在技术上被称为 [会话 cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#define_the_lifetime_of_a_cookie)。
 
 </dd>
 
@@ -138,7 +138,7 @@ When set to true, the session ID cookie will be removed after the user closes th
 
 <dd>
 
-The `age` property controls the validity of session data without user activity. After the given duration, the session data is considered expired.
+`age` 属性控制无用户活动时会话数据的有效性。在给定时长后，会话数据被视为过期。
 
 </dd>
 
@@ -150,19 +150,19 @@ The `age` property controls the validity of session data without user activity. 
 
 <dd>
 
-Control session ID cookie attributes. See also [cookie configuration](./cookies.md#configuration).
+控制会话 ID cookie 属性。另请参阅 [cookie 配置](./cookies.md#configuration)。
 
 </dd>
 
 <dt>
 
-store
+  store
 
 </dt>
 
 <dd>
 
-Define the store you want to use to store the session data. It can be a fixed value or read from the environment variables.
+定义要用于存储会话数据的存储。它可以是固定值，也可以从环境变量中读取。
 
 </dd>
 
@@ -174,9 +174,9 @@ Define the store you want to use to store the session data. It can be a fixed va
 
 <dd>
 
-The `stores` object is used to configure one or multiple backend stores. 
+`stores` 对象用于配置一个或多个后端存储。
 
-Most applications will use a single store. However, you can configure multiple stores and switch between them based on the environment in which your application is running.
+大多数应用程序将使用单个存储。但是，您可以配置多个存储，并根据应用程序运行的环境在它们之间切换。
 
 </dd>
 
@@ -184,8 +184,9 @@ Most applications will use a single store. However, you can configure multiple s
 
 ---
 
-### Stores configuration
-Following is the list of the backend stores bundled with the `@adonisjs/session` package.
+### 存储配置
+
+以下是 `@adonisjs/session` 包捆绑的后端存储列表。
 
 ```ts
 import app from '@adonisjs/core/services/app'
@@ -224,10 +225,9 @@ export default defineConfig({
 
 <dd>
 
-The `cookie` store encrypts and stores the session data inside a cookie.
+`cookie` 存储加密并将会话数据存储在 cookie 中。
 
 </dd>
-
 
 <dt>
 
@@ -237,10 +237,9 @@ The `cookie` store encrypts and stores the session data inside a cookie.
 
 <dd>
 
-Define the configuration for the `file` store. The method accepts the `location` path for storing the session files.
+定义 `file` 存储的配置。该方法接受用于存储会话文件的 `location` 路径。
 
 </dd>
-
 
 <dt>
 
@@ -250,9 +249,9 @@ Define the configuration for the `file` store. The method accepts the `location`
 
 <dd>
 
-Define the configuration for the `redis` store. The method accepts the `connection` name for storing the session data.
+定义 `redis` 存储的配置。该方法接受用于存储会话数据的 `connection` 名称。
 
-Make sure to first install and configure the [@adonisjs/redis](../database/redis.md) package before using the `redis` store.
+在使用 `redis` 存储之前，请确保首先安装并配置 [@adonisjs/redis](../database/redis.md) 包。
 
 </dd>
 
@@ -264,10 +263,10 @@ Make sure to first install and configure the [@adonisjs/redis](../database/redis
 
 <dd>
 
-Define the configuration for the `dynamodb` store. You may either pass the [DynamoDB config](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-dynamodb/Interface/DynamoDBClientConfig/) via the `clientConfig` property or pass an instance of the DynamoDB as the `client` property.
+定义 `dynamodb` 存储的配置。您可以通过 `clientConfig` 属性传递 [DynamoDB 配置](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-dynamodb/Interface/DynamoDBClientConfig/)，或者通过 `client` 属性传递 DynamoDB 的实例。
 
 ```ts
-// title: With client config
+// title: 使用 client 配置
 stores.dynamodb({
   clientConfig: {
     region: 'us-east-1',
@@ -281,7 +280,7 @@ stores.dynamodb({
 ```
 
 ```ts
-// title: With client instance
+// title: 使用 client 实例
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 const client = new DynamoDBClient({})
 
@@ -290,7 +289,7 @@ stores.dynamodb({
 })
 ```
 
-Additionally, you may define a custom table name and key attribute name.
+此外，您可以定义自定义表名和键属性名。
 
 ```ts
 stores.dynamodb({
@@ -305,10 +304,11 @@ stores.dynamodb({
 
 ---
 
-### Updating environment variables validation
-If you decide to use session stores other than the default one, make sure to also update the environment variables validation for the `SESSION_DRIVER` environment variable.
+### 更新环境变量验证
 
-We configure the `cookie`, the `redis`, and the `dynamodb` stores in the following example. Therefore, we should also allow the `SESSION_DRIVER` environment variable to be one of them.
+如果您决定使用除默认存储以外的会话存储，请确保也更新 `SESSION_DRIVER` 环境变量的验证。
+
+在以下示例中，我们配置了 `cookie`、`redis` 和 `dynamodb` 存储。因此，我们也应该允许 `SESSION_DRIVER` 环境变量是其中之一。
 
 ```ts
 import { defineConfig, stores } from '@adonisjs/session'
@@ -334,8 +334,8 @@ export default defineConfig({
 }
 ```
 
-## Basic example
-Once the session package has been registered, you can access the `session` property from the [HTTP Context](../concepts/http_context.md). The session property exposes the API for reading and writing data to the session store.
+## 基本示例
+一旦会话包注册后，您可以从 [HTTP 上下文](../concepts/http_context.md) 中访问 `session` 属性。`session` 属性暴露了用于读写会话存储数据的 API。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -355,10 +355,10 @@ router.get('/', async ({ session }) => {
 })
 ```
 
-The session data is read from the session store at the start of the request and written back to the store at the end. Therefore, all changes are kept in memory until the request finishes.
+请求开始时从会话存储中读取会话数据，并在请求结束时写回存储。因此，所有更改在请求完成前都保存在内存中。
 
-## Supported data types
-The session data is serialized to a string using `JSON.stringify`; therefore, you can use the following JavaScript data types as session values.
+## 支持的数据类型
+会话数据使用 `JSON.stringify` 序列化为字符串；因此，您可以将以下 JavaScript 数据类型用作会话值。
 
 - string
 - number
@@ -369,47 +369,47 @@ The session data is serialized to a string using `JSON.stringify`; therefore, yo
 - array
 
 ```ts
-// Object
+// 对象
 session.put('user', {
   id: 1,
   fullName: 'virk',
 })
 
-// Array
+// 数组
 session.put('product_ids', [1, 2, 3, 4])
 
-// Boolean
+// 布尔值
 session.put('is_logged_in', true)
 
-// Number
+// 数字
 session.put('visits', 10)
 
 // BigInt
 session.put('visits', BigInt(10))
 
-// Data objects are converted to ISO string
+// 数据对象转换为 ISO 字符串
 session.put('visited_at', new Date())
 ```
 
-## Reading and writing data
-The following is the list of methods you can use to interact with the data from the `session` object.
+## 读写数据
+以下是可以用于与 `session` 对象中的数据交互的方法列表。
 
 ### get
-Returns the value of a key from the store. You can use dot notation to read nested values.
+从存储中返回键的值。您可以使用点符号读取嵌套值。
 
 ```ts
 session.get('key')
 session.get('user.email')
 ```
 
-You can also define a default value as the second parameter. The default value will be returned if the key does not exist in the store.
+您还可以定义第二个参数作为默认值。如果键在存储中不存在，将返回默认值。
 
 ```ts
 session.get('visits', 0)
 ```
 
 ### has
-Check if a key exists in the session store.
+检查键是否存在于会话存储中。
 
 ```ts
 if (session.has('visits')) {
@@ -417,34 +417,34 @@ if (session.has('visits')) {
 ```
 
 ### all
-Returns all the data from the session store. The return value will always be an object.
+返回会话存储中的所有数据。返回值始终是一个对象。
 
 ```ts
 session.all()
 ```
 
 ### put
-Add a key-value pair to the session store. You can create objects with nested values using the dot notation.
+向会话存储中添加键值对。您可以使用点符号创建具有嵌套值的对象。
 
 ```ts
 session.put('user', { email: 'foo@bar.com' })
 
-// Same as above
+// 与上面相同
 session.put('user.email', 'foo@bar.com')
 ```
 
 ### forget
-Remove a key-value pair from the session store.
+从会话存储中移除键值对。
 
 ```ts
 session.forget('user')
 
-// Remove the email from the user object
+// 从 user 对象中移除 email
 session.forget('user.email')
 ```
 
 ### pull
-The `pull` method returns the value of a key and removes it from the store simultaneously.
+`pull` 方法返回键的值并同时从存储中移除它。
 
 ```ts
 const user = session.pull('user')
@@ -452,67 +452,66 @@ session.has('user') // false
 ```
 
 ### increment
-The `increment` method increments the value of a key. A new key value is defined if it does not exist already.
+`increment` 方法增加键的值。如果键不存在，则定义新的键值。
 
 ```ts
 session.increment('visits')
 
-// Increment by 4
+// 增加 4
 session.increment('visits', 4)
 ```
 
 ### decrement
-The `decrement` method decrements the value of a key. A new key value is defined if it does not exist already.
+`decrement` 方法减少键的值。如果键不存在，则定义新的键值。
 
 ```ts
 session.decrement('visits')
 
-// Decrement by 4
+// 减少 4
 session.decrement('visits', 4)
 ```
 
 ### clear
-The `clear` method removes everything from the session store.
+`clear` 方法从会话存储中移除所有内容。
 
 ```ts
 session.clear()
 ```
 
-## Session lifecycle
-AdonisJS creates an empty session store and assigns it to a unique session ID on the first HTTP request, even if the request/response lifecycle doesn't interact with sessions.
+## 会话生命周期
+AdonisJS 在第一个 HTTP 请求时创建一个空的会话存储，并将其分配给一个唯一的会话 ID，即使请求/响应生命周期不与会话交互。
 
-On every subsequent request, we update the `maxAge` property of the session ID cookie to ensure it doesn't expire. The session store is also notified about the changes (if any) to update and persist them.
+在每次后续请求中，我们更新会话 ID cookie 的 `maxAge` 属性，以确保其不会过期。会话存储也会被通知任何更改（如果有），以便更新和持久化它们。
 
-You can access the unique session ID using the `sessionId` property. A visitor's session ID remains the same until it expires.
+您可以使用 `sessionId` 属性访问唯一的会话 ID。访问者的会话 ID 在其过期前保持不变。
 
 ```ts
 console.log(session.sessionId)
 ```
 
-### Re-generating session id
-Re-generating session ID helps prevent a [session fixation](https://owasp.org/www-community/attacks/Session_fixation) attack in your application. You must re-generate the session ID when associating an anonymous session with a logged-in user.
+### 重新生成会话 ID
+重新生成会话 ID 有助于防止应用程序中的 [会话固定](https://owasp.org/www-community/attacks/Session_fixation) 攻击。在将匿名会话与登录用户关联时，必须重新生成会话 ID。
 
-The `@adonisjs/auth` package automatically re-generates the session ID, so you do not have to do it manually.
+`@adonisjs/auth` 包会自动重新生成会话 ID，因此您无需手动执行此操作。
 
 ```ts
 /**
- * New session ID will be assigned at
- * the end of the request
+ * 在请求结束时分配新的会话 ID
  */
 session.regenerate()
 ```
 
-## Flash messages
-Flash messages are used to pass data between two HTTP requests. They are commonly used to provide feedback to the user after a specific action. For example, showing the success message after the form submission or displaying the validation error messages.
+## 闪存消息
+闪存消息用于在两个 HTTP 请求之间传递数据。它们通常用于在特定操作后向用户提供反馈。例如，在表单提交后显示成功消息或显示验证错误消息。
 
-In the following example, we define the routes for displaying the contact form and submitting the form details to the database. Post form submission, we redirect the user back to the form alongside a success notification using flash messages.
+在以下示例中，我们定义了用于显示联系表单和将表单详细信息提交到数据库的路由。表单提交后，我们使用闪存消息将用户重定向回表单，并附带成功通知。
 
 ```ts
 import router from '@adonisjs/core/services/router'
 
 router.post('/contact', ({ session, request, response }) => {
   const data = request.all()
-  // Save contact data
+  // 保存联系数据
   
   // highlight-start
   session.flash('notification', {
@@ -529,7 +528,7 @@ router.get('/contact', ({ view }) => {
 })
 ```
 
-You can access the flash messages inside the edge templates using the `flashMessage` tag or the `flashMessages` property.
+您可以在 Edge 模板中使用 `flashMessage` 标签或 `flashMessages` 属性访问闪存消息。
 
 ```edge
 @flashMessage('notification')
@@ -539,11 +538,11 @@ You can access the flash messages inside the edge templates using the `flashMess
 @end
 
 <form method="POST" action="/contact">
-  <!-- Rest of the form -->
+  <!-- 表单的其余部分 -->
 </form>
 ```
 
-You can access the flash messages inside controllers using the `session.flashMessages` property.
+您可以在控制器中使用 `session.flashMessages` 属性访问闪存消息。
 
 ```ts
 router.get('/contact', ({ view, session }) => {
@@ -554,13 +553,13 @@ router.get('/contact', ({ view, session }) => {
 })
 ```
 
-### Validation errors and flash messages
-The Session middleware automatically captures the [validation exceptions](./validation.md#error-handling) and redirects the user back to the form. The validation errors and form input data are kept within flash messages, and you can access them inside Edge templates.
+### 验证错误和闪存消息
+会话中间件会自动捕获 [验证异常](./validation.md#error-handling)，并将用户重定向回表单。验证错误和表单输入数据保存在闪存消息中，您可以在 Edge 模板中访问它们。
 
-In the following example:
+在以下示例中：
 
-- We access the value of the `title` input field using the [`old` method](../references/edge.md#old).
-- And access the error message using the [`@inputError` tag](../references/edge.md#inputerror).
+- 我们使用 [`old` 方法](../references/edge.md#old) 访问 `title` 输入字段的值。
+- 使用 [`@inputError` 标签](../references/edge.md#inputerror) 访问错误消息。
 
 ```edge
 <form method="POST" action="/posts">
@@ -582,8 +581,8 @@ In the following example:
 </form>
 ```
 
-### Writing flash messages
-The following are the methods to write data to the flash messages store. The `session.flash` method accepts a key-value pair and writes it to the flash messages property inside the session store.
+### 写入闪存消息
+以下是将数据写入闪存消息存储的方法。`session.flash` 方法接受键值对并将其写入会话存储中的闪存消息属性。
 
 ```ts
 session.flash('key', value)
@@ -592,18 +591,17 @@ session.flash({
 })
 ```
 
-Instead of manually reading the request data and storing it in the flash messages, you can use one of the following methods to flash form data.
+您可以使用以下方法之一来快速闪存表单数据，而不是手动读取请求数据并将其存储在闪存消息中。
 
 ```ts
 // title: flashAll
 /**
- * Short hand for flashing request
- * data
+ * 快速闪存请求数据的简写
  */
 session.flashAll()
 
 /**
- * Same as "flashAll"
+ * 与 "flashAll" 相同
  */
 session.flash(request.all())
 ```
@@ -611,13 +609,12 @@ session.flash(request.all())
 ```ts
 // title: flashOnly
 /**
- * Short hand for flashing selected 
- * properties from request data
+ * 快速闪存请求数据中选定属性的简写
  */
 session.flashOnly(['username', 'email'])
 
 /**
- * Same as "flashOnly"
+ * 与 "flashOnly" 相同
  */
 session.flash(request.only(['username', 'email']))
 ```
@@ -625,18 +622,17 @@ session.flash(request.only(['username', 'email']))
 ```ts
 // title: flashExcept
 /**
- * Short hand for flashing selected 
- * properties from request data
+ * 快速闪存请求数据中选定属性的简写
  */
 session.flashExcept(['password'])
 
 /**
- * Same as "flashExcept"
+ * 与 "flashExcept" 相同
  */
 session.flash(request.except(['password']))
 ```
 
-Finally, you can reflash the current flash messages using the `session.reflash` method.
+最后，您可以使用 `session.reflash` 方法重新闪存当前的闪存消息。
 
 ```ts
 session.reflash()
@@ -644,8 +640,9 @@ session.reflashOnly(['notification', 'errors'])
 session.reflashExcept(['errors'])
 ```
 
-### Reading flash messages
-The flash messages are only available in the subsequent request after the redirect. You can access them using the `session.flashMessages` property.
+### 读取闪存消息
+
+闪存消息仅在重定向后的后续请求中可用。您可以通过 `session.flashMessages` 属性访问它们。
 
 ```ts
 console.log(session.flashMessages.all())
@@ -653,9 +650,9 @@ console.log(session.flashMessages.get('key'))
 console.log(session.flashMessages.has('key'))
 ```
 
-The same `flashMessages` property is also shared with Edge templates, and you can access it as follows.
+相同的 `flashMessages` 属性也可以在 Edge 模板中使用，访问方式如下：
 
-See also: [Edge helpers reference](../references/edge.md#flashmessages)
+参见：[Edge 辅助函数参考](../references/edge.md#flashmessages)
 
 ```edge
 {{ flashMessages.all() }}
@@ -663,30 +660,30 @@ See also: [Edge helpers reference](../references/edge.md#flashmessages)
 {{ flashMessages.has('key') }}
 ```
 
-Finally, you can access a specific flash message or a validation error using the following Edge tags. 
+最后，您可以使用以下 Edge 标签访问特定的闪存消息或验证错误。
 
 ```edge
-{{-- Read any flash message by key --}}
+{{-- 通过键读取任何闪存消息 --}}
 @flashMessage('key')
   {{ inspect($message) }}
 @end
 
-{{-- Read generic errors --}}
+{{-- 读取通用错误 --}}
 @error('key')
   {{ inspect($message) }}
 @end
 
-{{-- Read validation errors --}}
+{{-- 读取验证错误 --}}
 @inputError('key')
   {{ inspect($messages) }}
 @end
 ```
 
-## Events
-Please check the [events reference guide](../references/events.md#sessioninitiated) to view the list of events dispatched by the `@adonisjs/session` package.
+## 事件
+请查阅 [事件参考指南](../references/events.md#sessioninitiated)，以查看 `@adonisjs/session` 包分派的事件列表。
 
-## Creating a custom session store
-Session stores must implement the [SessionStoreContract](https://github.com/adonisjs/session/blob/main/src/types.ts#L23C18-L23C38) interface and define the following methods.
+## 创建自定义会话存储
+会话存储必须实现 [SessionStoreContract](https://github.com/adonisjs/session/blob/main/src/types.ts#L23C18-L23C38) 接口，并定义以下方法。
 
 ```ts
 import {
@@ -696,46 +693,46 @@ import {
 } from '@adonisjs/session/types'
 
 /**
- * The config you want to accept
+ * 您希望接受的配置
  */
 export type MongoDBConfig = {}
 
 /**
- * Driver implementation
+ * 驱动程序实现
  */
 export class MongoDBStore implements SessionStoreContract {
   constructor(public config: MongoDBConfig) {
   }
 
   /**
-   * Returns the session data for a session ID. The method
-   * must return null or an object of a key-value pair
+   * 返回会话 ID 的会话数据。该方法
+   * 必须返回 null 或一个键值对对象
    */
   async read(sessionId: string): Promise<SessionData | null> {
   }
 
   /**
-   * Save the session data against the provided session ID
+   * 根据提供的会话 ID 保存会话数据
    */
   async write(sessionId: string, data: SessionData): Promise<void> {
   }
 
   /**
-   * Delete session data for the given session ID
+   * 删除给定会话 ID 的会话数据
    */
   async destroy(sessionId: string): Promise<void> {
   }
 
   /**
-   * Reset the session expiry
+   * 重置会话过期时间
    */
   async touch(sessionId: string): Promise<void> {
   }
 }
 
 /**
- * Factory function to reference the store
- * inside the config file.
+ * 工厂函数，用于在配置文件中
+ * 引用存储。
  */
 export function mongoDbStore (config: MongoDbConfig): SessionStoreFactory {
   return (ctx, sessionConfig) => {
@@ -744,17 +741,17 @@ export function mongoDbStore (config: MongoDbConfig): SessionStoreFactory {
 }
 ```
 
-In the above code example, we export the following values.
+在上面的代码示例中，我们导出了以下值：
 
-- `MongoDBConfig`: TypeScript type for the configuration you want to accept.
+- `MongoDBConfig`：您希望接受的配置的 TypeScript 类型。
 
-- `MongoDBStore`: The store's implementation as a class. It must adhere to the `SessionStoreContract` interface.
+- `MongoDBStore`：作为类的存储实现。它必须遵循 `SessionStoreContract` 接口。
 
-- `mongoDbStore`: Finally, a factory function to create an instance of the store for every HTTP request.
+- `mongoDbStore`：最后，一个工厂函数，用于为每个 HTTP 请求创建存储实例。
 
-### Using the store
+### 使用存储
 
-Once the store has been created, you can reference it inside the config file using the `mongoDbStore` factory function.
+创建存储后，您可以在配置文件中使用 `mongoDbStore` 工厂函数引用它。
 
 ```ts
 // title: config/session.ts
@@ -764,12 +761,12 @@ import { mongDbStore } from 'my-custom-package'
 export default defineConfig({
   stores: {
     mongodb: mongoDbStore({
-      // config goes here
+      // 配置在此处
     })
   }
 })
 ```
 
-### A note on serializing data
+### 关于数据序列化的说明
 
-The `write` method receives the session data as an object, and you might have to convert it to a string before saving it. You can use any serialization package for the same or the [MessageBuilder](../references/helpers.md#message-builder) helper provided by the AdonisJS helpers module. For inspiration, please consult the official [session stores](https://github.com/adonisjs/session/blob/main/src/stores/redis.ts#L59).
+`write` 方法接收的会话数据是一个对象，您可能需要在保存之前将其转换为字符串。您可以使用任何序列化包，或者使用 AdonisJS 辅助模块提供的 [MessageBuilder](../references/helpers.md#message-builder) 辅助函数。有关更多信息，请参阅官方的 [session stores](https://github.com/adonisjs/session/blob/main/src/stores/redis.ts#L59)。

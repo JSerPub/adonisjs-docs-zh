@@ -1,12 +1,12 @@
 ---
-summary: Exception are errors raised during the HTTP request lifecycle. AdonisJS provides a robust exception handling mechanism to convert exceptions to HTTP responses and report them to the logger.
+summary: 异常是在 HTTP 请求生命周期中引发的错误。AdonisJS 提供了一个健壮的异常处理机制，将异常转换为 HTTP 响应并记录到日志中。
 ---
 
-# Exception handling
+# 异常处理
 
-Exceptions raised during an HTTP request are handled by the `HttpExceptionHandler` defined inside the `./app/exceptions/handler.ts` file. Inside this file, you can decide how to convert exceptions to responses and log them using the logger or report them to an external logging provider.
+在 HTTP 请求期间引发的异常由 `./app/exceptions/handler.ts` 文件中定义的 `HttpExceptionHandler` 处理。在这个文件中，你可以决定如何将异常转换为响应，并使用日志记录器记录它们，或将它们报告给外部日志提供程序。
 
-The `HttpExceptionHandler` extends the [ExceptionHandler](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts) class, which does all the heavy lifting of handling errors and provides you with high-level APIs to tweak the reporting and rendering behavior.
+`HttpExceptionHandler` 扩展了 [ExceptionHandler](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts) 类，该类负责处理错误的所有繁重工作，并提供高级 API 来调整报告和呈现行为。
 
 ```ts
 import app from '@adonisjs/core/services/app'
@@ -26,23 +26,23 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-## Assigning error handler to the server
+## 为服务器分配错误处理器
 
-The error handler is registered with the AdonisJS HTTP server inside the `start/kernel.ts` file. We lazily import the HTTP handler using the `#exceptions` alias defined in the `package.json` file.
+错误处理器在 `start/kernel.ts` 文件中注册到 AdonisJS HTTP 服务器。我们使用在 `package.json` 文件中定义的 `#exceptions` 别名来懒加载 HTTP 处理器。
 
 ```ts
 server.errorHandler(() => import('#exceptions/handler'))
 ```
 
-## Handling exceptions
+## 处理异常
 
-The exceptions are handled by the `handle` method on the exceptions handler class. By default, the following steps are performed while handling an error.
+异常由异常处理器类中的 `handle` 方法处理。默认情况下，处理错误时会执行以下步骤：
 
-- Check if the error instance has a `handle` method. If yes, call the [error.handle](#defining-the-handle-method) method and return its response.
-- Check if a status page is defined for the `error.status` code. If yes, render the status page.
-- Otherwise, render the exception using content negotiation renderers.
+- 检查错误实例是否有 `handle` 方法。如果有，调用 [error.handle](#defining-the-handle-method) 方法并返回其响应。
+- 检查是否为 `error.status` 代码定义了状态页面。如果有，呈现状态页面。
+- 否则，使用内容协商呈现器呈现异常。
 
-If you want to handle a specific exception differently, you can do that inside the `handle` method. Make sure to use the `ctx.response.send` method to send a response, since the return value from the `handle` method is discarded.
+如果你想以不同的方式处理特定异常，可以在 `handle` 方法中执行此操作。确保使用 `ctx.response.send` 方法发送响应，因为 `handle` 方法的返回值会被丢弃。
 
 ```ts
 import { errors } from '@vinejs/vine'
@@ -59,13 +59,13 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-### Status pages
+### 状态页面
 
-Status pages are a collection of templates you want to render for a given or a range of status codes. 
+状态页面是为给定状态码或一系列状态码要呈现的模板集合。
 
-The range of status codes can be defined as a string expression. Two dots separate the starting and the ending status codes (`..`).
+状态码范围可以定义为字符串表达式。两个点分隔起始和结束状态码（`..`）。
 
-If you are creating a JSON server, you may not need status pages.
+如果你正在创建一个 JSON 服务器，可能不需要状态页面。
 
 ```ts
 import { StatusPageRange, StatusPageRenderer } from '@adonisjs/http-server/types'
@@ -78,13 +78,13 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-### Debug mode
+### 调试模式
 
-The content negotiation renderers handle exceptions that are not self-handled and not converted to a status page.
+内容协商呈现器处理未被自行处理且未转换为状态页面的异常。
 
-The content negotiation renderers have support for debug mode. They can parse and pretty-print errors in debug mode using the [Youch](https://www.npmjs.com/package/youch) npm package.
+内容协商呈现器支持调试模式。在调试模式下，它们可以使用 [Youch](https://www.npmjs.com/package/youch) npm 包解析和美化打印错误。
 
-You can toggle the debug mode using the `debug` property on the exceptions handler class. However, turning off the debug mode in production is recommended, as it exposes sensitive information about your app.
+你可以通过异常处理器类上的 `debug` 属性切换调试模式。但是，建议在生产环境中关闭调试模式，因为它会暴露应用程序的敏感信息。
 
 ```ts
 export default class HttpExceptionHandler extends ExceptionHandler {
@@ -92,21 +92,21 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-## Reporting exceptions
+## 报告异常
 
-The `report` method on the exceptions handler class handles reporting of exceptions. 
+异常处理器类中的 `report` 方法负责报告异常。
 
-The method receives the error as the first argument and the [HTTP context](../concepts/http_context.md) as the second argument. You should not write a response from the `report` method and use the context only to read the request information.
+该方法接收错误作为第一个参数，接收 [HTTP 上下文](../concepts/http_context.md) 作为第二个参数。你不应从 `report` 方法写入响应，并且应仅使用上下文来读取请求信息。
 
-### Logging exceptions
+### 记录异常
 
-All exceptions are reported using the [logger](../digging_deeper/logger.md) by default.
+默认情况下，所有异常都使用 [logger](../digging_deeper/logger.md) 报告。
 
-- Exceptions with status codes in the `400..499` range are logged in the `warning` level.
-- Exceptions with the status code `>=500` are logged in the `error` level.
-- All other exceptions are logged in the `info` level.
+- 状态码在 `400..499` 范围内的异常以 `warning` 级别记录。
+- 状态码 `>=500` 的异常以 `error` 级别记录。
+- 所有其他异常以 `info` 级别记录。
 
-You can add custom properties to the log messages by returning an object from the `context` method.
+你可以通过从 `context` 方法返回一个对象，为日志消息添加自定义属性。
 
 ```ts
 export default class HttpExceptionHandler extends ExceptionHandler {
@@ -120,9 +120,9 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-### Ignoring status codes
+### 忽略状态码
 
-You can ignore exceptions from being reported by defining an array of status codes via the `ignoreStatuses` property.
+你可以通过 `ignoreStatuses` 属性定义一个状态码数组，来忽略报告这些状态的异常。
 
 ```ts
 export default class HttpExceptionHandler extends ExceptionHandler {
@@ -135,9 +135,9 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-### Ignoring errors
+### 忽略错误
 
-You can also ignore exceptions by defining an array of error codes or error classes to ignore.
+你还可以通过定义要忽略的错误代码或错误类数组来忽略异常。
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -151,7 +151,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-An array of exception classes can be ignored using the `ignoreExceptions` property.
+可以使用 `ignoreExceptions` 属性忽略异常类数组。
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -165,25 +165,25 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-### Custom shouldReport method
+### 自定义 shouldReport 方法
 
-The logic to ignore status codes or exceptions is written inside the [`shouldReport` method](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L155). If needed, you can override this method and define your custom logic for ignoring exceptions.
+忽略状态码或异常的逻辑写在 [`shouldReport` 方法](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L155) 中。如果需要，你可以覆盖此方法，并定义忽略异常的自定义逻辑。
 
 ```ts
 import { HttpError } from '@adonisjs/core/types/http'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   protected shouldReport(error: HttpError) {
-    // return a boolean
+    // 返回一个布尔值
   }
 }
 ```
 
-## Custom exceptions
+## 自定义异常
 
-You can create an exception class using the `make:exception` ace command. An exception extends the `Exception` class from the `@adonisjs/core` package.
+你可以使用 `make:exception` ace 命令创建一个异常类。异常扩展自 `@adonisjs/core` 包中的 `Exception` 类。
 
-See also: [Make exception command](../references/commands.md#makeexception)
+另请参阅：[Make exception command](../references/commands.md#makeexception)
 
 ```sh
 node ace make:exception UnAuthorized
@@ -195,7 +195,7 @@ import { Exception } from '@adonisjs/core/exceptions'
 export default class UnAuthorizedException extends Exception {}
 ```
 
-You can raise the exception by creating a new instance of it. When raising the exception, you can assign a custom **error code** and **status code** to the exception.
+你可以通过创建异常的新实例来引发异常。引发异常时，可以为异常分配自定义的 **错误代码** 和 **状态代码**。
 
 ```ts
 import UnAuthorizedException from '#exceptions/unauthorized_exception'
@@ -206,7 +206,7 @@ throw new UnAuthorizedException('You are not authorized', {
 })
 ```
 
-The error and status codes can also be defined as static properties on the exception class. The static values will be used if no custom value is defined when throwing the exception.
+错误代码和状态代码也可以作为静态属性定义在异常类上。如果在引发异常时未定义自定义值，将使用静态值。
 
 ```ts
 import { Exception } from '@adonisjs/core/exceptions'
@@ -216,11 +216,11 @@ export default class UnAuthorizedException extends Exception {
 }
 ```
 
-### Defining the `handle` method
+### 定义 `handle` 方法
 
-To self-handle the exception, you can define the `handle` method on the exception class. This method should convert an error to an HTTP response using the `ctx.response.send` method.
+要自行处理异常，可以在异常类上定义 `handle` 方法。此方法应使用 `ctx.response.send` 方法将错误转换为 HTTP 响应。
 
-The `error.handle` method receives an instance of the error as the first argument and the HTTP context as the second argument.
+`error.handle` 方法接收错误实例作为第一个参数，接收 HTTP 上下文作为第二个参数。
 
 ```ts
 import { Exception } from '@adonisjs/core/exceptions'
@@ -233,9 +233,9 @@ export default class UnAuthorizedException extends Exception {
 }
 ```
 
-### Define the `report` method
+### 定义 `report` 方法
 
-You can implement the `report` method on the exception class to self-handle the exception reporting. The report method receives an instance of the error as the first argument and the HTTP context as the second argument.
+你可以在异常类上实现 `report` 方法以自行处理异常报告。`report` 方法接收两个参数，第一个参数是错误实例，第二个参数是 HTTP 上下文。
 
 ```ts
 import { Exception } from '@adonisjs/core/exceptions'
@@ -248,8 +248,9 @@ export default class UnAuthorizedException extends Exception {
 }
 ```
 
-## Narrowing down the error type
-The framework core and other official packages exports the exceptions raised by them. You can verify if an error is an instance of a specific exception using the `instanceof` check. For example:
+## 缩小错误类型范围
+
+框架核心和其他官方包会导出它们抛出的异常。你可以使用 `instanceof` 检查来验证错误是否是特定异常的实例。例如：
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -258,10 +259,11 @@ try {
   router.builder().make('articles.index')
 } catch (error: unknown) {
   if (error instanceof errors.E_CANNOT_LOOKUP_ROUTE) {
-    // handle error
+    // 处理错误
   }
 }
 ```
 
-## Known errors
-Please check the [exceptions reference guide](../references/exceptions.md) to view the list of known errors.
+## 已知错误
+
+请查阅 [exceptions reference guide](../references/exceptions.md) 以查看已知错误列表。

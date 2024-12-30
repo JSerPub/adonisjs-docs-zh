@@ -1,31 +1,31 @@
 ---
-summary: Available options for rendering views and templates in AdonisJS
+summary: AdonisJS 中渲染视图和模板的可用选项
 ---
 
-# Views and Templates
+# 视图和模板
 
-AdonisJS is an excellent fit for creating traditional server-rendered applications in Node.js. If you enjoy the simplicity of using a backend template engine that outputs HTML without any overhead of Virtual DOM and build tools, then this guide is for you.
+AdonisJS 非常适合在 Node.js 中创建传统的服务器端渲染应用程序。如果您喜欢使用后端模板引擎来输出 HTML，而无需虚拟 DOM 和构建工具的任何开销，那么本指南非常适合您。
 
-The typical workflow of a server-rendered application in AdonisJS looks as follows.
+在 AdonisJS 中，服务器端渲染应用程序的典型工作流程如下：
 
-- Choose a template engine to render HTML dynamically.
-- Use [Vite](../basics/vite.md) for bundling CSS and frontend JavaScript.
-- Optionally, you can opt for libraries like [HTMX](https://htmx.org/) or [Unpoly](https://unpoly.com/) to progressively enhance your application and navigate like an SPA.
+- 选择一个模板引擎来动态渲染 HTML。
+- 使用 [Vite](../basics/vite.md) 来捆绑 CSS 和前端 JavaScript。
+- 可选地，您可以选择像 [HTMX](https://htmx.org/) 或 [Unpoly](https://unpoly.com/) 这样的库来逐步增强您的应用程序，并实现像 SPA 一样的导航。
 
 :::note
-The AdonisJS core team has created a framework-agnostic template engine called [Edge.js](https://edgejs.dev) but does not force you to use it. You can use any other template engine you would like inside an AdonisJS application.
+AdonisJS 核心团队创建了一个与框架无关的模板引擎，称为 [Edge.js](https://edgejs.dev)，但不强制您使用它。您可以在 AdonisJS 应用程序中使用任何您喜欢的其他模板引擎。
 :::
 
-## Popular options
+## 流行选项
 
-Following is the list of popular template engines you can use inside an AdonisJS application (just like any other Node.js application).
+以下是您可以在 AdonisJS 应用程序中使用的流行模板引擎列表（就像在其他 Node.js 应用程序中一样）。
 
-- [**EdgeJS**](https://edgejs.dev) is a simple, modern, and batteries included template engine created and maintained by the AdonisJS core team for Node.js.
-- [**Pug**](https://pugjs.org) is a template engine heavily influenced by Haml.
-- [**Nunjucks**](https://mozilla.github.io/nunjucks) is a rich feature template engine inspired by Jinja2.
+- [**EdgeJS**](https://edgejs.dev) 是一个简单、现代且功能齐全的模板引擎，由 AdonisJS 核心团队为 Node.js 创建和维护。
+- [**Pug**](https://pugjs.org) 是一个受 Haml 影响的模板引擎。
+- [**Nunjucks**](https://mozilla.github.io/nunjucks) 是一个功能丰富的模板引擎，受 Jinja2 的启发。
 
-## Hybrid applications
+## 混合应用程序
 
-AdonisJS is also a great fit for creating hybrid applications that render HTML on the server and then hydrate your JavaScript on the client. This approach is popular among developers who want to use `Vue`, `React`, `Svelte`, `Solid`, or others for building interactive user interfaces but still want a full backend stack to handle server-side concerns.
+AdonisJS 也非常适合创建混合应用程序，这些应用程序在服务器端渲染 HTML，然后在客户端对 JavaScript 进行水合。这种方法在开发人员中很受欢迎，他们希望使用 `Vue`、`React`、`Svelte`、`Solid` 或其他库来构建交互式用户界面，但仍然需要一个完整的后端堆栈来处理服务器端问题。
 
-In this case, AdonisJS provide a first-class support for using [InertiaJS](./inertia.md) to bridge the gap between your frontend and backend.
+在这种情况下，AdonisJS 提供对 [InertiaJS](./inertia.md) 的一流支持，以弥合前端和后端之间的差距。

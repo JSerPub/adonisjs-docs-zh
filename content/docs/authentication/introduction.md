@@ -1,113 +1,110 @@
 ---
-summary: Learn about the authentication system in AdonisJS and how to authenticate users in your application.
+summary: 了解 AdonisJS 中的认证系统以及如何在您的应用程序中对用户进行身份验证。
 ---
 
-# Authentication
+# Authentication（认证）
 
-AdonisJS ships with a robust and secure authentication system you can use to log in and authenticate users of your application. Be it a server-rendered application, a SPA client, or a mobile app, you can set up authentication for all of them.
+AdonisJS 提供了一个强大且安全的认证系统，您可以使用它来登录并验证应用程序的用户。无论是服务器端渲染的应用程序、SPA 客户端还是移动应用，您都可以为它们设置认证。
 
-The authentication package is built around **guards** and **providers**. 
+认证包是围绕 **guards（守卫）** 和 **providers（提供者）** 构建的。
 
-- Guards are end-to-end implementations of a specific login type. For example, the `session` guard allows you to authenticate users using cookies and session. Meanwhile, the `access_tokens` guard will enable you to authenticate clients using tokens.
+- Guards 是特定登录类型的端到端实现。例如，`session` 守卫允许您使用 cookie 和会话来验证用户身份。同时，`access_tokens` 守卫将允许您使用令牌来验证客户端。
 
-- Providers are used to look up users and tokens from a database. You can either use the inbuilt providers or implement your own.
-
+- Providers 用于从数据库中查找用户和令牌。您可以使用内置的提供者，也可以实现自己的提供者。
 
 :::note
 
-To ensure the security of your applications, we properly hash user passwords and tokens. Moreover, the security primitives of AdonisJS are protected from [timing attacks](https://en.wikipedia.org/wiki/Timing_attack) and [session fixation attacks](https://owasp.org/www-community/attacks/Session_fixation).
-
+为了确保您应用程序的安全性，我们会对用户密码和令牌进行适当的哈希处理。此外，AdonisJS 的安全原语受到 [timing attacks](https://en.wikipedia.org/wiki/Timing_attack) 和 [session fixation attacks](https://owasp.org/www-community/attacks/Session_fixation) 的保护。
 
 :::
 
-## Features not supported by the Auth package
+## Auth 包不支持的功能
 
-The auth package narrowly focuses on authenticating HTTP requests, and the following features are outside its scope.
+auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
-- User registration features like **registration forms**, **email verification**, and **account activation**.
-- Account management features like **password recovery** or **email update**.
-- Assigning roles or verifying permissions. Instead, [use bouncer](../security/authorization.md) to implement authorization checks in your application.
-
+- 用户注册功能，如 **注册表单**、**电子邮件验证** 和 **帐户激活**。
+- 帐户管理功能，如 **密码恢复** 或 **电子邮件更新**。
+- 分配角色或验证权限。相反，[use bouncer](../security/authorization.md) 来在您的应用程序中实现授权检查。
 
 <!-- :::note
 
-**Looking for a fully-fledged user management system?**\
+**寻找一个功能齐全的用户管理系统？**\
 
-Checkout persona. Persona is an official package and a starter kit with a fully-fledged user management system. 
+查看 persona。Persona 是一个官方包和启动套件，带有一个功能齐全的用户管理系统。
 
-It provides ready-to-use actions for user registration, email management, session tracking, profile management, and 2FA.
+它提供了用户注册、电子邮件管理、会话跟踪、资料管理以及 2FA 的即用型操作。
 
 ::: -->
 
+## 选择认证守卫
 
-## Choosing an auth guard
+以下内置认证守卫为您提供了最直接的工作流程，用于在不牺牲应用程序安全性的情况下对用户进行身份验证。此外，您可以 [build your authentication guards](./custom_auth_guard.md) 根据自定义需求构建您的认证守卫。
 
-The following inbuilt authentication guards provide you with the most straightforward workflow for authenticating users without compromising the security of your applications. Also, you can [build your authentication guards](./custom_auth_guard.md) for custom requirements.
+### Session（会话）
 
-### Session
+会话守卫使用 [@adonisjs/session](../basics/session.md) 包来跟踪会话存储中已登录用户的状态。
 
-The session guard uses the [@adonisjs/session](../basics/session.md) package to track the logged-in user state inside the session store. 
+会话和 cookie 在互联网上已经存在很长时间，并且适用于大多数应用程序。我们建议使用会话守卫：
 
-Sessions and cookies have been on the internet for a long time and work great for most applications. We recommend using the session guard:
+- 如果您正在创建一个服务器端渲染的 Web 应用程序。
+- 或者，一个与其客户端位于同一顶级域名的 AdonisJS API。例如，`api.example.com` 和 `example.com`。
 
-- If you are creating a server-rendered web application.
-- Or, an AdonisJS API with its client on the same top-level domain. For example, `api.example.com` and `example.com`.
+### Access tokens（访问令牌）
 
-### Access tokens
+访问令牌是登录成功后颁发给用户的加密安全随机令牌（也称为不透明访问令牌）。您可以在 AdonisJS 服务器无法写入/读取 cookie 的应用程序中使用访问令牌。例如：
 
-Access tokens are cryptographically secure random tokens (also known as Opaque access tokens) issued to users after successful login. You may use access tokens for apps where your AdonisJS server cannot write/read cookies. For example:
+- 一个原生移动应用。
+- 一个托管在与 AdonisJS API 服务器不同域名的 Web 应用程序。
 
-- A native mobile app.
-- A web application hosted on a different domain than your AdonisJS API server.
+当使用访问令牌时，客户端应用程序有责任安全地存储它们。访问令牌代表用户提供对应用程序的无限制访问，泄露它们可能导致安全问题。
 
-When using access tokens, it becomes the responsibility of your client-side application to store them securely. Access tokens provide unrestricted access to your application (on behalf of a user), and leaking them can lead to security issues.
+### Basic auth（基本认证）
 
-### Basic auth
+基本认证守卫是 [HTTP authentication framework](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，其中客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。
 
-The basic auth guard is an implementation of the [HTTP authentication framework](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication), in which the client must pass the user credentials as a base64 encoded string via the `Authorization` header.
+有比基本认证更好的方法来实现安全的登录系统。然而，在您的应用程序处于积极开发阶段时，您可以暂时使用它。
 
-There are better ways to implement a secure login system than basic authentication. However, you may use it temporarily while your application is in active development.
+## 选择用户提供者
 
-## Choosing a user provider
-As covered earlier in this guide, a user provider is responsible for finding users during the authentication process.
+如本指南前面所述，用户提供者在认证过程中负责查找用户。
 
-The user providers are guards specific; for example, The user provider for the session guard is responsible for finding users by their ID, and the user provider for the access tokens guard is also responsible for verifying access tokens.
+用户提供者是守卫特定的；例如，会话守卫的用户提供者负责通过用户 ID 查找用户，而访问令牌守卫的用户提供者则负责验证访问令牌。
 
-We ship with a Lucid user provider for the inbuilt guards, which uses Lucid models to find users, generate tokens, and verify tokens. 
+我们为内置守卫提供了一个 Lucid 用户提供者，它使用 Lucid 模型来查找用户、生成令牌和验证令牌。
 
-<!-- If you are not using Lucid, you must [implement a custom user provider](). -->
+<!-- 如果您不使用 Lucid，则必须 [implement a custom user provider]()。 -->
 
-## Installation
+## 安装
 
-The auth system comes pre-configured with the `web` and the `api` starter kits. However, you can install and configure it manually inside an application as follows.
+认证系统预配置在 `web` 和 `api` 启动套件中。然而，您可以按照以下步骤在应用程序中手动安装和配置它。
 
 ```sh
-# Configure with session guard (default)
+# 使用会话守卫（默认）进行配置
 node ace add @adonisjs/auth --guard=session
 
-# Configure with access tokens guard
+# 使用访问令牌守卫进行配置
 node ace add @adonisjs/auth --guard=access_tokens
 
-# Configure with basic auth guard
+# 使用基本认证守卫进行配置
 node ace add @adonisjs/auth --guard=basic_auth
 ```
 
-:::disclosure{title="See steps performed by the add command"}
+:::disclosure{title="查看 add 命令执行的步骤"}
 
-1. Install the `@adonisjs/auth` package using the detected package manager.
+1. 使用检测到的包管理器安装 `@adonisjs/auth` 包。
 
-2. Registers the following service provider inside the `adonisrc.ts` file.
+2. 在 `adonisrc.ts` 文件中注册以下服务提供者。
 
     ```ts
     {
       providers: [
-        // ...other providers
+        // ...其他提供者
         () => import('@adonisjs/auth/auth_provider')
       ]
     }
     ```
 
-3. Creates and registers the following middleware inside the `start/kernel.ts` file.
+3. 在 `start/kernel.ts` 文件中创建并注册以下中间件。
 
     ```ts
     router.use([
@@ -118,22 +115,23 @@ node ace add @adonisjs/auth --guard=basic_auth
     ```ts
     router.named({
       auth: () => import('#middleware/auth_middleware'),
-      // only if using the session guard
+      // 仅在使用会话守卫时使用
       guest: () => import('#middleware/guest_middleware')
     })
     ```
 
-4. Creates the user model inside the `app/models` directory.
-5. Creates database migration for the `users` table.
-6. Creates database migrations for the selected guard.
+4. 在 `app/models` 目录中创建用户模型。
+5. 为 `users` 表创建数据库迁移。
+6. 为所选守卫创建数据库迁移。
 :::
 
-## The Initialize auth middleware
-During setup, we register the `@adonisjs/auth/initialize_auth_middleware` within your application. The middleware is responsible for creating an instance of the [Authenticator](https://github.com/adonisjs/auth/blob/main/src/authenticator.ts) class and shares it via the `ctx.auth` property with the rest of the request.
+## 初始化认证中间件
 
-Note that the initialize auth middleware does not authenticate the request or protect the routes. It's used only for initializing the authenticator and sharing it with the rest of the request. You must use the [auth](./session_guard.md#protecting-routes) middleware for protecting routes.
+在设置过程中，我们会在您的应用程序中注册 `@adonisjs/auth/initialize_auth_middleware`。该中间件负责创建 [Authenticator](https://github.com/adonisjs/auth/blob/main/src/authenticator.ts) 类的实例，并通过 `ctx.auth` 属性与请求的其余部分共享它。
 
-Also, the same authenticator instance is shared with Edge templates (if your app is using Edge), and you can access it using the `auth` property. For example:
+请注意，初始化认证中间件不会对请求进行认证或保护路由。它仅用于初始化认证器并与请求的其余部分共享。您必须使用 [auth](./session_guard.md#protecting-routes) 中间件来保护路由。
+
+此外，如果您的应用程序使用 Edge，则相同的认证器实例会与 Edge 模板共享，您可以使用 `auth` 属性访问它。例如：
 
 ```edge
 @if(auth.isAuthenticated)
@@ -141,10 +139,11 @@ Also, the same authenticator instance is shared with Edge templates (if your app
 @end
 ```
 
-## Creating the users table
-The `configure` command creates a database migration for the `users` table inside the `database/migrations` directory. Feel free to open this file and make changes per your application requirements.
+## 创建 users 表
 
-By default, the following columns are created.
+`configure` 命令会在 `database/migrations` 目录中为 `users` 表创建一个数据库迁移。您可以随意打开此文件并根据应用程序需求进行修改。
+
+默认情况下，会创建以下列：
 
 ```ts
 import { BaseSchema } from '@adonisjs/lucid/schema'
@@ -170,10 +169,10 @@ export default class extends BaseSchema {
 }
 ```
 
-Also, update the `User` model if you define, rename, or remove columns from the `users` table.
+此外，如果您在 `users` 表中定义、重命名或删除列，请更新 `User` 模型。
 
-## Next steps
+## 后续步骤
 
-- Learn how to [verify user credentials](./verifying_user_credentials.md) without compromising the security of your application.
-- Use [session guard](./session_guard.md) for stateful authentication.
-- Use [access tokens guard](./access_tokens_guard.md) for tokens based authentication.
+- 了解如何在不牺牲应用程序安全性的情况下 [verify user credentials](./verifying_user_credentials.md)。
+- 使用 [session guard](./session_guard.md) 进行有状态认证。
+- 使用 [access tokens guard](./access_tokens_guard.md) 进行基于令牌的认证。

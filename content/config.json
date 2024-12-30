@@ -55,8 +55,8 @@
     }
   ],
   "carbon_ads": {
-    "url": "//cdn.carbonads.com/carbon.js?serve=CKYIL23I&placement=docsadonisjscom"
+    "url": ""
   },
-  "fileEditBaseUrl": "https://github.com/adonisjs/v6-docs/blob/main",
-  "copyright": "AdonisJS"
+  "fileEditBaseUrl": "https://github.com/JSerPub/adonisjs-docs-zh/blob/main",
+  "copyright": "AdonisJS & JSer.pub"
 }

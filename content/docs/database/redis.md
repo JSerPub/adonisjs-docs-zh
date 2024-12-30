@@ -1,37 +1,37 @@
 ---
-summary: Use Redis inside your AdonisJS applications using the `@adonisjs/redis` package. 
+summary: 使用 `@adonisjs/redis` 包在 AdonisJS 应用程序中集成 Redis。
 ---
 
 # Redis
 
-You can use Redis inside your AdonisJS applications using the `@adonisjs/redis` package. The package is a thin wrapper on top of [ioredis](https://github.com/redis/ioredis) with better DX around Pub/Sub and automatic management of multiple redis connections.
+你可以使用 `@adonisjs/redis` 包在 AdonisJS 应用程序中集成 Redis。该包是基于 [ioredis](https://github.com/redis/ioredis) 的轻量级封装，提供了更好的发布/订阅（Pub/Sub）开发体验和自动管理多个 Redis 连接的功能。
 
-## Installation
+## 安装
 
-Install and configure the package using the following command :
+使用以下命令安装并配置该包：
 
 ```sh
 node ace add @adonisjs/redis
 ```
 
-:::disclosure{title="See steps performed by the add command"}
+:::disclosure{title="查看 add 命令执行的步骤"}
 
-1. Installs the `@adonisjs/redis` package using the detected package manager.
+1. 使用检测到的包管理器安装 `@adonisjs/redis` 包。
 
-2. Registers the following service provider inside the `adonisrc.ts` file.
+2. 在 `adonisrc.ts` 文件中注册以下服务提供者。
 
     ```ts
     {
       providers: [
-        // ...other providers
+        // ...其他服务提供者
         () => import('@adonisjs/redis/redis_provider')
       ]
     }
     ```
 
-3. Create `config/redis.ts` file. This file contains the connection configuration for your redis server.
+3. 创建 `config/redis.ts` 文件。该文件包含你的 Redis 服务器的连接配置。
 
-4. Define following environment variables and their validation rules.
+4. 定义以下环境变量及其验证规则。
 
     ```dotenv
     REDIS_HOST=127.0.0.1
@@ -41,12 +41,11 @@ node ace add @adonisjs/redis
 
 :::
 
+## 配置
 
-## Configuration
+Redis 包的配置存储在 `config/redis.ts` 文件中。
 
-The configuration for the Redis package is stored inside the `config/redis.ts` file.
-
-See also: [Config file stub](https://github.com/adonisjs/redis/blob/main/stubs/config/redis.stub)
+另请参阅：[配置文件存根](https://github.com/adonisjs/redis/blob/main/stubs/config/redis.stub)
 
 ```ts
 import env from '#start/env'
@@ -77,7 +76,7 @@ connection
 
 <dd>
 
-The `connection` property defines the connection to use by default. When you run redis commands without choosing an explicit connection, they will be executed against the default connection.
+`connection` 属性定义了默认使用的连接。当你运行 Redis 命令而没有选择明确的连接时，它们将在默认连接上执行。
 
 </dd>
 
@@ -89,18 +88,18 @@ connections
 
 <dd>
 
-The `connections` property is a collection of multiple named connections. You can define one or more connections inside this object and switch between them using the `redis.connection()` method.
+`connections` 属性是多个命名连接的集合。你可以在这个对象中定义一个或多个连接，并使用 `redis.connection()` 方法在它们之间切换。
 
-Every named connection config is identical to the [config accepted by ioredis](https://redis.github.io/ioredis/index.html#RedisOptions).
+每个命名连接配置与 [ioredis 接受的配置](https://redis.github.io/ioredis/index.html#RedisOptions) 相同。
 
 </dd>
 </dl>
 
 ---
 
-### Configuring clusters
+### 配置集群
 
-The `@adonisjs/redis` package will create a [cluster connection](https://github.com/redis/ioredis#cluster) if you define an array of hosts inside the connection config. For example:
+如果你在连接配置中定义了一个主机数组，`@adonisjs/redis` 包将创建一个[集群连接](https://github.com/redis/ioredis#cluster)。例如：
 
 ```ts
 const redisConfig = defineConfig({
@@ -121,10 +120,11 @@ const redisConfig = defineConfig({
 })
 ```
 
-### Configuring sentinels
-You can configure a redis connection to use sentinels by defining an array of sentinel nodes within the connection config. For example:
+### 配置哨兵
 
-See also: [IORedis docs on Sentinels config](https://github.com/redis/ioredis?tab=readme-ov-file#sentinel)
+你可以在连接配置中定义哨兵节点数组，以配置 Redis 连接使用哨兵。例如：
+
+另请参阅：[IORedis 文档中的哨兵配置](https://github.com/redis/ioredis?tab=readme-ov-file#sentinel)
 
 ```ts
 const redisConfig = defineConfig({
@@ -142,13 +142,13 @@ const redisConfig = defineConfig({
 })
 ```
 
-## Usage
+## 使用
 
-You can run redis commands using the `redis` service exported by the package. The redis service is a singleton object configured using the configuration you have defined inside the `config/redis.ts` file.
+你可以使用包导出的 `redis` 服务运行 Redis 命令。`redis` 服务是一个单例对象，根据你在 `config/redis.ts` 文件中定义的配置进行配置。
 
 :::note
 
-Consult the [ioredis](https://redis.github.io/ioredis/classes/Redis.html) documentation to view the list of available methods. Since we are a wrapper on top of IORedis, the commands API is identical.
+查阅 [ioredis](https://redis.github.io/ioredis/classes/Redis.html) 文档以查看可用方法的列表。由于我们是基于 IORedis 的封装，因此命令 API 是相同的。
 
 :::
 
@@ -159,16 +159,17 @@ await redis.set('username', 'virk')
 const username = await redis.get('username')
 ```
 
-### Switching between connections
-Commands executed using the `redis` service are invoked against the **default connection** defined inside the config file. However, you can execute commands on a specific connection by first getting an instance of it.
+### 切换连接
 
-The `.connection()` method creates and caches a connection instance for the process's lifetime.
+使用 `redis` 服务执行的命令是在配置文件中定义的**默认连接**上调用的。但是，你可以通过首先获取特定连接的实例来在该连接上执行命令。
+
+`.connection()` 方法为进程的生命周期创建并缓存一个连接实例。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
 
 // highlight-start
-// Get connection instance
+// 获取连接实例
 const redisMain = redis.connection('main')
 // highlight-end
 
@@ -176,32 +177,32 @@ await redisMain.set('username', 'virk')
 const username = await redisMain.get('username')
 ```
 
-### Quitting connections
+### 关闭连接
 
-The connections are long-lived, and you will get the same instance every time you call the `.connection()` method. You can quit the connection using the `quit` method. Use the `disconnect` method to end the connection forcefully.
+连接是长连接的，并且每次调用 `.connection()` 方法时都会获得相同的实例。你可以使用 `quit` 方法关闭连接。使用 `disconnect` 方法可以强制结束连接。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
 
-await redis.quit('main') // Quit the main connection
-await redis.disconnect('main') // Force quit the main connection
+await redis.quit('main') // 关闭主连接
+await redis.disconnect('main') // 强制关闭主连接
 ```
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
 
 const redisMain = redis.connection('main')
-redisMain.quit() // Quit using connection instance
-redisMain.disconnect() // Force quit using connection instance
+redisMain.quit() // 使用连接实例关闭
+redisMain.disconnect() // 使用连接实例强制关闭
 ```
 
-## Error handling
+## 错误处理
 
-Redis connections can fail anytime during the lifecycle of your application. Therefore it is essential to capture the errors and have a retry strategy.
+Redis 连接在应用程序生命周期中的任何时候都可能失败。因此，捕获错误并制定重试策略是至关重要的。
 
-By default, AdonisJS will log the redis connection errors using the [application logger](../digging_deeper/logger.md) and retry a connection ten times before closing it permanently. The retry strategy is defined for every connection within the `config/redis.ts` file.
+默认情况下，AdonisJS 将使用[应用程序日志记录器](../digging_deeper/logger.md)记录 Redis 连接错误，并在永久关闭连接之前重试连接十次。重试策略是在 `config/redis.ts` 文件中为每个连接定义的。
 
-See also: [IORedis docs on auto reconnect](https://github.com/redis/ioredis#auto-reconnect)
+另请参阅：[IORedis 文档中的自动重连](https://github.com/redis/ioredis#auto-reconnect)
 
 ```ts
 // title: config/redis.ts
@@ -219,20 +220,20 @@ See also: [IORedis docs on auto reconnect](https://github.com/redis/ioredis#auto
 }
 ```
 
-You can disable the default error reporter using the `.doNotLogErrors` method. Doing so will remove the `error` event listener from the redis connection.
+您可以使用 `.doNotLogErrors` 方法禁用默认的错误报告器。这样做将从 redis 连接中移除 `error` 事件监听器。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
 
 /**
- * Disable default error reporter
+ * 禁用默认错误报告器
  */
 redis.doNotLogErrors()
 
 redis.on('connection', (connection) => {
   /**
-   * Make sure always to have an error listener defined.
-   * Otherwise, the app will crash
+   * 确保始终定义一个错误监听器。
+   * 否则，应用程序将崩溃
    */
   connection.on('error', (error) => {
     console.log(error)
@@ -240,11 +241,11 @@ redis.on('connection', (connection) => {
 })
 ```
 
-## Pub/Sub
+## 发布/订阅
 
-Redis needs multiple connections to publish and subscribe to channels. The subscriber connection cannot perform operations other than subscribing to new channels/patterns and unsubscribing.
+Redis 需要多个连接来发布和订阅频道。订阅者连接只能执行订阅新频道/模式和取消订阅的操作。
 
-When using the `@adonisjs/redis` package, you do not have to create a subscriber connection manually; we will handle that for you. When you call the `subscribe` method for the first time, we will automatically create a new subscriber connection.
+使用 `@adonisjs/redis` 包时，您无需手动创建订阅者连接；我们会为您处理。当您第一次调用 `subscribe` 方法时，我们将自动创建一个新的订阅者连接。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -254,12 +255,12 @@ redis.subscribe('user:add', function (message) {
 })
 ```
 
-### API differences between IORedis and AdonisJS
+### IORedis 和 AdonisJS 之间的 API 差异
 
-When using `ioredis`, you must use two different APIs to subscribe to a channel and listen for new messages. However, with the AdonisJS wrapper, the `subscribe` method takes care of both.
+使用 `ioredis` 时，您必须使用两个不同的 API 来订阅频道并监听新消息。然而，使用 AdonisJS 包装器时，`subscribe` 方法会同时处理这两者。
 
 :::caption{for="info"}
-**With IORedis**
+**使用 IORedis**
 :::
 
 ```ts
@@ -275,7 +276,7 @@ redis.subscribe('user:add', (error, count) => {
 ```
 
 :::caption{for="info"}
-**With AdonisJS**
+**使用 AdonisJS**
 :::
 
 ```ts
@@ -292,9 +293,9 @@ redis.subscribe('user:add', (message) => {
 })
 ```
 
-### Publishing messages
+### 发布消息
 
-You can publish messages using the `publish` method. The method accepts the channel name as the first parameter and the data to publish as the second parameter.
+您可以使用 `publish` 方法发布消息。该方法接受频道名称作为第一个参数，要发布的数据作为第二个参数。
 
 ```ts
 redis.publish(
@@ -306,9 +307,9 @@ redis.publish(
 )
 ```
 
-### Subscribing to patterns
+### 订阅模式
 
-You can subscribe to patterns using the `psubscribe` method. Similar to the `subscribe` method, it will create a subscriber connection (if one does not exist).
+您可以使用 `psubscribe` 方法订阅模式。与 `subscribe` 方法类似，它将创建一个订阅者连接（如果不存在）。
 
 ```ts
 redis.psubscribe('user:*', (channel, message) => {
@@ -325,20 +326,20 @@ redis.publish(
 )
 ```
 
-### Unsubscribing
+### 取消订阅
 
-You can unsubscribe from channels or patterns using the `unsubscribe` and `punsubscribe` methods.
+您可以使用 `unsubscribe` 和 `punsubscribe` 方法从频道或模式取消订阅。
 
 ```ts
 await redis.unsubscribe('user:add')
 await redis.punsubscribe('user:*add*')
 ```
 
-## Using Lua scripts
+## 使用 Lua 脚本
 
-You can register Lua Scripts as commands with the redis service, and they will be applied to all the connections.
+您可以将 Lua 脚本注册为 redis 服务的命令，它们将应用于所有连接。
 
-See also: [IORedis docs on Lua Scripting](https://github.com/redis/ioredis#lua-scripting)
+另请参阅：[IORedis 文档中的 Lua 脚本](https://github.com/redis/ioredis#lua-scripting)
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -353,31 +354,31 @@ redis.defineCommand('release', {
 })
 ```
 
-Once you have defined a command, you can execute it using the `runCommand` method. First, all the keys are defined, and then the arguments.
+定义命令后，您可以使用 `runCommand` 方法执行它。首先定义所有键，然后是参数。
 
 ```ts
 redis.runCommand(
-  'release', // command name
-  'jobs:completed', // key 1
-  'jobs:running', // key 2
+  'release', // 命令名称
+  'jobs:completed', // 键 1
+  'jobs:running', // 键 2
   '11023', // argv 1
   100 // argv 2
 )
 ```
 
-The same command can be executed on an explicit connection.
+相同的命令可以在明确的连接上执行。
 
 ```ts
 redis.connection('jobs').runCommand(
-  'release', // command name
-  'jobs:completed', // key 1
-  'jobs:running', // key 2
+  'release', // 命令名称
+  'jobs:completed', // 键 1
+  'jobs:running', // 键 2
   '11023', // argv 1
   100 // argv 2
 )
 ```
 
-Finally, you can also define commands with a specific connection instance. For example:
+最后，您还可以为特定的连接实例定义命令。例如：
 
 ```ts
 redis.on('connection', (connection) => {
@@ -394,18 +395,18 @@ redis.on('connection', (connection) => {
 })
 ```
 
-## Transforming arguments and replies
+## 转换参数和回复
 
-You can define the arguments transformer and the reply transformer using the `redis.Command` property. The API is identical to the [IORedis API](https://github.com/redis/ioredis#transforming-arguments--replies).
+您可以使用 `redis.Command` 属性定义参数转换器和回复转换器。API 与 [IORedis API](https://github.com/redis/ioredis#transforming-arguments--replies) 相同。
 
 ```ts
-// title: Argument transformer
+// title: 参数转换器
 import redis from '@adonisjs/redis/services/main'
 
 redis.Command.setArgumentTransformer('hmset', (args) => {
   if (args.length === 2) {
     if (args[1] instanceof Map) {
-      // utils is an internal module of ioredis
+      // utils 是 ioredis 的内部模块
       return [args[0], ...utils.convertMapToArray(args[1])]
     }
     if (typeof args[1] === 'object' && args[1] !== null) {
@@ -417,7 +418,7 @@ redis.Command.setArgumentTransformer('hmset', (args) => {
 ```
 
 ```ts
-// title: Reply transformer
+// title: 回复转换器
 import redis from '@adonisjs/redis/services/main'
 
 redis.Command.setReplyTransformer('hgetall', (result) => {
@@ -431,13 +432,12 @@ redis.Command.setReplyTransformer('hgetall', (result) => {
   return result
 })
 ```
+## 事件
 
-## Events
-
-Following is the list of events emitted by a Redis connection instance.
+以下是 Redis 连接实例发出的事件列表。
 
 ### connect / subscriber\:connect
-The event is emitted when a connection is made. The `subscriber:connect` event is emitted when a subscriber connection is made.
+当连接建立时，会发出此事件。当建立订阅者连接时，会发出 `subscriber:connect` 事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -449,7 +449,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### wait
-Emitted when the connection is in `wait` mode because the `lazyConnect` option is set inside the config. After executing the first command, the connection will be moved from the `wait` state.
+当连接处于 `wait` 模式时发出，因为配置中设置了 `lazyConnect` 选项。执行第一个命令后，连接将从 `wait` 状态移出。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -460,7 +460,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### ready / subscriber\:ready
-The event will be emitted immediately after the `connect` event unless you have enabled the `enableReadyCheck` flag inside the config. In that case, we will wait for the Redis server to report it is ready to accept commands.
+除非你在配置中启用了 `enableReadyCheck` 标志，否则此事件将在 `connect` 事件之后立即发出。在那种情况下，我们会等待 Redis 服务器报告其已准备好接受命令。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -472,7 +472,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### error / subscriber\:error
-The event is emitted when unable to connect to the redis server. See [error handling](#error-handling) to learn how AdonisJS handles connection errors.
+当无法连接到 Redis 服务器时，会发出此事件。请参阅 [错误处理](#error-handling) 以了解 AdonisJS 如何处理连接错误。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -484,7 +484,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### close / subscriber\:close
-The event is emitted when a connection is closed. IORedis might retry establishing a connection after emitting the `close` event, depending upon the retry strategy.
+当连接关闭时，会发出此事件。根据重试策略，IORedis 可能会在发出 `close` 事件后尝试重新建立连接。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -496,7 +496,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### reconnecting / subscriber\:reconnecting
-The event is emitted when trying to reconnect to the redis server after the `close` event.
+在 `close` 事件后尝试重新连接到 Redis 服务器时，会发出此事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -512,7 +512,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### end / subscriber\:end
-The event is emitted when the connection has been closed, and no further reconnections will be made. It should be the end of the connection lifecycle.
+当连接已关闭且不会再进行进一步的重连时，会发出此事件。它应该是连接生命周期的结束。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -524,7 +524,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### node\:added
-The event is emitted when connected to a new cluster node (Applicable to cluster instances only).
+当连接到新的集群节点时（仅适用于集群实例），会发出此事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -535,7 +535,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### node\:removed
-The event is emitted when a cluster node is removed (Applicable to cluster instances only).
+当集群节点被移除时（仅适用于集群实例），会发出此事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -546,7 +546,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### node\:error
-The event is emitted when unable to connect to a cluster node (Applicable to cluster instances only).
+当无法连接到集群节点时（仅适用于集群实例），会发出此事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -559,7 +559,8 @@ redis.on('connection', (connection) => {
 ```
 
 ### subscription\:ready / psubscription\:ready
-The event is emitted when a subscription on a given channel or a pattern has been established.
+
+当给定频道或模式的订阅已建立时，会发出此事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'
@@ -575,7 +576,7 @@ redis.on('connection', (connection) => {
 ```
 
 ### subscription\:error / psubscription\:error
-The event is emitted when unable to subscribe to a channel or a pattern.
+当无法订阅频道或模式时，会发出此事件。
 
 ```ts
 import redis from '@adonisjs/redis/services/main'

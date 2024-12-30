@@ -1,11 +1,10 @@
 ---
-summary: Prompts are terminal widgets for user input, using the @poppinss/prompts package. They support various types like input, password, and select, and are designed for easy testing integration.
+summary: Prompts 是用于用户输入的终端小部件，使用 @poppinss/prompts 包。它们支持各种类型，如输入、密码和选择，并且设计为易于测试集成。
 ---
-
 
 # Prompts
 
-Prompts are interactive terminal widgets you can use to accept user input. Ace prompts are powered by the [@poppinss/prompts](https://github.com/poppinss/prompts) package, which supports the following prompt types.
+Prompts 是交互式终端小部件，您可以使用它们来接受用户输入。Ace prompts 由 [@poppinss/prompts](https://github.com/poppinss/prompts) 包提供支持，该包支持以下提示类型。
 
 - input
 - list
@@ -16,13 +15,13 @@ Prompts are interactive terminal widgets you can use to accept user input. Ace p
 - multi-select
 - autocomplete
 
-Ace prompts are built with testing in mind. When writing tests, you may trap prompts and respond to them programmatically.
+Ace prompts 在设计时考虑了测试。在编写测试时，您可以捕获提示并以编程方式响应它们。
 
-See also: [Testing ace commands](../testing/console_tests.md)
+另请参阅：[Testing ace commands](../testing/console_tests.md)
 
-## Displaying a prompt
+## 显示提示
 
-You may display prompts using the `this.prompt` property available on all Ace commands.
+您可以使用所有 Ace 命令上可用的 `this.prompt` 属性来显示提示。
 
 ```ts
 import { BaseCommand } from '@adonisjs/core/ace'
@@ -36,53 +35,32 @@ export default class GreetCommand extends BaseCommand {
 }
 ```
 
-## Prompt options
+## 提示选项
 
-Following is the list of options accepted by prompts. You may reference this table as the single source of truth.
-
+以下是提示接受的选项列表。您可以将此表作为唯一可靠的信息来源。
 
 <table>
 <tr>
-<td width="110px">Option</td>
-<td width="120px">Accepted by</td>
-<td>Description</td>
+<td width="110px">选项</td>
+<td width="120px">接受者</td>
+<td>描述</td>
 </tr>
 <tr>
 <td>
 
-`default` (String) 
+`default` (字符串) 
 
 </td>
 
 <td>
 
-All prompts
+所有提示
 
 </td>
 
 <td>
 
-The default value to use when no value is entered. In the case of `select`, `multiselect`, and `autocomplete` prompts, the value must be the choices array index.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`name` (String)
-
-</td>
-
-<td>
-
-All prompts
-
-</td>
-
-<td>
-
-The unique name for the prompt
+未输入值时使用的默认值。在 `select`、`multiselect` 和 `autocomplete` 提示中，该值必须是选择数组索引。
 
 </td>
 </tr>
@@ -90,33 +68,53 @@ The unique name for the prompt
 <tr>
 <td>
 
-`hint` (String)
+`name` (字符串)
 
 </td>
 
 <td>
 
-All prompts
+所有提示
 
 </td>
 
 <td>
 
-The hint text to display next to the prompt
+提示的唯一名称
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`hint` (字符串)
+
+</td>
+
+<td>
+
+所有提示
+
+</td>
+
+<td>
+
+在提示旁边显示的提示文本
 
 </td>
 </tr>
 <tr>
 <td>
 
-`result` (Function)
+`result` (函数)
 
 </td>
 
-<td>All prompts</td>
+<td>所有提示</td>
 <td>
 
-Transform the prompt return value. The input value of the `result` method depends on the prompt. For example, the `multiselect` prompt value will be an array of selected choices.
+转换提示返回值。`result` 方法的输入值取决于提示。例如，`multiselect` 提示值将是所选选择的数组。
 
 ```ts
 {
@@ -132,15 +130,15 @@ Transform the prompt return value. The input value of the `result` method depend
 <tr>
 <td>
 
-`format` (Function)
+`format` (函数)
 
 </td>
 
-<td>All prompts</td>
+<td>所有提示</td>
 
 <td>
 
-Live format the input value as the user types. The formatting is only applied to the CLI output, not the return value.
+在用户输入时实时格式化输入值。格式化仅应用于 CLI 输出，不应用于返回值。
 
 ```ts
 {
@@ -156,15 +154,15 @@ Live format the input value as the user types. The formatting is only applied to
 <tr>
 <td>
 
-`validate` (Function)
+`validate` (函数)
 
 </td>
 
-<td>All prompts</td>
+<td>所有提示</td>
 
 <td>
 
-Validate the user input. Returning `true` from the method will pass the validation. Returning `false` or an error message string will be considered a failure.
+验证用户输入。从方法返回 `true` 将通过验证。返回 `false` 或错误消息字符串将被视为失败。
 
 ```ts
 {
@@ -176,12 +174,13 @@ Validate the user input. Returning `true` from the method will pass the validati
 }
 ```
 
+</td>
 </tr>
 
 <tr>
 <td>
 
-`limit` (Number)
+`limit` (数字)
 
 </td>
 
@@ -193,23 +192,22 @@ Validate the user input. Returning `true` from the method will pass the validati
 
 <td>
 
-Limit the number of options to display. You will have to scroll to see the rest of the options.
+限制显示的选项数量。您将需要滚动查看其余选项。
 
 </td>
 </tr>
 </table>
 
+## 文本输入
 
-## Text input
-
-You may render the prompt to accept text input using the `prompt.ask` method. The method accepts the prompt message as the first parameter and the [options object](#prompt-options) as the second parameter.
+您可以使用 `prompt.ask` 方法呈现提示以接受文本输入。该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
 
 ```ts
 await this.prompt.ask('Enter the model name')
 ```
 
 ```ts
-// Validate input
+// 验证输入
 await this.prompt.ask('Enter the model name', {
   validate(value) {
     return value.length > 0
@@ -218,17 +216,17 @@ await this.prompt.ask('Enter the model name', {
 ```
 
 ```ts
-// Default value
+// 默认值
 await this.prompt.ask('Enter the model name', {
   default: 'User'
 })
 ```
 
-## Masked input
+## 掩码输入
 
-As the name suggests, the masked input prompt masks the user input in the terminal. You may display the masked prompt using the `prompt.secure` method.
+顾名思义，掩码输入提示会在终端中屏蔽用户输入。您可以使用 `prompt.secure` 方法显示掩码提示。
 
-The method accepts the prompt message as the first parameter and the [options object](#prompt-options) as the second parameter.
+该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
 
 ```ts
 await this.prompt.secure('Enter account password')
@@ -244,13 +242,13 @@ await this.prompt.secure('Enter account password', {
 })
 ```
 
-## List of choices
+## 选择列表
 
-You may display a list of choices for a single selection using the `prompt.choice` method. The method accepts the following parameters.
+您可以使用 `prompt.choice` 方法显示单个选择的选择列表。该方法接受以下参数。
 
-1. Prompt message.
-2. An array of choices.
-3. Optional [options object](#prompt-options).
+1. 提示消息。
+2. 选择数组。
+3. 可选的 [选项对象](#prompt-options)。
 
 ```ts
 await this.prompt.choice('Select package manager', [
@@ -260,7 +258,7 @@ await this.prompt.choice('Select package manager', [
 ])
 ```
 
-To mention a different display value, you can define options as objects. The `name` property is returned as the prompt result, and the `message` property is displayed in the terminal.
+若要指定不同的显示值，可以将选项定义为对象。`name` 属性作为提示结果返回，`message` 属性在终端中显示。
 
 ```ts
 await this.prompt.choice('Select database driver', [
@@ -279,9 +277,9 @@ await this.prompt.choice('Select database driver', [
 ])
 ```
 
-## Multi-select choices
+## 多选
 
-You may use the `prompt.multiple` method to allow multiple selections in the choices list. The accepted parameters are the same as the `choice` prompt.
+您可以使用 `prompt.multiple` 方法允许在选择列表中进行多项选择。接受的参数与 `choice` 提示相同。
 
 ```ts
 await this.prompt.multiple('Select database drivers', [
@@ -300,11 +298,11 @@ await this.prompt.multiple('Select database drivers', [
 ])
 ```
 
-## Confirm action
+## 确认操作
 
-You can display a confirmation prompt with `Yes/No` options using the `prompt.confirm` method. The method accepts the prompt message as the first parameter and the [options object](#prompt-options) as the second parameter.
+您可以使用 `prompt.confirm` 方法显示带有 `Yes/No` 选项的确认提示。该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
 
-The `confirm` prompt returns a boolean value.
+`confirm` 提示返回一个布尔值。
 
 ```ts
 const deleteFiles = await this.prompt.confirm(
@@ -315,7 +313,7 @@ if (deleteFiles) {
 }
 ```
 
-To customize the `Yes/No` options display value, you may use the `prompt.toggle` method. 
+若要自定义 `Yes/No` 选项的显示值，可以使用 `prompt.toggle` 方法。
 
 ```ts
 const deleteFiles = await this.prompt.toggle(
@@ -327,9 +325,9 @@ if (deleteFiles) {
 }
 ```
 
-## Autocomplete
+## 自动完成
 
-The `autocomplete` prompt is a combination of the select and the multi-select prompt, but with the ability to fuzzy search the choices.
+`autocomplete` 提示是 select 和 multi-select 提示的组合，但具有模糊搜索选择的能力。
 
 ```ts
 const selectedCity = await this.prompt.autocomplete(

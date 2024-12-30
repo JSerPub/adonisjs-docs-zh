@@ -1,13 +1,14 @@
 ---
-summary: Learn how to use the basic auth guard to authenticate users using the HTTP authentication framework.
+summary: 了解如何使用基本身份验证守护进程 (basic auth guard) 通过 HTTP 身份验证框架对用户进行身份验证。
 ---
 
-# Basic authentication guard
+# 基本身份验证守护进程
 
-The basic auth guard is an implementation of the [HTTP authentication framework](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication), in which the client must pass the user credentials as a base64 encoded string via the `Authorization` header. The server allows the request if the credentials are valid. Otherwise, a web-native prompt is displayed to re-enter the credentials.
+基本身份验证守护进程是 [HTTP 身份验证框架](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。如果凭据有效，服务器将允许请求。否则，将显示一个原生的网页提示，要求重新输入凭据。
 
-## Configuring the guard
-The authentication guards are defined inside the `config/auth.ts` file. You can configure multiple guards inside this file under the `guards` object.
+## 配置守护进程
+
+身份验证守护进程在 `config/auth.ts` 文件中定义。你可以在此文件的 `guards` 对象下配置多个守护进程。
 
 ```ts
 import { defineConfig } from '@adonisjs/auth'
@@ -31,13 +32,13 @@ const authConfig = defineConfig({
 export default authConfig
 ```
 
-The `basicAuthGuard` method creates an instance of the [BasicAuthGuard](https://github.com/adonisjs/auth/blob/main/modules/basic_auth_guard/guard.ts) class. It accepts a user provider that can be used to find users during authentication.
+`basicAuthGuard` 方法创建 [BasicAuthGuard](https://github.com/adonisjs/auth/blob/main/modules/basic_auth_guard/guard.ts) 类的实例。它接受一个用户提供者，该提供者可用于在身份验证期间查找用户。
 
-The `basicAuthUserProvider` method creates an instance of the [BasicAuthLucidUserProvider](https://github.com/adonisjs/auth/blob/main/modules/basic_auth_guard/user_providers/lucid.ts) class. It accepts a reference to the model to use for verifying user credentials.
+`basicAuthUserProvider` 方法创建 [BasicAuthLucidUserProvider](https://github.com/adonisjs/auth/blob/main/modules/basic_auth_guard/user_providers/lucid.ts) 类的实例。它接受一个模型引用，用于验证用户凭据。
 
+## 准备用户模型
 
-## Preparing the User model
-The model (`User` model in this example) configured with the `basicAuthUserProvider` must use the [AuthFinder](./verifying_user_credentials.md#using-the-auth-finder-mixin) mixin to verify the user credentials during authentication.
+使用 `basicAuthUserProvider` 配置的模型（在此示例中为 `User` 模型）必须使用 [AuthFinder](./verifying_user_credentials.md#using-the-auth-finder-mixin) 混入，以便在身份验证期间验证用户凭据。
 
 ```ts
 import { DateTime } from 'luxon'
@@ -78,8 +79,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
 }
 ```
 
-## Protecting routes
-Once you have configured the guard, you can use the `auth` middleware to protect routes from unauthenticated requests. The middleware is registered inside the `start/kernel.ts` file under the named middleware collection.
+## 保护路由
+
+配置好守护进程后，你可以使用 `auth` 中间件来保护路由，防止未经验证的请求。该中间件在 `start/kernel.ts` 文件中注册，位于命名中间件集合下。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -106,12 +108,13 @@ router
   }))
 ```
 
-### Handling authentication exception
+### 处理身份验证异常
 
-The auth middleware throws the [E_UNAUTHORIZED_ACCESS](https://github.com/adonisjs/auth/blob/main/src/auth/errors.ts#L18) if the user is not authenticated. The exception is automatically converted to an HTTP response with the [WWW-Authenticate](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate) header in the response. The `WWW-Authenticate` challenges the authentication and triggers a web-native prompt to re-enter the credentials.
+如果用户未通过身份验证，auth 中间件将抛出 [E_UNAUTHORIZED_ACCESS](https://github.com/adonisjs/auth/blob/main/src/auth/errors.ts#L18) 异常。该异常会自动转换为带有 [WWW-Authenticate](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate) 头的 HTTP 响应。`WWW-Authenticate` 头会挑战身份验证，并触发一个原生的网页提示，要求重新输入凭据。
 
-## Getting access to the authenticated user
-You may access the logged-in user instance using the `auth.user` property. Since, you are using the `auth` middleware, the `auth.user` property will always be available.
+## 访问已身份验证的用户
+
+你可以使用 `auth.user` 属性访问已登录的用户实例。由于你使用了 `auth` 中间件，`auth.user` 属性将始终可用。
 
 ```ts
 import { middleware } from '#start/kernel'
@@ -126,8 +129,9 @@ router
   }))
 ```
 
-### Get authenticated user or fail
-If you do not like using the [non-null assertion operator](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-) on the `auth.user` property, you may use the `auth.getUserOrFail` method. This method will return the user object or throw [E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) exception.
+### 获取已身份验证的用户或失败
+
+如果你不喜欢在 `auth.user` 属性上使用 [非空断言操作符](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-)，你可以使用 `auth.getUserOrFail` 方法。此方法将返回用户对象或抛出 [E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) 异常。
 
 ```ts
 import { middleware } from '#start/kernel'

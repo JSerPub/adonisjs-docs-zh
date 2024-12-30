@@ -1,14 +1,14 @@
 ---
-summary: Learn how to use Inertia with AdonisJS to create server-rendered applications with your favorite frontend framework.
+summary: 学习如何使用 Inertia 与 AdonisJS 创建带有您喜爱的前端框架的服务器端渲染应用程序。
 ---
 
 # Inertia
 
-[Inertia](https://inertiajs.com/) is a framework-agnostic way to create single-page applications without much of the complexity of modern SPAs.
+[Inertia](https://inertiajs.com/) 是一个与框架无关的创建单页应用程序（SPA）的方法，同时避免了现代 SPA 的许多复杂性。
 
-It is a great middle ground between traditional server-rendered applications (with templating engines) and modern SPAs (with client-side routing and state management).
+它是传统服务器端渲染应用程序（使用模板引擎）和现代 SPA（使用客户端路由和状态管理）之间的一个很好的折中方案。
 
-Using Inertia will allow you to create a SPA with your favorite frontend framework (Vue.js, React, Svelte or Solid.js) without creating a separate API.
+使用 Inertia，您可以使用您喜爱的前端框架（Vue.js、React、Svelte 或 Solid.js）创建一个 SPA，而无需创建单独的 API。
 
 :::codegroup
 
@@ -50,14 +50,13 @@ defineProps<{
 
 :::
 
-
-## Installation
+## 安装
 
 :::note
-Are you starting a new project and want to use Inertia? Check out the [Inertia starter kit](https://docs.adonisjs.com/guides/getting-started/installation#inertia-starter-kit).
+您是否正在启动一个新项目并希望使用 Inertia？请查看 [Inertia 入门套件](https://docs.adonisjs.com/guides/getting-started/installation#inertia-starter-kit)。
 :::
 
-Install the package from the npm registry running:
+从 npm 注册表中安装该包：
 
 :::codegroup
 
@@ -68,69 +67,70 @@ npm i @adonisjs/inertia
 
 :::
 
-Once done, run the following command to configure the package.
+完成后，运行以下命令来配置该包。
 
 ```sh
 node ace configure @adonisjs/inertia
 ```
 
-:::disclosure{title="See steps performed by the configure command"}
+:::disclosure{title="查看 configure 命令执行的步骤"}
 
-1. Registers the following service provider and command inside the `adonisrc.ts` file.
+1. 在 `adonisrc.ts` 文件中注册以下服务提供者和命令。
 
     ```ts
     {
       providers: [
-        // ...other providers
+        // ...其他服务提供者
         () => import('@adonisjs/inertia/inertia_provider')
       ]
     }
     ```
-2. Registers the following middleware inside the `start/kernel.ts` file 
+
+2. 在 `start/kernel.ts` 文件中注册以下中间件
 
    ```ts
    router.use([() => import('@adonisjs/inertia/inertia_middleware')])
    ```
 
-3. Create the `config/inertia.ts` file.
+3. 创建 `config/inertia.ts` 文件。
 
-4. Copy a few stubs into your application to help you start quickly. Each copied file is adapted to the frontend framework previously selected.
+4. 将一些模板文件复制到您的应用程序中，以帮助您快速开始。每个复制的文件都适应之前选择的前端框架。
 
-  1. Create a `./resources/views/inertia_layout.edge` file that will be used to render the HTML page used to boot Inertia.
+   1. 创建一个 `./resources/views/inertia_layout.edge` 文件，该文件将用于渲染用于启动 Inertia 的 HTML 页面。
 
-  2. Create a `./inertia/css/app.css` file with the content needed to style the `inertia_layout.edge` view.
+   2. 创建一个 `./inertia/css/app.css` 文件，其中包含设置 `inertia_layout.edge` 视图样式所需的内容。
 
-  3. Create a `./inertia/tsconfig.json` file to differentiate between the server and client-side TypeScript configuration.
+   3. 创建一个 `./inertia/tsconfig.json` 文件，以区分服务器端和客户端 TypeScript 配置。
 
-  4. Create a `./inertia/app/app.ts` for bootstrapping Inertia and your frontend framework.
+   4. 创建一个 `./inertia/app/app.ts` 文件，用于启动 Inertia 和您的前端框架。
 
-  5. Create a `./inertia/pages/home.{tsx|vue|svelte}` file to render the home page of your application.
+   5. 创建一个 `./inertia/pages/home.{tsx|vue|svelte}` 文件，用于渲染应用程序的主页。
 
-  6. Create a `./inertia/pages/server_error.{tsx|vue|svelte}` and `./inertia/pages/not_found.{tsx|vue|svelte}` files to render the error pages.
+   6. 创建一个 `./inertia/pages/server_error.{tsx|vue|svelte}` 和 `./inertia/pages/not_found.{tsx|vue|svelte}` 文件，用于渲染错误页面。
 
-  7. Add the correct vite plugin to compile your frontend framework in the `vite.config.ts` file.
+   7. 在 `vite.config.ts` 文件中添加正确的 vite 插件以编译您的前端框架。
 
-  8. Add a dumb route at `/` in your `start/routes.ts` file to render the home page with Inertia as an example.
- 
-5. Install packages based on the selected frontend framework.
+   8. 在 `start/routes.ts` 文件中添加一个根路径 `/` 的哑路由，以使用 Inertia 渲染主页作为示例。
+
+5. 根据选择的前端框架安装包。
 
 :::
 
-Once done, you should be ready to use Inertia in your AdonisJS application. Start your development server, and visit `localhost:3333` to see the home page rendered using Inertia with your selected frontend framework.
+完成后，您应该可以在 AdonisJS 应用程序中使用 Inertia 了。启动开发服务器，并访问 `localhost:3333` 以查看使用您选择的前端框架通过 Inertia 渲染的主页。
 
 :::note
-**Read the [Inertia official documentation](https://inertiajs.com/)**.
+**阅读 [Inertia 官方文档](https://inertiajs.com/)**。
 
-Inertia is a backend-agnostic library. We just created an adapter to make it work with AdonisJS. You should be familiar with the Inertia concepts before reading this documentation.
+Inertia 是一个与后端无关的库。我们只是创建了一个适配器使其与 AdonisJS 配合工作。在阅读本文档之前，您应该熟悉 Inertia 的概念。
 
-**We will only cover AdonisJS's specific parts in this documentation.**
+**本文档将仅涵盖 AdonisJS 的特定部分。**
 :::
 
-## Client-side entrypoint
+## 客户端入口文件
 
-If you used the `configure` or `add` command, the package will have created an entrypoint file at `inertia/app/app.ts` so you can skip this step. 
+如果您使用了 `configure` 或 `add` 命令，该包将在 `inertia/app/app.ts` 创建一个入口文件，因此您可以跳过此步骤。
 
-Basically, this file will be the main entrypoint for your frontend application and will be used to bootstrap Inertia and your frontend framework. This file should be the entrypoint loaded by your root Edge template with the `@vite` tag.
+基本上，该文件将是您前端应用程序的主要入口文件，并用于启动 Inertia 和您的前端框架。该文件应作为根 Edge 模板的 `@vite` 标签加载的入口点。
 
 :::codegroup
 
@@ -144,7 +144,7 @@ import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
 
 createInertiaApp({
-  title: (title) => {{ `${title} - ${appName}` }},
+  title: (title) => `${title} - ${appName}`,
   resolve: (name) => {
     return resolvePageComponent(
       `../pages/${name}.vue`,
@@ -236,15 +236,16 @@ createInertiaApp({
   },
 })
 ```
+
 :::
 
-The role of this file is to create an Inertia app and to resolve the page component. The page component you write when using `inertia.render` will be passed down the the `resolve` function and the role of this function is to return the component that need to be rendered.
+该文件的作用是创建一个 Inertia 应用程序并解决页面组件。使用 `inertia.render` 编写的页面组件将被传递给 `resolve` 函数，该函数的作用是返回需要渲染的组件。
 
-## Rendering pages
+## 渲染页面
 
-While configuring your package, a `inertia_middleware` has been registered inside the `start/kernel.ts` file. This middleware is responsible for setting up the `inertia` object on the [`HttpContext`](../concepts/http_context.md).
+在配置包时，已在 `start/kernel.ts` 文件中注册了 `inertia_middleware`。此中间件负责在 [`HttpContext`](../concepts/http_context.md) 上设置 `inertia` 对象。
 
-To render a view using Inertia, use the `inertia.render` method. The method accepts the view name and the data to be passed to the component as props.
+要使用 Inertia 渲染视图，请使用 `inertia.render` 方法。该方法接受视图名称和要作为 props 传递给组件的数据。
 
 ```ts
 // title: app/controllers/home_controller.ts
@@ -257,9 +258,9 @@ export default class HomeController {
 }
 ```
 
-Do you see the `home` passed to the `inertia.render` method? It should be the path to the component file relative to the `inertia/pages` directory. We render the `inertia/pages/home.(vue,tsx)` file here.
+您看到传递给 `inertia.render` 方法的 `home` 了吗？它应该是相对于 `inertia/pages` 目录的组件文件路径。我们在这里渲染 `inertia/pages/home.(vue,tsx)` 文件。
 
-Your frontend component will receive the `user` object as a prop : 
+您的前端组件将接收 `user` 对象作为 prop：
 
 :::codegroup
 
@@ -303,15 +304,15 @@ export default function Home(props: { user: { name: string } }) {
 
 :::
 
-As simple as that.
+就这么简单。
 
 :::warning
-While passing data to the frontend, everything is serialized to JSON. Do not expect to pass instances of models, dates, or other complex objects. 
+在将数据传递给前端时，所有内容都会序列化为 JSON。不要期望传递模型实例、日期或其他复杂对象。
 :::
 
-### Root Edge template
+### 根 Edge 模板
 
-The Root template is a regular Edge template that will be loaded on the first-page visit of your application. It is the place where you should include your CSS and Javascript files and also where you should include the `@inertia` tag. A typical root template looks like this :
+根模板是一个常规的 Edge 模板，将在应用程序首次访问页面时加载。这是您应该包含 CSS 和 JavaScript 文件以及 `@inertia` 标签的地方。一个典型的根模板如下所示：
 
 :::codegroup
 
@@ -403,19 +404,18 @@ The Root template is a regular Edge template that will be loaded on the first-pa
 
 :::
 
-You can configure the root template path in the `config/inertia.ts` file. By default, it assumes your template is at `resources/views/inertia_layout.edge`.
+您可以在 `config/inertia.ts` 文件中配置根模板路径。默认情况下，它假定您的模板位于 `resources/views/inertia_layout.edge`。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
 
 export default defineConfig({
-  // The path to the root template relative 
-  // to the `resources/views` directory
+  // 根模板的路径，相对于 `resources/views` 目录
   rootView: 'app_root', 
 })
 ```
 
-If needed, you can pass a function to the `rootView` prop to dynamically decide which root template should be used.
+如果需要，您可以将一个函数传递给 `rootView` 属性，以动态决定应使用哪个根模板。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
@@ -432,9 +432,9 @@ export default defineConfig({
 })
 ```
 
-### Root template data
+### 根模板数据
 
-You may want to share data with your root Edge template. For example, for adding a meta title or open graph tags. You can do so by using the 3rd argument of the `inertia.render` method :
+您可能希望与根 Edge 模板共享数据。例如，用于添加元标题或开放图标签。您可以通过 `inertia.render` 方法的第三个参数来实现这一点：
 
 ```ts
 // title: app/controllers/posts_controller.ts
@@ -450,7 +450,7 @@ export default class PostsController {
 }
 ```
 
-The `title` and `description` will now be available to the root Edge template : 
+现在，`title` 和 `description` 将在根 Edge 模板中可用：
 
 ```edge
 // title: resources/views/root.edge
@@ -461,57 +461,57 @@ The `title` and `description` will now be available to the root Edge template :
   <body>
     @inertia()
   </body>
-</html
+</html>
 ```
 
-## Redirects
+## 重定向
 
-It is how you should do it in AdonisJS : 
+在 AdonisJS 中，您应该这样做：
 
 ```ts
 export default class UsersController {
   async store({ response }: HttpContext) {
     await User.create(request.body())
 
-    // 👇 You can use standard AdonisJS redirections
+    // 👇 您可以使用标准的 AdonisJS 重定向
     return response.redirect().toRoute('users.index')
   }
 
   async externalRedirect({ inertia }: HttpContext) {
-    // 👇 Or use the inertia.location for external redirects
+    // 👇 或者使用 inertia.location 进行外部重定向
     return inertia.location('https://adonisjs.com')
   }
 }
 ```
 
-See the [official documentation](https://inertiajs.com/redirects) for more information.
+有关更多信息，请参阅 [官方文档](https://inertiajs.com/redirects)。
 
-## Sharing data with all views
+## 与所有视图共享数据
 
-Sometimes, you may need to share the same data across multiple views. For instance, we are sharing the current user information with all views. Having to do this for every controller can become tedious. Fortunately, we have two solutions for this issue.
+有时，您可能需要在多个视图中共享相同的数据。例如，我们与所有视图共享当前用户信息。对每个控制器执行此操作可能会变得繁琐。幸运的是，我们有两个解决方案来解决这个问题。
 
-### `sharedData` 
+### `sharedData`
 
-In the `config/inertia.ts` file, you can define a `sharedData` object. This object allows you to define data that should be shared with all views.
+在 `config/inertia.ts` 文件中，您可以定义一个 `sharedData` 对象。此对象允许您定义应与所有视图共享的数据。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
 
 export default defineConfig({
   sharedData: {
-    // 👇 This will be available in all views
+    // 👇 这将在所有视图中可用
     appName: 'My App' ,
-    // 👇 Scoped to the current request
+    // 👇 限定于当前请求
     user: (ctx) => ctx.auth?.user, 
-    // 👇 Scoped to the current request
+    // 👇 限定于当前请求
     errors: (ctx) => ctx.session.flashMessages.get('errors'),
   },
 })
 ```
 
-### Share from a middleware
+### 从中间件共享
 
-Sometimes, sharing data from a middleware rather than the `config/inertia.ts` file might be more convenient. You can do so by using the `inertia.share` method :
+有时，从中间件而不是 `config/inertia.ts` 文件共享数据可能更方便。您可以通过使用 `inertia.share` 方法来实现这一点：
 
 ```ts
 import type { HttpContext } from '@adonisjs/core/http'
@@ -527,38 +527,38 @@ export default class MyMiddleware {
 }
 ```
 
-## Partial reloads & Lazy data evaluation 
+## 部分重新加载和惰性数据评估
 
-First read the [official documentation](https://inertiajs.com/partial-reloads) to understand what partial reloads are and how they work.
+首先阅读 [官方文档](https://inertiajs.com/partial-reloads) 以了解部分重新加载是什么以及它们是如何工作的。
 
-About lazy data evaluation, here is how it works in AdonisJS :
+关于惰性数据评估，以下是它在 AdonisJS 中的工作方式：
 
 ```ts
 export default class UsersController {
   async index({ inertia }: HttpContext) {
     return inertia.render('users/index', {
-      // ALWAYS included on first visit.
-      // OPTIONALLY included on partial reloads.
-      // ALWAYS evaluated
+      // 首次访问时始终包含。
+      // 部分重新加载时可选包含。
+      // 始终评估
       users: await User.all(),
 
-      // ALWAYS included on first visit.
-      // OPTIONALLY included on partial reloads.
-      // ONLY evaluated when needed
+      // 首次访问时始终包含。
+      // 部分重新加载时可选包含。
+      // 仅在需要时评估
       users: () => User.all(),
 
-      // NEVER included on first visit.
-      // OPTIONALLY included on partial reloads.
-      // ONLY evaluated when needed
+      // 首次访问时从不包含。
+      // 部分重新加载时可选包含。
+      // 仅在需要时评估
       users: inertia.lazy(() => User.all())
     }),
   }
 }
 ```
 
-## Types sharing
+## 类型共享
 
-Usually, you will want to share the types of the data you are passing to your frontend pages components. A simple way to do this is to use the `InferPageProps` type.
+通常，您希望共享传递给前端页面组件的数据类型。一个简单的方法是使用 `InferPageProps` 类型。
 
 :::codegroup
 
@@ -583,9 +583,8 @@ import { InferPageProps } from '@adonisjs/inertia/types'
 import type { UsersController } from '../../controllers/users_controller.ts'
 
 export function UsersPage(
-  // 👇 It will be correctly typed based
-  // on what you passed to inertia.render
-  // in your controller
+  // 👇 它将根据传递给 inertia.render 的内容正确类型化
+  // 在您的控制器中
   props: InferPageProps<UsersController, 'index'>
 ) {
   return (
@@ -596,14 +595,14 @@ export function UsersPage(
 
 :::
 
-If you're using Vue, you'll have to manually define each property in your `defineProps`. This is an annoying limitation of Vue, see [this issue](https://github.com/vitejs/vite-plugin-vue/issues/167) for more information.
+如果您使用的是 Vue，则必须在 `defineProps` 中手动定义每个属性。这是 Vue 的一个恼人限制，请参阅 [此问题](https://github.com/vitejs/vite-plugin-vue/issues/167) 以获取更多信息。
 
 ```vue
 <script setup lang="ts">
 import { InferPageProps } from '@adonisjs/inertia'
 
 defineProps<{
-  // 👇 You will have to manually define each prop
+  // 👇 您将不得不手动定义每个 prop
   users: InferPageProps<UsersController, 'index'>['users'],
   posts: InferPageProps<PostsController, 'index'>['posts'],
 }>()
@@ -611,20 +610,19 @@ defineProps<{
 </script>
 ```
 
+### 引用指令
 
-### Reference Directives
+由于您的 Inertia 应用程序是一个独立的 TypeScript 项目（具有自己的 `tsconfig.json`），因此您需要帮助 TypeScript 理解某些类型。我们的许多官方包使用 [模块扩展](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) 向您的 AdonisJS 项目添加某些类型。
 
-Since your Inertia Application is a separate TypeScript project (with its own `tsconfig.json`), you will need to help TypeScript understand some types. Many of our official packages use [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to add certain types to your AdonisJS project.
+例如，`HttpContext` 上的 `auth` 属性及其类型仅在您将 `@adonisjs/auth/initialize_auth_middleware` 导入到项目中时可用。现在，问题是我们在 Inertia 项目中没有导入此模块，因此，如果您尝试从使用 `auth` 的控制器推断页面属性，则可能会收到 TypeScript 错误或无效类型。
 
-For example, the `auth` property on the `HttpContext` and its typing will only be available when you import `@adonisjs/auth/initialize_auth_middleware` into your project. Now, the issue is that we don't import this module in our Inertia project, so if you try to infer the page props from a controller that uses `auth`, then you will likely receive a TypeScript error or an invalid type.
-
-To resolve this issue, you can use [reference directives](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-path-) to help TypeScript understand certain types. To do this, you need to add the following line in your `inertia/app/app.ts` file:
+要解决此问题，您可以使用 [引用指令](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html#-reference-path-) 来帮助 TypeScript 理解某些类型。为此，您需要在 `inertia/app/app.ts` 文件中添加以下行：
 
 ```ts
 /// <reference path="../../adonisrc.ts" />
 ```
 
-Depending on the types you use, you may need to add other reference directives, such as references to certain configuration files that also use module augmentation.
+根据您使用的类型，您可能需要添加其他引用指令，例如对也使用模块扩展的某些配置文件的引用。
 
 ```ts
 /// <reference path="../../adonisrc.ts" />
@@ -632,9 +630,9 @@ Depending on the types you use, you may need to add other reference directives, 
 /// <reference path="../../config/auth.ts" />
 ```
 
-### Type-level Serialization
+### 类型级序列化
 
-An important thing to know about `InferPageProps` is that it will "serialize at the type level" the data you pass. For example, if you pass a `Date` object to `inertia.render`, the resulting type from `InferPageProps` will be `string`:
+关于 `InferPageProps` 需要了解的重要一点是，它会在类型级别“序列化”您传递的数据。例如，如果您将 `Date` 对象传递给 `inertia.render`，则 `InferPageProps` 的结果类型将为 `string`：
 
 :::codegroup
 
@@ -665,14 +663,14 @@ export function UsersPage(
 
 :::
 
-This makes total sense, as dates are serialized to string when they are passed over the network in JSON.
+这完全有道理，因为日期在通过网络以 JSON 格式传递时会序列化为字符串。
 
-### Model Serialization
+### 模型序列化
 
-Keeping the last point in mind, another important thing to know is that if you pass an AdonisJS model to `inertia.render`, then the resulting type from `InferPageProps` will be a `ModelObject`: a type that contains almost no information. This can be problematic. To solve this issue, you have several options:
+记住最后一点，另一个需要了解的重要事项是，如果您将 AdonisJS 模型传递给 `inertia.render`，则 `InferPageProps` 的结果类型将是 `ModelObject`：一个几乎不包含任何信息的类型。这可能会成为问题。要解决这个问题，您有几种选择：
 
-- Cast your model to a simple object before passing it to `inertia.render`:
-- Use a DTO (Data Transfer Object) system to transform your models into simple objects before passing them to `inertia.render`.
+- 在将模型传递给 `inertia.render` 之前，将其转换为简单对象：
+- 使用 DTO（数据传输对象）系统将模型转换为简单对象，然后再传递给 `inertia.render`。
 
 :::codegroup
 
@@ -713,11 +711,11 @@ class UsersController {
 
 :::
 
-You will now have accurate types in your frontend component.
+现在，您的前端组件中将具有准确的类型。
 
-### Shared Props
+### 共享属性
 
-To have the types of your [shared data](#sharing-data-with-all-views) in your components, ensure you have performed module augmentation in your `config/inertia.ts` file as follows:
+要在组件中使用 [共享数据](#sharing-data-with-all-views) 的类型，请确保在 `config/inertia.ts` 文件中执行了模块扩展，如下所示：
 
 ```ts
 // file: config/inertia.ts
@@ -731,20 +729,20 @@ export default inertiaConfig;
 
 declare module '@adonisjs/inertia/types' {
   export interface SharedProps extends InferSharedProps<typeof inertiaConfig> {
-    // If necessary, you can also manually add some shared props,
-    // such as those shared from a middleware for example
+    // 如果需要，您也可以手动添加一些共享属性，
+    // 例如从中间件共享的属性
     propsSharedFromAMiddleware: number;
   }
 }
 ```
 
-Also, make sure to add this [reference directive](#reference-directives) in your `inertia/app/app.ts` file:
+此外，请确保在 `inertia/app/app.ts` 文件中添加此 [引用指令](#reference-directives)：
 
 ```ts
 /// <reference path="../../config/inertia.ts" />
 ```
 
-Once this is done, you will have access to your shared props in your components via `InferPageProps`. `InferPageProps` will contain the types of your shared props and the props passed by `inertia.render`:
+完成后，您将通过 `InferPageProps` 在组件中访问共享属性。`InferPageProps` 将包含共享属性的类型和 `inertia.render` 传递的属性：
 
 ```tsx
 // file: inertia/pages/users/index.tsx
@@ -761,7 +759,7 @@ export function UsersPage(
 }
 ```
 
-If needed, you can access only the types of your shared props via the `SharedProps` type:
+如果需要，您可以通过 `SharedProps` 类型仅访问共享属性的类型：
 
 ```tsx
 import type { SharedProps } from '@adonisjs/inertia/types'
@@ -769,21 +767,21 @@ import type { SharedProps } from '@adonisjs/inertia/types'
 const page = usePage<SharedProps>()
 ```
 
-## CSRF 
+## CSRF
 
-If you enabled [CSRF protection](../security/securing_ssr_applications.md#csrf-protection) for your application, enable the `enableXsrfCookie` option in the `config/shield.ts` file.
+如果您为应用程序启用了 [CSRF 保护]17ec9c42cc4ccc17830c8322638cfff8，请在 `config/shield.ts` 文件中启用 `enableXsrfCookie` 选项。
 
-Enabling this option will ensure that the `XSRF-TOKEN` cookie is set on the client side and sent back to the server with every request.
+启用此选项将确保在客户端设置 `XSRF-TOKEN` cookie，并在每个请求中将其发送回服务器。
 
-No additional configuration is needed to make Inertia work with CSRF protection.
+无需其他配置即可使 Inertia 与 CSRF 保护一起工作。
 
-## Asset versioning
+## 资源版本控制
 
-When re-deploying your application, your users should always get the latest version of your client-side assets. It is something supported out-of-the-box by the Inertia protocol and AdonisJS.
+在重新部署应用程序时，您的用户应始终获取客户端资源的最新版本。这是 Inertia 协议和 AdonisJS 默认支持的功能。
 
-By default, the `@adonisjs/inertia` package will compute a hash for the `public/assets/manifest.json` file and use it as the version of your assets.
+默认情况下，`@adonisjs/inertia` 包将为 `public/assets/manifest.json` 文件计算一个哈希值，并将其用作资源的版本。
 
-If you want to tweak this behavior, you can edit the `config/inertia.ts` file. The `version` prop defines the version of your assets and can be a string or a function.
+如果您想调整此行为，可以编辑 `config/inertia.ts` 文件。`version` 属性定义了资源的版本，可以是字符串或函数。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
@@ -793,21 +791,21 @@ export default defineConfig({
 })
 ```
 
-Read the [official documentation](https://inertiajs.com/asset-versioning) for more information.
+有关更多信息，请阅读 [官方文档](https://inertiajs.com/asset-versioning)。
 
 ## SSR
 
-### Enabling SSR
+### 启用 SSR
 
-[Inertia Starter Kit](../getting_started/installation.md#starter-kits) comes with server-side rendering (SSR) support out of the box. So make sure to use it if you want to enable SSR for your application. 
+[Inertia Starter Kit](../getting_started/installation.md#starter-kits) 默认支持服务器端渲染（SSR）。因此，如果您想为应用程序启用 SSR，请确保使用它。
 
-If you started your application without enabling SSR, you can always enable it later by following the following steps : 
+如果您在启动应用程序时没有启用 SSR，可以稍后通过以下步骤启用：
 
-#### Adding a server entrypoint
+#### 添加服务器入口文件
 
-We need to add a server entrypoint that looks super similar to the client entrypoint. This entrypoint will render the first-page visit on the server and not on the browser.
+我们需要添加一个与客户端入口文件非常相似的服务器入口文件。此入口文件将在服务器上渲染首次访问的页面，而不是在浏览器中。
 
-You must create a `inertia/app/ssr.ts` that default export a function like this :
+您必须创建一个 `inertia/app/ssr.ts` 文件，该文件默认导出一个类似这样的函数：
 
 :::codegroup
 
@@ -885,11 +883,12 @@ export default function render(page: any) {
   })
 }
 ```
+
 :::
 
-#### Update the config file
+#### 更新配置文件
 
-Head over to the `config/inertia.ts` file and update the `ssr` prop to enable it. Also, point to your server entrypoint if you use a different path.
+前往 `config/inertia.ts` 文件并更新 `ssr` 属性以启用它。此外，如果您使用不同的路径，请指向您的服务器入口文件。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
@@ -903,9 +902,9 @@ export default defineConfig({
 })
 ```
 
-#### Update the Vite config
+#### 更新 Vite 配置
 
-First, make sure you have registered the `inertia` vite plugin. Once done, you should update the path to the server entrypoint in the `vite.config.ts` file if you use a different path.
+首先，确保您已注册了 `inertia` vite 插件。完成后，如果您使用不同的路径，请更新 `vite.config.ts` 文件中服务器入口文件的路径。
 
 ```ts
 import { defineConfig } from 'vite'
@@ -923,13 +922,13 @@ export default defineConfig({
 })
 ```
 
-You should now be able to render the first-page visit on the server and then continue with the client-side rendering.
+现在，您应该能够在服务器上渲染首次访问的页面，然后继续执行客户端渲染。
 
-### SSR Allowlist
+### SSR 允许列表
 
-When using SSR, you may want to not server-side render all your components. For example, you are building an admin dashboard gated by authentication, so these routes have no reason to be rendered on the server. But on the same application, you may have a landing page that could benefit from SSR to improve SEO.
+在使用 SSR 时，您可能不希望对所有组件进行服务器端渲染。例如，您正在构建一个受身份验证保护的管理仪表板，因此这些路由没有理由在服务器上渲染。但在同一个应用程序中，您可能有一个着陆页，可以通过 SSR 改善 SEO。
 
-So, you can add the pages that should be rendered on the server in the `config/inertia.ts` file.
+因此，您可以在 `config/inertia.ts` 文件中添加应在服务器上渲染的页面。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
@@ -942,7 +941,7 @@ export default defineConfig({
 })
 ```
 
-You can also pass a function to the `pages` prop to dynamically decide which pages should be rendered on the server.
+您还可以将函数传递给 `pages` 属性，以动态决定哪些页面应在服务器上渲染。
 
 ```ts
 import { defineConfig } from '@adonisjs/inertia'
@@ -955,16 +954,16 @@ export default defineConfig({
 })
 ```
 
-## Testing
+## 测试
 
-There are several ways to test your frontend code:
+有几种方法可以测试前端代码：
 
-- End-to-end testing. You can use the [Browser Client](https://docs.adonisjs.com/guides/browser-tests), a seamless integration between Japa and Playwright.
-- Unit testing. We recommend using testing tools adapted for the frontend ecosystem, particularly [Vitest](https://vitest.dev).
+- 端到端测试。您可以使用 [Browser Client](https://docs.adonisjs.com/guides/browser-tests)，这是 Japa 和 Playwright 的无缝集成。
+- 单元测试。我们建议使用适应前端生态系统的测试工具，特别是 [Vitest](https://vitest.dev)。
 
-And finally, you can also test your Inertia endpoints to ensure they return the correct data. For that, we have a few test helpers available in Japa.
+最后，您还可以测试您的 Inertia 端点，以确保它们返回正确的数据。为此，我们在 Japa 中提供了一些测试辅助函数。
 
-First, make sure to configure the `inertiaApiClient` and `apiClient` plugins in your `test/bootsrap.ts` file if you haven't already done so:
+首先，如果尚未配置，请确保在 `test/bootsrap.ts` 文件中配置 `inertiaApiClient` 和 `apiClient` 插件：
 
 ```ts
 // title: tests/bootstrap.ts
@@ -986,7 +985,7 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-Next, we can request our Inertia endpoint using `withInertia()` to ensure the data is correctly returned in JSON format.
+接下来，我们可以使用 `withInertia()` 请求我们的 Inertia 端点，以确保数据以 JSON 格式正确返回。
 
 ```ts
 test('returns correct data', async ({ client }) => {
@@ -998,15 +997,15 @@ test('returns correct data', async ({ client }) => {
 })
 ```
 
-Let's take a look at the various assertions available to test your endpoints: 
+让我们看看可用于测试端点的各种断言：
 
 ### `withInertia()`
 
-Adds the `X-Inertia` header to the request. It ensures that data is correctly returned in JSON format.
+向请求添加 `X-Inertia` 头。它确保数据以 JSON 格式正确返回。
 
 ### `assertInertiaComponent()`
 
-Checks that the component returned by the server is the one expected.
+检查服务器返回的组件是否是预期的组件。
 
 ```ts
 test('returns correct data', async ({ client }) => {
@@ -1018,7 +1017,7 @@ test('returns correct data', async ({ client }) => {
 
 ### `assertInertiaProps()`
 
-Checks that the props returned by the server are exactly those passed as parameters.
+检查服务器返回的 props 是否与作为参数传递的 props 完全相同。
 
 ```ts
 test('returns correct data', async ({ client }) => {
@@ -1030,7 +1029,7 @@ test('returns correct data', async ({ client }) => {
 
 ### `assertInertiaPropsContains()`
 
-Checks that the props returned by the server contain some of the props passed as parameters. It uses [`containsSubset`](https://japa.dev/docs/plugins/assert#containssubset) under the hood.
+检查服务器返回的 props 是否包含作为参数传递的某些 props。它在内部使用 [`containsSubset`](https://japa.dev/docs/plugins/assert#containssubset)。
 
 ```ts
 test('returns correct data', async ({ client }) => {
@@ -1040,29 +1039,29 @@ test('returns correct data', async ({ client }) => {
 })
 ```
 
-### Additional properties
+### 其他属性
 
-In addition to this, you can access the following properties on `ApiResponse` :
+除此之外，您还可以在 `ApiResponse` 上访问以下属性：
 
 ```ts
 test('returns correct data', async ({ client }) => {
   const response = await client.get('/home').withInertia()
 
-  // 👇 The component returned by the server
+  // 👇 服务器返回的组件
   console.log(response.inertiaComponent) 
 
-  // 👇 The props returned by the server
+  // 👇 服务器返回的 props
   console.log(response.inertiaProps)
 })
 ```
 
 ## FAQ
 
-### Why my server is constantly reloading when updating my frontend code?
+### 为什么更新前端代码时服务器会不断重新加载？
 
-Let's say you are using React. Every time you update your frontend code, the server will reload and the browser will refresh. You are not benefiting from the hot module replacement (HMR) feature. 
+假设您正在使用 React。每次更新前端代码时，服务器都会重新加载，浏览器也会刷新。您没有利用热模块替换（HMR）功能。
 
-You need to exclude `inertia/**/*` from your root `tsconfig.json` file to make it work. 
+您需要从根 `tsconfig.json` 文件中排除 `inertia/**/*` 以使其正常工作。
 
 ```jsonc
 {
@@ -1073,25 +1072,25 @@ You need to exclude `inertia/**/*` from your root `tsconfig.json` file to make i
 }
 ```
 
-Because, the AdonisJS process that is responsible for restarting the server is watching files included in the `tsconfig.json` file.
+因为，负责重启服务器的 AdonisJS 进程正在监视包含在 `tsconfig.json` 文件中的文件。
 
-### Why my production build is not working ?
+### 为什么我的生产构建无法工作？
 
-If you are facing an error like this one:
+如果您遇到类似以下错误：
 
 ```
 X [ERROR] Failed to load url inertia/app/ssr.ts (resolved id: inertia/app/ssr.ts). Does the file exist?
 ```
 
-A common issue is that you just forgot to set `NODE_ENV=production` when running your production build.
+一个常见的问题是，您在运行生产构建时忘记设置 `NODE_ENV=production`。
 
 ```shell
 NODE_ENV=production node build/server.js
 ```
 
-### `Top-level await is not available...`
+### `顶层 await 不可用...`
 
-If you are facing an error like this one:
+如果您遇到类似以下错误：
 
 ```
 X [ERROR] Top-level await is not available in the configured target environment ("chrome87", "edge88", "es2020", "firefox78", "safari14" + 2 overrides)
@@ -1101,14 +1100,14 @@ X [ERROR] Top-level await is not available in the configured target environment 
          ╵ ~~~~~
 ```
 
-Then it's highly likely that you're importing backend code into your frontend. Taking a closer look at the error, which is generated by Vite, we see that it's trying to compile code from `node_modules/@adonisjs/core`. So, this means our backend code will end up in the frontend bundle. That's probably not what you want.
+那么，您很可能将后端代码导入到了前端。仔细查看由 Vite 生成的错误，我们发现它正在尝试编译 `node_modules/@adonisjs/core` 中的代码。这意味着我们的后端代码将最终出现在前端包中。这可能不是您想要的。
 
-Generally, this error occurs when you try to share a type with your frontend. If this what you are trying to achieve, make sure to always import this type only via `import type` rather than `import`:
+通常，当您尝试与前端共享类型时会发生此错误。如果您正在尝试实现这一点，请确保始终仅通过 `import type` 而不是 `import` 导入此类型：
 
 ```ts
-// ✅ Correct
+// ✅ 正确
 import type { User } from '#models/user'
 
-// ❌ Incorrect
+// ❌ 错误
 import { User } from '#models/user'
-``
+```

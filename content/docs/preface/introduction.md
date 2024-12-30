@@ -1,14 +1,12 @@
 ---
-summary: "AdonisJS 是一个以 TypeScript 为优先选的 Node.js Web 框架。您可以使用它来创建全栈Web应用程序或 JSON API 服务器。"
+summary: "AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。您可以使用它来创建全栈Web应用程序或 JSON API 服务器。"
 ---
 
 # 介绍
 
-::include{template="partials/introduction_cards"}
-
 ## AdonisJS 是什么?
 
-AdonisJS `/əˈdəʊnɪs/JS` 是一个以 TypeScript 为优先选的 Node.js Web 框架。您可以使用它来创建全栈Web应用程序或 JSON API 服务器。
+AdonisJS `/əˈdəʊnɪs/JS` 是一个以 TypeScript 优先的 Node.js Web 框架。您可以使用它来创建全栈 Web 应用程序或 JSON API 服务器。
 
 在基础层面，AdonisJS [为您的应用程序提供结构](../getting_started/folder_structure.md)，配置了[无缝的 TypeScript 开发环境](../concepts/typescript_build_process.md)，为后端代码配置了热模块替换（[HMR](../concepts/hmr.md)），并提供了一系列已维护且文档详尽的丰富包集合。
 
@@ -29,7 +27,7 @@ AdonisJS 建立在现代 JavaScript 基础之上。我们使用 ES 模块、Node
 
 此外，在设计框架的 API 时，TypeScript 扮演了举足轻重的角色。例如，AdonisJS 具有：
 
-- [类型安全的事件发射器](../digging_deeper/emitter.md#making-events-type-safe)
+- [类型安全的事件触发器](../digging_deeper/emitter.md#making-events-type-safe)
 - [类型安全的环境变量](../getting_started/environment_variables.md)
 - [类型安全的验证库](../basics/validation.md)
 
@@ -98,6 +96,10 @@ AdonisJS 的文档被编写为参考指南，涵盖了由核心团队维护的�
 以下是最近发布的版本列表。[点击这里](./releases.md)查看所有发布版本。
 
 ::include{template="partials/recent_releases"}
+
+## 更多资源
+
+::include{template="partials/introduction_cards"}
 
 ## 赞助商
 

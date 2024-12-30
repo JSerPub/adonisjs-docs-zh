@@ -1,57 +1,57 @@
 ---
-summary: Learn how to write authorization checks in your AdonisJS application using the `@adonisjs/bouncer` package.
+summary: 学习如何在 AdonisJS 应用程序中使用 `@adonisjs/bouncer` 包编写授权检查。
 ---
 
-# Authorization
+# 授权
 
-You can write authorization checks in your AdonisJS application using the `@adonisjs/bouncer` package. Bouncer provides a JavaScript first API for writing authorization checks as **abilities** and **policies**.
+您可以使用 `@adonisjs/bouncer` 包在 AdonisJS 应用程序中编写授权检查。Bouncer 提供了一个基于 JavaScript 的 API，用于将授权检查编写为 **能力** 和 **策略**。
 
-The goal of abilities and policies is to abstract the logic of authorizing an action to a single place and reuse it across the rest of the codebase.
+能力和策略的目标是将授权操作的逻辑抽象到一个地方，并在代码库的其余部分中重用。
 
-- [Abilities](#defining-abilities) are defined as functions and can be a great fit if your application has fewer and simpler authorization checks.
+- [能力](#defining-abilities) 被定义为函数，如果您的应用程序有较少且简单的授权检查，它们可能非常适合。
 
-- [Policies](#defining-policies) are defined as classes, and you must create one policy for every resource in your application. Policies can also benefit from [automatic dependency injection](#dependency-injection).
+- [策略](#defining-policies) 被定义为类，您必须为应用程序中的每个资源创建一个策略。策略还可以从 [自动依赖注入](#dependency-injection) 中受益。
 
 :::note
 
-Bouncer is not an implementation of RBAC or ACL. Instead, it provides a low-level API with fine-grained control to authorize actions in your AdonisJS applications.
+Bouncer 不是 RBAC 或 ACL 的实现。相反，它提供了一个具有细粒度控制的低级 API，用于在 AdonisJS 应用程序中授权操作。
 
 :::
 
-## Installation
+## 安装
 
-Install and configure the package using the following command :
+使用以下命令安装并配置该包：
 
 ```sh
 node ace add @adonisjs/bouncer
 ```
 
-:::disclosure{title="See steps performed by the add command"}
+:::disclosure{title="查看 add 命令执行的步骤"}
 
-1. Installs the `@adonisjs/bouncer` package using the detected package manager.
+1. 使用检测到的包管理器安装 `@adonisjs/bouncer` 包。
 
-2. Registers the following service provider and command inside the `adonisrc.ts` file.
+2. 在 `adonisrc.ts` 文件中注册以下服务提供者和命令。
 
     ```ts
     {
       commands: [
-        // ...other commands
+        // ...其他命令
         () => import('@adonisjs/bouncer/commands')
       ],
       providers: [
-        // ...other providers
+        // ...其他提供者
         () => import('@adonisjs/bouncer/bouncer_provider')
       ]
     }
     ```
 
-3. Creates the `app/abilities/main.ts` file to define and export abilities.
+3. 创建 `app/abilities/main.ts` 文件来定义和导出能力。
 
-4. Creates the `app/policies/main.ts` file to export all policies as a collection.
+4. 创建 `app/policies/main.ts` 文件来导出所有策略作为集合。
 
-5. Creates `initialize_bouncer_middleware` inside the `middleware` directory.
+5. 在 `middleware` 目录中创建 `initialize_bouncer_middleware`。
 
-6. Register the following middleware inside the `start/kernel.ts` file.
+6. 在 `start/kernel.ts` 文件中注册以下中间件。
 
     ```ts
     router.use([
@@ -62,17 +62,20 @@ node ace add @adonisjs/bouncer
 :::
 
 :::tip
-**Are you more of a visual learner?** - Checkout the [AdonisJS Bouncer ](https://adocasts.com/series/adonisjs-bouncer) free screencasts series from our friends at Adocasts.
+
+**您是视觉学习者吗？** - 查看我们朋友在 Adocasts 上的 [AdonisJS Bouncer ](https://adocasts.com/series/adonisjs-bouncer) 免费屏幕录像系列。
+
 :::
 
-##  The Initialize bouncer middleware
-During setup, we create and register the `#middleware/initialize_bouncer_middleware` middleware within your application. The initialize middleware is responsible for creating an instance of the [Bouncer](https://github.com/adonisjs/bouncer/blob/main/src/bouncer.ts) class for the currently authenticated user and shares it via the `ctx.bouncer` property with the rest of the request.
+## 初始化 Bouncer 中间件
 
-Also, we share the same Bouncer instance with Edge templates using the `ctx.view.share` method. Feel free to remove the following lines of code from the middleware if you are not using Edge inside your application.
+在设置期间，我们在应用程序中创建并注册了 `#middleware/initialize_bouncer_middleware` 中间件。初始化中间件负责为当前已认证用户创建一个 [Bouncer](https://github.com/adonisjs/bouncer/blob/main/src/bouncer.ts) 类的实例，并通过 `ctx.bouncer` 属性与请求的其余部分共享它。
+
+此外，我们还使用 `ctx.view.share` 方法将相同的 Bouncer 实例与 Edge 模板共享。如果您在应用程序中不使用 Edge，可以删除中间件中的以下代码行。
 
 :::note
 
-You own your application's source code, including the files created during the initial setup. So, do not hesitate to change them and make them work with your application environment.
+您拥有应用程序的源代码，包括初始设置期间创建的文件。因此，不要犹豫去修改它们，使其与您的应用程序环境一起工作。
 
 :::
 
@@ -86,7 +89,7 @@ async handle(ctx: HttpContext, next: NextFn) {
 
   // delete-start
   /**
-   * Remove if not using Edge
+   * 如果不使用 Edge，请删除
    */
   if ('view' in ctx) {
     ctx.view.share(ctx.bouncer.edgeHelpers)
@@ -97,15 +100,15 @@ async handle(ctx: HttpContext, next: NextFn) {
 }
 ```
 
-## Defining abilities
+## 定义能力
 
-Abilities are JavaScript functions usually written inside the `./app/abilities/main.ts` file. You may export multiple abilities from this file.
+能力通常是 JavaScript 函数，写在 `./app/abilities/main.ts` 文件中。您可以从该文件中导出多个能力。
 
-In the following example, we define an ability called `editPost` using the `Bouncer.ability` method. The implementation callback must return `true` to authorize the user and return `false` to deny access.
+在以下示例中，我们使用 `Bouncer.ability` 方法定义了一个名为 `editPost` 的能力。实现回调必须返回 `true` 以授权用户，并返回 `false` 以拒绝访问。
 
 :::note
 
-An ability should always accept the `User` as the first parameter, followed by additional parameters needed for the authorization check.
+能力应始终接受 `User` 作为第一个参数，后跟授权检查所需的其他参数。
 
 :::
 
@@ -120,10 +123,11 @@ export const editPost = Bouncer.ability((user: User, post: Post) => {
 })
 ```
 
-### Performing authorization
-Once you have defined an ability, you may perform an authorization check using the `ctx.bouncer.allows` method. 
+### 执行授权
 
-Bouncer will automatically pass the currently logged-in user to the ability callback as the first parameter, and you must supply the rest of the parameters manually. 
+定义能力后，您可以使用 `ctx.bouncer.allows` 方法执行授权检查。
+
+Bouncer 会自动将当前已登录用户作为第一个参数传递给能力回调，您必须手动提供其余参数。
 
 ```ts
 import Post from '#models/post'
@@ -134,14 +138,12 @@ import router from '@adonisjs/core/services/router'
 
 router.put('posts/:id', async ({ bouncer, params, response }) => {
   /**
-   * Find a post by ID so that we can perform an
-   * authorization check for it.
+   * 通过 ID 查找帖子，以便我们可以对其执行授权检查。
    */
   const post = await Post.findOrFail(params.id)
 
   /**
-   * Use the ability to see if the logged-in user
-   * is allowed to perform the action.
+   * 使用能力来查看已登录用户是否被允许执行该操作。
    */
   // highlight-start
   if (await bouncer.allows(editPost, post)) {
@@ -153,7 +155,7 @@ router.put('posts/:id', async ({ bouncer, params, response }) => {
 })
 ```
 
-The opposite of `bouncer.allows` method is the `bouncer.denies` method. You may prefer this method instead of writing an `if not` statement.
+`bouncer.allows` 方法的对立面是 `bouncer.denies` 方法。您可能更喜欢这个方法，而不是编写一个 `if not` 语句。
 
 ```ts
 if (await bouncer.denies(editPost, post)) {
@@ -161,12 +163,13 @@ if (await bouncer.denies(editPost, post)) {
 }
 ```
 
-### Allowing guest users
-By default, Bouncer denies authorization checks for non-logged-in users without invoking the ability callback. 
+### 允许访客用户
 
-However, you may want to define certain abilities that can work with a guest user. For example, allow guests to view published posts but allow the creator of the post to view drafts as well.
+默认情况下，Bouncer 会拒绝未登录用户的授权检查，而不会调用能力回调。
 
-You may define an ability that allows guest users using the `allowGuest` option. In this case, the options will be defined as the first parameter, and callback will be the second parameter.
+但是，您可能希望定义某些能力，使其可以与访客用户一起工作。例如，允许访客查看已发布的帖子，但允许帖子的创建者查看草稿。
+
+您可以使用 `allowGuest` 选项定义一个允许访客用户的能力。在这种情况下，选项将作为第一个参数定义，而回调将作为第二个参数。
 
 ```ts
 export const viewPost = Bouncer.ability(
@@ -175,30 +178,30 @@ export const viewPost = Bouncer.ability(
   // highlight-end
   (user: User | null, post: Post) => {
     /**
-     * Allow everyone to access published posts
+     * 允许每个人访问已发布的帖子
      */
     if (post.isPublished) {
       return true
     }
 
     /**
-     * Guest cannot view non-published posts
+     * 访客不能查看未发布的帖子
      */
     if (!user) {
       return false
     }
 
     /**
-     * The creator of the post can view non-published posts
-     * as well.
+     * 帖子的创建者也可以查看未发布的帖子。
      */
     return user.id === post.userId
   }
 )
 ```
 
-### Authorizing users other than the logged-in user
-If you want to authorize a user other than the logged-in user, you may use the `Bouncer` constructor to create a new bouncer instance for a given user.
+### 授权除已登录用户以外的其他用户
+
+如果您想授权除已登录用户以外的其他用户，可以使用 `Bouncer` 构造函数为给定用户创建一个新的 Bouncer 实例。
 
 ```ts
 import User from '#models/user'
@@ -213,18 +216,19 @@ if (await bouncer.allows(editPost, post)) {
 }
 ```
 
-## Defining policies
-Policies offer an abstraction layer to organize the authorization checks as classes. It is recommended to create one policy per resource. For example, if your application has a Post model, you must create a `PostPolicy` class to authorize actions such as creating or updating posts.
+## 定义策略
 
-The policies are stored inside the `./app/policies` directory, and each file represents a single policy. You may create a new policy by running the following command.
+策略提供了一个抽象层，将授权检查组织为类。建议为每个资源创建一个策略。例如，如果您的应用程序有一个 Post 模型，您必须创建一个 `PostPolicy` 类来授权创建或更新帖子等操作。
 
-See also: [Make policy command](../references/commands.md#makepolicy)
+策略存储在 `./app/policies` 目录中，每个文件表示一个策略。您可以通过运行以下命令创建一个新策略。
+
+另请参阅：[Make policy command](../references/commands.md#makepolicy)
 
 ```sh
 node ace make:policy post
 ```
 
-The policy class extends the [BasePolicy](https://github.com/adonisjs/bouncer/blob/main/src/base_policy.ts) class, and you may implement methods for the authorization checks you want to perform. In the following example, we define authorization checks to `create`, `edit`, and `delete` a post.
+策略类继承自 [BasePolicy](https://github.com/adonisjs/bouncer/blob/main/src/base_policy.ts) 类，您可以为要执行的授权检查实现方法。在以下示例中，我们定义了授权检查以 `create`、`edit` 和 `delete` 一个帖子。
 
 ```ts
 // title: app/policies/post_policy.ts
@@ -235,21 +239,21 @@ import { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
 export default class PostPolicy extends BasePolicy {
   /**
-   * Every logged-in user can create a post
+   * 每个已登录用户都可以创建帖子
    */
   create(user: User): AuthorizerResponse {
     return true
   }
 
   /**
-   * Only the post creator can edit the post
+   * 只有帖子的创建者才能编辑帖子
    */
   edit(user: User, post: Post): AuthorizerResponse {
     return user.id === post.userId
   }
 
   /**
-   * Only the post creator can delete the post
+   * 只有帖子的创建者才能删除帖子
    */
   delete(user: User, post: Post): AuthorizerResponse {
     return user.id === post.userId
@@ -257,12 +261,13 @@ export default class PostPolicy extends BasePolicy {
 }
 ```
 
-### Performing authorization
-Once you have created a policy, you may use the `bouncer.with` method to specify the policy you want to use for authorization and then chain the `bouncer.allows` or `bouncer.denies` methods to perform the authorization check.
+### 执行授权
+
+创建策略后，您可以使用 `bouncer.with` 方法指定要用于授权的策略，然后使用 `bouncer.allows` 或 `bouncer.denies` 方法链执行授权检查。
 
 :::note
 
-The `allows` and `denies` methods chained after the `bouncer.with` methods are type-safe and will show a list of completions based on the methods you have defined on the policy class.
+在 `bouncer.with` 方法之后链式调用的 `allows` 和 `denies` 方法是类型安全的，并且会根据您在策略类中定义的方法显示一个完成列表。
 
 :::
 
@@ -279,7 +284,7 @@ export default class PostsController {
     }
     // highlight-end
 
-    //Continue with the controller logic
+    // 继续执行控制器逻辑
   }
 
   async edit({ bouncer, params, response }: HttpContext) {
@@ -291,7 +296,7 @@ export default class PostsController {
     }
     // highlight-end
 
-    //Continue with the controller logic
+    // 继续执行控制器逻辑
   }
 
   async delete({ bouncer, params, response }: HttpContext) {
@@ -303,13 +308,14 @@ export default class PostsController {
     }
     // highlight-end
 
-    //Continue with the controller logic
+    // 继续执行控制器逻辑
   }
 }
 ```
 
-### Allowing guest users
-[Similar to abilities](#allowing-guest-users), policies can also define authorization checks for guest users using the `@allowGuest` decorator. For example:
+### 允许访客用户
+
+[与能力类似](#allowing-guest-users)，策略也可以使用 `@allowGuest` 装饰器为访客用户定义授权检查。例如：
 
 ```ts
 import User from '#models/user'
@@ -321,48 +327,182 @@ export default class PostPolicy extends BasePolicy {
   @allowGuest()
   view(user: User | null, post: Post): AuthorizerResponse {
     /**
-     * Allow everyone to access published posts
+     * 允许每个人访问已发布的帖子
      */
     if (post.isPublished) {
       return true
     }
 
     /**
-     * Guest cannot view non-published posts
+     * 访客不能查看未发布的帖子
      */
     if (!user) {
       return false
     }
 
     /**
-     * The creator of the post can view non-published posts
-     * as well.
+     * 帖子的创建者也可以查看未发布的帖子。
      */
     return user.id === post.userId
   }
 }
 ```
 
-### Policy hooks
-You may define the `before` and the `after` template methods on a policy class to run actions around an authorization check. A common use case is always allowing or denying access to a certain user.
+### 策略钩子
+
+您可以在策略类上定义 `before` 和 `after` 模板方法，以在授权检查前后执行操作。一个常见的用例是始终允许或拒绝某个用户的访问。
 
 :::note
 
-The `before` and the `after` methods are always invoked, regardless of a logged-in user. So make sure to handle the case where the value of `user` will be `null`.
+无论是否已登录用户，`before` 和 `after` 方法都会被调用。因此，请确保处理 `user` 值为 `null` 的情况。
 
 :::
 
-The response from the `before` is interpreted as follows.
+`before` 的响应解释如下：
 
-- The `true` value will be considered successful authorization, and the action method will not be called.
-- The `false` value will be considered access denied, and the action method will not be called.
-- With an `undefined` return value, the bouncer will execute the action method to perform the authorization check.
+- `true` 值将被视为成功的授权，并且不会调用操作方法。
+- `false` 值将被视为访问被拒绝，并且不会调用操作方法。
+- 如果返回值为 `undefined`，Bouncer 将执行操作方法以执行授权检查。
+
+```ts
+// title: app/policies/post_policy.ts
+import User from '#models/user'
+import Post from '#models/post'
+import { BasePolicy } from '@adonisjs/bouncer'
+import { AuthorizerResponse } from '@adonisjs/bouncer/types'
+
+export default class PostPolicy extends BasePolicy {
+  /**
+   * 每个已登录用户都可以创建帖子
+   */
+  create(user: User): AuthorizerResponse {
+    return true
+  }
+
+  /**
+   * 只有帖子的创建者才能编辑帖子
+   */
+  edit(user: User, post: Post): AuthorizerResponse {
+    return user.id === post.userId
+  }
+
+  /**
+   * 只有帖子的创建者才能删除帖子
+   */
+  delete(user: User, post: Post): AuthorizerResponse {
+    return user.id === post.userId
+  }
+}
+```
+
+### 执行授权
+
+创建策略后，您可以使用 `bouncer.with` 方法指定要用于授权的策略，然后使用 `bouncer.allows` 或 `bouncer.denies` 方法链执行授权检查。
+
+:::note
+
+在 `bouncer.with` 方法之后链式调用的 `allows` 和 `denies` 方法是类型安全的，并且会根据您在策略类中定义的方法显示一个完成列表。
+
+:::
+
+```ts
+import Post from '#models/post'
+import PostPolicy from '#policies/post_policy'
+import type { HttpContext } from '@adonisjs/core/http'
+
+export default class PostsController {
+  async create({ bouncer, response }: HttpContext) {
+    // highlight-start
+    if (await bouncer.with(PostPolicy).denies('create')) {
+      return response.forbidden('Cannot create a post')
+    }
+    // highlight-end
+
+    // 继续执行控制器逻辑
+  }
+
+  async edit({ bouncer, params, response }: HttpContext) {
+    const post = await Post.findOrFail(params.id)
+
+    // highlight-start
+    if (await bouncer.with(PostPolicy).denies('edit', post)) {
+      return response.forbidden('Cannot edit the post')
+    }
+    // highlight-end
+
+    // 继续执行控制器逻辑
+  }
+
+  async delete({ bouncer, params, response }: HttpContext) {
+    const post = await Post.findOrFail(params.id)
+
+    // highlight-start
+    if (await bouncer.with(PostPolicy).denies('delete', post)) {
+      return response.forbidden('Cannot delete the post')
+    }
+    // highlight-end
+
+    // 继续执行控制器逻辑
+  }
+}
+```
+
+### 允许访客用户
+
+[与能力类似](#allowing-guest-users)，策略也可以使用 `@allowGuest` 装饰器为访客用户定义授权检查。例如：
+
+```ts
+import User from '#models/user'
+import Post from '#models/post'
+import { BasePolicy, allowGuest } from '@adonisjs/bouncer'
+import type { AuthorizerResponse } from '@adonisjs/bouncer/types'
+
+export default class PostPolicy extends BasePolicy {
+  @allowGuest()
+  view(user: User | null, post: Post): AuthorizerResponse {
+    /**
+     * 允许每个人访问已发布的帖子
+     */
+    if (post.isPublished) {
+      return true
+    }
+
+    /**
+     * 访客不能查看未发布的帖子
+     */
+    if (!user) {
+      return false
+    }
+
+    /**
+     * 帖子的创建者也可以查看未发布的帖子。
+     */
+    return user.id === post.userId
+  }
+}
+```
+
+### 策略钩子
+
+您可以在策略类上定义 `before` 和 `after` 模板方法，以在授权检查前后执行操作。一个常见的用例是始终允许或拒绝某个用户的访问。
+
+:::note
+
+无论是否已登录用户，`before` 和 `after` 方法都会被调用。因此，请确保处理 `user` 值为 `null` 的情况。
+
+:::
+
+`before` 的响应解释如下：
+
+- `true` 值将被视为成功的授权，并且不会调用操作方法。
+- `false` 值将被视为访问被拒绝，并且不会调用操作方法。
+- 如果返回值为 `undefined`，Bouncer 将执行操作方法以执行授权检查。
 
 ```ts
 export default class PostPolicy extends BasePolicy {
   async before(user: User | null, action: string, ...params: any[]) {
     /**
-     * Always allow an admin user without performing any check
+     * 始终允许管理员用户，而不进行任何检查
      */
     if (user && user.isAdmin) {
       return true
@@ -371,11 +511,11 @@ export default class PostPolicy extends BasePolicy {
 }
 ```
 
-The `after` method receives the raw response from the action method and can override the previous response by returning a new value. The response from the `after` is interpreted as follows.
+`after` 方法接收操作方法的原始响应，并可以通过返回新值来覆盖之前的响应。`after` 的响应解释如下：
 
-- The `true` value will be considered successful authorization, and the old response will be discarded.
-- The `false` value will be considered access denied, and the old response will be discarded.
-- With an `undefined` return value, the bouncer will continue to use the old response.
+- `true` 值将被视为成功的授权，并且旧的响应将被丢弃。
+- `false` 值将被视为访问被拒绝，并且旧的响应将被丢弃。
+- 如果返回值为 `undefined`，Bouncer 将继续使用旧的响应。
 
 ```ts
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
@@ -394,8 +534,9 @@ export default class PostPolicy extends BasePolicy {
 }
 ```
 
-### Dependency injection
-The policy classes are created using the [IoC container](../concepts/dependency_injection.md); therefore, you can type-hint and inject dependencies inside the policy constructor using the `@inject` decorator.
+### 依赖注入
+
+策略类是使用 [IoC container](../concepts/dependency_injection.md) 创建的；因此，您可以在策略构造函数中使用 `@inject` 装饰器进行类型提示和依赖注入。
 
 ```ts
 import { inject } from '@adonisjs/core'
@@ -415,7 +556,7 @@ export class PostPolicy extends BasePolicy {
 }
 ```
 
-If a Policy class is created during an HTTP request, you may also inject an instance of [HttpContext](../concepts/http_context.md) inside it.
+如果在 HTTP 请求期间创建了策略类，您还可以在其中注入一个 [HttpContext](../concepts/http_context.md) 实例。
 
 ```ts
 // highlight-start
@@ -433,8 +574,9 @@ export class PostPolicy extends BasePolicy {
 }
 ```
 
-## Throwing AuthorizationException
-Alongside the `allows` and the `denies` methods, you may use the `bouncer.authorize` method to perform the authorization check. This method will throw the [AuthorizationException](https://github.com/adonisjs/bouncer/blob/main/src/errors.ts#L19) when the check fails.
+## 抛出 AuthorizationException
+
+除了 `allows` 和 `denies` 方法外，您还可以使用 `bouncer.authorize` 方法执行授权检查。当检查失败时，该方法将抛出 [AuthorizationException](https://github.com/adonisjs/bouncer/blob/main/src/errors.ts#L19)。
 
 ```ts
 router.put('posts/:id', async ({ bouncer, params }) => {
@@ -444,21 +586,20 @@ router.put('posts/:id', async ({ bouncer, params }) => {
   // highlight-end
 
   /**
-   * If no exception was raised, you can consider the user
-   * is allowed to edit the post.
+   * 如果没有抛出异常，则可以认为用户被允许编辑帖子。
    */
 })
 ```
 
-AdonisJS will convert the `AuthorizationException` to a `403 - Forbidden` HTTP response using the following content negotiation rules.
+AdonisJS 将使用以下内容协商规则将 `AuthorizationException` 转换为 `403 - Forbidden` HTTP 响应。
 
-- HTTP requests with the `Accept=application/json` header will receive an array of error messages. Each array element will be an object with the `message` property.
+- 带有 `Accept=application/json` 头的 HTTP 请求将收到一个错误消息数组。每个数组元素将是一个带有 `message` 属性的对象。
 
-- HTTP requests with `Accept=application/vnd.api+json` header will receive an array of error messages formatted as per the [JSON API](https://jsonapi.org/format/#errors) spec.
+- 带有 `Accept=application/vnd.api+json` 头的 HTTP 请求将收到一个根据 [JSON API](https://jsonapi.org/format/#errors) 规范格式化的错误消息数组。
 
-- All other requests will receive a plain text response message. However, you may use [status pages](../basics/exception_handling.md#status-pages) to show a custom error page for authorization errors.
+- 所有其他请求将收到纯文本响应消息。但是，您可以使用 [status pages](../basics/exception_handling.md#status-pages) 为授权错误显示自定义错误页面。
 
-You may also self-handle `AuthorizationException` errors within the [global exception handler](../basics/exception_handling.md).
+您还可以在 [global exception handler](../basics/exception_handling.md) 中自行处理 `AuthorizationException` 错误。
 
 ```ts
 import { errors } from '@adonisjs/bouncer'
@@ -483,10 +624,11 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-## Customizing Authorization response
-Instead of returning a boolean value from abilities and policies, you may construct an error response using the [AuthorizationResponse](https://github.com/adonisjs/bouncer/blob/main/src/response.ts) class. 
+## 自定义授权响应
 
-The `AuthorizationResponse` class gives you fine grained control to define a custom HTTP status code and the error message.
+您可以使用 [AuthorizationResponse](https://github.com/adonisjs/bouncer/blob/main/src/response.ts) 类构造错误响应，而不是从能力和策略中返回布尔值。
+
+`AuthorizationResponse` 类为您提供细粒度的控制，以定义自定义 HTTP 状态码和错误消息。
 
 ```ts
 import User from '#models/user'
@@ -504,7 +646,7 @@ export const editPost = Bouncer.ability((user: User, post: Post) => {
 })
 ```
 
-If you are using the [@adonisjs/i18n](../digging_deeper/i18n.md) package, you may return a localized response using the `.t` method. The translation message will be used over the default message during an HTTP request based on the user's language.
+如果您使用的是 [@adonisjs/i18n](../digging_deeper/i18n.md) 包，可以使用 `.t` 方法返回本地化响应。在 HTTP 请求期间，将根据用户的语言使用翻译消息而不是默认消息。
 
 ```ts
 export const editPost = Bouncer.ability((user: User, post: Post) => {
@@ -514,17 +656,17 @@ export const editPost = Bouncer.ability((user: User, post: Post) => {
 
   // highlight-start
   return AuthorizationResponse
-    .deny('Post not found', 404) // default message
-    .t('errors.not_found') // translation identifier
+    .deny('Post not found', 404) // 默认消息
+    .t('errors.not_found') // 翻译标识符
   // highlight-end
 })
 ```
 
-### Using a custom response builder
+### 使用自定义响应构建器
 
-The flexibility to define custom error messages for individual authorization checks is great. However, if you always want to return the same response, it might be cumbersome to repeat the same code everytime.
+为单个授权检查定义自定义错误消息非常灵活。但是，如果您始终希望返回相同的响应，每次都重复相同的代码可能会很麻烦。
 
-Therefore, you can override the default response builder for Bouncer as follows.
+因此，您可以按如下方式覆盖 Bouncer 的默认响应构建器。
 
 ```ts
 import { Bouncer, AuthorizationResponse } from '@adonisjs/bouncer'
@@ -544,38 +686,39 @@ Bouncer.responseBuilder = (response: boolean | AuthorizationResponse) => {
 }
 ```
 
-## Pre-registering abilities and policies
-So far, in this guide, we explicitly import an ability or a policy whenever we want to use it. However, once you pre-register them, you can reference an ability or a policy by its name as a string.
+## 预注册能力和策略
 
-Pre-registering abilities and policies might be less useful within your TypeScript codebase than just cleaning up the imports. However, they offer far better DX within Edge templates.
+到目前为止，在本指南中，我们每次想要使用能力或策略时，都会显式地导入它们。但是，一旦您预注册了它们，就可以通过字符串名称引用能力或策略。
 
-Look at the following code examples of Edge templates with and without pre-registering a policy.
+在 TypeScript 代码库中，预注册能力和策略可能比仅仅清理导入更有用。然而，它们在 Edge 模板中提供了更好的开发者体验（DX）。
+
+查看以下 Edge 模板的代码示例，一个预注册了策略，另一个没有。
 
 :::caption{for="error"}
-**Without pre-registering. No, not super clean**
+**未预注册。不，不是很整洁**
 :::
 
 ```edge
-{{-- First import the ability --}}
+{{-- 首先导入能力 --}}
 @let(editPost = (await import('#abilities/main')).editPost)
 
 @can(editPost, post)
-  {{-- Can edit post --}}
+  {{-- 可以编辑帖子 --}}
 @end
 ```
 
 :::caption{for="success"}
-**With pre-registering**
+**已预注册**
 :::
 
 ```edge
-{{-- Reference ability name as a string --}}
+{{-- 以字符串形式引用能力名称 --}}
 @can('editPost', post)
-  {{-- Can edit post --}}
+  {{-- 可以编辑帖子 --}}
 @end
 ```
 
-If you open the `initialize_bouncer_middleware.ts` file, you will find us already importing and pre-registering abilities and policies when creating the Bouncer instance.
+如果您打开 `initialize_bouncer_middleware.ts` 文件，会发现我们在创建 Bouncer 实例时已经导入并预注册了能力和策略。
 
 ```ts
 // highlight-start
@@ -596,11 +739,11 @@ export default InitializeBouncerMiddleware {
 }
 ```
 
-### Points to note
+### 注意事项
 
-- If you decide to define abilities in other parts of your codebase, then make sure to import and pre-register them inside the middleware.
+- 如果您决定在代码库的其他部分定义能力，请确保在中间件中导入并预注册它们。
 
-- In the case of policies, every time you run the `make:policy` command, make sure to accept the prompt to register the policy inside the policies collection. The policies collection is defined inside the `./app/policies/main.ts` file.
+- 对于策略，每次运行 `make:policy` 命令时，请确保接受提示，将策略注册到策略集合中。策略集合定义在 `./app/policies/main.ts` 文件中。
 
   ```ts
   // title: app/policies/main.ts
@@ -610,11 +753,12 @@ export default InitializeBouncerMiddleware {
   }
   ```
 
-### Referencing pre-registered abilities and policies
-In the following example, we get rid of the imports and reference abilities and policies by their name. Do note **the string-based API is also type-safe**, but your code editor's "Go to Definition" feature may not work.
+### 引用预注册的能力和策略
+
+在以下示例中，我们移除了导入，并通过名称引用能力和策略。请注意，**基于字符串的 API 也是类型安全的**，但您的代码编辑器的“转到定义”功能可能无法工作。
 
 ```ts
-// title: Ability usage example
+// title: 能力使用示例
 // delete-start
 import { editPost } from '#abilities/main'
 // delete-end
@@ -634,7 +778,7 @@ router.put('posts/:id', async ({ bouncer, params, response }) => {
 ```
 
 ```ts
-// title: Policy usage example
+// title: 策略使用示例
 // delete-start
 import PostPolicy from '#policies/post_policy'
 // delete-end
@@ -650,37 +794,39 @@ export default class PostsController {
       return response.forbidden('Cannot create a post')
     }
 
-    //Continue with the controller logic
+    // 继续执行控制器逻辑
   }
 }
 ```
 
-## Authorization checks inside Edge templates
-Before you can perform authorization checks inside Edge templates, make sure to [pre-register abilities and policies](#pre-registering-abilities-and-policies). Once done, you may use the `@can` and `@cannot` tags to perform the authorization checks.
+## 在 Edge 模板中进行授权检查
 
-These tags accept the `ability` name or the `policy.method` name as the first parameter, followed by the rest of the parameters accepted by the ability or a policy.
+在 Edge 模板中进行授权检查之前，请确保 [预注册能力和策略](#pre-registering-abilities-and-policies)。完成后，您可以使用 `@can` 和 `@cannot` 标签进行授权检查。
+
+这些标签接受 `ability` 名称或 `policy.method` 名称作为第一个参数，后跟能力或策略接受的其他参数。
 
 ```edge
-// title: Usage with ability
+// title: 使用能力
 @can('editPost', post)
-  {{-- Can edit post --}}
+  {{-- 可以编辑帖子 --}}
 @end
 
 @cannot('editPost', post)
-  {{-- Cannot edit post --}}
+  {{-- 不能编辑帖子 --}}
 @end
 ```
 
 ```edge
-// title: Usage with policy
+// title: 使用策略
 @can('PostPolicy.edit', post)
-  {{-- Can edit post --}}
+  {{-- 可以编辑帖子 --}}
 @end
 
 @cannot('PostPolicy.edit', post)
-  {{-- Cannot edit post --}}
+  {{-- 不能编辑帖子 --}}
 @end
 ```
 
-## Events
-Please check the [events reference guide](../references/events.md#authorizationfinished) to view the list of events dispatched by the `@adonisjs/bouncer` package.
+## 事件
+
+请查阅[事件参考指南](../references/events.md#authorizationfinished)，以查看 `@adonisjs/bouncer` 包发出的事件列表。

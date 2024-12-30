@@ -1,7 +1,7 @@
 [
   {
     "permalink": "preface/introduction",
-    "title": "介绍（Introduction）",
+    "title": "介绍",
     "contentPath": "./preface/introduction.md",
     "category": "前言"
   },
@@ -13,193 +13,193 @@
   },
   {
     "permalink": "preface/governance",
-    "title": "管理（Governance）",
+    "title": "管理",
     "contentPath": "./preface/governance.md",
     "category": "前言"
   },
   {
     "permalink": "preface/releases",
-    "title": "发布（Releases）",
+    "title": "发布",
     "contentPath": "./preface/releases.md",
     "category": "前言"
   },
   {
     "permalink": "preface/contribution-guide",
-    "title": "贡献指南（Contribution Guide）",
+    "title": "贡献指南",
     "contentPath": "./preface/contribution_guide.md",
     "category": "前言"
   },
   {
     "permalink": "getting-started/installation",
-    "title": "安装（Installation）",
+    "title": "安装",
     "contentPath": "./getting_started/installation.md",
     "category": "入门"
   },
   {
     "permalink": "getting-started/configuration",
-    "title": "配置（Configuration）",
+    "title": "配置",
     "contentPath": "./getting_started/configuration.md",
     "category": "入门"
   },
   {
     "permalink": "getting-started/environment-variables",
-    "title": "环境变量（Environment variables）",
+    "title": "环境变量",
     "contentPath": "./getting_started/environment_variables.md",
     "category": "入门"
   },
   {
     "permalink": "getting-started/folder-structure",
-    "title": "目录结构（Folder structure）",
+    "title": "目录结构",
     "contentPath": "./getting_started/folder_structure.md",
     "category": "入门"
   },
   {
     "permalink": "getting-started/deployment",
-    "title": "部署（Deployment）",
+    "title": "部署",
     "contentPath": "./getting_started/deployment.md",
     "category": "入门"
   },
   {
     "permalink": "concepts/adonisrc-file",
-    "title": "AdonisRC 文件（AdonisRC file）",
+    "title": "AdonisRC 文件",
     "contentPath": "./concepts/adonisrc_file.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/async-local-storage",
-    "title": "异步本地存储（Async local storage）",
+    "title": "异步本地存储",
     "contentPath": "./concepts/async_local_storage.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/assembler-hooks",
-    "title": "汇编钩子（Assembler hooks）",
+    "title": "汇编钩子",
     "contentPath": "./concepts/assembler_hooks.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/application",
-    "title": "应用程序（Application）",
+    "title": "应用程序",
     "contentPath": "./concepts/application.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/application-lifecycle",
-    "title": "应用程序生命周期（Application lifecycle）",
+    "title": "应用程序生命周期",
     "contentPath": "./concepts/application_lifecycle.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/config-providers",
-    "title": "配置提供者（Config providers）",
+    "title": "配置提供者",
     "contentPath": "./concepts/config_providers.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/container-services",
-    "title": "容器服务（Container services）",
+    "title": "容器服务",
     "contentPath": "./concepts/container_services.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/dependency-injection",
-    "title": "依赖注入（Dependency injection (DI)）",
+    "title": "依赖注入",
     "contentPath": "./concepts/dependency_injection.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/extending-adonisjs",
-    "title": "扩展框架（Extending the framework）",
+    "title": "扩展框架",
     "contentPath": "./concepts/extending_the_framework.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/hot-module-replacement",
-    "title": "热模块更换（Hot module replacement (HMR)）",
+    "title": "热模块更换",
     "contentPath": "./concepts/hmr.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/http-overview",
-    "title": "HTTP 概览（HTTP overview）",
+    "title": "HTTP 概览",
     "contentPath": "./concepts/http_overview.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/http-context",
-    "title": "HTTP 上下文（HTTP context）",
+    "title": "HTTP 上下文",
     "contentPath": "./concepts/http_context.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/service-providers",
-    "title": "服务提供者（Service providers）",
+    "title": "服务提供者",
     "contentPath": "./concepts/service_providers.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/scaffolding",
-    "title": "脚手架（Scaffolding）",
+    "title": "脚手架",
     "contentPath": "./concepts/scaffolding.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/tooling-config",
-    "title": "工具配置（Tooling config）",
+    "title": "工具配置",
     "contentPath": "./concepts/tooling_config.md",
     "category": "概念"
   },
   {
     "permalink": "concepts/typescript-build-process",
-    "title": "TypeScript编译过程（TypeScript build process）",
+    "title": "TypeScript编译过程",
     "contentPath": "./concepts/typescript_build_process.md",
     "category": "概念"
   },
   {
     "permalink": "basics/routing",
-    "title": "路由（Routing）",
+    "title": "路由",
     "contentPath": "./basics/routing.md",
     "category": "基础"
   },
   {
     "permalink": "basics/controllers",
-    "title": "控制器（Controllers）",
+    "title": "控制器",
     "contentPath": "./basics/controllers.md",
     "category": "基础"
   },
   {
     "permalink": "basics/middleware",
-    "title": "中间件（Middleware）",
+    "title": "中间件",
     "contentPath": "./basics/middleware.md",
     "category": "基础"
   },
   {
     "permalink": "basics/body-parser",
-    "title": "Body 解析器（Body parser）",
+    "title": "Body 解析器",
     "contentPath": "./basics/body_parser.md",
     "category": "基础"
   },
   {
     "permalink": "basics/request",
-    "title": "请求（Request）",
+    "title": "请求",
     "contentPath": "./basics/request.md",
     "category": "基础"
   },
   {
     "permalink": "basics/response",
-    "title": "响应（Response）",
+    "title": "响应",
     "contentPath": "./basics/response.md",
     "category": "基础"
   },
   {
     "permalink": "basics/validation",
-    "title": "验证（Validation）",
+    "title": "验证",
     "contentPath": "./basics/validation.md",
     "category": "基础"
   },
   {
     "permalink": "basics/file-uploads",
-    "title": "文件上传（File uploads）",
+    "title": "文件上传",
     "contentPath": "./basics/file_uploads.md",
     "category": "基础"
   },
@@ -217,13 +217,13 @@
   },
   {
     "permalink": "basics/exception-handling",
-    "title": "异常处理（Exception handling）",
+    "title": "异常处理",
     "contentPath": "./basics/exception_handling.md",
     "category": "基础"
   },
   {
     "permalink": "basics/debugging",
-    "title": "调试（Debugging）",
+    "title": "调试",
     "contentPath": "./basics/debugging.md",
     "category": "基础"
   },
@@ -235,13 +235,13 @@
   },
   {
     "permalink": "basics/static-file-server",
-    "title": "静态文件服务器（Static file server）",
+    "title": "静态文件服务器",
     "contentPath": "./basics/static_file_server.md",
     "category": "基础"
   },
   {
     "permalink": "database/introduction",
-    "title": "介绍（Introduction）",
+    "title": "介绍",
     "contentPath": "./database/introduction.md",
     "category": "数据库"
   },
@@ -259,61 +259,61 @@
   },
   {
     "permalink": "authentication/introduction",
-    "title": "介绍（Introduction）",
+    "title": "介绍",
     "contentPath": "./authentication/introduction.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "authentication/verifying-user-credentials",
-    "title": "验证用户凭据（Verifying user credentials）",
+    "title": "验证用户凭据",
     "contentPath": "./authentication/verifying_user_credentials.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "authentication/session-guard",
-    "title": "Session 守卫（Session guard）",
+    "title": "Session 守卫",
     "contentPath": "./authentication/session_guard.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "authentication/access-tokens-guard",
-    "title": "Access tokens guard",
+    "title": "访问令牌守卫",
     "contentPath": "./authentication/access_tokens_guard.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "authentication/basic-auth-guard",
-    "title": "基本认证守卫（Basic auth guard）",
+    "title": "基本认证守卫",
     "contentPath": "./authentication/basic_auth_guard.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "authentication/custom-auth-guard",
-    "title": "自定义认证守卫（Custom auth guard）",
+    "title": "自定义认证守卫",
     "contentPath": "./authentication/custom_auth_guard.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "authentication/social-authentication",
-    "title": "社交平台认证（Social authentication）",
+    "title": "社交平台认证",
     "contentPath": "./authentication/social_authentication.md",
-    "category": "身份认真"
+    "category": "身份认证"
   },
   {
     "permalink": "security/authorization",
-    "title": "授权（Authorization）",
+    "title": "授权",
     "contentPath": "./security/authorization.md",
     "category": "安全"
   },
   {
     "permalink": "security/encryption",
-    "title": "加密（Encryption）",
+    "title": "加密",
     "contentPath": "./security/encryption.md",
     "category": "安全"
   },
   {
     "permalink": "security/hashing",
-    "title": "散列（Hashing）",
+    "title": "散列",
     "contentPath": "./security/hashing.md",
     "category": "安全"
   },
@@ -325,19 +325,19 @@
   },
   {
     "permalink": "security/securing-ssr-applications",
-    "title": "保护SSR应用（Securing SSR apps）",
+    "title": "保护SSR应用",
     "contentPath": "./security/securing_ssr_applications.md",
     "category": "安全"
   },
   {
     "permalink": "security/rate-limiting",
-    "title": "限速（Rate limiting）",
+    "title": "限速",
     "contentPath": "./security/rate_limiting.md",
     "category": "安全"
   },
   {
     "permalink": "views-and-templates/introduction",
-    "title": "介绍（Introduction）",
+    "title": "介绍",
     "contentPath": "./views-and-templates/introduction.md",
     "category": "视图&模板"
   },
@@ -355,79 +355,79 @@
   },
   {
     "permalink": "testing/introduction",
-    "title": "介绍（Introduction）",
+    "title": "介绍",
     "contentPath": "./testing/introduction.md",
     "category": "测试"
   },
   {
     "permalink": "testing/http-tests",
-    "title": "HTTP 测试（HTTP tests）",
+    "title": "HTTP 测试",
     "contentPath": "./testing/http_tests.md",
     "category": "测试"
   },
   {
     "permalink": "testing/browser-tests",
-    "title": "浏览器测试（Browser tests）",
+    "title": "浏览器测试",
     "contentPath": "./testing/browser_tests.md",
     "category": "测试"
   },
   {
     "permalink": "testing/console-tests",
-    "title": "控制台测试（Console tests）",
+    "title": "控制台测试",
     "contentPath": "./testing/console_tests.md",
     "category": "测试"
   },
   {
     "permalink": "testing/database",
-    "title": "数据量（Database）",
+    "title": "数据量",
     "contentPath": "./testing/database.md",
     "category": "测试"
   },
   {
     "permalink": "testing/mocks-and-fakes",
-    "title": "模拟与伪造（Mocks & Fakes）",
+    "title": "模拟与伪造",
     "contentPath": "./testing/mocks_and_fakes.md",
     "category": "测试"
   },
   {
     "permalink": "digging-deeper/drive",
-    "title": "驱动（Drive）",
+    "title": "驱动",
     "contentPath": "./digging_deeper/drive.md",
     "category": "深入了解"
   },
   {
     "permalink": "digging-deeper/emitter",
-    "title": "事件发射器（Emitter）",
+    "title": "事件触发器",
     "contentPath": "./digging_deeper/emitter.md",
     "category": "深入了解"
   },
   {
     "permalink": "digging-deeper/health-checks",
-    "title": "健康检查（Health checks）",
+    "title": "健康检查",
     "contentPath": "./digging_deeper/health_checks.md",
     "category": "深入了解"
   },
   {
     "permalink": "digging-deeper/i18n",
-    "title": "国际化（I18n）",
+    "title": "国际化",
     "contentPath": "./digging_deeper/i18n.md",
     "category": "深入了解"
   },
   {
     "permalink": "digging-deeper/locks",
-    "title": "锁（Locks）",
+    "title": "锁",
     "contentPath": "./digging_deeper/locks.md",
     "category": "深入了解"
   },
   {
     "permalink": "digging-deeper/logger",
-    "title": "日志（Logger）",
+    "title": "日志",
     "contentPath": "./digging_deeper/logger.md",
     "category": "深入了解"
   },
   {
     "permalink": "digging-deeper/mail",
-    "title": "邮件（Mail）",
+    "title": "邮件",
     "contentPath": "./digging_deeper/mail.md",
     "category": "深入了解"
   },
@@ -445,67 +445,67 @@
   },
   {
     "permalink": "ace/introduction",
-    "title": "介绍（Introduction）",
+    "title": "介绍",
     "contentPath": "./ace/introduction.md",
     "category": "Ace命令"
   },
   {
     "permalink": "ace/creating-commands",
-    "title": "创建命令（Creating commands）",
+    "title": "创建命令",
     "contentPath": "./ace/creating_commands.md",
     "category": "Ace命令"
   },
   {
     "permalink": "ace/arguments",
-    "title": "命令参数（Command arguments）",
+    "title": "命令参数",
     "contentPath": "./ace/args.md",
     "category": "Ace命令"
   },
   {
     "permalink": "ace/flags",
-    "title": "命令标志（Command flags）",
+    "title": "命令标志",
     "contentPath": "./ace/flags.md",
     "category": "Ace命令"
   },
   {
     "permalink": "ace/prompts",
-    "title": "提示（Prompts）",
+    "title": "提示",
     "contentPath": "./ace/prompts.md",
     "category": "Ace命令"
   },
   {
     "permalink": "ace/terminal-ui",
-    "title": "终端UI（Terminal UI）",
+    "title": "终端UI",
     "contentPath": "./ace/tui.md",
     "category": "Ace命令"
   },
   {
     "permalink": "references/commands",
-    "title": "命令（Commands）",
+    "title": "命令",
     "contentPath": "./references/commands.md",
     "category": "参考"
   },
   {
     "permalink": "references/edge",
-    "title": "Edge 辅助函数和标签（Edge helpers and tags）",
+    "title": "Edge 辅助函数和标签",
     "contentPath": "./references/edge.md",
     "category": "参考"
   },
   {
     "permalink": "references/events",
-    "title": "事件（Events）",
+    "title": "事件",
     "contentPath": "./references/events.md",
     "category": "参考"
   },
   {
     "permalink": "references/exceptions",
-    "title": "异常（Exceptions）",
+    "title": "异常",
     "contentPath": "./references/exceptions.md",
     "category": "参考"
   },
   {
     "permalink": "references/helpers",
-    "title": "帮助函数（Helpers）",
+    "title": "帮助函数",
     "contentPath": "./references/helpers.md",
     "category": "参考"
   }

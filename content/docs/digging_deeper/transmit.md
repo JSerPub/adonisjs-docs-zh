@@ -1,44 +1,44 @@
 ---
-summary: Learn how to send real-time updates with SSE from your AdonisJS server using the Transmit package
+summary: 了解如何使用 AdonisJS 的 Transmit 包通过 SSE 发送实时更新
 ---
 
 # Transmit
 
-Transmit is a native opinionated Server-Sent-Event (SSE) module built for AdonisJS. It is a simple and efficient way to send real-time updates to the client, such as notifications, live chat messages, or any other type of real-time data.
+Transmit 是为 AdonisJS 构建的一个原生且带有观点的服务器发送事件 (SSE) 模块。它是一种简单高效的方式，用于向客户端发送实时更新，例如通知、实时聊天消息或任何其他类型的实时数据。
 
 :::note
-The data transmission occurs only from server to client, not the other way around. You have to use a form or a fetch request to achieve client to server communication.
+数据传输仅从服务器到客户端，反之则不行。要实现客户端到服务器的通信，您必须使用表单或 fetch 请求。
 :::
 
-## Installation
+## 安装
 
-Install and configure the package using the following command :
+使用以下命令安装并配置该包：
 
 ```sh
 node ace add @adonisjs/transmit
 ```
 
-:::disclosure{title="See steps performed by the add command"}
+:::disclosure{title="查看 add 命令执行的步骤"}
 
-1. Installs the `@adonisjs/transmit` package using the detected package manager.
+1. 使用检测到的包管理器安装 `@adonisjs/transmit` 包。
  
-2. Registers the `@adonisjs/transmit/transmit_provider` service provider inside the `adonisrc.ts` file.
+2. 在 `adonisrc.ts` 文件中注册 `@adonisjs/transmit/transmit_provider` 服务提供者。
  
-3. Creates a new `transmit.ts` file inside the `config` directory.
+3. 在 `config` 目录中创建一个新的 `transmit.ts` 文件。
  
 :::
 
-You will also have to install the Transmit client package to listen for events on the client-side.
+您还需要安装 Transmit 客户端包，以便在客户端监听事件。
 
 ```sh
 npm install @adonisjs/transmit-client
 ```
 
-## Configuration
+## 配置
 
-The configuration for the transmit package is stored within the `config/transmit.ts` file.
+Transmit 包的配置存储在 `config/transmit.ts` 文件中。
 
-See also: [Config stub](https://github.com/adonisjs/transmit/blob/main/stubs/config/transmit.stub)
+另请参阅：[配置存根](https://github.com/adonisjs/transmit/blob/main/stubs/config/transmit.stub)
 
 ```ts
 import { defineConfig } from '@adonisjs/transmit'
@@ -59,7 +59,7 @@ pingInterval
 
 <dd>
 
-The interval used to send ping messages to the client. The value is in milliseconds or using a string `Duration` format (i.e: `10s`). Set to `false` to disable ping messages.
+用于向客户端发送 ping 消息的时间间隔。该值以毫秒为单位或使用字符串 `Duration` 格式（例如：`10s`）。设置为 `false` 以禁用 ping 消息。
 
 </dd>
 
@@ -71,7 +71,7 @@ transport
 
 <dd>
 
-Transmit supports syncing events across multiple servers or instances. You can enable the feature by referencing the wanted transport layer (only `redis` is supported for now). Set to `null` to disable syncing.
+Transmit 支持在多个服务器或实例之间同步事件。您可以通过引用所需的传输层来启用此功能（目前仅支持 `redis`）。设置为 `null` 以禁用同步。
 
 ```ts
 import env from '#start/env'
@@ -91,25 +91,25 @@ export default defineConfig({
 ```
 
 :::note
-Ensure you have `ioredis` installed when using the `redis` transport.
+使用 `redis` 传输时，请确保已安装 `ioredis`。
 :::
 
 </dd>
 
 </dl>
 
-## Register Routes
+## 注册路由
 
-You have to register the transmit routes to allow the client to connect to the server. The routes are registered manually.
+您必须注册 transmit 路由，以允许客户端连接到服务器。路由需要手动注册。
 
 ```ts
 // title: start/routes.ts
 import transmit from '@adonisjs/transmit/services/main'
 
 transmit.registerRoutes()
-````
+```
 
-You can also register each route manually by binding the controller by hand.
+您也可以通过手动绑定控制器来手动注册每个路由。
 
 ```ts
 // title: start/routes.ts
@@ -122,32 +122,31 @@ router.post('/__transmit/subscribe', [SubscribeController])
 router.post('/__transmit/unsubscribe', [UnsubscribeController])
 ```
 
-If you want to modify the route definition, for example, to use the [`Rate Limiter`](../security/rate_limiting.md) and auth middleware to avoid abuse of some transmit routes, you can either change the route definition or pass a callback to the `transmit.registerRoutes` method.
+如果您想修改路由定义，例如使用 [`Rate Limiter`](../security/rate_limiting.md) 和身份验证中间件来避免某些 transmit 路由被滥用，您可以更改路由定义或向 `transmit.registerRoutes` 方法传递一个回调函数。
 
 ```ts
 // title: start/routes.ts
 import transmit from '@adonisjs/transmit/services/main'
 
 transmit.registerRoutes((route) => {
-  // Ensure you are authenticated to register your client
+  // 确保您已认证才能注册客户端
   if (route.getPattern() === '__transmit/events') {
     route.middleware(middleware.auth())
     return
   }
 
-  // Add a throttle middleware to other transmit routes
+  // 为其他 transmit 路由添加限流中间件
   route.use(throttle)
 })
 ```
 
-## Channels
+## 频道
 
-Channels are used to group events. For example, you can have a channel for notifications, another for chat messages, and so on.
-They are created on the fly when the client subscribes to them.
+频道用于对事件进行分组。例如，您可以有一个用于通知的频道，另一个用于聊天消息的频道，依此类推。当客户端订阅它们时，频道会动态创建。
 
-### Channel Names
+### 频道名称
 
-Channel names are used to identify the channel. They are case-sensitive and must be a string. You cannot use any special characters or spaces in the channel name except `/`. The following are some examples of valid channel names:
+频道名称用于标识频道。它们是区分大小写的，并且必须是字符串。在频道名称中，除了 `/` 之外，不能使用任何特殊字符或空格。以下是一些有效的频道名称示例：
 
 ```ts
 import transmit from '@adonisjs/transmit/services/main'
@@ -158,12 +157,12 @@ transmit.broadcast('users/1', { message: 'Hello' })
 ```
 
 :::tip
-Channel names use the same syntax as route in AdonisJS but are not related to them. You can freely define a http route and a channel with the same key.
+频道名称使用与 AdonisJS 中路由相同的语法，但与它们无关。您可以自由地为 HTTP 路由和频道定义相同的键。
 :::
 
-### Channel Authorization
+### 频道授权
 
-You can authorize or reject a connection to a channel using the `authorize` method. The method receives the channel name and the `HttpContext`. It must return a boolean value.
+您可以使用 `authorize` 方法授权或拒绝连接到频道。该方法接收频道名称和 `HttpContext`，并且必须返回布尔值。
 
 ```ts
 // title: start/transmit.ts
@@ -183,9 +182,9 @@ transmit.authorize<{ id: string }>('chats/:id/messages', async (ctx: HttpContext
 })
 ```
 
-## Broadcasting Events
+## 广播事件
 
-You can broadcast events to a channel using the `broadcast` method. The method receives the channel name and the data to send.
+您可以使用 `broadcast` 方法向频道广播事件。该方法接收频道名称和要发送的数据。
 
 ```ts
 import transmit from '@adonisjs/transmit/services/main'
@@ -193,23 +192,23 @@ import transmit from '@adonisjs/transmit/services/main'
 transmit.broadcast('global', { message: 'Hello' })
 ```
 
-You can also broadcast events to any channel except one using the `broadcastExcept` method. The method receives the channel name, the data to send, and the UID you want to ignore.
+您还可以使用 `broadcastExcept` 方法向除一个之外的任何频道广播事件。该方法接收频道名称、要发送的数据以及您想要忽略的 UID。
 
 ```ts
 transmit.broadcastExcept('global', { message: 'Hello' }, 'uid-of-sender')
 ```
 
-### Syncing across multiple servers or instances
+### 在多个服务器或实例之间同步
 
-By default, broadcasting events works only within the context of an HTTP request. However, you can broadcast events from the background using the `transmit` service if you register a `transport` in your configuration.
+默认情况下，广播事件仅在 HTTP 请求的上下文中工作。但是，如果您在配置中注册了 `transport`，则可以使用 `transmit` 服务在后台广播事件。
 
-The transport layer is responsible for syncing events across multiple servers or instances. It works by broadcasting any events (like broadcasted events, subscriptions, and un-subscriptions) to all connected servers or instances using a `Message Bus`.
+传输层负责在多个服务器或实例之间同步事件。它通过广播任何事件（如广播事件、订阅和取消订阅）到所有连接的服务器或实例来实现，使用 `Message Bus`。
 
-The server or instance responsible for your client connection will receive the event and broadcast it to the client.
+负责您客户端连接的服务器或实例将接收事件并将其广播给客户端。
 
-## Transmit Client
+## Transmit 客户端
 
-You can listen for events on the client-side using the `@adonisjs/transmit-client` package. The package provides a `Transmit` class. The client use the [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) API by default to connect to the server.
+您可以使用 `@adonisjs/transmit-client` 包在客户端监听事件。该包提供了一个 `Transmit` 类。客户端默认使用 [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource) API 连接到服务器。
 
 ```ts
 import { Transmit } from '@adonisjs/transmit-client'
@@ -220,12 +219,12 @@ export const transmit = new Transmit({
 ```
 
 :::tip
-You should create only one instance of the `Transmit` class and reuse it throughout your application.
+您应该只创建 `Transmit` 类的一个实例，并在整个应用程序中重复使用它。
 :::
 
-### Configuring the Transmit Instance
+### 配置 Transmit 实例
 
-The `Transmit` class accepts an object with the following properties:
+`Transmit` 类接受一个包含以下属性的对象：
 
 <dl>
 
@@ -237,7 +236,7 @@ baseUrl
 
 <dd>
 
-The base URL of the server. The URL must include the protocol (http or https) and the domain name.
+服务器的基本 URL。URL 必须包括协议（http 或 https）和域名。
 
 </dd>
 
@@ -249,7 +248,7 @@ uidGenerator
 
 <dd>
 
-A function that generates a unique identifier for the client. The function must return a string. It defaults to `crypto.randomUUID`.
+一个为客户端生成唯一标识符的函数。该函数必须返回一个字符串。默认值为 `crypto.randomUUID`。
 
 </dd>
 
@@ -261,7 +260,7 @@ eventSourceFactory
 
 <dd>
 
-A function that creates a new `EventSource` instance. It defaults to the WebAPI [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource). You need to provide a custom implementation if you want to use the client on `Node.js`, `React Native` or any other environment that does not support the `EventSource` API.
+一个创建新的 `EventSource` 实例的函数。默认值为 WebAPI [`EventSource`](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)。如果您想在 `Node.js`、`React Native` 或任何其他不支持 `EventSource` API 的环境中使用客户端，则需要提供自定义实现。
 
 </dd>
 
@@ -273,7 +272,7 @@ eventTargetFactory
 
 <dd>
 
-A function that creates a new `EventTarget` instance. It defaults to the WebAPI [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget). You need to provide a custom implementation if you want to use the client on `Node.js`, `React Native` or any other environment that does not support the `EventTarget` API. Return `null` to disable the `EventTarget` API.
+一个创建新的 `EventTarget` 实例的函数。默认值为 WebAPI [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget)。如果您想在 `Node.js`、`React Native` 或任何其他不支持 `EventTarget` API 的环境中使用客户端，则需要提供自定义实现。返回 `null` 以禁用 `EventTarget` API。
 
 </dd>
 
@@ -285,7 +284,7 @@ httpClientFactory
 
 <dd>
 
-A function that creates a new `HttpClient` instance. It is mainly used for testing purposes.
+一个创建新的 `HttpClient` 实例的函数。主要用于测试目的。
 
 </dd>
 
@@ -297,7 +296,7 @@ beforeSubscribe
 
 <dd>
 
-A function that is called before subscribing to a channel. It receives the channel name and the `Request` object sent to the server. Use this function to add custom headers or modify the request object.
+在订阅频道之前调用的函数。它接收频道名称和发送到服务器的 `Request` 对象。使用此函数添加自定义头或修改请求对象。
 
 </dd>
 
@@ -309,7 +308,7 @@ beforeUnsubscribe
 
 <dd>
 
-A function that is called before unsubscribing from a channel. It receives the channel name and the `Request` object sent to the server. Use this function to add custom headers or modify the request object.
+在取消订阅频道之前调用的函数。它接收频道名称和发送到服务器的 `Request` 对象。使用此函数添加自定义头或修改请求对象。
 
 </dd>
 
@@ -321,7 +320,7 @@ maxReconnectAttempts
 
 <dd>
 
-The maximum number of reconnection attempts. It defaults to `5`.
+最大重连尝试次数。默认值为 `5`。
 
 </dd>
 
@@ -333,7 +332,7 @@ onReconnectAttempt
 
 <dd>
 
-A function that is called before each reconnection attempt and receives the number of attempts made so far. Use this function to add custom logic.
+在每次重连尝试之前调用的函数，并接收迄今为止已进行的尝试次数。使用此函数添加自定义逻辑。
 
 </dd>
 
@@ -345,7 +344,7 @@ onReconnectFailed
 
 <dd>
 
-A function that is called when the reconnection attempts fail. Use this function to add custom logic.
+当重连尝试失败时调用的函数。使用此函数添加自定义逻辑。
 
 </dd>
 
@@ -357,7 +356,7 @@ onSubscribeFailed
 
 <dd>
 
-A function that is called when the subscription fails. It receives the `Response` object. Use this function to add custom logic.
+当订阅失败时调用的函数。它接收 `Response` 对象。使用此函数添加自定义逻辑。
 
 </dd>
 
@@ -369,7 +368,7 @@ onSubscription
 
 <dd>
 
-A function that is called when the subscription is successful. It receives the channel name. Use this function to add custom logic.
+当订阅成功时调用的函数。它接收频道名称。使用此函数添加自定义逻辑。
 
 </dd>
 
@@ -381,31 +380,30 @@ onUnsubscription
 
 <dd>
 
-A function that is called when the unsubscription is successful. It receives the channel name. Use this function to add custom logic.
+当取消订阅成功时调用的函数。它接收频道名称。使用此函数添加自定义逻辑。
 
 </dd>
 
 </dl>
 
+### 创建订阅
 
-### Creating a Subscription
-
-You can create a subscription to a channel using the `subscription` method. The method receives the channel name.
+您可以使用 `subscription` 方法创建对频道的订阅。该方法接收频道名称。
 
 ```ts
 const subscription = transmit.subscription('chats/1/messages')
 await subscription.create()
 ```
 
-The `create` method registers the subscription on the server. It returns a promise that you can `await` or `void`.
+`create` 方法在服务器上注册订阅。它返回一个 promise，您可以 `await` 或 `void`。
 
 :::note
-If you don't call the `create` method, the subscription will not be registered on the server, and you will not receive any events.
+如果您不调用 `create` 方法，订阅将不会在服务器上注册，并且您将不会收到任何事件。
 :::
 
-### Listening for Events
+### 监听事件
 
-You can listen for events on the subscription using the `onMessage` method that receives a callback function. You can call the `onMessage` method multiple times to add different callbacks.
+您可以使用 `onMessage` 方法监听订阅上的事件，该方法接收一个回调函数。您可以多次调用 `onMessage` 方法以添加不同的回调函数。
 
 ```ts
 subscription.onMessage((data) => {
@@ -413,7 +411,7 @@ subscription.onMessage((data) => {
 })
 ```
 
-You can also listen to a channel only once using the `onMessageOnce` method which receives a callback function.
+您还可以使用 `onMessageOnce` 方法仅监听频道一次，该方法接收一个回调函数。
 
 ```ts
 subscription.onMessageOnce(() => {
@@ -421,38 +419,37 @@ subscription.onMessageOnce(() => {
 })
 ```
 
-### Stop Listening for Events
+### 停止监听事件
 
-The `onMessage` and `onMessageOnce` methods return a function that you can call to stop listening for a specific callback.
+`onMessage` 和 `onMessageOnce` 方法返回一个函数，您可以调用该函数以停止监听特定的回调。
 
 ```ts
 const stopListening = subscription.onMessage((data) => {
   console.log(data)
 })
 
-// Stop listening
+// 停止监听
 stopListening()
 ```
 
-### Deleting a Subscription
+### 删除订阅
 
-You can delete a subscription using the `delete` method. The method returns a promise that you can `await` or `void`. This method will unregister the subscription on the server.
+您可以使用 `delete` 方法删除订阅。该方法返回一个 promise，您可以 `await` 或 `void`。此方法将在服务器上注销订阅。
 
 ```ts
 await subscription.delete()
 ```
 
-## Avoiding GZip Interference
+## 避免 GZip 干扰
 
-When deploying applications that use `@adonisjs/transmit`, it’s important to ensure that GZip compression does not interfere with the `text/event-stream` content type used by Server-Sent Events (SSE). Compression applied to `text/event-stream` can cause connection issues, leading to frequent disconnects or SSE failures.
+在部署使用 `@adonisjs/transmit` 的应用程序时，重要的是确保 GZip 压缩不会干扰服务器发送事件 (SSE) 使用的 `text/event-stream` 内容类型。对 `text/event-stream` 应用的压缩可能导致连接问题，从而导致频繁断开连接或 SSE 失败。
 
-If your deployment uses a reverse proxy (such as Traefik or Nginx) or other middleware that applies GZip, ensure that compression is disabled for the `text/event-stream` content type.
+如果您的部署使用反向代理（如 Traefik 或 Nginx）或其他应用 GZip 的中间件，请确保对 `text/event-stream` 内容类型禁用压缩。
 
-### Example Configuration for Traefik
+### Traefik 的示例配置
 
 ```plaintext
 traefik.http.middlewares.gzip.compress=true
 traefik.http.middlewares.gzip.compress.excludedcontenttypes=text/event-stream
 traefik.http.routers.my-router.middlewares=gzip
 ```
-

@@ -1,17 +1,18 @@
 ---
-summary: HTTP testing in AdonisJS using the Japa API client plugin.
+summary: 使用 Japa API 客户端插件在 AdonisJS 中进行 HTTP 测试。
 ---
 
-# HTTP tests
+# HTTP 测试
 
-HTTP tests refer to testing your application endpoints by making an actual HTTP request against them and asserting the response body, headers, cookies, session, etc.
+HTTP 测试指的是通过向应用程序端点发送实际的 HTTP 请求，并对响应体、头信息、Cookie、会话等进行断言，从而测试应用程序端点。
 
-HTTP tests are performed using the [API client plugin](https://japa.dev/docs/plugins/api-client) of Japa. The API client plugin is a stateless request library similar to `Axios` or `fetch` but more suited for testing.
+HTTP 测试是使用 Japa 的 [API 客户端插件](https://japa.dev/docs/plugins/api-client) 进行的。API 客户端插件是一个无状态的请求库，类似于 `Axios` 或 `fetch`，但更适合用于测试。
 
-If you want to test your web apps inside a real browser and interact with them programmatically, we recommend using the [Browser client](./browser_tests.md) that uses Playwright for testing.
+如果您想在真实的浏览器中测试您的 Web 应用程序，并以编程方式与它们交互，我们建议使用 [浏览器客户端](./browser_tests.md)，它使用 Playwright 进行测试。
 
-## Setup
-The first step is to install the following packages from the npm packages registry.
+## 设置
+
+第一步是从 npm 包注册表中安装以下包。
 
 :::codegroup
 
@@ -22,9 +23,9 @@ npm i -D @japa/api-client
 
 :::
 
-### Registering the plugin
+### 注册插件
 
-Before moving forward, register the plugin inside the `tests/bootstrap.ts` file.
+在继续之前，请在 `tests/bootstrap.ts` 文件中注册插件。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -39,7 +40,7 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-The `apiClient` method optionally accepts the `baseURL` for the server. If not provided, it will use the `HOST` and the `PORT` environment variables.
+`apiClient` 方法可以选择性地接受服务器的 `baseURL`。如果未提供，它将使用 `HOST` 和 `PORT` 环境变量。
 
 ```ts
 import env from '#start/env'
@@ -51,11 +52,11 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-## Basic example
+## 基本示例
 
-Once the `apiClient` plugin is registered, you may access the `client` object from [TestContext](https://japa.dev/docs/test-context) to make an HTTP request.
+注册 `apiClient` 插件后，您可以从 [TestContext](https://japa.dev/docs/test-context) 访问 `client` 对象以发起 HTTP 请求。
 
-The HTTP tests must be written inside the folder configured for the `functional` tests suite. You may use the following command to create a new test file.
+HTTP 测试必须写在为 `functional` 测试套件配置的文件夹中。您可以使用以下命令创建一个新的测试文件。
 
 ```sh
 node ace make:test users/list --suite=functional
@@ -81,17 +82,19 @@ test.group('Users list', () => {
 })
 ```
 
-To view all the available request and assertion methods, make sure to [go through the Japa documentation](https://japa.dev/docs/plugins/api-client).
+要查看所有可用的请求和断言方法，请务必 [浏览 Japa 文档](https://japa.dev/docs/plugins/api-client)。
 
-## Open API testing
-The assertion and API client plugins allow you to use Open API spec files for writing assertions. Instead of manually testing the response against a fixed payload, you may use a spec file to test the shape of the HTTP response.
+## OpenAPI 测试
 
-It is a great way to keep your Open API spec and server responses in sync. Because if you remove a certain endpoint from the spec file or change the response data shape, your tests will fail.
+断言和 API 客户端插件允许您使用 OpenAPI 规范文件来编写断言。您可以使用规范文件来测试 HTTP 响应的结构，而不是手动将响应与固定负载进行测试。
 
-### Registering schema
-AdonisJS does not offer tooling for generating Open API schema files from code. You may write it by hand or use graphical tools to create it.
+这是保持您的 OpenAPI 规范和服务器响应同步的好方法。因为如果您从规范文件中删除某个端点或更改响应数据结构，您的测试将会失败。
 
-Once you have a spec file, save it inside the `resources` directory (create the directory if missing) and register it with the `assert` plugin within the `tests/bootstrap.ts` file.
+### 注册模式
+
+AdonisJS 不提供从代码生成 OpenAPI 模式文件的工具。您可以手动编写，或使用图形化工具来创建它。
+
+一旦您有了规范文件，请将其保存在 `resources` 目录中（如果该目录不存在，请创建它），并在 `tests/bootstrap.ts` 文件中使用 `assert` 插件进行注册。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -110,8 +113,9 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-### Writing assertions
-Once the schema is registered, you can use the `response.assertAgainstApiSpec` method to assert against the API spec.
+### 编写断言
+
+注册模式后，您可以使用 `response.assertAgainstApiSpec` 方法来根据 API 规范进行断言。
 
 ```ts
 test('paginate posts', async ({ client }) => {
@@ -120,24 +124,24 @@ test('paginate posts', async ({ client }) => {
 })
 ```
 
-- The `response.assertAgainstApiSpec` method will use the **request method**, the **endpoint**, and the **response status code** to find the expected response schema.
-- An exception will be raised when the response schema cannot be found. Otherwise, the response body will be validated against the schema.
+- `response.assertAgainstApiSpec` 方法将使用 **请求方法**、**端点** 和 **响应状态码** 来查找预期的响应模式。
+- 如果找不到响应模式，将抛出异常。否则，将根据模式验证响应体。
 
-Only the response's shape is tested, not the actual values. Therefore, you may have to write additional assertions. For example:
+仅测试响应的结构，而不测试实际值。因此，您可能需要编写额外的断言。例如：
 
 ```ts
-// Assert that the response is as per the schema
+// 断言响应符合模式
 response.assertAgainstApiSpec()
 
-// Assert for expected values
+// 断言预期值
 response.assertBodyContains({
   data: [{ title: 'Adonis 101' }, { title: 'Lucid 101' }]
 })
 ```
 
+## 读取/写入 Cookie
 
-## Reading/writing cookies
-You may send cookies during the HTTP request using the `withCookie` method. The method accepts the cookie name as the first argument and the value as the second.
+您可以使用 `withCookie` 方法在 HTTP 请求期间发送 Cookie。该方法接受 Cookie 名称作为第一个参数，值作为第二个参数。
 
 ```ts
 await client
@@ -145,7 +149,7 @@ await client
   .withCookie('user_preferences', { limit: 10 })
 ```
 
-The `withCookie` method defines a [singed cookie](../basics/cookies.md#signed-cookies). In addition, you may use the `withEncryptedCookie` or `withPlainCookie` methods to send other types of cookies to the server.
+`withCookie` 方法定义了一个 [签名 Cookie](../basics/cookies.md#signed-cookies)。此外，您可以使用 `withEncryptedCookie` 或 `withPlainCookie` 方法向服务器发送其他类型的 Cookie。
 
 ```ts
 await client
@@ -159,15 +163,16 @@ await client
   .withPlainCookie('user_preferences', { limit: 10 })
 ```
 
-### Reading cookies from the response
-You may access the cookies set by your AdonisJS server using the `response.cookies` method. The method returns an object of cookies as a key-value pair.
+### 从响应中读取 Cookie
+
+您可以使用 `response.cookies` 方法访问 AdonisJS 服务器设置的 Cookie。该方法返回一个包含 Cookie 的键值对对象。
 
 ```ts
 const response = await client.get('/users')
 console.log(response.cookies())
 ```
 
-You may use the `response.cookie` method to access a single cookie value by its name. Or use the `assertCookie` method to assert the cookie value.
+您可以使用 `response.cookie` 方法通过名称访问单个 Cookie 的值。或者使用 `assertCookie` 方法来断言 Cookie 的值。
 
 ```ts
 const response = await client.get('/users')
@@ -177,11 +182,13 @@ console.log(response.cookie('user_preferences'))
 response.assertCookie('user_preferences')
 ```
 
-## Populating session store
-If you are using the [`@adonisjs/session`](../basics/session.md) package to read/write session data in your application, you may also want to use the `sessionApiClient` plugin to populate the session store when writing tests.
+## 填充会话存储
 
-### Setup
-The first step is registering the plugin inside the `tests/bootstrap.ts` file.
+如果您在应用程序中使用 [`@adonisjs/session`](../basics/session.md) 包来读取/写入会话数据，那么在编写测试时，您可能还想使用 `sessionApiClient` 插件来填充会话存储。
+
+### 设置
+
+第一步是在 `tests/bootstrap.ts` 文件中注册插件。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -198,22 +205,23 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-And then, update the `.env.test` file (create one if it is missing) and set the `SESSON_DRIVER` to `memory`.
+然后，更新 `.env.test` 文件（如果该文件不存在，请创建它），并将 `SESSION_DRIVER` 设置为 `memory`。
 
 ```dotenv
 // title: .env.test
 SESSION_DRIVER=memory
 ```
 
-### Making requests with session data
-You may use the `withSession` method on the Japa API client to make an HTTP request with some pre-defined session data. 
+### 使用会话数据发起请求
 
-The `withSession` method will create a new session ID and populate the memory store with the data, and your AdonisJS application code can read the session data as usual.
+您可以在 Japa API 客户端上使用 `withSession` 方法，以一些预定义的会话数据发起 HTTP 请求。
 
-After the request finishes, the session ID and its data will be destroyed.
+`withSession` 方法将创建一个新的会话 ID，并用数据填充内存存储，您的 AdonisJS 应用程序代码可以像平常一样读取会话数据。
+
+请求完成后，会话 ID 及其数据将被销毁。
 
 ```ts
-test('checkout with cart items', async ({ client }) => {
+测试（'使用购物车项目结账', async ({ client }) => {
   await client
     .post('/checkout')
     // highlight-start
@@ -221,11 +229,11 @@ test('checkout with cart items', async ({ client }) => {
       cartItems: [
         {
           id: 1,
-          name: 'South Indian Filter Press Coffee'
+          name: '南印度过滤压榨咖啡'
         },
         {
           id: 2,
-          name: 'Cold Brew Bags',
+          name: '冷萃包',
         }
       ]
     })
@@ -233,20 +241,21 @@ test('checkout with cart items', async ({ client }) => {
 })
 ```
 
-Like the `withSession` method, you may use the `withFlashMessages` method to set flash messages when making an HTTP request.
+像 `withSession` 方法一样，你可以在发起 HTTP 请求时使用 `withFlashMessages` 方法来设置闪存消息。
 
 ```ts
 const response = await client
   .get('posts/1')
   .withFlashMessages({
-    success: 'Post created successfully'
+    success: '帖子创建成功'
   })
 
-response.assertTextIncludes(`Post created successfully`)
+response.assertTextIncludes(`帖子创建成功`)
 ```
 
-### Reading session data from the response
-You may access the session data set by your AdonisJS server using the `response.session()` method. The method returns the session data as an object of a key-value pair.
+### 从响应中读取会话数据
+
+你可以使用 `response.session()` 方法访问由你的 AdonisJS 服务器设置的会话数据。该方法返回一个包含键值对的对象形式的会话数据。
 
 ```ts
 const response = await client
@@ -256,11 +265,11 @@ const response = await client
     body: 'some description',
   })
 
-console.log(response.session()) // all session data
-console.log(response.session('post_id')) // value of post_id
+console.log(response.session()) // 所有会话数据
+console.log(response.session('post_id')) // post_id 的值
 ```
 
-You may read flash messages from the response using the `response.flashMessage` or `response.flashMessages` method.
+你可以使用 `response.flashMessage` 或 `response.flashMessages` 方法从响应中读取闪存消息。
 
 ```ts
 const response = await client.post('/posts')
@@ -270,14 +279,13 @@ response.flashMessage('errors')
 response.flashMessage('success')
 ```
 
-Finally, you may write assertions for the session data using one of the following methods.
+最后，你可以使用以下方法之一为会话数据编写断言。
 
 ```ts
 const response = await client.post('/posts')
 
 /**
- * Assert a specific key (with optional value) exists
- * in the session store
+ * 断言会话存储中存在特定键（可选值）
  */
 response.assertSession('cart_items')
 response.assertSession('cart_items', [{
@@ -287,39 +295,38 @@ response.assertSession('cart_items', [{
 }])
 
 /**
- * Assert a specific key is not in the session store
+ * 断言会话存储中不存在特定键
  */
 response.assertSessionMissing('cart_items')
 
 /**
- * Assert a flash message exists (with optional value)
- * in the flash messages store
+ * 断言闪存消息存储中存在闪存消息（可选值）
  */
 response.assertFlashMessage('success')
-response.assertFlashMessage('success', 'Post created successfully')
+response.assertFlashMessage('success', '帖子创建成功')
 
 /**
- * Assert a specific key is not in the flash messages store
+ * 断言闪存消息存储中不存在特定键
  */
 response.assertFlashMissing('errors')
 
 /**
- * Assert for validation errors in the flash messages
- * store
+ * 断言闪存消息存储中存在验证错误
  */
 response.assertHasValidationError('title')
-response.assertValidationError('title', 'Enter post title')
+response.assertValidationError('title', '请输入帖子标题')
 response.assertValidationErrors('title', [
-  'Enter post title',
-  'Post title must be 10 characters long.'
+  '请输入帖子标题',
+  '帖子标题必须为 10 个字符长。'
 ])
 response.assertDoesNotHaveValidationError('title')
 ```
 
-## Authenticating users
-If you use the `@adonisjs/auth` package to authenticate users in your application, you may use the `authApiClient` Japa plugin to authenticate users when making HTTP requests to your application.
+## 用户认证
 
-The first step is registering the plugin inside the `tests/bootstrap.ts` file.
+如果你在应用程序中使用 `@adonisjs/auth` 包来认证用户，你可以使用 `authApiClient` Japa 插件在向应用程序发起 HTTP 请求时认证用户。
+
+第一步是在 `tests/bootstrap.ts` 文件中注册插件。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -336,14 +343,14 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-If you are using session-based authentication, make sure to also set up the session plugin. See [Populating session store - Setup](#setup-1).
+如果你使用的是基于会话的认证，请确保也设置了会话插件。请参阅[填充会话存储 - 设置](#setup-1)。
 
-That's all. Now, you may login users using the `loginAs` method. The method accepts the user object as the only argument and marks the user as logged in for the current HTTP request.
+就这样。现在，你可以使用 `loginAs` 方法登录用户。该方法接受用户对象作为唯一参数，并将用户标记为当前 HTTP 请求的已登录用户。
 
 ```ts
 import User from '#models/user'
 
-test('get payments list', async ({ client }) => {
+test('获取支付列表', async ({ client }) => {
   const user = await User.create(payload)
 
   await client
@@ -354,7 +361,7 @@ test('get payments list', async ({ client }) => {
 })
 ```
 
-The `loginAs` method uses the default guard configured inside the `config/auth.ts` file for authentication. However, you may specify a custom guard using the `withGuard` method. For example:
+`loginAs` 方法使用 `config/auth.ts` 文件中配置的默认守卫进行认证。但是，你可以使用 `withGuard` 方法指定自定义守卫。例如：
 
 ```ts
 await client
@@ -365,10 +372,11 @@ await client
     // highlight-end
 ```
 
-## Making a request with a CSRF token
-If forms in your application use [CSRF protection](../security/securing_ssr_applications.md), you may use the `withCsrfToken` method to generate a CSRF token and pass it as a header during the request.
+## 带有 CSRF 令牌的请求
 
-Before using the `withCsrfToken` method, register the following Japa plugins inside the `tests/bootstrap.ts` file and also make sure to [switch the `SESSION_DRIVER` env variable](#setup-1) to `memory`.
+如果你的应用程序中的表单使用[CSRF 保护](../security/securing_ssr_applications.md)，你可以使用 `withCsrfToken` 方法生成 CSRF 令牌，并在请求期间将其作为头信息传递。
+
+在使用 `withCsrfToken` 方法之前，请在 `tests/bootstrap.ts` 文件中注册以下 Japa 插件，并确保将[ `SESSION_DRIVER` 环境变量](#setup-1)切换为 `memory`。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -388,7 +396,7 @@ export const plugins: Config['plugins'] = [
 ```
 
 ```ts
-test('create a post', async ({ client }) => {
+test('创建帖子', async ({ client }) => {
   await client
     .post('/posts')
     .form(dataGoesHere)
@@ -396,13 +404,14 @@ test('create a post', async ({ client }) => {
 })
 ```
 
-## The route helper
-You may use the `route` helper from the TestContext to create a URL for a route. Using the route helper ensures that whenever you update your routes, you do not have to come back and fix all the URLs inside your tests.
+## 路由助手
 
-The `route` helper accepts the same set of arguments accepted by the global template method [route](../basics/routing.md#url-builder).
+你可以使用 TestContext 中的 `route` 助手为路由创建 URL。使用路由助手可以确保每当你更新路由时，无需返回并修复测试中的所有 URL。
+
+`route` 助手接受与全局模板方法[route](../basics/routing.md#url-builder)相同的一组参数。
 
 ```ts
-test('get a list of users', async ({ client, route }) => {
+test('获取用户列表', async ({ client, route }) => {
   const response = await client.get(
     // highlight-start
     route('users.list')

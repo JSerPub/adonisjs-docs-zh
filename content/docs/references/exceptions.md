@@ -1,32 +1,32 @@
 ---
-summary: Learn about the exceptions raised by the AdonisJS framework core and official packages.
+summary: 了解 AdonisJS 框架核心和官方包引发的异常。
 ---
 
-# Exceptions reference
+# 异常参考
 
-In this guide we will go through the list of known exceptions raised by the framework core and the official packages. Some of the exceptions are marked as **self-handled**. [Self-handled exceptions](../basics/exception_handling.md#defining-the-handle-method) can convert themselves to an HTTP response.
+在本指南中，我们将遍历框架核心和官方包引发的已知异常列表。其中一些异常被标记为 **自处理**。[自处理异常](../basics/exception_handling.md#defining-the-handle-method) 可以自行转换为 HTTP 响应。
 
 <div style="--prose-h2-font-size: 22px;">
 
 ## E_ROUTE_NOT_FOUND
-The exception is raised when the HTTP server receives a request for a non-existing route. By default, the client will get a 404 response, and optionally, you may render an HTML page using [status pages](../basics/exception_handling.md#status-pages).
+当 HTTP 服务器收到对不存在路由的请求时，会引发此异常。默认情况下，客户端将收到 404 响应，并且您可以选择使用 [状态页面](../basics/exception_handling.md#status-pages) 渲染 HTML 页面。
 
-- **Status code**: 404
-- **Self handled**: No
+- **状态码**：404
+- **自处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
 if (error instanceof errors.E_ROUTE_NOT_FOUND) {
-  // handle error
+  // 处理错误
 }
 ```
 
 ## E_AUTHORIZATION_FAILURE
-The exception is raised when a bouncer authorization check fails. The exception is self-handled and [uses content-negotiation](../security/authorization.md#throwing-authorizationexception) to return an appropriate error response to the client.
+当 bouncer 授权检查失败时，会引发此异常。该异常是自处理的，并且[使用内容协商](../security/authorization.md#throwing-authorizationexception) 向客户端返回适当的错误响应。
 
-- **Status code**: 403
-- **Self handled**: Yes
-- **Translation identifier**: `errors.E_AUTHORIZATION_FAILURE`
+- **状态码**：403
+- **自处理**：是
+- **翻译标识符**：`errors.E_AUTHORIZATION_FAILURE`
 
 ```ts
 import { errors as bouncerErrors } from '@adonisjs/bouncer'
@@ -35,11 +35,11 @@ if (error instanceof bouncerErrors.E_AUTHORIZATION_FAILURE) {
 ```
 
 ## E_TOO_MANY_REQUESTS
-The exception is raised by the [@adonisjs/rate-limiter](../security/rate_limiting.md) package when a request exhausts all the requests allowed during a given duration. The exception is self-handled and [uses content-negotiation](../security/rate_limiting.md#handling-throttleexception) to return an appropriate error response to the client.
+当请求在给定时间内耗尽了所有允许的请求时，[@adonisjs/rate-limiter](../security/rate_limiting.md) 包会引发此异常。该异常是自处理的，并且[使用内容协商](../security/rate_limiting.md#handling-throttleexception) 向客户端返回适当的错误响应。
 
-- **Status code**: 429
-- **Self handled**: Yes
-- **Translation identifier**: `errors.E_TOO_MANY_REQUESTS`
+- **状态码**：429
+- **自处理**：是
+- **翻译标识符**：`errors.E_TOO_MANY_REQUESTS`
 
 ```ts
 import { errors as limiterErrors } from '@adonisjs/limiter'
@@ -48,11 +48,11 @@ if (error instanceof limiterErrors.E_TOO_MANY_REQUESTS) {
 ```
 
 ## E_BAD_CSRF_TOKEN
-The exception is raised when a form using [CSRF protection](../security/securing_ssr_applications.md#csrf-protection) is submitted without the CSRF token, or the CSRF token is invalid.
+当提交使用 [CSRF 保护](../security/securing_ssr_applications.md#csrf-protection) 的表单时，如果没有 CSRF 令牌或 CSRF 令牌无效，会引发此异常。
 
-- **Status code**: 403
-- **Self handled**: Yes
-- **Translation identifier**: `errors.E_BAD_CSRF_TOKEN`
+- **状态码**：403
+- **自处理**：是
+- **翻译标识符**：`errors.E_BAD_CSRF_TOKEN`
 
 ```ts
 import { errors as shieldErrors } from '@adonisjs/shield'
@@ -60,7 +60,7 @@ if (error instanceof shieldErrors.E_BAD_CSRF_TOKEN) {
 }
 ```
 
-The `E_BAD_CSRF_TOKEN` exception is [self-handled](https://github.com/adonisjs/shield/blob/main/src/errors.ts#L20), and the user will be redirected back to the form, and you can access the error using the flash messages.
+`E_BAD_CSRF_TOKEN` 异常是[自处理的](https://github.com/adonisjs/shield/blob/main/src/errors.ts#L20)，用户将被重定向回表单，并且您可以使用闪存消息访问错误。
 
 ```edge
 @error('E_BAD_CSRF_TOKEN')
@@ -69,12 +69,12 @@ The `E_BAD_CSRF_TOKEN` exception is [self-handled](https://github.com/adonisjs/s
 ```
 
 ## E_OAUTH_MISSING_CODE
-The `@adonisjs/ally` package raises the exception when the OAuth service does not provide the OAuth code during the redirect.
+当 OAuth 服务在重定向期间未提供 OAuth 代码时，`@adonisjs/ally` 包会引发此异常。
 
-You can avoid this exception if you [handle the errors](../authentication/social_authentication.md#handling-callback-response) before calling the `.accessToken` or `.user` methods.
+如果在调用 `.accessToken` 或 `.user` 方法之前[处理错误](../authentication/social_authentication.md#handling-callback-response)，可以避免此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自处理**：否
 
 ```ts
 import { errors as allyErrors } from '@adonisjs/bouncer'
@@ -83,12 +83,12 @@ if (error instanceof allyErrors.E_OAUTH_MISSING_CODE) {
 ```
 
 ## E_OAUTH_STATE_MISMATCH
-The `@adonisjs/ally` package raises the exception when the CSRF state defined during the redirect is missing.
+当重定向期间定义的 CSRF 状态缺失时，`@adonisjs/ally` 包会引发此异常。
 
-You can avoid this exception if you [handle the errors](../authentication/social_authentication.md#handling-callback-response) before calling the `.accessToken` or `.user` methods.
+如果在调用 `.accessToken` 或 `.user` 方法之前[处理错误](../authentication/social_authentication.md#handling-callback-response)，可以避免此异常。
 
-- **Status code**: 400
-- **Self handled**: No
+- **状态码**：400
+- **自处理**：否
 
 ```ts
 import { errors as allyErrors } from '@adonisjs/bouncer'
@@ -97,11 +97,11 @@ if (error instanceof allyErrors.E_OAUTH_STATE_MISMATCH) {
 ```
 
 ## E_UNAUTHORIZED_ACCESS
-The exception is raised when one of the authentication guards is not able to authenticate the request. The exception is self-handled and uses [content-negotiation](../authentication/session_guard.md#handling-authentication-exception) to return an appropriate error response to the client.
+当某个身份验证守卫无法对请求进行身份验证时，会引发此异常。该异常是自处理的，并使用[内容协商](../authentication/session_guard.md#handling-authentication-exception) 向客户端返回适当的错误响应。
 
-- **Status code**: 401
-- **Self handled**: Yes
-- **Translation identifier**: `errors.E_UNAUTHORIZED_ACCESS`
+- **状态码**：401
+- **自处理**：是
+- **翻译标识符**：`errors.E_UNAUTHORIZED_ACCESS`
 
 ```ts
 import { errors as authErrors } from '@adonisjs/auth'
@@ -110,11 +110,11 @@ if (error instanceof authErrors.E_UNAUTHORIZED_ACCESS) {
 ```
 
 ## E_INVALID_CREDENTIALS
-The exception is raised when the auth finder is not able to verify the user credentials. The exception is handled and use [content-negotiation](../authentication/verifying_user_credentials.md#handling-exceptions)  to return an appropriate error response to the client.
+当身份验证查找器无法验证用户凭据时，会引发此异常。该异常被处理，并使用[内容协商](../authentication/verifying_user_credentials.md#handling-exceptions) 向客户端返回适当的错误响应。
 
-- **Status code**: 400
-- **Self handled**: Yes
-- **Translation identifier**: `errors.E_INVALID_CREDENTIALS`
+- **状态码**：400
+- **自处理**：是
+- **翻译标识符**：`errors.E_INVALID_CREDENTIALS`
 
 ```ts
 import { errors as authErrors } from '@adonisjs/auth'
@@ -123,85 +123,98 @@ if (error instanceof authErrors.E_INVALID_CREDENTIALS) {
 ```
 
 ## E_CANNOT_LOOKUP_ROUTE
-The exception is raised when you attempt to create a URL for a route using the [URL builder](../basics/routing.md#url-builder).
+当您尝试使用 [URL 构建器](../basics/routing.md#url-builder) 为路由创建 URL 时，会引发此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
 if (error instanceof errors.E_CANNOT_LOOKUP_ROUTE) {
-  // handle error
+  // 处理错误
 }
 ```
 
 ## E_HTTP_EXCEPTION
-The `E_HTTP_EXCEPTION` is a generic exception for throwing errors during an HTTP request. You can use this exception directly or create a custom exception extending it.
+`E_HTTP_EXCEPTION` 是在 HTTP 请求期间抛出错误的通用异常。您可以直接使用此异常或创建扩展它的自定义异常。
 
-- **Status code**: Defined at the time of raising the exception
-- **Self handled**: Yes
+- **状态码**：在引发异常时定义
+- **自处理**：是
 
 ```ts
-// title: Throw exception
+// title: 抛出异常
 import { errors } from '@adonisjs/core'
 
 throw errors.E_HTTP_EXCEPTION.invoke(
   {
-    errors: ['Cannot process request']
+    errors: ['无法处理请求']
   },
   422
 )
 ```
 
 ```ts
-// title: Handle exception
+// title: 处理异常
 import { errors } from '@adonisjs/core'
 if (error instanceof errors.E_HTTP_EXCEPTION) {
-  // handle error
+  // 处理错误
 }
 ```
 
 ## E_HTTP_REQUEST_ABORTED
-The `E_HTTP_REQUEST_ABORTED` is a sub-class of the `E_HTTP_EXCEPTION` exception. This exception is raised by the [response.abort](../basics/response.md#aborting-request-with-an-error) method.
+`E_HTTP_REQUEST_ABORTED` 是 `E_HTTP_EXCEPTION` 异常的子类。此异常由 [response.abort](../basics/response.md#aborting-request-with-an-error) 方法引发。
 
 ```ts
 import { errors } from '@adonisjs/core'
 if (error instanceof errors.E_HTTP_REQUEST_ABORTED) {
-  // handle error
+  // 处理错误
 }
 ```
 
 ## E_INSECURE_APP_KEY
-The exception is raised when the length of `appKey` is smaller than 16 characters. You can use the [generate:key](./commands.md#generatekey) ace command to generate a secure app key.
+当 `appKey` 的长度小于 16 个字符时，会引发此异常。您可以使用 [generate:key](./commands.md#generatekey) ace 命令生成一个安全的应用程序密钥。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
 if (error instanceof errors.E_INSECURE_APP_KEY) {
-  // handle error
+  // 处理错误
 }
 ```
 
 ## E_MISSING_APP_KEY
-The exception is raised when the `appKey` property is not defined inside the `config/app.ts` file. By default, the value of the `appKey` is set using the `APP_KEY` environment variable.
+当 `config/app.ts` 文件中未定义 `appKey` 属性时，会引发此异常。默认情况下，`appKey` 的值是通过 `APP_KEY` 环境变量设置的。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自处理**：否
+
+```ts
+import { errors } from '@adonisjs/core'
+if (error instanceof errors.E_INSECURE_APP_KEY) {
+  // 处理错误
+}
+```
+
+## E_MISSING_APP_KEY
+当 `config/app.ts` 文件中未定义 `appKey` 属性时，会抛出此异常。默认情况下，`appKey` 的值是通过 `APP_KEY` 环境变量设置的。
+
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
 if (error instanceof errors.E_MISSING_APP_KEY) {
-  // handle error
+  // 处理错误
 }
 ```
 
 ## E_INVALID_ENV_VARIABLES
-The exception is raised when one or more environment variables fail the validation. The detailed validation errors can be accessed using the `error.help` property.
+当一个或多个环境变量未通过验证时，会抛出此异常。可以通过 `error.help` 属性访问详细的验证错误信息。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -211,10 +224,10 @@ if (error instanceof errors.E_INVALID_ENV_VARIABLES) {
 ```
 
 ## E_MISSING_COMMAND_NAME
-The exception is raised when a command does not define the `commandName` property or its value is an empty string.
+当命令未定义 `commandName` 属性或其值为空字符串时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -224,10 +237,10 @@ if (error instanceof errors.E_MISSING_COMMAND_NAME) {
 ```
 
 ## E_COMMAND_NOT_FOUND
-The exception is raised by Ace when unable to find a command.
+当 Ace 无法找到命令时，会抛出此异常。
 
-- **Status code**: 404
-- **Self handled**: No
+- **状态码**：404
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -237,10 +250,10 @@ if (error instanceof errors.E_COMMAND_NOT_FOUND) {
 ```
 
 ## E_MISSING_FLAG
-The exception is raised when executing a command without passing a required CLI flag.
+当执行命令时未传递必需的 CLI 标志时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -250,10 +263,10 @@ if (error instanceof errors.E_MISSING_FLAG) {
 ```
 
 ## E_MISSING_FLAG_VALUE
-The exception is raised when trying to execute a command without providing any value to a non-boolean CLI flag.
+当尝试执行命令但未为非布尔 CLI 标志提供任何值时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -263,10 +276,10 @@ if (error instanceof errors.E_MISSING_FLAG_VALUE) {
 ```
 
 ## E_MISSING_ARG
-The exception is raised when executing a command without defining the required arguments.
+当执行命令时未定义所需的参数时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -276,10 +289,10 @@ if (error instanceof errors.E_MISSING_ARG) {
 ```
 
 ## E_MISSING_ARG_VALUE
-The exception is raised when executing a command without defining the value for a required argument.
+当执行命令时未为所需参数定义值时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -289,10 +302,10 @@ if (error instanceof errors.E_MISSING_ARG_VALUE) {
 ```
 
 ## E_UNKNOWN_FLAG
-The exception is raised when executing a command with an unknown CLI flag.
+当执行命令时使用了未知的 CLI 标志时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -302,10 +315,10 @@ if (error instanceof errors.E_UNKNOWN_FLAG) {
 ```
 
 ## E_INVALID_FLAG
-The exception is raised when the value provided for a CLI flag is invalid—for example, passing a string value to a flag that accepts numeric values.
+当为 CLI 标志提供的值无效时（例如，为接受数值的标志传递字符串值）时，会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -315,10 +328,10 @@ if (error instanceof errors.E_INVALID_FLAG) {
 ```
 
 ## E_MULTIPLE_REDIS_SUBSCRIPTIONS
-The `@adonisjs/redis` package raises the exception when you attempt to [subscribe to a given pub/sub channel](../database/redis.md#pubsub) multiple times.
+当您尝试多次[订阅给定的发布/订阅频道](../database/redis.md#pubsub)时，`@adonisjs/redis` 包会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors as redisErrors } from '@adonisjs/redis'
@@ -327,10 +340,10 @@ if (error instanceof redisErrors.E_MULTIPLE_REDIS_SUBSCRIPTIONS) {
 ```
 
 ## E_MULTIPLE_REDIS_PSUBSCRIPTIONS
-The `@adonisjs/redis` package raises the exception when you attempt to [subscribe to a given pub/sub pattern](../database/redis.md#pubsub) multiple times.
+当您尝试多次[订阅给定的发布/订阅模式](../database/redis.md#pubsub)时，`@adonisjs/redis` 包会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors as redisErrors } from '@adonisjs/redis'
@@ -339,12 +352,12 @@ if (error instanceof redisErrors.E_MULTIPLE_REDIS_PSUBSCRIPTIONS) {
 ```
 
 ## E_MAIL_TRANSPORT_ERROR
-The exception is raised by the `@adonisjs/mail` package when unable to send the email using a given transport. Usually, this will happen when the HTTP API of the email service returns a non-200 HTTP response.
+当 `@adonisjs/mail` 包无法使用给定的传输方式发送电子邮件时，会抛出此异常。这通常发生在电子邮件服务的 HTTP API 返回非 200 HTTP 响应时。
 
-You may access the network request error using the `error.cause` property. The `cause` property is the [error object](https://github.com/sindresorhus/got/blob/main/documentation/8-errors.md) returned by `got` (npm package).
+您可以使用 `error.cause` 属性访问网络请求错误。`cause` 属性是 `got`（npm 包）返回的[错误对象](https://github.com/sindresorhus/got/blob/main/documentation/8-errors.md)。
 
-- **Status code**: 400
-- **Self handled**: No
+- **状态码**：400
+- **自行处理**：否
 
 ```ts
 import { errors as mailErrors } from '@adonisjs/mail'
@@ -354,10 +367,10 @@ if (error instanceof mailErrors.E_MAIL_TRANSPORT_ERROR) {
 ```
 
 ## E_SESSION_NOT_MUTABLE
-The exception is raised by the `@adonisjs/session` package when the session store is initiated in the read-only mode. 
+当会话存储以只读模式启动时，`@adonisjs/session` 包会抛出此异常。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors as sessionErrors } from '@adonisjs/session'
@@ -367,10 +380,10 @@ if (error instanceof sessionErrors.E_SESSION_NOT_MUTABLE) {
 ```
 
 ## E_SESSION_NOT_READY
-The exception is raised by the `@adonisjs/session` package when the session store has not been initiated yet. This will be the case when you are not using the session middleware.
+当会话存储尚未启动时，`@adonisjs/session` 包会抛出此异常。如果您未使用会话中间件，则会出现这种情况。
 
-- **Status code**: 500
-- **Self handled**: No
+- **状态码**：500
+- **自行处理**：否
 
 ```ts
 import { errors as sessionErrors } from '@adonisjs/session'

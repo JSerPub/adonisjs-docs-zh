@@ -1,12 +1,12 @@
 ---
-summary: AdonisJS bundles its utilities into the `helpers` module and makes them available to your application code. 
+summary: AdonisJS 将其实用工具打包到 `helpers` 模块中，并使它们可在您的应用程序代码中使用。
 ---
 
-# Helpers reference
+# 实用工具参考
 
-AdonisJS bundles its utilities into the `helpers` module and makes them available to your application code. Since these utilities are already installed and used by the framework, the `helpers` module does not add any additional bloat to your `node_modules`.
+AdonisJS 将其实用工具打包到 `helpers` 模块中，并使它们可在您的应用程序代码中使用。由于这些实用工具已由框架安装和使用，因此 `helpers` 模块不会给您的 `node_modules` 增加任何额外的负担。
 
-The helper methods are exported from the following modules.
+实用工具方法从以下模块中导出。
 
 ```ts
 import is from '@adonisjs/core/helpers/is'
@@ -16,7 +16,7 @@ import string from '@adonisjs/core/helpers/string'
 
 ## escapeHTML
 
-Escape HTML entities in a string value. Under the hood, we use the [he](https://www.npmjs.com/package/he#heescapetext) package.
+对字符串值中的 HTML 实体进行转义。在底层，我们使用 [he](https://www.npmjs.com/package/he#heescapetext) 包。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -25,7 +25,7 @@ string.escapeHTML('<p> foo © bar </p>')
 // &lt;p&gt; foo © bar &lt;/p&gt;
 ```
 
-Optionally, you can encode non-ASCII symbols using the `encodeSymbols` option.
+可选地，您可以使用 `encodeSymbols` 选项对非 ASCII 符号进行编码。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -38,7 +38,7 @@ string.escapeHTML('<p> foo © bar </p>', {
 
 ## encodeSymbols
 
-You may encode non-ASCII symbols in a string value using the `encodeSymbols` helper. Under the hood, we use [he.encode](https://www.npmjs.com/package/he#heencodetext-options) method.
+您可以使用 `encodeSymbols` 实用工具对字符串值中的非 ASCII 符号进行编码。在底层，我们使用 [he.encode](https://www.npmjs.com/package/he#heencodetext-options) 方法。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -49,7 +49,7 @@ string.encodeSymbols('foo © bar ≠ baz 𝌆 qux')
 
 ## prettyHrTime
 
-Pretty print the diff of [process.hrtime](https://nodejs.org/api/process.html#processhrtimetime) method.
+美化打印 [process.hrtime](https://nodejs.org/api/process.html#processhrtimetime) 方法的差值。
 
 ```ts
 import { hrtime } from 'node:process'
@@ -64,7 +64,7 @@ console.log(string.prettyHrTime(endTime))
 
 ## isEmpty
 
-Check if a string value is empty.
+检查字符串值是否为空。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -75,37 +75,37 @@ string.isEmpty('      ') // true
 
 ## truncate
 
-Truncate a string at a given number of characters.
+在给定字符数处截断字符串。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
 
 string.truncate('This is a very long, maybe not that long title', 12)
-// Output: This is a ve...
+// 输出: This is a ve...
 ```
 
-By default, the string is truncated exactly at the given index. However, you can instruct the method to wait for the words to complete.
+默认情况下，字符串在给定索引处被精确截断。但是，您可以指示该方法等待单词完成。
 
 ```ts
 string.truncate('This is a very long, maybe not that long title', 12, {
   completeWords: true,
 })
-// Output: This is a very...
+// 输出: This is a very...
 ```
 
-You can customize the suffix using the `suffix` option.
+您可以使用 `suffix` 选项自定义后缀。
 
 ```ts
 string.truncate('This is a very long, maybe not that long title', 12, {
   completeWords: true,
   suffix: '... <a href="/1"> Read more </a>',
 })
-// Output: This is a very... <a href="/1"> Read more </a>
+// 输出: This is a very... <a href="/1"> Read more </a>
 ```
 
 ## excerpt
 
-The `excerpt` method is identical to the `truncate` method. However, it strips the HTML tags from the string.
+`excerpt` 方法与 `truncate` 方法相同。但是，它会从字符串中去除 HTML 标签。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -113,12 +113,12 @@ import string from '@adonisjs/core/helpers/string'
 string.excerpt('<p>This is a <strong>very long</strong>, maybe not that long title</p>', 12, {
   completeWords: true,
 })
-// Output: This is a very...
+// 输出: This is a very...
 ```
 
 ## slug
 
-Generate slug for a string value. The method is exported from the [slugify package](https://www.npmjs.com/package/slugify); therefore, consult its documentation for available options.
+为字符串值生成 slug。该方法从 [slugify package](https://www.npmjs.com/package/slugify) 中导出；因此，请参阅其文档以了解可用选项。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -127,7 +127,7 @@ console.log(string.slug('hello ♥ world'))
 // hello-love-world
 ```
 
-You can add custom replacements for Unicode values as follows.
+您可以如下为 Unicode 值添加自定义替换。
 
 ```ts
 string.slug.extend({ '☢': 'radioactive' })
@@ -138,7 +138,7 @@ console.log(string.slug('unicode ♥ is ☢'))
 
 ## interpolate
 
-Interpolate variables inside a string. The variables must be inside double curly braces.
+在字符串中插入变量。变量必须位于双大括号内。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -151,7 +151,7 @@ string.interpolate('hello {{ user.username }}', {
 // hello virk
 ```
 
-Curly braces can be escaped using the `\\` prefix.
+可以使用 `\\` 前缀转义大括号。
 
 ```ts
 string.interpolate('hello \\{{ users.0 }}', {})
@@ -160,7 +160,7 @@ string.interpolate('hello \\{{ users.0 }}', {})
 
 ## plural
 
-Convert a word to its plural form. The method is exported from the [pluralize package](https://www.npmjs.com/package/pluralize).
+将单词转换为复数形式。该方法从 [pluralize package](https://www.npmjs.com/package/pluralize) 中导出。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -171,7 +171,7 @@ string.plural('test')
 
 ## isPlural
 
-Find if a word already is in plural form.
+判断单词是否已经是复数形式。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -181,7 +181,7 @@ string.isPlural('tests') // true
 
 ## pluralize
 
-This method combines the `singular` and the `plural` methods and uses one or the other based on the count. For example:
+此方法结合了 `singular` 和 `plural` 方法，并根据数量使用其中之一。例如：
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -195,7 +195,7 @@ string.pluralize('boxes', 2) // boxes
 string.pluralize('boxes', 0) // boxes
 ```
 
-The `pluralize` property exports [additional methods](https://www.npmjs.com/package/pluralize) to register custom uncountable, irregular, plural, and singular rules.
+`pluralize` 属性导出 [additional methods](https://www.npmjs.com/package/pluralize) 以注册自定义的不可数、不规则、复数和单数规则。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -206,7 +206,7 @@ string.pluralize.addSingularRule(/singles$/i, 'singular')
 
 ## singular
 
-Convert a word to its singular form. The method is exported from the [pluralize package](https://www.npmjs.com/package/pluralize).
+将单词转换为单数形式。该方法从 [pluralize package](https://www.npmjs.com/package/pluralize) 中导出。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -217,7 +217,7 @@ string.singular('tests')
 
 ## isSingular
 
-Find if a word is already in a singular form.
+判断单词是否已经是单数形式。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -227,7 +227,7 @@ string.isSingular('test') // true
 
 ## camelCase
 
-Convert a string value to camelcase.
+将字符串值转换为驼峰式命名。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -235,9 +235,9 @@ import string from '@adonisjs/core/helpers/string'
 string.camelCase('user_name') // userName
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
-| Input            | Output        |
+| 输入            | 输出        |
 | ---------------- | ------------- |
 | 'test'           | 'test'        |
 | 'test string'    | 'testString'  |
@@ -249,7 +249,7 @@ Following are some of the conversion examples.
 
 ## capitalCase
 
-Convert a string value to a capital case.
+将字符串值转换为首字母大写形式。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -257,36 +257,9 @@ import string from '@adonisjs/core/helpers/string'
 string.capitalCase('helloWorld') // Hello World
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
-| Input            | Output           |
-| ---------------- | ---------------- |
-| 'test'           | 'Test'           |
-| 'test string'    | 'Test String'    |
-| 'Test String'    | 'Test String'    |
-| 'TestV2'         | 'Test V 2'       |
-| 'version 1.2.10' | 'Version 1.2.10' |
-| 'version 1.21.0' | 'Version 1.21.0' |
-
-## dashCase
-
-Convert a string value to a dash case.
-
-```ts
-import string from '@adonisjs/core/helpers/string'
-
-string.dashCase('helloWorld') // hello-world
-```
-
-Optionally, you can capitalize the first letter of each word.
-
-```ts
-string.dashCase('helloWorld', { capitalize: true }) // Hello-World
-```
-
-Following are some of the conversion examples.
-
-| Input            | Output         |
+| 输入             | 输出           |
 | ---------------- | -------------- |
 | 'test'           | 'test'         |
 | 'test string'    | 'test-string'  |
@@ -298,7 +271,7 @@ Following are some of the conversion examples.
 
 ## dotCase
 
-Convert a string value to a dot case.
+将字符串值转换为点式命名法。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -306,13 +279,13 @@ import string from '@adonisjs/core/helpers/string'
 string.dotCase('helloWorld') // hello.World
 ```
 
-Optionally, you can convert the first letter of all the words to lowercase.
+可选地，你可以将所有单词的首字母转换为小写。
 
 ```ts
 string.dotCase('helloWorld', { lowerCase: true }) // hello.world
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
 | Input            | Output         |
 | ---------------- | -------------- |
@@ -327,7 +300,7 @@ Following are some of the conversion examples.
 
 ## noCase
 
-Remove all sorts of casing from a string value.
+从字符串值中移除所有形式的大小写。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -335,7 +308,7 @@ import string from '@adonisjs/core/helpers/string'
 string.noCase('helloWorld') // hello world
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
 | Input                  | Output                 |
 | ---------------------- | ---------------------- |
@@ -368,7 +341,7 @@ Following are some of the conversion examples.
 
 ## pascalCase
 
-Convert a string value to a Pascal case. Great for generating JavaScript class names.
+将字符串值转换为帕斯卡命名法。非常适合生成 JavaScript 类名。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -376,7 +349,7 @@ import string from '@adonisjs/core/helpers/string'
 string.pascalCase('user team') // UserTeam
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
 | Input            | Output        |
 | ---------------- | ------------- |
@@ -389,7 +362,7 @@ Following are some of the conversion examples.
 
 ## sentenceCase
 
-Convert a value to a sentence.
+将值转换为句子。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -398,7 +371,7 @@ string.sentenceCase('getting_started-with-adonisjs')
 // Getting started with adonisjs
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
 | Input            | Output           |
 | ---------------- | ---------------- |
@@ -411,7 +384,7 @@ Following are some of the conversion examples.
 
 ## snakeCase
 
-Convert value to snake case.
+将值转换为蛇形命名法。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -419,7 +392,7 @@ import string from '@adonisjs/core/helpers/string'
 string.snakeCase('user team') // user_team
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
 | Input            | Output         |
 | ---------------- | -------------- |
@@ -434,7 +407,7 @@ Following are some of the conversion examples.
 
 ## titleCase
 
-Convert a string value to the title case.
+将字符串值转换为标题大小写。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -443,7 +416,7 @@ string.titleCase('small word ends on')
 // Small Word Ends On
 ```
 
-Following are some of the conversion examples.
+以下是一些转换示例。
 
 | Input                              | Output                             |
 | ---------------------------------- | ---------------------------------- |
@@ -460,7 +433,7 @@ Following are some of the conversion examples.
 
 ## random
 
-Generate a cryptographically secure random string of a given length. The output value is a URL-safe base64 encoded string.
+生成给定长度的加密安全随机字符串。输出值是 URL 安全的 base64 编码字符串。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -471,7 +444,7 @@ string.random(32)
 
 ## sentence
 
-Convert an array of words to a comma-separated sentence.
+将单词数组转换为逗号分隔的句子。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -480,7 +453,7 @@ string.sentence(['routes', 'controllers', 'middleware'])
 // routes, controllers, and middleware
 ```
 
-You can replace the `and` with an `or` by specifying the `options.lastSeparator` property.
+你可以通过指定 `options.lastSeparator` 属性将 `and` 替换为 `or`。
 
 ```ts
 string.sentence(['routes', 'controllers', 'middleware'], {
@@ -488,7 +461,7 @@ string.sentence(['routes', 'controllers', 'middleware'], {
 })
 ```
 
-In the following example, the two words are combined using the `and` separator, not the comma (usually advocated in English). However, you can use a custom separator for a pair of words.
+在以下示例中，两个单词使用 `and` 分隔符而不是逗号（通常在英语中提倡使用）。但是，你可以为一对单词使用自定义分隔符。
 
 ```ts
 string.sentence(['routes', 'controllers'])
@@ -499,10 +472,9 @@ string.sentence(['routes', 'controllers'], {
 })
 // routes, and controllers
 ```
-
 ## condenseWhitespace
 
-Remove multiple whitespaces from a string to a single whitespace.
+从字符串中移除多个空格，只保留一个空格。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -516,7 +488,7 @@ string.condenseWhitespace('  hello  world  ')
 
 ## seconds
 
-Parse a string-based time expression to seconds.
+将基于字符串的时间表达式解析为秒。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -525,13 +497,13 @@ string.seconds.parse('10h') // 36000
 string.seconds.parse('1 day') // 86400
 ```
 
-Passing a numeric value to the `parse` method is returned as it is, assuming the value is already in seconds.
+将数值传递给 `parse` 方法时，将原样返回，假设该值已经是秒。
 
 ```ts
 string.seconds.parse(180) // 180
 ```
 
-You can format seconds to a pretty string using the `format` method.
+使用 `format` 方法，可以将秒格式化为易读的字符串。
 
 ```ts
 string.seconds.format(36000) // 10h
@@ -540,7 +512,7 @@ string.seconds.format(36000, true) // 10 hours
 
 ## milliseconds
 
-Parse a string-based time expression to milliseconds.
+将基于字符串的时间表达式解析为毫秒。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -549,13 +521,13 @@ string.milliseconds.parse('1 h') // 3.6e6
 string.milliseconds.parse('1 day') // 8.64e7
 ```
 
-Passing a numeric value to the `parse` method is returned as it is, assuming the value is already in milliseconds.
+将数值传递给 `parse` 方法时，将原样返回，假设该值已经是毫秒。
 
 ```ts
 string.milliseconds.parse(180) // 180
 ```
 
-Using the `format` method, you can format milliseconds to a pretty string.
+使用 `format` 方法，可以将毫秒格式化为易读的字符串。
 
 ```ts
 string.milliseconds.format(3.6e6) // 1h
@@ -564,7 +536,7 @@ string.milliseconds.format(3.6e6, true) // 1 hour
 
 ## bytes
 
-Parse a string-based unit expression to bytes.
+将基于字符串的单位表达式解析为字节。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -573,13 +545,13 @@ string.bytes.parse('1KB') // 1024
 string.bytes.parse('1MB') // 1048576
 ```
 
-Passing a numeric value to the `parse` method is returned as it is, assuming the value is already in bytes.
+将数值传递给 `parse` 方法时，将原样返回，假设该值已经是字节。
 
 ```ts
 string.bytes.parse(1024) // 1024
 ```
 
-Using the `format` method, you can format bytes to a pretty string. The method is exported directly from the [bytes](https://www.npmjs.com/package/bytes) package. Please reference the package README for available options.
+使用 `format` 方法，可以将字节格式化为易读的字符串。该方法直接从 [bytes](https://www.npmjs.com/package/bytes) 包中导出。有关可用选项，请参考该包的 README。
 
 ```ts
 string.bytes.format(1048576) // 1MB
@@ -589,7 +561,7 @@ string.bytes.format(1024 * 1024 * 1000, { thousandsSeparator: ',' }) // 1,000MB
 
 ## ordinal
 
-Get the ordinal letter for a given number.
+获取给定数字的序数词。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -605,32 +577,33 @@ string.ordinal(24) // '24th'
 
 ## safeEqual
 
-Check if two buffer or string values are the same. This method does not leak any timing information and prevents [timing attack](https://javascript.plainenglish.io/what-are-timing-attacks-and-how-to-prevent-them-using-nodejs-158cc7e2d70c).
+检查两个缓冲区或字符串值是否相同。此方法不会泄露任何时间信息，从而防止 [timing attack](https://javascript.plainenglish.io/what-are-timing-attacks-and-how-to-prevent-them-using-nodejs-158cc7e2d70c)。
 
-Under the hood, this method uses Node.js [crypto.timeSafeEqual](https://nodejs.org/api/crypto.html#cryptotimingsafeequala-b) method, with support for comparing string values. _(crypto.timeSafeEqual does not support string comparison)_
+在底层，此方法使用 Node.js 的 [crypto.timeSafeEqual](https://nodejs.org/api/crypto.html#cryptotimingsafeequala-b) 方法，并支持比较字符串值。（crypto.timeSafeEqual 不支持字符串比较）
 
 ```ts
 import { safeEqual } from '@adonisjs/core/helpers'
 
 /**
- * The trusted value, it might be saved inside the db
+ * 可信值，可能保存在数据库中
  */
 const trustedValue = 'hello world'
 
 /**
- * Untrusted user input
+ * 不可信的用户输入
  */
 const userInput = 'hello'
 
 if (safeEqual(trustedValue, userInput)) {
-  // both are the same
+  // 两者相同
 } else {
-  // value mismatch
+  // 值不匹配
 }
 ```
 
 ## cuid
-Create a secure, collision-resistant ID optimized for horizontal scaling and performance. This method uses the [@paralleldrive/cuid2](https://github.com/paralleldrive/cuid2) package under the hood.
+
+创建一个安全、防冲突的 ID，优化用于水平扩展和性能。此方法在底层使用 [@paralleldrive/cuid2](https://github.com/paralleldrive/cuid2) 包。
 
 ```ts
 import { cuid } from '@adonisjs/core/helpers'
@@ -639,7 +612,7 @@ const id = cuid()
 // tz4a98xxat96iws9zmbrgj3a
 ```
 
-You can use the `isCuid` method to check if a value is a valid CUID.
+可以使用 `isCuid` 方法检查一个值是否是有效的 CUID。
 
 ```ts
 import { cuid, isCuid } from '@adonisjs/core/helpers'
@@ -650,16 +623,16 @@ isCuid(id) // true
 
 ## compose
 
-The `compose` helper allows you to use TypeScript class mixins with a cleaner API. Following is an example of mixin usage without the `compose` helper.
+`compose` 助手允许您使用更简洁的 API 使用 TypeScript 类混入。以下是没有 `compose` 助手的混入用法示例。
 
 ```ts
 class User extends UserWithAttributes(UserWithAge(UserWithPassword(UserWithEmail(BaseModel)))) {}
 ```
 
-Following is an example with the `compose` helper.
+以下是使用 `compose` 助手的示例。
 
-- There is no nesting.
-- The order of mixins is from (left to right/top to bottom). Whereas earlier, it was inside out.
+- 没有嵌套。
+- 混入的顺序是从（左到右/上到下）。而之前是从内到外。
 
 ```ts
 import { compose } from '@adonisjs/core/helpers'
@@ -675,7 +648,7 @@ class User extends compose(
 
 ## base64
 
-Utility methods to base64 encode and decode values.
+用于 base64 编码和解码值的实用方法。
 
 ```ts
 import { base64 } from '@adonisjs/core/helpers'
@@ -684,20 +657,20 @@ base64.encode('hello world')
 // aGVsbG8gd29ybGQ=
 ```
 
-Like the `encode` method, you can use the `urlEncode` to generate a base64 string safe to pass in a URL.
+与 `encode` 方法类似，您可以使用 `urlEncode` 生成可在 URL 中安全传递的 base64 字符串。
 
-The `urlEncode` method performs the following replacements.
+`urlEncode` 方法执行以下替换。
 
-- Replace `+` with `-`.
-- Replace `/` with `_`.
-- And remove the `=` sign from the end of the string.
+- 将 `+` 替换为 `-`。
+- 将 `/` 替换为 `_`。
+- 并从字符串末尾移除 `=` 符号。
 
 ```ts
 base64.urlEncode('hello world')
 // aGVsbG8gd29ybGQ
 ```
 
-You can use the `decode` and the `urlDecode` methods to decode a previously encoded base64 string.
+您可以使用 `decode` 和 `urlDecode` 方法解码之前编码的 base64 字符串。
 
 ```ts
 base64.decode(base64.encode('hello world'))
@@ -707,16 +680,16 @@ base64.urlDecode(base64.urlEncode('hello world'))
 // hello world
 ```
 
-The `decode` and the `urlDecode` methods return `null` when the input value is an invalid base64 string. You can turn on the `strict` mode to raise an exception instead.
+当输入值是无效的 base64 字符串时，`decode` 和 `urlDecode` 方法返回 `null`。您可以启用 `strict` 模式以抛出异常。
 
 ```ts
 base64.decode('hello world') // null
-base64.decode('hello world', 'utf-8', true) // raises exception
+base64.decode('hello world', 'utf-8', true) // 抛出异常
 ```
 
 ## fsReadAll
 
-Get a list of all the files from a directory. The method recursively fetches files from the main and the sub-folders. The dotfiles are ignored implicitly.
+从目录中获取所有文件的列表。该方法递归地从主目录和子文件夹中获取文件。隐式忽略点文件。
 
 ```ts
 import { fsReadAll } from '@adonisjs/core/helpers'
@@ -725,7 +698,7 @@ const files = await fsReadAll(new URL('./config', import.meta.url), { pathType: 
 await Promise.all(files.map((file) => import(file)))
 ```
 
-You can also pass the options along with the directory path as the second argument.
+您还可以将选项作为第二个参数与目录路径一起传递。
 
 ```ts
 type Options = {
@@ -739,16 +712,15 @@ const options: Partial<Options> = {}
 await fsReadAll(location, options)
 ```
 
-| Argument | Description |
+| 参数 | 描述 |
 |------------|------------|
-| `ignoreMissingRoot` | By default, an exception is raised when the root directory is missing. Setting `ignoreMissingRoot` to true will not result in an error, and an empty array is returned. |
-| `filter` | Define a filter to ignore certain paths. The method is called on the final list of files. |
-| `sort` | Define a custom method to sort file paths. By default, the files are sorted using natural sort. |
-| `pathType` | Define how to return the collected paths. By default, OS-specific relative paths are returned. If you want to import the collected files, you must set the`pathType = 'url'` |
+| `ignoreMissingRoot` | 默认情况下，当根目录缺失时会抛出异常。将 `ignoreMissingRoot` 设置为 true 不会导致错误，并返回一个空数组。 |
+| `filter` | 定义过滤器以忽略某些路径。该方法在最终文件列表上调用。 |
+| `sort` | 定义自定义方法来排序文件路径。默认情况下，文件使用自然排序。 |
+| `pathType` | 定义如何返回收集的路径。默认情况下，返回特定于操作系统的相对路径。如果要导入收集的文件，必须设置 `pathType = 'url'` |
 
 ## fsImportAll
-
-The `fsImportAll` method imports all the files recursively from a given directory and sets the exported value from each module on an object.
+`fsImportAll` 方法递归地从给定目录导入所有文件，并将每个模块的导出值设置在一个对象上。
 
 ```ts
 import { fsImportAll } from '@adonisjs/core/helpers'
@@ -757,11 +729,11 @@ const collection = await fsImportAll(new URL('./config', import.meta.url))
 console.log(collection)
 ```
 
-- Collection is an object with a tree of key-value pairs.
-- The key is the nested object created from the file path.
-- Value is the exported values from the module. Only the default export is used if a module has both `default` and `named` exports.
+- Collection 是一个包含键值对树的对象。
+- 键是从文件路径创建的嵌套对象。
+- 值是模块的导出值。如果模块同时有 `default` 和 `named` 导出，则只使用默认导出。
 
-The second param is the option to customize the import behavior.
+第二个参数是用于自定义导入行为的选项。
 
 ```ts
 type Options = {
@@ -775,16 +747,16 @@ const options: Partial<Options> = {}
 await fsImportAll(location, options)
 ```
 
-| Argument | Description |
+| 参数 | 描述 |
 |------------|------------|
-| `ignoreMissingRoot` | By default, an exception is raised when the root directory is missing. Setting `ignoreMissingRoot` to true will not result in an error, and an empty object will be returned. |
-| `filter` | Define a filter to ignore certain paths. By default, only files ending with `.js`, `.ts`, `.json`, `.cjs`, and `.mjs` are imported. |
-| `sort` | Define a custom method to sort file paths. By default, the files are sorted using natural sort. |
-| `transformKeys` | Define a callback method to transform the keys for the final object. The method receives an array of nested keys and must return an array. |
+| `ignoreMissingRoot` | 默认情况下，当根目录缺失时会抛出异常。将 `ignoreMissingRoot` 设置为 true 不会导致错误，并会返回一个空对象。 |
+| `filter` | 定义过滤器以忽略某些路径。默认情况下，只导入以 `.js`、`.ts`、`.json`、`.cjs` 和 `.mjs` 结尾的文件。 |
+| `sort` | 定义自定义方法来对文件路径进行排序。默认情况下，文件使用自然排序。 |
+| `transformKeys` | 定义回调方法来转换最终对象的键。该方法接收一个嵌套键数组，并必须返回一个数组。 |
 
-## String builder
+## 字符串构建器
 
-The `StringBuilder` class offers a fluent API to perform transformations on a string value. You may get an instance of string builder using the `string.create` method.
+`StringBuilder` 类提供了一个流畅的 API 来对字符串值进行转换。您可以使用 `string.create` 方法获取字符串构建器的实例。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -799,11 +771,11 @@ const value = string
   .toString()
 ```
 
-## Message builder
+## 消息构建器
 
-The `MessageBuilder` class offers an API to serialize JavaScript data types with an expiry and purpose. You can either store the serialized output in safe storage like your application database or encrypt it (to avoid tampering) and share it publicly.
+`MessageBuilder` 类提供了一个 API 来序列化带有过期时间和用途的 JavaScript 数据类型。您可以将序列化输出存储在安全存储中（如应用程序数据库），或对其进行加密（以防止篡改）并公开共享。
 
-In the following example, we serialize an object with the `token` property and set its expiry to be `1 hour`.
+在下面的示例中，我们对一个包含 `token` 属性的对象进行序列化，并将其过期时间设置为 `1 hour`。
 
 ```ts
 import { MessageBuilder } from '@adonisjs/core/helpers'
@@ -828,9 +800,9 @@ const encoded = builder.build(
  */
 ```
 
-Once you have the JSON string with the expiry and the purpose, you can encrypt it (to prevent tampering) and share it with the client.
+一旦您获得了带有过期时间和用途的 JSON 字符串，您可以对其进行加密（以防止篡改）并与客户端共享。
 
-During the token verification, you can decrypt the previously encrypted value and use the `MessageBuilder` to verify the payload and convert it to a JavaScript object.
+在令牌验证期间，您可以解密之前加密的值，并使用 `MessageBuilder` 来验证有效载荷并将其转换为 JavaScript 对象。
 
 ```ts
 import { MessageBuilder } from '@adonisjs/core/helpers'
@@ -844,12 +816,13 @@ if (!decoded) {
 console.log(decoded.token)
 ```
 
-## Secret
-The `Secret` class lets you hold sensitive values within your application without accidentally leaking them inside logs and console statements.
+## 密钥
 
-For example, the `appKey` value defined inside the `config/app.ts` file is an instance of the `Secret` class. If you try to log this value to the console, you will see `[redacted]` and not the original value.
+`Secret` 类允许您在应用程序中持有敏感值，而不会意外地在日志和控制台语句中泄露它们。
 
-For demonstration, let's fire up a REPL session and try it.
+例如，`config/app.ts` 文件中定义的 `appKey` 值是 `Secret` 类的一个实例。如果您尝试将此值记录到控制台，您将看到 `[redacted]` 而不是原始值。
+
+为了演示，让我们启动一个 REPL 会话并尝试一下。
 
 ```sh
 node ace repl
@@ -873,10 +846,11 @@ node ace repl
 # [redacted]
 ```
 
-You can call the `config.appKey.release` method to read the original value. The purpose of the Secret class is not to prevent your code from accessing the original value. Instead, it provides a safety net from exposing sensitive data inside logs.
+您可以调用 `config.appKey.release` 方法来读取原始值。`Secret` 类的目的并不是阻止您的代码访问原始值。相反，它提供了一个安全网，以防止在日志中暴露敏感数据。
 
-### Using the Secret class
-You can wrap custom values inside the Secret class as follows.
+### 使用 Secret 类
+
+您可以如下将自定义值包装在 `Secret` 类中。
 
 ```ts
 import { Secret } from '@adonisjs/core/helpers'
@@ -886,9 +860,9 @@ console.log(value) // [redacted]
 console.log(value.release()) // some-secret-value
 ```
 
-## Types detection
+## 类型检测
 
-We export the [@sindresorhus/is](https://github.com/sindresorhus/is) module from the `helpers/is` import path, and you may use it to perform the type detection in your apps.
+我们从 `helpers/is` 导入路径导出了 [@sindresorhus/is](https://github.com/sindresorhus/is) 模块，您可以使用它在您的应用程序中进行类型检测。
 
 ```ts
 import is from '@adonisjs/core/helpers/is'

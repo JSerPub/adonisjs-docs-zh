@@ -1,108 +1,108 @@
 ---
-summary: Governance model for the AdonisJS project.
+summary: AdonisJS 项目的管治模型。
 ---
 
-# Governance
+# 管治
 
-## Roles and responsibilities
+## 角色和职责
 
-### Authors
+### 项目作者
 
-Harminder Virk (the creator of AdonisJS) serves as the Project Author. The project author is responsible for the project's governance, standards, and direction. To summarize:
+Harminder Virk（AdonisJS 的创建者）担任项目作者。项目作者负责项目的管理、标准和方向。总结如下：
 
-- The project author decides which new projects should live under the AdonisJS umbrella.
-- The project author is responsible for assigning leads to projects and transferring projects to a new lead when an existing lead steps down.
-- It is the author's responsibility to share/document the framework's vision and keep project leads in sync with the same.
+- 项目作者决定哪些新项目应纳入 AdonisJS 旗下。
+- 项目作者负责为项目指定负责人，并在现有负责人卸任时将项目移交给新的负责人。
+- 项目作者有责任分享/记录框架的愿景，并确保项目负责人与此保持一致。
 
-### Project Leads
+### 项目负责人
 
-AdonisJS is a combination of several packages created and managed by the core team. All of these packages are led by a project lead selected by the project Author.
+AdonisJS 是由核心团队创建和管理的多个包的组合。所有这些包都由项目作者指定的项目负责人领导。
 
-In almost every case, the creator of the package serves as the project lead since they are the ones who have put the initial efforts into bringing the idea to life.
+在几乎所有情况下，包的创建者都会担任项目负责人，因为他们是最初将想法变为现实的人。
 
-The project lead has the final say in all aspects of decision-making within the project. However, because the community always has the ability to fork, this person is fully answerable to the community. It is the project lead's responsibility to set the strategic objectives of the project and communicate these clearly to the community. They also have to understand the community as a whole and strive to satisfy as many conflicting needs as possible while ensuring that the project survives in the long term.
+项目负责人对项目内的所有决策方面拥有最终决定权。然而，由于社区始终有权分叉项目，因此项目负责人需对社区全权负责。项目负责人有责任设定项目的战略目标，并向社区清晰传达这些目标。他们还需要整体了解社区，并努力在满足尽可能多的相互冲突的需求的同时，确保项目能够长期存续。
 
-In many ways, the role of the project lead is about diplomacy. The key is to ensure that, as the project expands, the right people are given influence over it, and the community rallies behind the vision of the project lead. The lead's job is then to ensure that the core team members (see below) make the right decisions on behalf of the project. Generally speaking, as long as the core team members are aligned with the project's strategy, the project lead will allow them to proceed as desired.
+在许多方面，项目负责人的角色涉及外交手腕。关键是确保随着项目的扩展，合适的人能够对项目产生影响，并且社区能够支持项目负责人的愿景。项目负责人的工作就是确保核心团队成员（见下文）代表项目做出正确决策。一般来说，只要核心团队成员与项目战略保持一致，项目负责人就会允许他们按意愿行事。
 
 :::note
-A project lead cannot archive or decide to remove the project from the AdonisJS umbrella. They can decide to stop working on the project, and in that case, we will find a new project lead.
+项目负责人不能归档或决定从 AdonisJS 旗下移除项目。他们可以决定停止参与项目，在这种情况下，我们将寻找新的项目负责人。
 :::
 
-### Core team
+### 核心团队
 
-Members of the core team are contributors who have made multiple valuable contributions to the project and are now relied upon to both write code directly to the repository and screen the contributions of others. In many cases, they are programmers, but it is also possible that they contribute in a different role, for example, community engagement. Typically, a core team member will focus on a specific aspect of the project and will bring a level of expertise and understanding that earns them the respect of the community and the project lead. The role of core team member is not an official one, it is simply a position that influential members of the community will find themselves in as the project lead looks to them for guidance and support.
+核心团队成员是对项目做出了多次有价值贡献的贡献者，现在他们既可以直接向仓库编写代码，也可以筛选其他人的贡献。在许多情况下，他们是程序员，但也有可能以其他角色做出贡献，例如社区参与。通常，核心团队成员会专注于项目的特定方面，并会带来一定程度的专业知识和理解，从而赢得社区和项目负责人的尊重。核心团队成员的角色不是官方的，它只是社区中有影响力的成员在项目负责人寻求指导和支持时会发现自己所处的位置。
 
-Core team members have no authority over the overall direction of the project. However, they do have the ear of the project lead. It is a core team member's job to ensure that the lead is aware of the community's needs and collective objectives, and to help develop or elicit appropriate contributions to the project. Often, core team members are given informal control over their specific areas of responsibility, and are assigned rights to directly modify certain areas of the source code. That is, although core team members do not have explicit decision-making authority, they will often find that their actions are synonymous with the decisions made by the lead.
+核心团队成员对项目的整体方向没有决定权。然而，他们能够得到项目负责人的倾听。核心团队成员的工作是确保负责人了解社区的需求和集体目标，并帮助开发或引出对项目的适当贡献。通常，核心团队成员会在其特定职责领域获得非正式的控制权，并被赋予直接修改源代码某些部分的权限。也就是说，尽管核心团队成员没有明确的决策权，但他们往往会发现，他们的行动与负责人做出的决策是同义的。
 
-#### Active Core Team Members
+#### 活跃核心团队成员
 
-Active Core Team Members contribute to the project on a regular basis. An active core team member usually has or more focus areas - in the most common cases, they will be responsible for the regular issue triaging, bug fixing, documentation improvements or feature development in a subproject repository.
+活跃核心团队成员定期为项目做出贡献。活跃核心团队成员通常有一个或多个重点领域——在最常见的情况下，他们将负责子项目仓库中的常规问题分类、错误修复、文档改进或功能开发。
 
-#### Core Team Emeriti
+#### 名誉核心团队成员
 
-Some core team members who have made valuable contributions in the past may no longer be able to commit to the same level of participation today due to various reasons. That is perfectly normal, and any past contributions to the project are still highly appreciated. These core team members are honored for their contributions as Core Team Emeriti, and are welcome to resume active participation at any time.
+一些过去做出过有价值贡献的核心团队成员，由于各种原因，如今可能无法再保持同样的参与水平。这是完全正常的，他们对项目的任何过去贡献仍然受到高度赞赏。这些核心团队成员因其贡献而被授予名誉核心团队成员称号，并随时欢迎恢复积极参与。
 
-### Contributors
+### 贡献者
 
-Contributors are community members who either have no desire to become core team members, or have not yet been given the opportunity by the project lead. They make valuable contributions, such as those outlined in the list below, but generally do not have the authority to make direct changes to the project code. Contributors engage with the project through communication tools, such as the RFC discussions, GitHub issues and pull requests, Discord chatroom, and the forum.
+贡献者是社区成员，他们要么没有成为核心团队成员的意愿，要么尚未得到项目负责人的机会。他们做出有价值的贡献，如以下列表中所述，但通常没有权限直接更改项目代码。贡献者通过沟通工具参与项目，如 RFC 讨论、GitHub 问题和拉取请求、Discord 聊天室和论坛。
 
-Anyone can become a contributor. There is no expectation of commitment to the project, no specific skill requirements and no selection process. To become a contributor, a community member simply has to perform one or more actions that are beneficial to the project.
+任何人都可以成为贡献者。对项目的承诺没有期望，没有特定的技能要求，也没有选择过程。要成为贡献者，社区成员只需执行一个或多个对项目有益的行动。
 
-Some contributors will already be engaging with the project as users, but will also find themselves doing one or more of the following:
+一些贡献者可能已经是项目的用户，但也会发现自己正在做以下一项或多项工作：
 
-- Supporting new users (current users often provide the most effective new user support)
-- Reporting bugs
-- Identifying requirements
-- Programming
-- Assisting with project infrastructure
-- Fixing bugs
-- Adding features
+- 支持新用户（现有用户通常提供最有效的新用户支持）
+- 报告错误
+- 确定需求
+- 编程
+- 协助项目基础设施
+- 修复错误
+- 添加功能
 
-As contributors gain experience and familiarity with the project, they may find that the project lead starts relying on them more and more. When this begins to happen, they gradually adopt the role of core team member, as described above.
+随着贡献者对项目的经验和熟悉程度的增加，他们可能会发现项目负责人越来越依赖他们。当这种情况开始发生时，他们就会逐渐承担起上文所述的核心团队成员的角色。
 
-### Users
+### 用户
 
-Users are community members who have a need for the project. They are the most important members of the community: without them, the project would have no purpose. Anyone can be a user; there are no specific requirements.
+用户是有项目需求的社区成员。他们是社区中最重要的成员：没有他们，项目就没有目的。任何人都可以成为用户；没有特定要求。
 
-Users should be encouraged to participate in the life of the project and the community as much as possible. User contributions enable the project team to ensure that they are satisfying the needs of those users. Common user activities include (but are not limited to):
+应鼓励用户尽可能多地参与项目和社区的生活。用户的贡献使项目团队能够确保他们正在满足这些用户的需求。常见的用户活动包括（但不限于）：
 
-- Evangelizing about the project.
-- Informing developers of project strengths and weaknesses from a new user's perspective.
-- Providing moral support (a 'thank you' goes a long way).
-- Providing financial support through GitHub Sponsors.
+- 宣传项目。
+- 从新用户的角度告知开发人员项目的优点和缺点。
+- 提供精神支持（一句“谢谢”意义重大）。
+- 通过 GitHub Sponsors 提供财务支持。
 
-Users who continue to engage with the project and its community will often find themselves becoming more and more involved. Such users may then go on to become contributors, as described above.
+持续参与项目和其社区的用户往往会发现自己越来越深入其中。这样的用户可能会继续成为上文所述的贡献者。
 
-## Support
+## 支持
 
-All participants in the community are encouraged to provide support for new users within the project management infrastructure. This support is provided as a way of growing the community. Those seeking support should recognize that all support activity within the project is voluntary and is therefore provided as and when time allows. A user requiring guaranteed response times or results should therefore seek to purchase a support contract. However, for those willing to engage with the project on its terms, and willing to help support other users, the community support channels are ideal.
+鼓励社区中的所有参与者在项目管理基础设施内为新用户提供支持。这种支持是作为一种扩大社区的方式提供的。寻求支持的人应认识到，项目内的所有支持活动都是自愿的，因此是在时间允许的情况下提供的。因此，需要保证响应时间或结果的用户应寻求购买支持合同。然而，对于那些愿意按照项目的条件参与项目，并愿意帮助支持其他用户的人来说，社区支持渠道是理想的选择。
 
-### Monetary Donations
+### 金钱捐赠
 
-For an open development project, money is less important than active contribution. However, some people or organizations are cash-rich and time-poor and would prefer to make their contribution in the form of cash. If you want to make a significant donation, you may be able to sponsor us to implement a new feature or fix some bugs. The project website provides clear guidance on how to go about donating.
+对于一个开放开发项目来说，金钱不如积极贡献重要。然而，一些个人或组织资金充裕但时间有限，他们更愿意以现金形式做出贡献。如果您想进行大额捐赠，您可能可以赞助我们以实现新功能或修复一些错误。项目网站提供了关于如何捐赠的明确指导。
 
-If you run a business using the project as a revenue-generating product, it makes business sense to sponsor its development. It ensures the project that your product relies on stays healthy and actively maintained. It can also improve exposure in our community and make it easier to attract new developers.
+如果您使用该项目作为创收产品来经营业务，那么赞助其开发是有商业意义的。它确保了您所依赖的项目保持健康并得到积极维护。它还可以提高我们在社区中的曝光度，并更容易吸引新开发人员。
 
-## Branding and Ownership
+## 品牌和所有权
 
-AdonisJS (spelled with "JS" at the end) is a registered trademark of Harminder Virk.
+AdonisJS（末尾带有“JS”拼写）是 Harminder Virk 的注册商标。
 
-Only the projects under the `@adonisjs` npm scope and the AdonisJS GitHub organization are managed and officially supported by the core team.
+只有 `@adonisjs` npm 范围下的项目和 AdonisJS GitHub 组织下的项目才由核心团队管理和正式支持。
 
-Also, you must not use the AdonisJS name or logos in a way that could mistakenly imply any official connection with or endorsement of AdonisJS. Any use of the AdonisJS name or logos in a manner that could cause customer confusion is not permitted.
+此外，您不得使用 AdonisJS 名称或徽标，以免错误地暗示与 AdonisJS 有任何官方联系或得到其认可。任何可能导致客户混淆的方式使用 AdonisJS 名称或徽标都是不允许的。
 
-This includes naming a product or service in a way that emphasizes the AdonisJS brand, like "AdonisJS UIKit" or "AdonisJS Studio", as well as in domain names like "adonisjs-studio.com".
+这包括以一种强调 AdonisJS 品牌的方式来命名产品或服务，如“AdonisJS UIKit”或“AdonisJS Studio”，以及在域名中使用，如“adonisjs-studio.com”。
 
-Instead, you must use your own brand name in a way that clearly distinguishes it from AdonisJS.
+相反，您必须使用自己的品牌名称，并以一种明显区别于 AdonisJS 的方式使用。
 
-Additionally, you may not use our trademarks for t-shirts, stickers, or other merchandise without explicit written consent.
+此外，未经明确书面同意，您不得将我们的商标用于 T 恤、贴纸或其他商品。
 
-## Projects under AdonisJS umbrella
+## AdonisJS 旗下的项目
 
-Projects under the AdonisJS umbrella are the intellectual property of the Project Author. Once a project created by a project lead becomes part of the "AdonisJS GitHub organization," or if it is published under the `@adonisjs` npm scope, the project leads cannot delete or abandon the project.
+AdonisJS 旗下的项目是项目作者的知识产权。一旦由项目负责人创建的项目成为“AdonisJS GitHub 组织”的一部分，或者如果它以 `@adonisjs` npm 范围发布，项目负责人就不能删除或放弃该项目。
 
 ---
 
 :::note
-This governance document is based upon the [Benevolent Dictator Governance Model](http://oss-watch.ac.uk/resources/benevolentdictatorgovernancemodel) by Ross Gardler and Gabriel Hanganu, licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/). This document itself is also licensed under the same license.
+本管理文档基于 Ross Gardler 和 Gabriel Hanganu 的[仁慈独裁者管理模型](http://oss-watch.ac.uk/resources/benevolentdictatorgovernancemodel)，该模型根据[知识共享署名-相同方式共享 4.0 国际许可证](https://creativecommons.org/licenses/by-sa/4.0/) 授权。本文档本身也根据相同的许可证授权。
 :::

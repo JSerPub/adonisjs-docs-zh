@@ -1,14 +1,14 @@
 ---
-summary: Learn about the events dispatched by the AdonisJS framework core and official packages.
+summary: 了解 AdonisJS 框架核心和官方包所分派的事件。
 ---
 
-# Events reference
+# 事件参考
 
-In this guide, we look at the list of events dispatched by the framework core and the official packages. Check out the [emitter](../digging_deeper/emitter.md) documentation to learn more about its usage.
+在本指南中，我们将查看框架核心和官方包所分派的事件列表。请参阅 [emitter](../digging_deeper/emitter.md) 文档，以了解更多关于其用法的信息。
 
 ## http\:request_completed
 
-The [`http:request_completed`](https://github.com/adonisjs/http-server/blob/main/src/types/server.ts#L65) event is dispatched after an HTTP request is completed. The event contains an instance of the [HttpContext](../concepts/http_context.md) and the request duration. The `duration` value is the output of the `process.hrtime` method.
+[`http:request_completed`](https://github.com/adonisjs/http-server/blob/main/src/types/server.ts#L65) 事件在 HTTP 请求完成后分派。该事件包含一个 [HttpContext](../concepts/http_context.md) 的实例和请求持续时间。`duration` 值是 `process.hrtime` 方法的输出。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -24,7 +24,8 @@ emitter.on('http:request_completed', (event) => {
 ```
 
 ## http\:server_ready
-The event is dispatched once the AdonisJS HTTP server is ready to accept incoming requests.
+
+该事件在 AdonisJS HTTP 服务器准备好接受传入请求时分派。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -34,8 +35,8 @@ emitter.on('http:server_ready', (event) => {
   console.log(event.port)
 
   /**
-   * Time it took to boot the app and start
-   * the HTTP server.
+   * 启动应用程序和启动
+   * HTTP 服务器所用的时间。
    */
   console.log(event.duration)
 })
@@ -43,7 +44,7 @@ emitter.on('http:server_ready', (event) => {
 
 ## container_binding\:resolved
 
-The event is dispatched after the IoC container resolves a binding or constructs a class instance. The `event.binding` property will be a string (binding name) or a class constructor, and the `event.value` property is the resolved value.
+该事件在 IoC 容器解析绑定或构造类实例后分派。`event.binding` 属性将是一个字符串（绑定名称）或类构造函数，`event.value` 属性是解析后的值。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -55,7 +56,8 @@ emitter.on('container_binding:resolved', (event) => {
 ```
 
 ## session\:initiated
-The `@adonisjs/session` package emits the event when the session store is initiated during an HTTP request. The `event.session` property is an instance of the [Session class](https://github.com/adonisjs/session/blob/main/src/session.ts).
+
+`@adonisjs/session` 包在 HTTP 请求期间会话存储被初始化时分派该事件。`event.session` 属性是 [Session class](https://github.com/adonisjs/session/blob/main/src/session.ts) 的一个实例。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -66,7 +68,8 @@ emitter.on('session:initiated', (event) => {
 ```
 
 ## session\:committed
-The `@adonisjs/session` package emits the event when the session data is written to the session store during an HTTP request.
+
+`@adonisjs/session` 包在 HTTP 请求期间会话数据被写入会话存储时分派该事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -77,7 +80,8 @@ emitter.on('session:committed', (event) => {
 ```
 
 ## session\:migrated
-The `@adonisjs/session` package emits the event when a new session ID is generated using the `session.regenerate()` method.
+
+`@adonisjs/session` 包在使用 `session.regenerate()` 方法生成新的会话 ID 时分派该事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -89,7 +93,8 @@ emitter.on('session:migrated', (event) => {
 ```
 
 ## i18n\:missing\:translation
-The event is dispatched by the `@adonisjs/i18n` package when a translation for a specific key and locale is missing. You may listen to this event to find the missing translations for a given locale.
+
+当特定键和区域设置的翻译缺失时，`@adonisjs/i18n` 包分派该事件。你可以监听此事件以查找给定区域设置中缺失的翻译。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -102,7 +107,8 @@ emitter.on('i18n:missing:translation', function (event) {
 ```
 
 ## mail\:sending
-The `@adonisjs/mail` package emits the event before sending an email. In the case of the `mail.sendLater` method call, the event will be emitted when the mail queue processes the job.
+
+`@adonisjs/mail` 包在发送电子邮件之前分派该事件。在调用 `mail.sendLater` 方法的情况下，当邮件队列处理作业时，将分派该事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -115,7 +121,8 @@ emitter.on('mail:sending', (event) => {
 ```
 
 ## mail\:sent
-After sending the email, the event is dispatched by the `@adonisjs/mail` package.
+
+发送电子邮件后，`@adonisjs/mail` 包分派该事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -130,7 +137,8 @@ emitter.on('mail:sent', (event) => {
 ```
 
 ## mail\:queueing
-The `@adonisjs/mail` package emits the event before queueing the job to send the email.
+
+`@adonisjs/mail` 包在将发送电子邮件的作业排队之前分派该事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -143,7 +151,8 @@ emitter.on('mail:queueing', (event) => {
 ```
 
 ## mail\:queued
-After the email has been queued, the event is dispatched by the `@adonisjs/mail` package.
+
+电子邮件已排队后，`@adonisjs/mail` 包分派该事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -156,9 +165,10 @@ emitter.on('mail:queued', (event) => {
 ```
 
 ## queued\:mail\:error
-The event is dispatched when the [MemoryQueue](https://github.com/adonisjs/mail/blob/main/src/messengers/memory_queue.ts) implementation of the `@adonisjs/mail` package is unable to send the email queued using the `mail.sendLater` method.
 
-If you are using a custom queue implementation, you must capture the job errors and emit this event.
+当 `@adonisjs/mail` 包的 [MemoryQueue](https://github.com/adonisjs/mail/blob/main/src/messengers/memory_queue.ts) 实现无法使用 `mail.sendLater` 方法发送已排队的电子邮件时，分派该事件。
+
+如果你使用的是自定义队列实现，你必须捕获作业错误并分派此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -171,7 +181,7 @@ emitter.on('queued:mail:error', (event) => {
 
 ## session_auth\:login_attempted
 
-The event is dispatched by the [SessionGuard](https://github.com/adonisjs/auth/blob/main/src/guards/session/guard.ts) implementation of the `@adonisjs/auth` package when the `auth.login` method is called either directly or internally by the session guard.
+当通过会话守卫直接或内部调用 `auth.login` 方法时，`@adonisjs/auth` 包的 [SessionGuard](https://github.com/adonisjs/auth/blob/main/src/guards/session/guard.ts) 实现会分发此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -184,9 +194,9 @@ emitter.on('session_auth:login_attempted', (event) => {
 
 ## session_auth\:login_succeeded
 
-The event is dispatched by the [SessionGuard](https://github.com/adonisjs/auth/blob/main/src/guards/session/guard.ts) implementation of the `@adonisjs/auth` package after a user has been logged in successfully. 
+用户成功登录后，`@adonisjs/auth` 包的 [SessionGuard](https://github.com/adonisjs/auth/blob/main/src/guards/session/guard.ts) 实现会分发此事件。
 
-You may use this event to track sessions associated with a given user.
+您可以使用此事件来跟踪与给定用户关联的会话。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -195,12 +205,13 @@ emitter.on('session_auth:login_succeeded', (event) => {
   console.log(event.guardName)
   console.log(event.sessionId)
   console.log(event.user)
-  console.log(event.rememberMeToken) // (if created one)
+  console.log(event.rememberMeToken) // （如果已创建）
 })
 ```
 
 ## session_auth\:authentication_attempted
-The event is dispatched by the `@adonisjs/auth` package when an attempt is made to validate the request session and check for a logged-in user.
+
+当尝试验证请求会话并检查已登录用户时，`@adonisjs/auth` 包会分发此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -212,7 +223,8 @@ emitter.on('session_auth:authentication_attempted', (event) => {
 ```
 
 ## session_auth\:authentication_succeeded
-The event is dispatched by the `@adonisjs/auth` package after the request session has been validated and the user is logged in. You may access the logged-in user using the `event.user` property.
+
+请求会话验证通过且用户已登录后，`@adonisjs/auth` 包会分发此事件。您可以通过 `event.user` 属性访问已登录用户。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -222,12 +234,13 @@ emitter.on('session_auth:authentication_succeeded', (event) => {
   console.log(event.sessionId)
 
   console.log(event.user)
-  console.log(event.rememberMeToken) // if authenticated using token
+  console.log(event.rememberMeToken) // 如果使用令牌进行身份验证
 })
 ```
 
 ## session_auth\:authentication_failed
-The event is dispatched by the `@adonisjs/auth` package when the authentication check fails, and the user is not logged in during the current HTTP request.
+
+当身份验证检查失败且在当前 HTTP 请求中用户未登录时，`@adonisjs/auth` 包会分发此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -241,7 +254,8 @@ emitter.on('session_auth:authentication_failed', (event) => {
 ```
 
 ## session_auth\:logged_out
-The event is dispatched by the `@adonisjs/auth` package after the user has been logged out.
+
+用户注销后，`@adonisjs/auth` 包会分发此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -251,15 +265,16 @@ emitter.on('session_auth:logged_out', (event) => {
   console.log(event.sessionId)
 
   /**
-   * The value of the user will be null when logout is called
-   * during a request where no user was logged in in the first place.
+   * 如果在请求期间调用注销，而该请求中原本就没有用户登录，
+   * 则 user 的值将为 null。
    */
   console.log(event.user)
 })
 ```
 
 ## access_tokens_auth\:authentication_attempted
-The event is dispatched by the `@adonisjs/auth` package when an attempt is made to validate the access token during an HTTP request.
+
+当尝试在 HTTP 请求期间验证访问令牌时，`@adonisjs/auth` 包会分发此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -270,7 +285,8 @@ emitter.on('access_tokens_auth:authentication_attempted', (event) => {
 ```
 
 ## access_tokens_auth\:authentication_succeeded
-The event is dispatched by the `@adonisjs/auth` package after the access token has been verified. You may access the authenticated user using the `event.user` property.
+
+访问令牌验证通过后，`@adonisjs/auth` 包会分发此事件。您可以通过 `event.user` 属性访问已验证用户。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -283,7 +299,8 @@ emitter.on('access_tokens_auth:authentication_succeeded', (event) => {
 ```
 
 ## access_tokens_auth\:authentication_failed
-The event is dispatched by the `@adonisjs/auth` package when the authentication check fails.
+
+当身份验证检查失败时，`@adonisjs/auth` 包会分发此事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -294,9 +311,9 @@ emitter.on('access_tokens_auth:authentication_failed', (event) => {
 })
 ```
 
-
 ## authorization\:finished
-The event is dispatched by the `@adonisjs/bouncer` package after the authorization check has been performed. The event payload includes the final response you may inspect to know the status of the check.
+
+授权检查执行后，`@adonisjs/bouncer` 包会分发此事件。事件负载包括最终响应，您可以检查该响应以了解检查的状态。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'

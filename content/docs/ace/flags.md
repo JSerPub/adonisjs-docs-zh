@@ -1,12 +1,12 @@
 ---
-summary: Learn how to define and process command flags in Ace commands.
+summary: 了解如何在 Ace 命令中定义和处理命令标志。
 ---
 
-# Command flags
+# 命令标志
 
-Flags are named parameters mentioned with either two hyphens (`--`) or a single hyphen (`-`) (known as the flag alias). The flags can be mentioned in any order.
+标志（Flags）是使用两个连字符（`--`）或单个连字符（`-`）（称为标志别名）提到的命名参数。标志可以按任意顺序提及。
 
-You must define flags as class properties and decorate them using the `@flags` decorator. In the following example, we define `resource` and `singular` flags, and both represent a boolean value.
+你必须将标志定义为类属性，并使用 `@flags` 装饰器对其进行装饰。在下面的示例中，我们定义了 `resource` 和 `singular` 标志，它们都表示布尔值。
 
 ```ts
 import { BaseCommand, flags } from '@adonisjs/core/ace'
@@ -20,13 +20,13 @@ export default class MakeControllerCommand extends BaseCommands {
 }
 ```
 
-## Flag types
+## 标志类型
 
-Ace allows defining flags for one of the following types.
+Ace 允许为以下类型之一定义标志。
 
-### Boolean flag
+### 布尔标志
 
-A boolean flag is defined using the `@flags.boolean` decorator. Mentioning the flag will set its value to `true`. Otherwise, the flag value is `undefined`.
+布尔标志使用 `@flags.boolean` 装饰器定义。提到标志时，其值将被设置为 `true`。否则，标志值为 `undefined`。
 
 ```sh
 make:controller --resource
@@ -46,9 +46,9 @@ make:controller --no-resource
 # this.resource === false
 ```
 
-The last example shows that the boolean flags can be negated with the `--no-` prefix. 
+最后一个示例表明，布尔标志可以使用 `--no-` 前缀进行否定。
 
-By default, the negated option is not shown in the help output. However, you may enable it using the `showNegatedVariantInHelp` option.
+默认情况下，否定的选项不会显示在帮助输出中。但是，你可以使用 `showNegatedVariantInHelp` 选项启用它。
 
 ```ts
 export default class MakeControllerCommand extends BaseCommands {
@@ -59,9 +59,9 @@ export default class MakeControllerCommand extends BaseCommands {
 }
 ```
 
-### String flag
+### 字符串标志
 
-A string flag accepts a value after the flag name. You may define a string flag using the `@flags.string` method.
+字符串标志在标志名称后接受一个值。你可以使用 `@flags.string` 方法定义字符串标志。
 
 ```ts
 import { BaseCommand, flags } from '@adonisjs/core/ace'
@@ -78,7 +78,7 @@ make:controller --model user
 # this.model = 'user'
 ```
 
-If the flag value has spaces or special characters, it must be wrapped inside the quotes `""`.
+如果标志值包含空格或特殊字符，则必须将其包裹在引号 `""` 中。
 
 ```sh
 make:controller --model blog user
@@ -88,21 +88,21 @@ make:controller --model "blog user"
 # this.model = 'blog user'
 ```
 
-An error is displayed if the flag is mentioned but no value is provided (even when the flag is optional).
+如果提到了标志但未提供值（即使标志是可选的），则会显示错误。
 
 ```sh
 make:controller
-# Works! The optional flag is not mentioned
+# 正常工作！未提及可选标志
 
 make:controller --model
-# Error! Missing value
+# 错误！缺少值
 ```
 
-### Number flag
+### 数字标志
 
-The parsing of a number flag is similar to the string flag. However, the value is validated to ensure it is a valid number.
+数字标志的解析与字符串标志类似。但是，会验证值以确保其为有效数字。
 
-You can create a number flag using the `@flags.number` decorator.
+你可以使用 `@flags.number` 装饰器创建数字标志。
 
 ```ts
 import { BaseCommand, flags } from '@adonisjs/core/ace'
@@ -113,9 +113,9 @@ export default class MakeUserCommand extends BaseCommands {
 }
 ```
 
-### Array flag
+### 数组标志
 
-The array flag allows the usage of the flag multiple times when running a command. You can define an array flag using the `@flags.array` method.
+数组标志允许在运行命令时多次使用标志。你可以使用 `@flags.array` 方法定义数组标志。
 
 ```ts
 import { BaseCommand, flags } from '@adonisjs/core/ace'
@@ -132,9 +132,9 @@ make:user --groups=admin --groups=moderators --groups=creators
 # this.groups = ['admin', 'moderators', 'creators']
 ```
 
-## Flag name and description
+## 标志名称和描述
 
-By default, the flag name is a dashed case representation of the class property name. However, you can define a custom name via the `flagName` option.
+默认情况下，标志名称是类属性名称的连字符形式。但是，你可以通过 `flagName` 选项定义自定义名称。
 
 ```ts
 @flags.boolean({
@@ -143,19 +143,19 @@ By default, the flag name is a dashed case representation of the class property 
 declare startServer: boolean
 ```
 
-The flag description is displayed on the help screen. You can define it using the `description` option.
+标志描述显示在帮助屏幕上。你可以使用 `description` 选项定义它。
 
 ```ts
 @flags.boolean({
   flagName: 'server',
-  description: 'Starts the application server'
+  description: '启动应用程序服务器'
 })
 declare startServer: boolean
 ```
 
-## Flag aliases
+## 标志别名
 
-Aliases the shorthand names for a flag mentioned using a single hyphen (`-`). An alias must be a single character.
+别名是使用单个连字符（`-`）提到的标志的简写名称。别名必须是单个字符。
 
 ```ts
 @flags.boolean({
@@ -169,18 +169,18 @@ declare resource: boolean
 declare singular: boolean
 ```
 
-Flag aliases can be combined when running the command.
+在运行命令时，可以组合使用标志别名。
 
 ```ts
 make:controller -rs
 
-# Same as
+# 等同于
 make:controller --resource --singular
 ```
 
-## Default value
+## 默认值
 
-You can define the default value for a flag using the `default` option. The default value is used when the flag is not mentioned or mentioned without a value.
+你可以使用 `default` 选项为标志定义默认值。当未提及标志或提及标志但未提供值时，将使用默认值。
 
 ```ts
 @flags.boolean({
@@ -194,10 +194,9 @@ declare startServer: boolean
 declare connection: string
 ```
 
+## 处理标志值
 
-## Processing flag value
-
-Using the `parse` method, you can process the flag value before it is defined as the class property.
+使用 `parse` 方法，你可以在将标志值定义为类属性之前对其进行处理。
 
 ```ts
 @flags.string({
@@ -208,9 +207,9 @@ Using the `parse` method, you can process the flag value before it is defined as
 declare connection: string
 ```
 
-## Accessing all flags
+## 访问所有标志
 
-You can access all flags mentioned while running the command using the `this.parsed.flags` property. The flags property is an object of key-value pair.
+你可以使用 `this.parsed.flags` 属性访问运行命令时提到的所有标志。`flags` 属性是一个键值对对象。
 
 ```ts
 import { BaseCommand, flags } from '@adonisjs/core/ace'
@@ -226,8 +225,8 @@ export default class MakeControllerCommand extends BaseCommands {
     console.log(this.parsed.flags)
     
     /**
-     * Names of flags mentioned but not
-     * accepted by the command
+     * 提到的但未被命令
+     * 接受的标志名称
      */
     console.log(this.parsed.unknownFlags)
   }

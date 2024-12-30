@@ -1,18 +1,18 @@
 ---
-summary: "Learn how to test code that interacts with your databases in AdonisJS: simple steps for setting up, resetting, and keeping databases clean during tests."
+summary: "了解如何在 AdonisJS 中测试与数据库交互的代码：设置、重置和在测试期间保持数据库清洁的简单步骤。"
 ---
 
-# Database tests
+# 数据库测试
 
-Database tests refer to testing how your application interacts with the database. This includes testing what is written to the database, how to run migrations before the tests, and how to keep the database clean between tests.
+数据库测试指的是测试您的应用程序如何与数据库进行交互。这包括测试写入数据库的内容、如何在测试前运行迁移，以及如何在测试之间保持数据库清洁。
 
-## Migrating the database
+## 数据库迁移
 
-Before executing your tests that interact with the database, you would want to run your migrations first. We have two hooks available in the `testUtils` service for that, which you can configure inside the `tests/bootstrap.ts` file.
+在执行与数据库交互的测试之前，您需要先运行迁移。在 `testUtils` 服务中，我们有两个钩子可供使用，您可以在 `tests/bootstrap.ts` 文件中进行配置。
 
-### Reset database after each run cycle
+### 每个运行周期后重置数据库
 
-The first option we have is `testUtils.db().migrate()`. This hook will first run all your migrations, and then rollback everything.
+第一个选项是 `testUtils.db().migrate()`。这个钩子会首先运行所有迁移，然后回滚所有内容。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -26,19 +26,18 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 }
 ```
 
-By configuring the hook here, what will happen is:
+通过在此处配置钩子，将会发生以下情况：
 
-- Before running our tests, the migrations will be executed.
-- At the end of our tests, the database will be rolled back.
+- 在运行测试之前，将执行迁移。
+- 在测试结束后，将回滚数据库。
 
-So, each time we run our tests, we will have a fresh and empty database.
+因此，每次运行测试时，我们都会拥有一个全新且空的数据库。
 
-### Truncate tables after each run cycle
+### 每个运行周期后截断表
 
-Resetting the database after each run cycle is a good option, but it can be slow if you have a lot of migrations. Another option is to truncate the tables after each run cycle. This option will be faster, as the migrations will only be executed once : the very first time you run your tests on a fresh database.
+每个运行周期后重置数据库是一个不错的选择，但如果迁移很多，可能会很慢。另一个选项是在每个运行周期后截断表。这个选项会更快，因为迁移只会在第一次在全新数据库上运行测试时执行一次。
 
-
-At the end of each run cycle, the tables will just be truncated, but our schema will be kept. So, the next time we run our tests, we will have an empty database, but the schema will already be in place, so there's no need to run every migration again.
+在每个运行周期结束时，表将被截断，但我们的架构将被保留。因此，下次运行测试时，我们将拥有一个空的数据库，但架构已经就位，因此无需再次运行每个迁移。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -51,9 +50,9 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 }
 ```
 
-## Seeding the database
+## 数据库填充
 
-If you need to seed your database, you can use the `testUtils.db().seed()` hook. This hook will run all your seeds before running your tests.
+如果您需要填充数据库，可以使用 `testUtils.db().seed()` 钩子。这个钩子将在运行测试之前运行所有填充数据。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -66,11 +65,11 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 }
 ```
 
-## Keeping the database clean between tests
+## 在测试之间保持数据库清洁
 
-### Global transaction
+### 全局事务
 
-When running tests, you may want to keep your database clean between each test. For that, you can use the `testUtils.db().withGlobalTransaction()` hook. This hook will start a transaction before each test and roll it back at the end of the test.
+在运行测试时，您可能希望在每个测试之间保持数据库清洁。为此，您可以使用 `testUtils.db().withGlobalTransaction()` 钩子。这个钩子将在每个测试之前启动一个事务，并在测试结束时回滚。
 
 ```ts
 // title: tests/unit/user.spec.ts
@@ -82,11 +81,11 @@ test.group('User', (group) => {
 })
 ```
 
-Note that if you are using any transactions in your tested code, this will not work as transactions cannot be nested. In this case, you can use the `testUtils.db().migrate()` or `testUtils.db().truncate()` hook instead.
+请注意，如果您在测试代码中使用了任何事务，这将不起作用，因为事务不能嵌套。在这种情况下，您可以使用 `testUtils.db().migrate()` 或 `testUtils.db().truncate()` 钩子。
 
-### Truncate tables
+### 截断表
 
-As mentioned above, the global transaction will not work if you are using transactions in your tested code. In this case, you can use the `testUtils.db().truncate()` hook. This hook will truncate all your tables after each test.
+如上所述，如果您在测试代码中使用了事务，全局事务将不起作用。在这种情况下，您可以使用 `testUtils.db().truncate()` 钩子。这个钩子将在每个测试后截断所有表。
 
 ```ts
 // title: tests/unit/user.spec.ts

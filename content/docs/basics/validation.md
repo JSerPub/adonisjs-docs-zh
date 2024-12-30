@@ -1,45 +1,44 @@
 ---
-summary: Learn how to validate user input in AdonisJS using VineJS.
+summary: 学习如何在 AdonisJS 中使用 VineJS 验证用户输入。
 ---
 
-# Validation
+# 验证
 
-The data validation in AdonisJS is usually performed at the controller level. This ensures you validate the user input as soon as your application handles the request and send errors in the response that can be displayed next to the form fields.
+在 AdonisJS 中，数据验证通常在控制器级别进行。这确保您在应用程序处理请求时尽快验证用户输入，并在响应中发送错误，这些错误可以在表单字段旁边显示。
 
-Once the validation is completed, you can use the trusted data to perform the rest of the operations, like database queries, scheduling queue jobs, sending emails, etc.
+完成验证后，您可以使用可信数据进行其余操作，如数据库查询、调度队列任务、发送电子邮件等。
 
-## Choosing the validation library
-The AdonisJS core team has created a framework agnostic data validation library called [VineJS](https://vinejs.dev/docs/introduction). Following are some of the reasons for using VineJS.
+## 选择验证库
 
-- It is **one of the fastest validation libraries** in the Node.js ecosystem.
+AdonisJS 核心团队创建了一个与框架无关的数据验证库，名为 [VineJS](https://vinejs.dev/docs/introduction)。以下是使用 VineJS 的一些原因：
 
-- Provides **static type safety** alongside the runtime validations.
+- 它是 **Node.js 生态系统中最快的验证库之一**。
+- 提供 **静态类型安全**，同时进行运行时验证。
+- 它与 `web` 和 `api` 启动套件预配置。
+- 官方 AdonisJS 包通过自定义规则扩展 VineJS。例如，Lucid 为 VineJS 贡献了 `unique` 和 `exists` 规则。
 
-- It comes pre-configured with the `web` and the `api` starter kits.
+然而，AdonisJS 在技术上并不强制您使用 VineJS。您可以使用任何适合您或您的团队的验证库。只需卸载 `@vinejs/vine` 包并安装您想使用的包。
 
-- Official AdonisJS packages extend VineJS with custom rules. For example, Lucid contributes `unique` and `exists` rules to VineJS.
+## 配置 VineJS
 
-However, AdonisJS does not technically force you to use VineJS. You can use any validation library that fits great for you or your team. Just uninstall the `@vinejs/vine` package and install the package you want to use.
+使用以下命令安装和配置 VineJS。
 
-## Configuring VineJS
-Install and configure VineJS using the following command.
-
-See also: [VineJS documentation](https://vinejs.dev)
+另请参阅：[VineJS 文档](https://vinejs.dev)
 
 ```sh
 node ace add vinejs
 ```
 
-:::disclosure{title="See steps performed by the add command"}
+:::disclosure{title="查看 add 命令执行的步骤"}
 
-1. Installs the `@vinejs/vine` package using the detected package manager.
+1. 使用检测到的包管理器安装 `@vinejs/vine` 包。
 
-2. Registers the following service provider inside the `adonisrc.ts` file.
+2. 在 `adonisrc.ts` 文件中注册以下服务提供程序。
 
     ```ts
     {
       providers: [
-        // ...other providers
+        // ...其他提供程序
         () => import('@adonisjs/core/providers/vinejs_provider')
       ]
     }
@@ -47,13 +46,14 @@ node ace add vinejs
 
 :::
 
-## Using validators
-VineJS uses the concept of validators. You create one validator for each action your application can perform. For example: Define a validator for **creating a new post**, another for **updating the post**, and maybe a validator for **deleting a post**.
+## 使用验证器
 
-We will use a blog as an example and define validators to create/update a post. Let's start by registering a couple of routes and the `PostsController`.
+VineJS 使用验证器的概念。您为应用程序可以执行的每个操作创建一个验证器。例如：为 **创建新帖子** 定义一个验证器，为 **更新帖子** 定义另一个验证器，也许还有一个用于 **删除帖子** 的验证器。
+
+我们将以博客为例，定义用于创建/更新帖子的验证器。让我们首先注册几条路由和 `PostsController`。
 
 ```ts
-// title: Define routes
+// title: 定义路由
 import router from '@adonisjs/core/services/router'
 
 const PostsController = () => import('#controllers/posts_controller')
@@ -63,12 +63,12 @@ router.put('posts/:id', [PostsController, 'update'])
 ```
 
 ```sh
-// title: Create controller
+// title: 创建控制器
 node ace make:controller post store update
 ```
 
 ```ts
-// title: Scaffold controller
+// title: 搭建控制器
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class PostsController {
@@ -78,23 +78,23 @@ export default class PostsController {
 }
 ```
 
-### Creating validators
+### 创建验证器
 
-Once you have created the `PostsController` and defined the routes, you may use the following ace command to create a validator.
+创建 `PostsController` 并定义路由后，您可以使用以下 ace 命令创建一个验证器。
 
-See also: [Make validator command](../references/commands.md#makevalidator)
+另请参阅：[创建验证器命令](../references/commands.md#makevalidator)
 
 ```sh
 node ace make:validator post
 ```
 
-The validators are created inside the `app/validators` directory. The validator file is empty by default, and you can use it to export multiple validators from it. Each validator is a `const` variable holding the result of [`vine.compile`](https://vinejs.dev/docs/getting_started#pre-compiling-schema) method.
+验证器创建在 `app/validators` 目录中。验证器文件默认为空，您可以从中导出多个验证器。每个验证器都是一个 `const` 变量，保存 [`vine.compile`](https://vinejs.dev/docs/getting_started#pre-compiling-schema) 方法的结果。
 
-In the following example, we define `createPostValidator` and `updatePostValidator`. Both validators have a slight variation in their schemas. During creation, we allow the user to provide a custom slug for the post, whereas we disallow updating it.
+在以下示例中，我们定义了 `createPostValidator` 和 `updatePostValidator`。两个验证器的模式略有不同。在创建时，我们允许用户提供自定义的帖子 slug，而不允许更新它。
 
 :::note
 
-Do not worry too much about the duplication within the validator schemas. We recommend you opt for easy-to-understand schemas vs. avoiding duplication at all costs. The [wet codebase analogy](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase) might help you embrace duplication.
+不必太担心验证器模式中的重复。我们建议您选择易于理解的模式，而不是不惜一切代价避免重复。[wet codebase analogy](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase) 可能有助于您接受重复。
 
 :::
 
@@ -124,8 +124,9 @@ export const updatePostValidator = vine.compile(
 )
 ```
 
-### Using validators inside controllers
-Let's go back to the `PostsController` and use the validators to validate the request body. You can access the request body using the `request.all()` method.
+### 在控制器中使用验证器
+
+让我们回到 `PostsController` 并使用验证器来验证请求体。您可以使用 `request.all()` 方法访问请求体。
 
 ```ts
 import { HttpContext } from '@adonisjs/core/http'
@@ -154,32 +155,32 @@ export default class PostsController {
   }
 }
 ```
+### 验证用户输入就这么简单！
 
-That is all! Validating the user input is two lines of code inside your controllers. The validated output has static-type information inferred from the schema.
+验证用户输入在控制器中只需两行代码。验证后的输出具有从模式中推断的静态类型信息。
 
-Also, you do not have to wrap the `validate` method call inside a `try/catch`. Because in the case of an error, AdonisJS will automatically convert the error to an HTTP response.
+此外，您无需将 `validate` 方法调用包装在 `try/catch` 中。因为在出现错误时，AdonisJS 会自动将错误转换为 HTTP 响应。
 
-## Error handling
-The [HttpExceptionHandler](./exception_handling.md) will convert the validation errors to an HTTP response automatically. The exception handler uses content negotiation and returns a response based upon the [Accept](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) header value.
+## 错误处理
+
+[HttpExceptionHandler](./exception_handling.md) 会自动将验证错误转换为 HTTP 响应。异常处理程序使用内容协商，并根据 [Accept](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) 头值返回响应。
 
 :::tip
 
-You might want to peek through the [ExceptionHandler codebase](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L343-L345) and see how the validation exceptions are converted to an HTTP response.
+您可能想查看 [ExceptionHandler 代码库](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L343-L345)，了解验证异常是如何转换为 HTTP 响应的。
 
-Also, the session middleware [overwrites the `renderValidationErrorAsHTML` method](https://github.com/adonisjs/session/blob/main/src/session_middleware.ts#L30-L37) and uses flash messages to share the validation errors with the form.
+此外，会话中间件 [重写了 `renderValidationErrorAsHTML` 方法](https://github.com/adonisjs/session/blob/main/src/session_middleware.ts#L30-L37)，并使用闪存消息将验证错误与表单共享。
 
 :::
 
-- HTTP requests with `Accept=application/json` header will receive an array of error messages created using the [SimpleErrorReporter](https://github.com/vinejs/vine/blob/main/src/reporters/simple_error_reporter.ts).
+- `Accept=application/json` 的 HTTP 请求将收到使用 [SimpleErrorReporter](https://github.com/vinejs/vine/blob/main/src/reporters/simple_error_reporter.ts) 创建的错误消息数组。
+- `Accept=application/vnd.api+json` 的 HTTP 请求将收到按照 [JSON API](https://jsonapi.org/format/#errors) 规范格式化的错误消息数组。
+- 使用 [会话包](./session.md) 渲染的服务器表单将通过 [会话闪存消息](./session.md#validation-errors-and-flash-messages) 接收错误。
+- 所有其他请求将以纯文本形式接收错误。
 
-- HTTP requests with `Accept=application/vnd.api+json` header will receive an array of error messages formatted as per the [JSON API](https://jsonapi.org/format/#errors) spec.
+## request.validateUsing 方法
 
-- Server rendered forms using the [session package](./session.md) will receive the errors via [session flash messages](./session.md#validation-errors-and-flash-messages).
-
-- All other requests will receive errors back as plain text.
-
-## The request.validateUsing method
-The recommended way to perform validations inside controllers is to use the `request.validateUsing` method. When using `request.validateUsing` method, you do not have do define the validation data explicitly; the **request body**, **query string values**, and **the files** are merged together and passed as data to the validator.
+在控制器中进行验证的推荐方法是使用 `request.validateUsing` 方法。使用 `request.validateUsing` 方法时，您无需显式定义验证数据；**请求体**、**查询字符串值**和**文件**将被合并并作为数据传递给验证器。
 
 ```ts
 import { HttpContext } from '@adonisjs/core/http'
@@ -211,25 +212,26 @@ export default class PostsController {
 }
 ```
 
-### Validating cookies, headers and route params
-When using the `request.validateUsing` method you can validate cookies, headers and route params as follows.
+### 验证 cookies、headers 和路由参数
+
+使用 `request.validateUsing` 方法时，可以按如下方式验证 cookies、headers 和路由参数。
 
 ```ts
 const validator = vine.compile(
   vine.object({
-    // Fields in request body
+    // 请求体中的字段
     username: vine.string(),
     password: vine.string(),
 
-    // Validate cookies
+    // 验证 cookies
     cookies: vine.object({
     }),
 
-    // Validate headers
+    // 验证 headers
     headers: vine.object({
     }),
 
-    // Validate route params
+    // 验证路由参数
     params: vine.object({
     }),
   })
@@ -238,12 +240,13 @@ const validator = vine.compile(
 await request.validateUsing(validator)
 ```
 
-## Passing metadata to validators
-Since validators are defined outside the request lifecycle, they do not have direct access to the request data. This is usually good because it makes validators reusable outside an HTTP request lifecycle.
+## 向验证器传递元数据
 
-However, if a validator needs access to some runtime data, you must pass it as metadata during the `validate` method call.
+由于验证器是在请求生命周期之外定义的，因此它们无法直接访问请求数据。这通常是好的，因为它使验证器可以在 HTTP 请求生命周期之外重用。
 
-Let's take an example of the `unique` validation rule. We want to ensure the user email is unique in the database but skip the row for the currently logged-in user.
+然而，如果验证器需要访问一些运行时数据，您必须在 `validate` 方法调用期间将其作为元数据传递。
+
+让我们以 `unique` 验证规则为例。我们希望确保用户电子邮件在数据库中唯一，但跳过当前登录用户的行。
 
 ```ts
 export const updateUserValidator = vine
@@ -263,7 +266,7 @@ export const updateUserValidator = vine
   )
 ```
 
-In the above example, we access the currently logged-in user via the `meta.userId` property. Let's see how we can pass the `userId` during an HTTP request.
+在上面的示例中，我们通过 `meta.userId` 属性访问当前登录的用户。让我们看看如何在 HTTP 请求中传递 `userId`。
 
 ```ts
 async update({ request, auth }: HttpContext) {
@@ -278,10 +281,11 @@ async update({ request, auth }: HttpContext) {
 }
 ```
 
-### Making metadata type-safe
-In the previous example, we must remember to pass the `meta.userId` during the validation. It would be great if we could make TypeScript remind us of the same.
+### 使元数据类型安全
 
-In the following example, we use the `vine.withMetaData` function to define the static type of the metadata we expect to use in our schema.
+在前面的示例中，我们必须在验证期间传递 `meta.userId`。如果 TypeScript 能够提醒我们这一点就更好了。
+
+在以下示例中，我们使用 `vine.withMetaData` 函数来定义我们在模式中期望使用的元数据的静态类型。
 
 ```ts
 export const updateUserValidator = vine
@@ -302,7 +306,7 @@ export const updateUserValidator = vine
   )
 ```
 
-Do note, VineJS does not validate the metadata at runtime. However, if you want to do that, you can pass a callback to the `withMetaData` method and perform the validation manually.
+请注意，VineJS 不会在运行时验证元数据。但是，如果您想这样做，可以向 `withMetaData` 方法传递一个回调并手动执行验证。
 
 ```ts
 vine.withMetaData<{ userId: number }>((meta) => {
@@ -310,31 +314,32 @@ vine.withMetaData<{ userId: number }>((meta) => {
 })
 ```
 
-## Configuring VineJS
-You may create a [preload file](../concepts/adonisrc_file.md#preloads) inside the `start` directory to configure VineJS with custom error messages or use a custom error reporter.
+## 配置 VineJS
+
+您可以在 `start` 目录中创建一个 [preload 文件](../concepts/adonisrc_file.md#preloads) 来配置 VineJS，使用自定义错误消息或使用自定义错误报告器。
 
 ```sh
 node ace make:preload validator
 ```
 
-In the following example, we [define custom error messages](https://vinejs.dev/docs/custom_error_messages).
+在以下示例中，我们 [定义自定义错误消息](https://vinejs.dev/docs/custom_error_messages)。
 
 ```ts
 // title: start/validator.ts
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 vine.messagesProvider = new SimpleMessagesProvider({
-  // Applicable for all fields
+  // 适用于所有字段
   'required': 'The {{ field }} field is required',
   'string': 'The value of {{ field }} field must be a string',
   'email': 'The value is not a valid email address',
 
-  // Error message for the username field
+  // 用户名字段的错误消息
   'username.required': 'Please choose a username for your account',
 })
 ```
 
-In the following example, we [register a custom error reporter](https://vinejs.dev/docs/error_reporter).
+在以下示例中，我们 [注册自定义错误报告器](https://vinejs.dev/docs/error_reporter)。
 
 ```ts
 // title: start/validator.ts
@@ -344,14 +349,15 @@ import { JSONAPIErrorReporter } from '../app/validation_reporters.js'
 vine.errorReporter = () => new JSONAPIErrorReporter()
 ```
 
-## Rules contributed by AdonisJS
-Following is the list of VineJS rules contributed by AdonisJS.
+## AdonisJS 贡献的规则
 
-- The [`vine.file`](https://github.com/adonisjs/core/blob/main/providers/vinejs_provider.ts) schema type is added by the AdonisJS core package.
+以下是 AdonisJS 为 VineJS 贡献的规则列表。
 
-## What's next?
+- [`vine.file`](https://github.com/adonisjs/core/blob/main/providers/vinejs_provider.ts) 模式类型由 AdonisJS 核心包添加。
 
-- Learn more about using [custom messages](https://vinejs.dev/docs/custom_error_messages) in VineJS.
-- Learn more about using [error reporters](https://vinejs.dev/docs/error_reporter) in VineJS.
-- Read the VineJS [schema API](https://vinejs.dev/docs/schema_101) documentation.
-- Use [i18n translations](../digging_deeper/i18n.md#translating-validation-messages) to define validation error messages.
+## 接下来是什么？
+
+- 了解更多关于在 VineJS 中使用 [自定义消息](https://vinejs.dev/docs/custom_error_messages) 的信息。
+- 了解更多关于在 VineJS 中使用 [错误报告器](https://vinejs.dev/docs/error_reporter) 的信息。
+- 阅读 VineJS 的 [schema API](https://vinejs.dev/docs/schema_101) 文档。
+- 使用 [i18n 翻译](../digging_deeper/i18n.md#translating-validation-messages) 来定义验证错误消息。

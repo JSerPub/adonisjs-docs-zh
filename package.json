@@ -5,7 +5,8 @@
   "type": "module",
   "license": "UNLICENSED",
   "scripts": {
-    "export": "vite build && npm run download:sponsors && node --loader=ts-node/esm bin/build.ts",
+    "export": "vite build && node --loader=ts-node/esm bin/build.ts",
+    "export-bak": "vite build && npm run download:sponsors && node --loader=ts-node/esm bin/build.ts",
     "build": "npm run export",
     "postexport": "copyfiles -u 1 public/* public/**/* dist",
     "download:sponsors": "node --loader=ts-node/esm bin/download_sponsors.ts",

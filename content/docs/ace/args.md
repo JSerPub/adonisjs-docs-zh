@@ -1,21 +1,21 @@
 ---
-summary: Learn about defining and processing command arguments in Ace commands.
+summary: 了解如何在 Ace 命令中定义和处理命令参数。
 ---
 
-# Command arguments
+# 命令参数
 
-Arguments refer to the positional arguments mentioned after the command name. Since arguments are positional, passing them in the correct order is necessary.
+参数指的是命令名称之后提到的位置参数。由于参数是位置性的，因此必须以正确的顺序传递它们。
 
-You must define command arguments as class properties and decorate them using the `args` decorator. The arguments will be accepted in the same order as they are defined in the class.
+你必须将命令参数定义为类属性，并使用 `args` 装饰器进行装饰。参数将按照它们在类中定义的顺序被接受。
 
-In the following example, we use the `@args.string` decorator to define an argument that accepts a string value.
+在下面的示例中，我们使用 `@args.string` 装饰器来定义一个接受字符串值的参数。
 
 ```ts
 import { BaseCommand, args, flags } from '@adonisjs/core/ace'
 
 export default class GreetCommand extends BaseCommand {
   static commandName = 'greet'
-  static description = 'Greet a user by name'
+  static description = '通过名字问候用户'
   
   @args.string()
   declare name: string
@@ -26,19 +26,19 @@ export default class GreetCommand extends BaseCommand {
 }
 ```
 
-To accept multiple values under the same argument name, you may use the `@agrs.spread` decorator. Do note, the spread argument must be the last.
+要在同一个参数名称下接受多个值，你可以使用 `@args.spread` 装饰器。请注意，扩展参数必须是最后一个。
 
 ```ts
 import { BaseCommand, args, flags } from '@adonisjs/core/ace'
 
 export default class GreetCommand extends BaseCommand {
   static commandName = 'greet'
-  static description = 'Greet a user by name'
+  static description = '通过名字问候用户'
   
   // highlight-start
   @args.spread()
   declare names: string[]
-  // highlight-start
+  // highlight-end
 
   run() {
     console.log(this.names)
@@ -46,58 +46,58 @@ export default class GreetCommand extends BaseCommand {
 }
 ```
 
-## Argument name and description
+## 参数名称和描述
 
-The argument name is displayed on the help screen. By default, the argument name is a dashed case representation of the class property name. However, you can define a custom value as well.
+参数名称会显示在帮助屏幕上。默认情况下，参数名称是类属性名称的短横线连接形式。不过，你也可以定义一个自定义值。
 
 ```ts
 @args.string({
   argumentName: 'user-name'
 })
 declare name: string
-``` 
+```
 
-The argument description is shown on the help screen and can be set using the `description` option. 
+参数描述会显示在帮助屏幕上，可以通过 `description` 选项来设置。
 
 ```ts
 @args.string({
   argumentName: 'user-name',
-  description: 'Name of the user'
+  description: '用户的名字'
 })
 declare name: string
 ```
 
-## Optional arguments with a default value
+## 带有默认值的可选参数
 
-By default, all arguments are required. However, you can make them optional by setting the `required` option to `false`. The optional arguments must be at the end.
+默认情况下，所有参数都是必需的。但是，你可以通过将 `required` 选项设置为 `false` 来使它们变为可选参数。可选参数必须放在最后。
 
 ```ts
 @args.string({
-  description: 'Name of the user',
+  description: '用户的名字',
   required: false,
 })
 declare name?: string
 ```
 
-You may set the default value of an optional argument using the `default` property.
+你可以使用 `default` 属性来设置可选参数的默认值。
 
 ```ts
 @args.string({
-  description: 'Name of the user',
+  description: '用户的名字',
   required: false,
   default: 'guest'
 })
 declare name: string
 ```
 
-## Processing argument value
+## 处理参数值
 
-Using the `parse` method, you can process the argument value before it is defined as the class property.
+使用 `parse` 方法，你可以在参数值被定义为类属性之前对其进行处理。
 
 ```ts
 @args.string({
   argumentName: 'user-name',
-  description: 'Name of the user',
+  description: '用户的名字',
   parse (value) {
     return value ? value.toUpperCase() : value
   }
@@ -105,16 +105,16 @@ Using the `parse` method, you can process the argument value before it is define
 declare name: string
 ```
 
-## Accessing all arguments
+## 访问所有参数
 
-You can access all the arguments mentioned while running the command using the `this.parsed.args` property. 
+你可以使用 `this.parsed.args` 属性来访问运行命令时提到的所有参数。
 
 ```ts
 import { BaseCommand, args, flags } from '@adonisjs/core/ace'
 
 export default class GreetCommand extends BaseCommand {
   static commandName = 'greet'
-  static description = 'Greet a user by name'
+  static description = '通过名字问候用户'
   
   @args.string()
   declare name: string

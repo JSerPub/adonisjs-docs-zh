@@ -1,23 +1,23 @@
 ---
-summary: Learn how to use the access tokens guard to authenticate HTTP requests using access tokens.
+summary: 了解如何使用访问令牌守卫来通过访问令牌验证HTTP请求。
 ---
 
-# Access tokens guard
-Access tokens authenticate HTTP requests in API contexts where the server cannot persist cookies on the end-user device, for example, third-party access to an API or authentication for a mobile app.
+# 访问令牌守卫
+在API上下文中，当服务器无法在最终用户设备上持久保存cookie时，访问令牌用于验证HTTP请求，例如，第三方访问API或移动应用的身份验证。
 
-Access tokens can be generated in any format; for instance, the tokens that conform to the JWT standard are known as JWT access tokens, and tokens in a proprietary format are known as opaque access tokens.
+访问令牌可以生成为任何格式；例如，符合JWT标准的令牌称为JWT访问令牌，而专有格式的令牌称为不透明访问令牌。
 
-AdonisJS uses opaque access tokens that are structured and stored as follows.
+AdonisJS使用结构化和存储方式如下的不透明访问令牌。
 
-- A token is represented by a cryptographically secure random value suffixed with a CRC32 checksum.
-- A hash of the token value is persisted in the database. This hash is used to verify the token at the time of authentication.
-- The final token value is base64 encoded and prefixed with `oat_`. The prefix can be customized.
-- The prefix and the CRC32 checksum suffix help [secret scanning tools](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning) identify a token and prevent them from leaking inside a codebase. 
+- 令牌由一个加密安全的随机值表示，后缀为CRC32校验和。
+- 令牌值的哈希存储在数据库中。此哈希用于在身份验证时验证令牌。
+- 最终的令牌值经过base64编码，并以`oat_`为前缀。前缀可以自定义。
+- 前缀和CRC32校验和后缀有助于[秘密扫描工具](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning)识别令牌，并防止它们在代码库中泄漏。
 
-## Configuring the user model
-Before using the access tokens guard, you must set up a tokens provider with the User model. **The tokens provider is used to create, list, and verify access tokens**.
+## 配置用户模型
+在使用访问令牌守卫之前，您必须为用户模型设置令牌提供者。**令牌提供者用于创建、列出和验证访问令牌**。
 
-The auth package comes with a database tokens provider, which persists tokens inside an SQL database. You can configure it as follows.
+auth包附带了一个数据库令牌提供者，该提供者将令牌持久化到SQL数据库中。您可以按如下方式配置它。
 
 ```ts
 import { BaseModel } from '@adonisjs/lucid/orm'
@@ -26,7 +26,7 @@ import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 // highlight-end
 
 export default class User extends BaseModel {
-  // ...rest of the model properties
+  // ...模型属性的其余部分
 
   // highlight-start
   static accessTokens = DbAccessTokensProvider.forModel(User)
@@ -34,11 +34,11 @@ export default class User extends BaseModel {
 }
 ```
 
-The `DbAccessTokensProvider.forModel` accepts the User model as the first argument and an options object as the second argument.
+`DbAccessTokensProvider.forModel`接受用户模型作为第一个参数，接受一个选项对象作为第二个参数。
 
 ```ts
 export default class User extends BaseModel {
-  // ...rest of the model properties
+  // ...模型属性的其余部分
 
   static accessTokens = DbAccessTokensProvider.forModel(User, {
     expiresIn: '30 days',
@@ -60,9 +60,9 @@ expiresIn
 
 <dd>
 
-The duration after which the token will expire. You can pass a numeric value in seconds or a [time expression](https://github.com/poppinss/utils?tab=readme-ov-file#secondsparseformat) as a string.
+令牌过期的时间长度。您可以传递以秒为单位的数值或作为字符串的[时间表达式](https://github.com/poppinss/utils?tab=readme-ov-file#secondsparseformat)。
 
-By default, tokens are long-lived and do not expire. Also, you can specify the expiry of a token at the time it is generated.
+默认情况下，令牌是长期有效的，不会过期。此外，您可以在生成令牌时指定其过期时间。
 
 </dd>
 
@@ -74,11 +74,11 @@ prefix
 
 <dd>
 
-The prefix for the publicly shared token value. Defining a prefix helps [secret scanning tools](https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/#identifiable-prefixes) identify a token and prevent it from leaking inside the codebases.
+公开共享的令牌值的前缀。定义前缀有助于[秘密扫描工具](https://github.blog/2021-04-05-behind-githubs-new-authentication-token-formats/#identifiable-prefixes)识别令牌，并防止其在代码库中泄漏。
 
-Changing the prefix after issuing tokens will make them invalid. Therefore, choose the prefix carefully and do not change them often.
+在发出令牌后更改前缀将使它们无效。因此，请谨慎选择前缀，并且不要频繁更改。
 
-Defaults to `oat_`.
+默认为`oat_`。
 
 </dd>
 
@@ -90,7 +90,7 @@ table
 
 <dd>
 
-The database table name for storing the access tokens. Defaults to `auth_access_tokens`. 
+用于存储访问令牌的数据库表名。默认为`auth_access_tokens`。
 
 </dd>
 
@@ -102,9 +102,9 @@ type
 
 <dd>
 
-A unique type to identify a bucket of tokens. If you issue multiple types of tokens within a single application, you must define a unique type for all of them.
+用于标识一组令牌的唯一类型。如果您在单个应用程序中发出多种类型的令牌，则必须为它们全部定义唯一的类型。
 
-Defaults to `auth_token`.
+默认为`auth_token`。
 
 </dd>
 
@@ -116,7 +116,7 @@ tokenSecretLength
 
 <dd>
 
-The length (in characters) of the random token value. Defaults to `40`.
+随机令牌值的长度（以字符为单位）。默认为`40`。
 
 </dd>
 
@@ -124,18 +124,18 @@ The length (in characters) of the random token value. Defaults to `40`.
 
 ---
 
-Once you have configured a token provider, you can start [issuing tokens](#issuing-a-token) on behalf of a user. You do not have to set up an authentication guard for issuing tokens. The guard is needed to verify tokens.
+一旦配置了令牌提供者，您就可以代表用户开始[发出令牌](#issuing-a-token)。发出令牌不需要设置身份验证守卫。守卫用于验证令牌。
 
-## Creating the access tokens database table
-We create the migration file for the `auth_access_tokens` table during the initial setup. The migration file is stored inside the `database/migrations` directory.
+## 创建访问令牌数据库表
+在初始设置期间，我们为`auth_access_tokens`表创建迁移文件。迁移文件存储在`database/migrations`目录中。
 
-You may create the database table by executing the `migration:run` command.
+您可以通过执行`migration:run`命令来创建数据库表。
 
 ```sh
 node ace migration:run
 ```
 
-However, if you are configuring the auth package manually for some reason, you can create a migration file manually and copy-paste the following code snippet inside it.
+但是，如果您出于某种原因手动配置auth包，则可以手动创建迁移文件，并将以下代码片段复制粘贴到其中。
 
 ```sh
 node ace make:migration auth_access_tokens
@@ -175,14 +175,14 @@ export default class extends BaseSchema {
 }
 ```
 
-## Issuing tokens
-Depending upon your application, you might issue a token during login or after login from the application dashboard. In either case, issuing a token requires a user object (for whom the token will be generated), and you can generate them directly using the `User` model.
+## 发出令牌
+根据您的应用程序，您可能会在登录时或登录后从应用程序仪表板发出令牌。在这两种情况下，发出令牌都需要一个用户对象（为其生成令牌），并且您可以直接使用`User`模型生成它们。
 
-In the following example, we **find a user by id** and **issue them an access token** using the `User.accessTokens.create` method. Of course, in a real-world application, you will have this endpoint guarded by authentication, but let's keep it simple for now.
+在以下示例中，我们使用`User.accessTokens.create`方法**通过ID查找用户**并**为其发出访问令牌**。当然，在实际应用程序中，此端点将受身份验证保护，但我们现在保持简单。
 
-The `.create` method accepts an instance of the User model and returns an instance of the [AccessToken](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/access_token.ts) class. 
+`.create`方法接受一个`User`模型实例，并返回一个[AccessToken](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/access_token.ts)类实例。
 
-The `token.value` property contains the value (wrapped as a [Secret](../references/helpers.md#secret)) that must be shared with the user. The value is only available when generating the token, and the user will not be able to see it again.
+`token.value`属性包含值（包装为必须与用户共享的[Secret](../references/helpers.md#secret))）。该值仅在生成令牌时可用，用户之后将无法再次查看它。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -199,7 +199,7 @@ router.post('users/:id/tokens', ({ params }) => {
 })
 ```
 
-You can also return the `token` directly in response, which will be serialized to the following JSON object.
+您还可以直接在响应中返回`token`，它将被序列化为以下JSON对象。
 
 ```ts
 router.post('users/:id/tokens', ({ params }) => {
@@ -226,32 +226,32 @@ router.post('users/:id/tokens', ({ params }) => {
  */
 ```
 
-### Defining abilities
-Depending upon the application you are building, you might want to limit access tokens to only perform specific tasks. For example, issue a token that allows reading and listing projects without creating or deleting them.
+### 定义权限
+根据您正在构建的应用程序，您可能希望限制访问令牌仅执行特定任务。例如，发出一个令牌，允许读取和列出项目，但不允许创建或删除它们。
 
-In the following example, we define an array of abilities as the second parameter. The abilities are serialized to a JSON string and persisted inside the database.
+在以下示例中，我们将权限数组作为第二个参数定义。权限被序列化为JSON字符串并持久化到数据库中。
 
-For the auth package, the abilities have no real meaning. It is up to your application to check for token abilities before performing a given action.
+对于auth包，权限没有实际意义。在执行给定操作之前，检查令牌权限是由您的应用程序负责的。
 
 ```ts
 await User.accessTokens.create(user, ['server:create', 'server:read'])
 ```
 
-### Token abilities vs. Bouncer abilities
+### 令牌能力与 Bouncer 能力
 
-You should not confuse token abilities with [bouncer authorization checks](../security/authorization.md#defining-abilities). Let's try to understand the difference with a practical example.
+不应将令牌能力（token abilities）与 [bouncer 授权检查](../security/authorization.md#defining-abilities) 混淆。让我们通过一个实际例子来理解两者的区别。
 
-- Let's say you define a **bouncer ability that allows admin users to create new projects**.
+- 假设你定义了一个 **允许管理员用户创建新项目的 bouncer 能力**。
 
-- The same admin user creates a token for themselves, but to prevent token abuse, they limit the token abilities to **read projects**.
+- 同一个管理员用户为自己创建了一个令牌，但为了防止令牌滥用，他们将令牌能力限制为 **读取项目**。
 
-- Now, within your application, you will have to implement access control, which allows the admin users to create new projects while disallowing the token from creating new projects.
+- 现在，在你的应用程序中，你需要实现访问控制，允许管理员用户创建新项目，同时禁止令牌创建新项目。
 
-You can write a bouncer ability for this use case as follows.
+你可以为此用例编写如下的 bouncer 能力。
 
 :::note
 
-The `user.currentAccessToken` refers to the access token used for authentication during the current HTTP request. You can learn more about it inside the [authenticating requests](#the-current-access-token) section.
+`user.currentAccessToken` 指的是当前 HTTP 请求中用于身份验证的访问令牌。你可以在 [请求身份验证](#the-current-access-token) 部分了解更多信息。
 
 :::
 
@@ -262,40 +262,41 @@ import { Bouncer } from '@adonisjs/bouncer'
 export const createProject = Bouncer.ability(
   (user: User & { currentAccessToken?: AccessToken }) => {
     /**
-     * If there is no "currentAccessToken" token property, it means
-     * the user authenticated without an access token
+     * 如果没有 "currentAccessToken" 属性，则意味着
+     * 用户在没有访问令牌的情况下进行了身份验证
      */
     if (!user.currentAccessToken) {
       return user.isAdmin
     }
 
     /**
-     * Otherwise, check the user isAdmin and the token they
-     * used for authentication allows "project:create"
-     * ability.
+     * 否则，检查用户是否为管理员以及他们用于
+     * 身份验证的令牌是否允许 "project:create" 能力。
      */
     return user.isAdmin && user.currentAccessToken.allows('project:create')
   }
 )
 ```
 
-### Expiring tokens
-By default, the tokens are long-lived, and they never expire. However, you define the expiration at the time of [configuring the tokens provider](#configuring-the-user-model) or when generating a token.
+### 令牌过期
 
-The expiry can be defined as a numeric value representing seconds or a string-based time expression.
+默认情况下，令牌是长期有效的，且永不过期。但是，你可以在 [配置令牌提供者](#configuring-the-user-model) 时或生成令牌时定义过期时间。
+
+过期时间可以定义为表示秒数的数值或基于字符串的时间表达式。
 
 ```ts
 await User.accessTokens.create(
-  user, // for user
-  ['*'], // with all abilities
+  user, // 为用户
+  ['*'], // 具有所有能力
   {
-    expiresIn: '30 days' // expires in 30 days
+    expiresIn: '30 days' // 30 天后过期
   }
 )
 ```
 
-### Naming tokens
-By default, the tokens are not named. However, you can assign them a name when generating the token. For example, if you allow the users of your application to self-generate tokens, you may ask them also to specify a recognizable name.
+### 命名令牌
+
+默认情况下，令牌没有名称。但是，你可以在生成令牌时为其分配一个名称。例如，如果你的应用程序允许用户自行生成令牌，你可以要求他们指定一个可识别的名称。
 
 ```ts
 await User.accessTokens.create(
@@ -308,8 +309,9 @@ await User.accessTokens.create(
 )
 ```
 
-## Configuring the guard
-Now that we can issue tokens, let's configure an authentication guard to verify requests and authenticate users. The guard must be configured inside the `config/auth.ts` file under the `guards` object.
+## 配置守卫
+
+现在我们可以发放令牌了，接下来让我们配置一个身份验证守卫来验证请求并认证用户。守卫必须在 `config/auth.ts` 文件中的 `guards` 对象下进行配置。
 
 ```ts
 // title: config/auth.ts
@@ -335,35 +337,36 @@ const authConfig = defineConfig({
 export default authConfig
 ```
 
-The `tokensGuard` method creates an instance of the [AccessTokensGuard](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/guard.ts) class. It accepts a user provider that can be used for verifying tokens and finding users.
+`tokensGuard` 方法创建 [AccessTokensGuard](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/guard.ts) 类的实例。它接受一个用户提供者，用于验证令牌和查找用户。
 
-The `tokensUserProvider` method accepts the following options and returns an instance of the [AccessTokensLucidUserProvider](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/user_providers/lucid.ts) class.
+`tokensUserProvider` 方法接受以下选项，并返回 [AccessTokensLucidUserProvider](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/user_providers/lucid.ts) 类的实例。
 
-- `model`: The Lucid model to use for finding users.
-- `tokens`: The static property name of the model to reference the tokens provider.
+- `model`：用于查找用户的 Lucid 模型。
+- `tokens`：模型中引用令牌提供者的静态属性名称。
 
-## Authenticating requests
-Once the guard has been configured, you can start authenticating requests using the `auth` middleware or manually calling the `auth.authenticate` method.
+## 请求身份验证
 
-The `auth.authenticate` method returns an instance of the User model for the authenticated user, or it throws an [E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) exception when unable to authenticate the request.
+配置好守卫后，你可以开始使用 `auth` 中间件或手动调用 `auth.authenticate` 方法来验证请求。
+
+`auth.authenticate` 方法返回已认证用户的 User 模型实例，或者在无法认证请求时抛出 [E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) 异常。
 
 ```ts
 import router from '@adonisjs/core/services/router'
 
 router.post('projects', async ({ auth }) => {
-  // Authenticate using the default guard
+  // 使用默认守卫进行身份验证
   const user = await auth.authenticate()
 
-  // Authenticate using a named guard
+  // 使用命名守卫进行身份验证
   const user = await auth.authenticateUsing(['api'])
 })
 ```
 
-### Using the auth middleware
+### 使用 auth 中间件
 
-Instead of manually calling the `authenticate` method. You can use the `auth` middleware to authenticate the request or throw an exception.
+你可以使用 `auth` 中间件来验证请求或抛出异常，而无需手动调用 `authenticate` 方法。
 
-The auth middleware accepts an array of guards to use for authenticating the request. The authentication process stops after one of the mentioned guards authenticates the request.
+auth 中间件接受一个守卫数组，用于验证请求。一旦其中一个提到的守卫验证了请求，身份验证过程就会停止。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -380,8 +383,9 @@ router
   }))
 ```
 
-### Check if the request is authenticated
-You can check if a request has been authenticated using the `auth.isAuthenticated` flag. The value of `auth.user` will always be defined for an authenticated request.
+### 检查请求是否已认证
+
+你可以使用 `auth.isAuthenticated` 标志来检查请求是否已认证。对于已认证的请求，`auth.user` 的值总是已定义。
 
 ```ts
 import { HttpContext } from '@adonisjs/core/http'
@@ -395,9 +399,9 @@ class PostsController {
 }
 ```
 
-### Get authenticated user or fail
+### 获取已认证用户或失败
 
-If you do not like using the [non-null assertion operator](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-) on the `auth.user` property, you may use the `auth.getUserOrFail` method. This method will return the user object or throw [E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) exception.
+如果你不喜欢在 `auth.user` 属性上使用 [非空断言操作符](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-)，你可以使用 `auth.getUserOrFail` 方法。此方法将返回用户对象或抛出 [E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) 异常。
 
 ```ts
 import { HttpContext } from '@adonisjs/core/http'
@@ -410,16 +414,17 @@ class PostsController {
 }
 ```
 
-## The current access token
-The access token guard defines the `currentAccessToken` property on the user object after successfully authenticating the request. The `currentAccessToken` property is an instance of the [AccessToken](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/access_token.ts) class. 
+## 当前访问令牌
 
-You may use the `currentAccessToken` object to get the token's abilities or check the expiration of the token. Also, during authentication, the guard will update the `last_used_at` column to reflect the current timestamp.
+访问令牌守卫在成功验证请求后，会在用户对象上定义 `currentAccessToken` 属性。`currentAccessToken` 属性是 [AccessToken](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/access_token.ts) 类的实例。
 
-If you reference the User model with `currentAccessToken` as a type in the rest of the codebase, you may want to declare this property on the model itself.
+你可以使用 `currentAccessToken` 对象来获取令牌的能力或检查令牌的过期时间。此外，在身份验证期间，守卫会更新 `last_used_at` 列以反映当前时间戳。
+
+如果你在代码库的其他部分将 User 模型与 `currentAccessToken` 作为类型引用，你可能希望在模型本身上声明此属性。
 
 :::caption{for="error"}
 
-**Instead of merging `currentAccessToken`**
+**不要合并 `currentAccessToken`**
 
 :::
 
@@ -434,7 +439,7 @@ Bouncer.ability((
 
 :::caption{for="success"}
 
-**Declare it as a property on the model**
+**在模型上声明为属性**
 
 :::
 
@@ -451,8 +456,8 @@ Bouncer.ability((user: User) => {
 })
 ```
 
-## Listing all tokens
-You may use the tokens provider to get a list of all the tokens using the `accessTokens.all` method. The return value will be an array of `AccessToken` class instances.
+## 列出所有令牌
+您可以使用令牌提供者通过 `accessTokens.all` 方法获取所有令牌的列表。返回值将是 `AccessToken` 类实例的数组。
 
 ```ts
 router
@@ -466,7 +471,7 @@ router
   )
 ```
 
-The `all` method also returns expired tokens. You may want to filter them before rendering the list or display a **"Token expired"** message next to the token. For example
+`all` 方法还会返回已过期的令牌。在呈现列表之前，您可能希望对其进行过滤，或者在令牌旁边显示 **“Token expired”**（令牌已过期）消息。例如：
 
 ```edge
 @each(token in tokens)
@@ -479,12 +484,13 @@ The `all` method also returns expired tokens. You may want to filter them before
 @end
 ```
 
-## Deleting tokens
-You may delete a token using the `accessTokens.delete` method. The method accepts the user as the first parameter and the token id as the second parameter.
+## 删除令牌
+您可以使用 `accessTokens.delete` 方法删除令牌。该方法接受用户作为第一个参数，令牌 ID 作为第二个参数。
 
 ```ts
 await User.accessTokens.delete(user, token.identifier)
 ```
 
-## Events
-Please check the [events reference guide](../references/events.md#access_tokens_authauthentication_attempted) to view the list of available events emitted by the access tokens guard.
+## 事件
+
+请查阅[事件参考指南](../references/events.md#access_tokens_authauthentication_attempted)，以查看访问令牌守卫发出的可用事件列表。

@@ -1,16 +1,18 @@
 ---
-summary: Explore multiple ways of debugging your AdonisJS applications, from using the VSCode debugger to using Dump and Die and viewing the debug logs of the framework.
+summary: 探索调试 AdonisJS 应用程序的多种方法，包括使用 VSCode 调试器、使用 Dump and Die 以及查看框架的调试日志。
 ---
 
-# Debugging
-In this guide, we will explore multiple ways of debugging your AdonisJS applications, from using the VSCode debugger to using Dump and Die and viewing the debug logs of the framework.
+# Debugging（调试）
 
-## Debug using the VSCode debugger
-Debugging AdonisJS applications using the VSCode debugger is straightforward. You only need to create a `.vscode/launch.json` file and use the Node.js debugger.
+在本指南中，我们将探索调试 AdonisJS 应用程序的多种方法，包括使用 VSCode 调试器、使用 Dump and Die 以及查看框架的调试日志。
 
-In the following example, we define a configuration to start the AdonisJS development server in the debug mode and then attach the VSCode debugger to it. 
+## 使用 VSCode 调试器进行调试
 
-See also: [VSCode Debugging Docs](https://code.visualstudio.com/docs/editor/debugging)
+使用 VSCode 调试器调试 AdonisJS 应用程序非常简单。你只需要创建一个 `.vscode/launch.json` 文件，并使用 Node.js 调试器。
+
+在下面的示例中，我们定义了一个配置来启动 AdonisJS 开发服务器，并将其置于调试模式，然后将 VSCode 调试器附加到它上面。
+
+另请参阅：[VSCode Debugging Docs](https://code.visualstudio.com/docs/editor/debugging)
 
 ```json
 // title: .vscode/launch.json
@@ -29,17 +31,17 @@ See also: [VSCode Debugging Docs](https://code.visualstudio.com/docs/editor/debu
 }
 ```
 
-To start debugging:
+开始调试：
 
-- Open the Command Palette with `(CMD + Shift + P)`.
-- Search for **Debug: Select and Start Debugging**. You will find a list of launch options from the `.vscode/launch.json` file. 
-- Select the **Dev server** option to run the HTTP server with the VSCode debugger.
+- 使用 `(CMD + Shift + P)` 打开命令面板。
+- 搜索 **Debug: Select and Start Debugging**。你将从 `.vscode/launch.json` 文件中看到一系列启动选项。
+- 选择 **Dev server** 选项，以使用 VSCode 调试器运行 HTTP 服务器。
 
 ![](./debug-dev-server.png)
 
-### Debugging tests
+### 调试测试
 
-You may define another launch option to run tests in the debug mode.
+你可以定义另一个启动选项来在调试模式下运行测试。
 
 ```json
 // title: .vscode/launch.json
@@ -68,12 +70,13 @@ You may define another launch option to run tests in the debug mode.
 }
 ```
 
-### Debugging all other Ace commands
-Defining individual launch options for every ace command is not a practical option. Therefore, you can define an `attach` configuration within the `.vscode/launch.json` file.
+### 调试其他所有 Ace 命令
 
-In `attach` mode, [VSCode will attach its debugger](https://code.visualstudio.com/blogs/2018/07/12/introducing-logpoints-and-auto-attach#_autoattaching-to-node-processes) with an already running Node.js process, given the process was started with the `--inspect` flag from within the VSCode integrated terminal.
+为每个 Ace 命令定义单独的启动选项并不实际。因此，你可以在 `.vscode/launch.json` 文件中定义一个 `attach` 配置。
 
-Let's start by modifying the `.vscode/launch.json` file and adding the following configuration to it.
+在 `attach` 模式下，[VSCode 将其调试器附加到](https://code.visualstudio.com/blogs/2018/07/12/introducing-logpoints-and-auto-attach#_autoattaching-to-node-processes) 已经运行的 Node.js 进程上，前提是该进程是在 VSCode 集成终端内使用 `--inspect` 标志启动的。
+
+让我们从修改 `.vscode/launch.json` 文件开始，并向其中添加以下配置。
 
 ```json
 // title: .vscode/launch.json
@@ -110,25 +113,25 @@ Let's start by modifying the `.vscode/launch.json` file and adding the following
 }
 ```
 
-To start debugging in attach mode:
+在附加模式下开始调试：
 
-- Open the Command Palette with `(CMD + Shift + P)`.
-- Search for **Debug: Select and Start Debugging**. You will find a list of launch options from the `.vscode/launch.json` file.
-- Select the **Attach Program** option.
-- Run an Ace command with the `--inspect` flag. For example:
+- 使用 `(CMD + Shift + P)` 打开命令面板。
+- 搜索 **Debug: Select and Start Debugging**。你将从 `.vscode/launch.json` 文件中看到一系列启动选项。
+- 选择 **Attach Program** 选项。
+- 使用 `--inspect` 标志运行 Ace 命令。例如：
   ```sh
   node --inspect ace migration:run
   ```
 
 ::video{url="https://res.cloudinary.com/adonis-js/video/upload/v1726932262/n91xtzqavpdoro79lnza.mp4" controls="true"}
 
+### 调试 Edge 模板
 
-### Debugging Edge templates
-You can debug Edge templates similar to your application code written in TypeScript. However, with Edge, you cannot use the breakpoints provided by VSCode. Instead, you must use the `@debugger` tag to define an in-code breakpoint.
+你可以调试 Edge 模板，就像调试用 TypeScript 编写的应用程序代码一样。然而，在 Edge 中，你无法使用 VSCode 提供的断点。相反，你必须使用 `@debugger` 标签来定义代码内断点。
 
 :::note
 
-The debugger will show the compiled output for Edge templates.
+调试器将显示 Edge 模板的编译输出。
 
 :::
 
@@ -136,10 +139,11 @@ The debugger will show the compiled output for Edge templates.
 @debugger
 ```
 
-## Dump and Die
-Dump and Die (known as `dd`) is similar to the most loved debugging technique, `console.log`. However, the `dd` helper will halt the execution by throwing an exception and displaying the output inside the browser or the terminal.
+## Dump and Die（倾倒并终止）
 
-The output is rendered as an HTML document when you use the `dd` helper during an HTTP request. Otherwise, the output is displayed within the terminal.
+Dump and Die（简称 `dd`）类似于最受欢迎的调试技术 `console.log`。然而，`dd` 辅助函数会通过抛出异常来中止执行，并在浏览器或终端中显示输出。
+
+当你在 HTTP 请求期间使用 `dd` 辅助函数时，输出会被渲染为 HTML 文档。否则，输出将在终端中显示。
 
 ```ts
 // title: start/routes.ts
@@ -153,7 +157,7 @@ router.get('/users', async () => {
   const users = await User.all()
   // highlight-start
   /**
-   * Visit the "/users" endpoint to view the dumped values
+   * 访问 "/users" 端点以查看倾倒的值
    */
   dd(users)
   // highlight-end
@@ -161,56 +165,57 @@ router.get('/users', async () => {
 })
 ```
 
-The output of `dd` slightly differs from what you see when using `console.log`. 
+`dd` 的输出与使用 `console.log` 时看到的输出略有不同。
 
-- You can see the source code location where the value was dumped.
-- You can view static properties of a class and prototype properties of an object.
-- By default, nested values up to 10 levels deep are displayed.
-- Support for multiple themes for the HTML output. You can choose between `nightOwl`, `catppuccin`, and `minLight`.
+- 你可以看到倾倒值所在的源代码位置。
+- 你可以查看类的静态属性和对象的原型属性。
+- 默认情况下，显示嵌套深度达 10 层的值。
+- 支持多种 HTML 输出主题。你可以选择 `nightOwl`、`catppuccin` 和 `minLight`。
 
 ![Console output](./dd-cli.png)
 
 ![Browser output](./browser-dd.png)
 
-### Edge helpers for debugging
-You can use the `dd` helper within Edge templates via the `@dd` tag. Additionally, you can use the `@dump` helper, which doesn't throw an exception and continues rendering the rest of the template.
+### Edge 辅助函数用于调试
+
+你可以在 Edge 模板中通过 `@dd` 标签使用 `dd` 辅助函数。此外，你还可以使用 `@dump` 辅助函数，它不会抛出异常，而是继续渲染模板的其余部分。
 
 ```edge
-{{-- Dump template state and die --}}
+{{-- 倾倒模板状态并终止 --}}
 @dd(state)
 
-{{-- Dump template state and continue rendering --}}
+{{-- 倾倒模板状态并继续渲染 --}}
 @dump(state)
 ```
 
-### Dumper settings
-You can configure the dumper settings inside the `config/app.ts` file. This file should export a `dumper` configuration object, as shown below.
+### Dumper 设置
+
+你可以在 `config/app.ts` 文件中配置 dumper 设置。该文件应导出一个 `dumper` 配置对象，如下所示。
 
 ```ts
 // title: config/app.ts
 /**
- * The global configuration used by the "dd" helper. You can
- * separately configure the settings for both the "console"
- * and the "html" printers.
+ * “dd” 辅助函数使用的全局配置。你可以
+ * 分别为 “console” 和 “html” 打印机
+ * 配置设置。
  */
 export const dumper = dumperConfig({
   /**
-   * Settings for the console printer
+   * 控制台打印机的设置
    */
   console: {
     depth: 10,
 
     /**
-     * Objects that should not be further expanded. The
-     * array accepts an array of object constructor
-     * names.
+     * 不应进一步展开的对象。数组接受
+     * 对象构造函数名称的数组。
      */
     collapse: ['DateTime', 'Date'],
     inspectStaticMembers: true,
   },
 
   /**
-   * Settings for the HTML printer
+   * HTML 打印机的设置
    */
   html: {
     depth: 10,
@@ -224,85 +229,85 @@ export const dumper = dumperConfig({
 <dt> showHidden </dt>
 <dd>
 
-When set to `true`, the non-enumerable properties of an object will be processed. **Default: `false`**
+当设置为 `true` 时，将处理对象的不可枚举属性。**默认值：`false`**
 
 </dd>
 
 <dt> depth </dt>
 <dd>
 
-The depth at which to stop parsing nested values. The depth is shared among all tree-like data structures. For example, Objects, Arrays, Maps, and Sets. **Default: `5`**
+停止解析嵌套值的深度。所有树状数据结构（例如对象、数组、映射和集合）共享此深度。**默认值：`5`**
 
 </dd>
 
 <dt> inspectObjectPrototype </dt>
 <dd>
 
-Inspect prototype properties of an object. The non-enumerable properties of the prototype are included by default. **Default: `'unless-plain-object'`**.
+检查对象的原型属性。默认情况下包含原型的不可枚举属性。**默认值：`'unless-plain-object'`**。
 
-- When set to `true`, the prototype properties will be processed for all the objects.
-- The prototype properties are never processed when set to `false`.
-- When set to `'unless-plain-object'`, the prototype properties of class instances will be processed.
+- 当设置为 `true` 时，将处理所有对象的原型属性。
+- 当设置为 `false` 时，从不处理原型属性。
+- 当设置为 `'unless-plain-object'` 时，将处理类实例的原型属性。
 
 </dd>
 
 <dt> inspectArrayPrototype </dt>
 <dd>
 
-Inspect prototype properties of an Array. **Default: `false`**.
+检查数组的原型属性。**默认值：`false`**。
 
 </dd>
 
 <dt> inspectStaticMembers </dt>
 <dd>
 
-Inspect static members of a class. Even though functions and classes are technically the same, this config only applies to functions defined using the `[class]` keyword. **Default: `false`**.
+检查类的静态成员。尽管函数和类在技术上相同，但此配置仅适用于使用 `[class]` 关键字定义的函数。**默认值：`false`**。
 
 </dd>
 
 <dt> maxArrayLength </dt>
 <dd>
 
-Maximum number of members to process for `Arrays`, `Maps`, and `Sets`. **Default: `100`**.
+要处理的 `数组`、`映射` 和 `集合` 的最大成员数。**默认值：`100`**。
 
 </dd>
 
 <dt> maxStringLength </dt>
 <dd>
 
-Maximum number of characters to display for a string. **Default: `1000`**.
+要显示的字符串的最大字符数。**默认值：`1000`**。
 
 </dd>
 
 <dt> collapse </dt>
 <dd>
 
-An array of object constructor names that should not be further inspected.
+不应进一步检查的对象构造函数名称数组。
 
 </dd>
 
 </dl>
 
-## Framework debug logs
-You can view the framework debug logs using the `NODE_DEBUG` environment variable. The `NODE_DEBUG` flag is supported by the Node.js runtime, and you may use it to view logs for one or more modules using the module name.
+## 框架调试日志
+您可以使用 `NODE_DEBUG` 环境变量查看框架调试日志。`NODE_DEBUG` 标志由 Node.js 运行时支持，您可以使用它查看一个或多个模块的日志，方法是使用模块名称。
 
-For example, you can view logs for all AdonisJS packages using the `NODE_DEBUG="adonisjs:*"` value.
+例如，您可以使用 `NODE_DEBUG="adonisjs:*"` 值查看所有 AdonisJS 包的日志。
 
 ```sh
 NODE_DEBUG="adonisjs:*" node ace serve --hmr
 ```
 
-Similarly, you may use the `NODE_DEBUG` environment variable to view logs from the Node.js native modules like `fs`, `net`, `module`, and so on.
+同样，您可以使用 `NODE_DEBUG` 环境变量查看来自 Node.js 原生模块的日志，如 `fs`、`net`、`module` 等。
 
 ```sh
 NODE_DEBUG="adonisjs:*,net,fs" node ace serve --hmr
 ```
 
-<!-- ## Observing activities
-Observing actions performed by different parts of your application can present some meaningful insights and help you debug and understand the inner workings of the framework.
+<!-- ## 观察活动
+观察应用程序不同部分执行的操作可以提供一些有意义的见解，并帮助您调试和理解框架的内部工作原理。
 
-### Lucid queries
-You may debug Lucid queries by enabling the `debug` flag inside the `config/database.ts` file. Additionally, you must enable the `prettyPrintDebugQueries` within the same file to print SQL queries in the terminal.
+### Lucid 查询
+您可以通过在 `config/database.ts` 文件中启用 `debug` 标志来调试 Lucid 查询。此外，您还必须在同一文件中启用 `prettyPrintDebugQueries` 以在终端中打印 SQL 查询。
 
 ```ts
 // title: config/database.ts
@@ -332,6 +337,6 @@ const dbConfig = defineConfig({
 
 ![](./debug-sql-queries.png) -->
 
-<!-- ### Outgoing emails
+<!-- ### 发出电子邮件
 
-### HTTP requests -->
+### HTTP 请求 -->
