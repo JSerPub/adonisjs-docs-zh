@@ -11,7 +11,7 @@
   ],
   "links": {
     "home": {
-      "title": "AdonisJS",
+      "title": "AdonisJS 中文文档",
       "href": "/"
     },
     "github": {
@@ -20,9 +20,9 @@
     }
   },
   "search": {
-    "appId": "KXECYAMEX8",
-    "indexName": "adonisjs_next",
-    "apiKey": "01279e9ede105d87a1ade54565b1a2fd"
+    "appId": "RP3U0KNEM3",
+    "indexName": "movies_index",
+    "apiKey": "5585e4a8bb44e163e5beedb73a412bdb"
   },
   "sponsors_sources": [
     "https://raw.githubusercontent.com/thetutlage/static/main/sponsorkit/sponsors.json"
