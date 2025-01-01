@@ -2,11 +2,11 @@
   "menu": [
     {
       "href": "https://v6-migration.adonisjs.com",
-      "title": "Migration Guide"
+      "title": "迁移指南"
     },
     {
       "href": "https://v5-docs.adonisjs.com",
-      "title": "V5 Documentation"
+      "title": "V5 文档"
     }
   ],
   "links": {
@@ -20,9 +20,9 @@
     }
   },
   "search": {
-    "appId": "RP3U0KNEM3",
-    "indexName": "movies_index",
-    "apiKey": "5585e4a8bb44e163e5beedb73a412bdb"
+    "appId": "SS2AL4GMAG",
+    "indexName": "adonisjs--zh-jser",
+    "apiKey": "f9a5429b7bcb79b67c423a4fabcb483b"
   },
   "sponsors_sources": [
     "https://raw.githubusercontent.com/thetutlage/static/main/sponsorkit/sponsors.json"
