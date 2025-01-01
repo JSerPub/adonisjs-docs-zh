@@ -8,7 +8,7 @@ summary: '`adonisrc.ts` 文件用于配置应用程序的工作区设置。'
 
 :::warning
 
-`adonisrc.ts` 文件会被除您的 AdonisJS 应用程序之外的工具导入。因此，您不得在此文件中编写任何应用程序特定的代码或环境特定的条件语句。
+除您的 AdonisJS 应用程序之外，`adonisrc.ts` 文件还会被其他工具导入。因此，您不得在此文件中编写任何应用程序特定的代码或环境特定的条件语句。
 
 :::
 
@@ -71,10 +71,10 @@ console.log(app.rcFile)
 
 您可以定义导入文件的环境。有效选项包括：
 
-- `web` 环境指的是为 HTTP 服务器启动的进程。
-- `console` 环境指的是 Ace 命令，除了 `repl` 命令。
-- `repl` 环境指的是使用 `node ace repl` 命令启动的进程。
-- 最后，`test` 环境指的是为运行测试启动的进程。
+- `web` 为 HTTP 服务器启动的进程。
+- `console` Ace 命令，除了 `repl` 命令。
+- `repl` 使用 `node ace repl` 命令启动的进程。
+- `test` 为运行测试启动的进程。
 
 :::note
 
@@ -208,90 +208,10 @@ console.log(app.rcFile)
 - `web` 环境指的是为 HTTP 服务器启动的进程。
 - `console` 环境指的是 Ace 命令，除了 `repl` 命令。
 - `repl` 环境指的是使用 `node ace repl` 命令启动的进程。
-- 最后，`test` 环境指的是为运行测试启动的进程。
+- `test` 环境指的是为运行测试启动的进程。
 
 :::note
 提供者按照 `providers` 数组中注册的顺序加载。
-:::
-
-另请参阅：[服务提供者](./service_providers.md)
-
-```ts
-{
-  providers: [
-    () => import('@adonisjs/core/providers/app_provider'),
-    () => import('@adonisjs/core/providers/http_provider'),
-    () => import('@adonisjs/core/providers/hash_provider'),
-    () => import('./providers/app_provider.js'),
-  ]
-}
-```
-
-```ts
-{
-  providers: [
-    {
-      file: () => import('./providers/app_provider.js'),
-      environment: [
-        'web',
-        'console',
-        'test'
-      ]
-    },
-    {
-      file: () => import('@adonisjs/core/providers/http_provider'),
-      environment: [
-        'web'
-      ]
-    },
-    () => import('@adonisjs/core/providers/hash_provider'),
-    () => import('@adonisjs/core/providers/app_provider')
-  ]
-}
-```
-## 测试
-
-`tests` 对象用于注册测试套件以及测试运行器的一些全局设置。
-
-另请参阅：[测试简介](../testing/introduction.md)
-
-```ts
-{
-  tests: {
-    timeout: 2000,
-    forceExit: false,
-    suites: [
-      {
-        name: 'functional',
-        files: [
-          'tests/functional/**/*.spec.ts'
-        ],
-        timeout: 30000
-      }
-    ]
-  }
-}
-```
-
-- `timeout`：定义所有测试的默认超时时间。
-- `forceExit`：测试完成后强制退出应用程序进程。通常，最好执行优雅退出。
-- `suite.name`：测试套件的唯一名称。
-- `suite.files`：用于导入测试文件的 glob 模式数组。
-- `suite.timeout`：套件内所有测试的默认超时时间。
-
-## 提供者
-
-一个服务提供者数组，用于在应用程序启动阶段加载。
-
-默认情况下，提供者会在所有环境中加载。但是，您也可以定义一个明确的环境数组来导入提供者。
-
-- `web` 环境指的是为 HTTP 服务器启动的进程。
-- `console` 环境指的是 Ace 命令，除了 `repl` 命令。
-- `repl` 环境指的是使用 `node ace repl` 命令启动的进程。
-- 最后，`test` 环境指的是为运行测试启动的进程。
-
-:::note
-提供者将按照 `providers` 数组中注册的顺序加载。
 :::
 
 另请参阅：[服务提供者](./service_providers.md)
