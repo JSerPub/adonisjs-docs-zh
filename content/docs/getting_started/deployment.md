@@ -64,7 +64,7 @@ CMD ["node", "./bin/server.js"]
 
 Node.js 应用程序通常部署在像 Nginx 这样的反向代理服务器后面。因此，端口 `80` 和 `443` 上的传入流量将由 Nginx 首先处理，然后转发到您的 Node.js 应用程序。
 
-以下是一个 Nginx 配置文件示例，您可以将其用作起点。
+以下是一个 Nginx 配置文件示例，您可以将其作为基础。
 
 :::warning
 请确保替换尖括号 `<>` 内的值。
@@ -115,7 +115,7 @@ ENV_PATH=/etc/secrets node build/bin/server.js
 - 如果您的应用程序在处理请求时崩溃，它将重新启动应用程序。
 - 此外，PM2 使在 [集群模式](https://nodejs.org/api/cluster.html#cluster) 下运行您的应用程序变得非常简单。
 
-以下是一个示例 [pm2 生态系统文件](https://pm2.keymetrics.io/docs/usage/application-declaration)，您可以将其用作起点。
+以下是一个示例 [pm2 生态系统文件](https://pm2.keymetrics.io/docs/usage/application-declaration)，您可以将其作为基础。
 
 ```js
 // title: ecosystem.config.js
@@ -188,7 +188,7 @@ node ace migration:run --force
 
 ## 写入日志
 
-AdonisJS 默认使用 [`pino` 日志记录器](../digging_deeper/logger.md)，以 JSON 格式将日志写入控制台。您可以设置一个外部日志服务从 stdout/stderr 读取日志，或者将它们转发到同一服务器上的本地文件。
+AdonisJS 默认使用 [`pino` 日志器](../digging_deeper/logger.md)，以 JSON 格式将日志写入控制台。您可以设置一个外部日志服务从 stdout/stderr 读取日志，或者将它们转发到同一服务器上的本地文件。
 
 ## 提供静态资源
 
@@ -198,7 +198,7 @@ AdonisJS 默认使用 [`pino` 日志记录器](../digging_deeper/logger.md)，�
 
 提供静态资源的最佳方法是使用 CDN（内容分发网络）。
 
-使用 [Vite](../basics/vite.md) 编译的前端资源默认会进行指纹处理，这意味着文件名会根据其内容进行哈希处理。这允许您永久缓存资源并从 CDN 提供它们。
+使用 [Vite](../basics/vite.md) 编译的前端资源默认会带有版本哈希，这意味着文件名会根据其内容进行哈希处理。这允许您永久缓存资源并从 CDN 提供它们。
 
 根据您使用的 CDN 服务和部署技术，您可能需要在部署过程中添加一个步骤，将静态文件移动到 CDN 服务器。这是大致的工作流程。
 
@@ -210,7 +210,7 @@ AdonisJS 默认使用 [`pino` 日志记录器](../digging_deeper/logger.md)，�
 
 ### 使用 Nginx 提供静态资源
 
-另一个选择是将提供资产的任务卸载给 Nginx。如果您使用 Vite 编译前端资产，必须积极缓存所有静态文件，因为它们已被指纹处理。
+另一个选择是将提供资产的任务卸载给 Nginx。如果您使用 Vite 编译前端资产，必须积极缓存所有静态文件，因为它们都带有版本哈希。
 
 在 Nginx 配置文件中添加以下块。**请确保替换尖括号 `<>` 内的值**。
 
@@ -226,9 +226,9 @@ location ~ \.(jpg|png|css|js|gif|ico|woff|woff2) {
 
 ### 使用 AdonisJS 内置静态文件服务器
 
-您还可以依赖 [AdonisJS 内置的静态文件服务器](../basics/static_file_server.md) 从 `public` 目录提供静态资源，以保持简单。
+您也可以依靠 [AdonisJS 内置的静态文件服务器](../basics/static_file_server.md) 从 `public` 目录提供静态资源，以保持简洁。
 
-无需额外配置。只需像往常一样部署您的 AdonisJS 应用程序，请求静态资源将自动提供服务。
+无需进行额外配置。只需像往常一样部署您的 AdonisJS 应用程序，静态资源的请求就会自动得到处理。
 
 :::warning
 不建议在生产环境中使用静态文件服务器。最好使用 CDN 或 Nginx 来提供静态资源。

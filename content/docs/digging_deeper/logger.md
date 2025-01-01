@@ -1,10 +1,10 @@
 ---
-summary: 了解如何使用 AdonisJS 日志记录器将日志写入控制台、文件和外部服务。该日志记录器基于 Pino 构建，速度快且支持多个目标。
+summary: 了解如何使用 AdonisJS 日志器将日志写入控制台、文件和外部服务。该日志器基于 Pino 构建，速度快且支持多个目标。
 ---
 
 # Logger
 
-AdonisJS 内置了一个日志记录器，支持将日志写入 **文件**、**标准输出** 和 **外部日志服务**。在底层，我们使用 [pino](https://getpino.io/#/)。Pino 是 Node.js 生态系统中最快的日志记录库之一，生成 [NDJSON 格式](https://github.com/ndjson/ndjson-spec) 的日志。
+AdonisJS 内置了一个日志器，支持将日志写入 **文件**、**标准输出** 和 **外部日志服务**。在底层，我们使用 [pino](https://getpino.io/#/)。Pino 是 Node.js 生态系统中最快的日志记录库之一，生成 [NDJSON 格式](https://github.com/ndjson/ndjson-spec) 的日志。
 
 ## 使用方法
 
@@ -17,7 +17,7 @@ logger.info('this is an info message')
 logger.error({ err: error }, 'Something went wrong')
 ```
 
-建议在 HTTP 请求期间使用 `ctx.logger` 属性。HTTP 上下文持有一个请求感知日志记录器的实例，该实例会将当前请求 ID 添加到每个日志语句中。
+建议在 HTTP 请求期间使用 `ctx.logger` 属性。HTTP 上下文持有一个请求感知日志器的实例，该实例会将当前请求 ID 添加到每个日志语句中。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -31,7 +31,7 @@ router.get('/users/:id', async ({ logger, params }) => {
 
 ## 配置
 
-日志记录器的配置存储在 `config/logger.ts` 文件中。默认情况下，只配置了一个日志记录器。但是，如果您想在应用程序中使用多个日志记录器，可以定义多个日志记录器的配置。
+日志器的配置存储在 `config/logger.ts` 文件中。默认情况下，只配置了一个日志器。但是，如果您想在应用程序中使用多个日志器，可以定义多个日志器的配置。
 
 
 ```ts
@@ -61,9 +61,9 @@ default
 
 <dd>
 
-`default` 属性是对同一文件中 `loggers` 对象下配置的某个日志记录器的引用。 
+`default` 属性是对同一文件中 `loggers` 对象下配置的某个日志器的引用。 
 
-除非在使用日志记录器 API 时选择了特定的日志记录器，否则将使用默认日志记录器来写入日志。
+除非在使用日志器 API 时选择了特定的日志器，否则将使用默认日志器来写入日志。
 
 </dd>
 
@@ -75,7 +75,7 @@ loggers
 
 <dd>
 
-`loggers` 对象是一个键值对，用于配置多个日志记录器。键是日志记录器的名称，值是 [pino](https://getpino.io/#/docs/api?id=options) 所接受的配置对象。
+`loggers` 对象是一个键值对，用于配置多个日志器。键是日志器的名称，值是 [pino](https://getpino.io/#/docs/api?id=options) 所接受的配置对象。
 
 </dd>
 </dl>
@@ -87,9 +87,9 @@ loggers
 
 :::note
 
-如果在目标配置中未定义 `level`，则配置的目标将从父日志记录器继承它。
+如果在目标配置中未定义 `level`，则配置的目标将从父日志器继承它。
 
-此行为与 pino 不同。在 Pino 中，目标不会从父日志记录器继承级别。
+此行为与 pino 不同。在 Pino 中，目标不会从父日志器继承级别。
 
 :::
 
@@ -217,9 +217,9 @@ loggers: {
 }
 ```
 
-## 使用多个日志记录器
+## 使用多个日志器
 
-AdonisJS 提供了一流的支持来配置多个日志记录器。日志记录器的唯一名称和配置在 `config/logger.ts` 文件中定义。
+AdonisJS 提供了一流的支持来配置多个日志器。日志器的唯一名称和配置在 `config/logger.ts` 文件中定义。
 
 ```ts
 export default defineConfig({
@@ -242,7 +242,7 @@ export default defineConfig({
 })
 ```
 
-配置完成后，您可以使用 `logger.use` 方法访问命名日志记录器。
+配置完成后，您可以使用 `logger.use` 方法访问命名日志器。
 
 ```ts
 import logger from '@adonisjs/core/services/logger'
@@ -250,13 +250,13 @@ import logger from '@adonisjs/core/services/logger'
 logger.use('payments')
 logger.use('app')
 
-// 获取默认日志记录器的实例
+// 获取默认日志器的实例
 logger.use()
 ```
 
 ## 依赖注入
 
-当使用依赖注入时，你可以将 `Logger` 类作为依赖进行类型提示，IoC 容器将解析配置文件中定义的默认日志记录器实例。
+当使用依赖注入时，你可以将 `Logger` 类作为依赖进行类型提示，IoC 容器将解析配置文件中定义的默认日志器实例。
 
 如果该类是在 HTTP 请求期间构造的，那么容器将注入请求感知的 Logger 实例。
 
@@ -281,7 +281,7 @@ class UserService {
 
 ## 日志记录方法
 
-Logger API 几乎与 Pino 相同，除了 AdonisJS 的日志记录器不是事件发射器实例（而 Pino 是）。除此之外，日志记录方法的 API 与 Pino 相同。
+Logger API 几乎与 Pino 相同，除了 AdonisJS 的日志器不是事件发射器实例（而 Pino 是）。除此之外，日志记录方法的 API 与 Pino 相同。
 
 ```ts
 import logger from '@adonisjs/core/services/logger'
@@ -308,7 +308,7 @@ logger.error({ err: error }, 'Unable to lookup user')
 
 ## 条件日志记录
 
-日志记录器生成配置文件中配置的级别及以上级别的日志。例如，如果级别设置为 `warn`，则 `info`、`debug` 和 `trace` 级别的日志将被忽略。
+日志器生成配置文件中配置的级别及以上级别的日志。例如，如果级别设置为 `warn`，则 `info`、`debug` 和 `trace` 级别的日志将被忽略。
 
 如果计算日志消息的数据很耗时，你应该在计算数据之前检查给定的日志级别是否已启用。
 
@@ -330,11 +330,11 @@ logger.ifLevelEnabled('debug', async () => {
 })
 ```
 
-## 子日志记录器
+## 子日志器
 
-子日志记录器是一个独立的实例，它从父日志记录器继承配置和绑定。
+子日志器是一个独立的实例，它从父日志器继承配置和绑定。
 
-可以使用 `logger.child` 方法创建子日志记录器实例。该方法接受绑定作为第一个参数，可选的配置对象作为第二个参数。
+可以使用 `logger.child` 方法创建子日志器实例。该方法接受绑定作为第一个参数，可选的配置对象作为第二个参数。
 
 ```ts
 import logger from '@adonisjs/core/services/logger'
@@ -342,7 +342,7 @@ import logger from '@adonisjs/core/services/logger'
 const requestLogger = logger.child({ requestId: ctx.request.id() })
 ```
 
-子日志记录器也可以在不同的日志级别下进行日志记录。
+子日志器也可以在不同的日志级别下进行日志记录。
 
 ```ts
 logger.child({}, { level: 'warn' })

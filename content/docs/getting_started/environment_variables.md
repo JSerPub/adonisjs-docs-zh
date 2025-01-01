@@ -4,9 +4,9 @@ summary: 学习如何在 AdonisJS 应用程序中使用环境变量。
 
 # 环境变量
 
-环境变量用于在应用程序代码库之外存储机密信息，如数据库密码、应用程序密钥或API密钥。
+环境变量用于在应用程序代码库之外存储机密信息，如数据库密码、应用程序密钥或 API 密钥。
 
-此外，环境变量还可以用于为不同环境提供不同的配置。例如，您可能在测试期间使用内存邮件发送器，在开发期间使用SMTP邮件发送器，而在生产环境中使用第三方服务。
+此外，环境变量还可以用于为不同环境提供不同的配置。例如，您可能在测试期间使用内存邮件发送器，在开发期间使用 SMTP 邮件发送器，而在生产环境中使用第三方服务。
 
 由于所有操作系统、部署平台和 CI/CD 管道都支持环境变量，它们已成为存储机密信息和特定于环境的配置的实际标准。
 
@@ -14,7 +14,7 @@ summary: 学习如何在 AdonisJS 应用程序中使用环境变量。
 
 ## 读取环境变量
 
-Node.js 通过[`process.env` 全局属性](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) 原生地将所有环境变量作为一个对象暴露出来，您可以通过以下方式访问它们：
+Node.js 通过 [`process.env` 全局属性](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) 原生地将所有环境变量作为一个对象暴露出来，您可以通过以下方式访问它们：
 
 ```dotenv
 process.env.NODE_ENV
@@ -47,7 +47,7 @@ env.get('PORT', 3333)
 
 如果您想在Edge模板中访问环境变量，那么您必须将 `env` 模块作为全局变量与 Edge 模板共享。
 
-您可以在 `start` 目录中 [创建一个`view.ts`作为预加载文件](../concepts/adonisrc_file.md#preloads)，并在其中编写以下代码行。
+您可以在 `start` 目录中 [创建一个 `view.ts` 作为预加载文件](../concepts/adonisrc_file.md#preloads)，并在其中编写以下代码行。
 
 ```ts
 // title: start/view.ts
@@ -99,7 +99,7 @@ export default await Env.create(APP_ROOT, {
 ![](./env_intellisense.jpeg)
 
 
-## 验证器模式API
+## 验证器模式 API
 
 ### schema.string
 
@@ -121,7 +121,7 @@ export default await Env.create(APP_ROOT, {
 
 #### host
 
-验证该值是否为有效的URL或IP地址。
+验证该值是否为有效的 URL 或 IP 地址。
 
 ```ts
 {
@@ -131,16 +131,16 @@ export default await Env.create(APP_ROOT, {
 
 #### url
 
-验证该值是否为有效的 URL。可选地，您可以通过允许没有 `protocol` 或 `tld` 的URL来放宽验证的严格性。
+验证该值是否为有效的 URL。可选地，您可以通过允许没有 `protocol` 或 `tld` 的 URL 来放宽验证的严格性。
 
 ```ts
 {
   S3_ENDPOINT: Env.schema.string({ format: 'url' })
 
-  // Allow URLs without protocol
+  // 允许URL没有协议
   S3_ENDPOINT: Env.schema.string({ format: 'url', protocol: false })
 
-  // Allow URLs without tld
+  // 允许URL没有域名后缀
   S3_ENDPOINT: Env.schema.string({ format: 'url', tld: false })
 }
 ```

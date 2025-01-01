@@ -36,9 +36,11 @@ AdonisJS 被 [Marie Claire](https://www.marieclaire.com/)、[Cleavr](https://cle
 - 框架的验证层在 Node.js 生态系统中 [优于其他流行的验证库](https://github.com/vinejs/vine/blob/main/benchmarks.md)。
 
 ## 你们提供付费支持吗？
+
 是的！在我们的网站上，您可以了解更多关于 [优先支持计划](https://adonisjs.com/support_program) 的信息。
 
 ## 如何及时了解 AdonisJS 的最新动态？
+
 请查看以下链接，以保持联系并了解最新动态。
 
 - [Discord 服务器](https://discord.gg/vDcEjq6)
@@ -46,4 +48,3 @@ AdonisJS 被 [Marie Claire](https://www.marieclaire.com/)、[Cleavr](https://cle
 - [GitHub 讨论区](https://github.com/orgs/adonisjs/discussions)
 - [博客和新闻通讯](https://adonisjs.com/blog?referrer=adonisjs_docs_faq)
 - [Adocasts](https://adocasts.com/?referrer=adonisjs_docs_faq)
-

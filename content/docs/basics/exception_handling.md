@@ -4,7 +4,7 @@ summary: 异常是在 HTTP 请求生命周期中引发的错误。AdonisJS 提�
 
 # 异常处理
 
-在 HTTP 请求期间引发的异常由 `./app/exceptions/handler.ts` 文件中定义的 `HttpExceptionHandler` 处理。在这个文件中，你可以决定如何将异常转换为响应，并使用日志记录器记录它们，或将它们报告给外部日志提供程序。
+在 HTTP 请求期间引发的异常由 `./app/exceptions/handler.ts` 文件中定义的 `HttpExceptionHandler` 处理。在这个文件中，你可以决定如何将异常转换为响应，并使用日志器记录它们，或将它们报告给外部日志提供程序。
 
 `HttpExceptionHandler` 扩展了 [ExceptionHandler](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts) 类，该类负责处理错误的所有繁重工作，并提供高级 API 来调整报告和呈现行为。
 

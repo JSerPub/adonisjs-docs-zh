@@ -10,7 +10,7 @@ summary: 了解如何在 AdonisJS 中读取和更新配置值。
 
 :::note
 
-我们建议使用 [环境变量](./environment_variables.md) 来存储敏感信息和特定于环境的配置。
+我们建议使用 [环境变量](./environment_variables.md) 来存储敏感信息和特定环境的配置。
 
 :::
 

@@ -200,7 +200,7 @@ redisMain.disconnect() // 使用连接实例强制关闭
 
 Redis 连接在应用程序生命周期中的任何时候都可能失败。因此，捕获错误并制定重试策略是至关重要的。
 
-默认情况下，AdonisJS 将使用[应用程序日志记录器](../digging_deeper/logger.md)记录 Redis 连接错误，并在永久关闭连接之前重试连接十次。重试策略是在 `config/redis.ts` 文件中为每个连接定义的。
+默认情况下，AdonisJS 将使用[应用程序日志器](../digging_deeper/logger.md)记录 Redis 连接错误，并在永久关闭连接之前重试连接十次。重试策略是在 `config/redis.ts` 文件中为每个连接定义的。
 
 另请参阅：[IORedis 文档中的自动重连](https://github.com/redis/ioredis#auto-reconnect)
 

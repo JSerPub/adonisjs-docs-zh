@@ -6,11 +6,11 @@ summary: "AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。您可
 
 ## AdonisJS 是什么?
 
-AdonisJS `/əˈdəʊnɪs/JS` 是一个以 TypeScript 优先的 Node.js Web 框架。您可以使用它来创建全栈 Web 应用程序或 JSON API 服务器。
+AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。您可以使用它来创建全栈 Web 应用程序或 JSON API 服务器。
 
-在基础层面，AdonisJS [为您的应用程序提供结构](../getting_started/folder_structure.md)，配置了[无缝的 TypeScript 开发环境](../concepts/typescript_build_process.md)，为后端代码配置了热模块替换（[HMR](../concepts/hmr.md)），并提供了一系列已维护且文档详尽的丰富包集合。
+在基础层面，AdonisJS [为您的应用程序提供结构](../getting_started/folder_structure.md)，配置了一个[无缝的 TypeScript 开发环境](../concepts/typescript_build_process.md)，为你的后端代码配置了热模块替换（[HMR](../concepts/hmr.md)），并提供了一个庞大且维护良好、文档详尽的包集合。
 
-我们设想，使用 AdonisJS 的团队将**花费更少的时间**在琐碎的决定上，比如为每个小功能精挑细选npm包、编写粘合代码、争论完美的文件夹结构，而**将更多的时间**投入到实现满足业务需求的实际功能上。
+我们设想，使用 AdonisJS 的团队将**花费更少的时间**在琐碎的决定上，比如为每个小功能精挑细选 npm 包、编写粘合代码、争论完美的文件夹结构，而**将更多的时间**投入到实现满足业务需求的实际功能上。
 
 ### 前端无关
 

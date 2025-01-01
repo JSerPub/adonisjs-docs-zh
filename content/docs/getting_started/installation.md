@@ -22,7 +22,7 @@ node -v
 
 您可以使用 [npm init](https://docs.npmjs.com/cli/v7/commands/npm-init) 创建一个新项目。这些命令将下载 [create-adonisjs](http://npmjs.com/create-adonisjs) 初始化程序包并开始安装过程。
 
-您可以使用以下 CLI 标志自定义初始项目输出。
+您可以使用以下 CLI 标志定制初始项目输出。
 
 - `--kit`: 选择项目的 [启动套件](#starter-kits)。您可以选择 **web**、**api**、**slim** 或 **inertia**。
 
@@ -30,7 +30,7 @@ node -v
 
 - `--git-init`: 初始化 git 存储库。默认为 `false`。
 
-- `--auth-guard`: 指定您选择的身份验证防护。您可以选择 **session**、**access_tokens** 或 **basic_auth**。
+- `--auth-guard`: 指定您选择的身份验证守卫。您可以选择 **session**、**access_tokens** 或 **basic_auth**。
 
 :::codegroup
 
@@ -41,7 +41,7 @@ npm init adonisjs@latest hello-world
 
 :::
 
-在使用 `npm init` 命令传递 CLI 标志时，请确保使用 [双破折号两次](https://stackoverflow.com/questions/43046885/what-does-do-when-running-an-npm-command)。否则，`npm init` 不会将标志传递给 `create-adonisjs` 初始化程序包。例如：
+在使用 `npm init` 命令传递 CLI 标志时，请确保使用 [两次双破折号](https://stackoverflow.com/questions/43046885/what-does-do-when-running-an-npm-command)。否则，`npm init` 不会将标志传递给 `create-adonisjs` 初始化程序包。例如：
 
 ```sh
 # 创建一个项目并提示输入所有选项
@@ -59,7 +59,7 @@ npm init adonisjs@latest hello-world -- --kit=api --auth-guard=access_tokens
 
 ## 启动套件
 
-启动套件是使用 AdonisJS 创建应用程序的起点。它们具有 [有主见的文件夹结构](./folder_structure.md)、预配置的 AdonisJS 包以及开发所需的必要工具。
+启动套件是使用 AdonisJS 创建应用程序的基础。它们具有 [预设的文件夹结构](./folder_structure.md)、预配置的 AdonisJS 包以及开发所需的必要工具。
 
 :::note
 
@@ -69,7 +69,7 @@ npm init adonisjs@latest hello-world -- --kit=api --auth-guard=access_tokens
 
 ### Web 启动套件
 
-Web 启动套件专为创建传统的服务器端渲染 Web 应用程序而设计。不要让关键词 **"传统"** 阻止您。如果您制作一个前端交互性有限的 Web 应用程序，我们推荐这个启动套件。
+Web 启动套件专为创建传统的服务器端渲染 Web 应用程序而设计。不要让关键词 **"传统"** 阻拦您。如果您开发一个前端交互性有限的 Web 应用程序，我们推荐这个启动套件。
 
 使用 [Edge.js](https://edgejs.dev) 在服务器上渲染 HTML 的简单性将提高您的工作效率，因为您无需处理复杂的构建系统来渲染一些 HTML。
 
@@ -114,7 +114,7 @@ Web 启动套件包含以下包。
 </tr>
 <tr>
 <td><code>@adonisjs/shield</code></td>
-<td>一组安全原语，可保护您的 Web 应用程序免受 **CSRF** 和 **XSS** 等攻击。</td>
+<td>一组安全基础组件，可保护您的 Web 应用程序免受 **CSRF** 和 **XSS** 等攻击。</td>
 </tr>
 <tr>
 <td><code>@adonisjs/static</code></td>
@@ -149,7 +149,7 @@ npm init adonisjs@latest -- -K=api --db=mysql
 
 API 启动套件配置为使用基于会话的身份验证。但是，如果您希望使用基于令牌的身份验证，可以使用 `--auth-guard` 标志。
 
-另请参阅：[我应该使用哪种身份验证防护？](../authentication/introduction.md#choosing-an-auth-guard)
+另请参阅：[我应该使用哪种身份验证守卫？](../authentication/introduction.md#选择用户提供者)
 
 ```sh
 npm init adonisjs@latest -- -K=api --auth-guard=access_tokens
@@ -188,7 +188,7 @@ npm init adonisjs@latest -- -K=inertia --adapter=vue --no-ssr
 
 ---
 
-### 带来您自己的启动套件
+### 使用您自己的启动套件
 
 启动套件是托管在 GitHub、Bitbucket 或 Gitlab 等 Git 存储库提供商上的预构建项目。您也可以创建自己的启动套件并按如下方式下载它们。
 
@@ -230,7 +230,7 @@ node ace serve --hmr
 
 开发服务器运行后，您可以访问 [http://localhost:3333](http://localhost:3333) 在浏览器中查看您的应用程序。
 
-## 为生产构建
+## 生产构建
 
 由于 AdonisJS 应用程序是用 TypeScript 编写的，因此必须在生产环境中编译为 JavaScript。
 
@@ -246,11 +246,11 @@ node ace build
 
 ## 配置开发环境
 
-虽然 AdonisJS 负责构建最终用户应用程序，但您可能需要其他工具来享受开发过程并保持编码风格的一致性。
+虽然 AdonisJS 负责构建最终用户应用程序，但您可能需要额外的工具来使开发过程更加愉快，并保持编码风格的一致性。
 
 我们强烈建议您使用 **[ESLint](https://eslint.org/)** 来检查代码，并使用 **[Prettier](https://prettier.io)** 来重新格式化代码以保持一致性。
 
-官方启动套件已预先配置 ESLint 和 Prettier，并使用 AdonisJS 核心团队的有主见预设。您可以在文档的 [Tooling config](../concepts/tooling_config.md) 部分中了解更多信息。
+官方启动套件已预配置 ESLint 和 Prettier，并使用了 AdonisJS 核心团队提供的预设配置。您可以在文档的 [工具配置](../concepts/tooling_config.md) 部分中了解更多信息。
 
 最后，我们建议您为代码编辑器安装 ESLint 和 Prettier 插件，以便在应用程序开发过程中获得更紧密的反馈循环。此外，您可以使用以下命令从命令行 `lint` 和 `format` 您的代码。
 

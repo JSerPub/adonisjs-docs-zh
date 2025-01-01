@@ -177,7 +177,7 @@ router.group(() => {
 
 ## 中间件参数
 
-注册在命名中间件集合下的中间件可以接受一个额外的参数作为 `handle` 方法参数的一部分。例如，`auth` 中间件接受认证防护作为配置选项。
+注册在命名中间件集合下的中间件可以接受一个额外的参数作为 `handle` 方法参数的一部分。例如，`auth` 中间件接受认证守卫作为配置选项。
 
 ```ts
 type AuthGuards = 'web' | 'api'
@@ -188,7 +188,7 @@ export default class AuthMiddleware {
 }
 ```
 
-在将中间件分配给路由时，您可以指定要使用的防护。
+在将中间件分配给路由时，您可以指定要使用的守卫。
 
 ```ts
 import router from '@adonisjs/core/services/router'
