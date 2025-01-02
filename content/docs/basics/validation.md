@@ -4,7 +4,7 @@ summary: 学习如何在 AdonisJS 中使用 VineJS 验证用户输入。
 
 # 验证
 
-在 AdonisJS 中，数据验证通常在控制器级别进行。这确保您在应用程序处理请求时尽快验证用户输入，并在响应中发送错误，这些错误可以在表单字段旁边显示。
+在 AdonisJS 中，数据验证通常在控制器级别进行。这确保您在应用程序处理请求时尽快验证用户输入，并在响应中发送错误，这些错误可以在表单输入框旁边显示。
 
 完成验证后，您可以使用可信数据进行其余操作，如数据库查询、调度队列任务、发送电子邮件等。
 
@@ -48,7 +48,7 @@ node ace add vinejs
 
 ## 使用验证器
 
-VineJS 使用验证器的概念。您为应用程序可以执行的每个操作创建一个验证器。例如：为 **创建新帖子** 定义一个验证器，为 **更新帖子** 定义另一个验证器，也许还有一个用于 **删除帖子** 的验证器。
+VineJS 使用了验证器的概念。您为应用程序可以执行的每个操作创建一个验证器。例如：为 **创建新帖子** 定义一个验证器，为 **更新帖子** 定义另一个验证器，也许还有一个用于 **删除帖子** 的验证器。
 
 我们将以博客为例，定义用于创建/更新帖子的验证器。让我们首先注册几条路由和 `PostsController`。
 
@@ -94,7 +94,7 @@ node ace make:validator post
 
 :::note
 
-不必太担心验证器模式中的重复。我们建议您选择易于理解的模式，而不是不惜一切代价避免重复。[wet codebase analogy](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase) 可能有助于您接受重复。
+不必太担心验证器模式（schema）中的重复。我们建议您选择易于理解的模式，而不是不惜一切代价避免重复。[wet codebase analogy](https://www.deconstructconf.com/2019/dan-abramov-the-wet-codebase) 可能有助于您接受重复。
 
 :::
 
@@ -157,30 +157,30 @@ export default class PostsController {
 ```
 ### 验证用户输入就这么简单！
 
-验证用户输入在控制器中只需两行代码。验证后的输出具有从模式中推断的静态类型信息。
+验证用户输入在控制器中只需两行代码。经过验证的输出包含了从模式（schema）中推断出的静态类型信息。
 
-此外，您无需将 `validate` 方法调用包装在 `try/catch` 中。因为在出现错误时，AdonisJS 会自动将错误转换为 HTTP 响应。
+此外，您无需将 `validate` 方法调用放在 `try/catch` 中。因为在发生错误时，AdonisJS 会自动将错误转换为 HTTP 响应。
 
 ## 错误处理
 
-[HttpExceptionHandler](./exception_handling.md) 会自动将验证错误转换为 HTTP 响应。异常处理程序使用内容协商，并根据 [Accept](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) 头值返回响应。
+[HttpExceptionHandler](./exception_handling.md) 会自动将验证错误转换为 HTTP 响应。异常处理程序使用内容协商机制，并根据 [Accept](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept) 请求头的值返回相应的响应。
 
 :::tip
 
-您可能想查看 [ExceptionHandler 代码库](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L343-L345)，了解验证异常是如何转换为 HTTP 响应的。
+您可能想查看 [ExceptionHandler 的代码库](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L343-L345)，了解验证异常是如何转换为 HTTP 响应的。
 
 此外，会话中间件 [重写了 `renderValidationErrorAsHTML` 方法](https://github.com/adonisjs/session/blob/main/src/session_middleware.ts#L30-L37)，并使用闪存消息将验证错误与表单共享。
 
 :::
 
-- `Accept=application/json` 的 HTTP 请求将收到使用 [SimpleErrorReporter](https://github.com/vinejs/vine/blob/main/src/reporters/simple_error_reporter.ts) 创建的错误消息数组。
-- `Accept=application/vnd.api+json` 的 HTTP 请求将收到按照 [JSON API](https://jsonapi.org/format/#errors) 规范格式化的错误消息数组。
+- 对于带有 `Accept=application/json` 的 HTTP 请求，将收到由 [SimpleErrorReporter](https://github.com/vinejs/vine/blob/main/src/reporters/simple_error_reporter.ts) 创建的错误消息数组。
+- 对于带有 `Accept=application/vnd.api+json` 的 HTTP 请求，将收到按照 [JSON API](https://jsonapi.org/format/#errors) 规范格式化的错误消息数组。
 - 使用 [会话包](./session.md) 渲染的服务器表单将通过 [会话闪存消息](./session.md#validation-errors-and-flash-messages) 接收错误。
 - 所有其他请求将以纯文本形式接收错误。
 
 ## request.validateUsing 方法
 
-在控制器中进行验证的推荐方法是使用 `request.validateUsing` 方法。使用 `request.validateUsing` 方法时，您无需显式定义验证数据；**请求体**、**查询字符串值**和**文件**将被合并并作为数据传递给验证器。
+在控制器中执行验证的推荐方法是使用 `request.validateUsing` 方法。使用 `request.validateUsing` 方法时，您无需显式定义验证数据；**请求体**、**查询字符串值**和**文件**将被合并在一起，并作为数据传递给验证器。
 
 ```ts
 import { HttpContext } from '@adonisjs/core/http'
@@ -339,7 +339,7 @@ vine.messagesProvider = new SimpleMessagesProvider({
 })
 ```
 
-在以下示例中，我们 [注册自定义错误报告器](https://vinejs.dev/docs/error_reporter)。
+在以下示例中，我们 [注册了一个自定义错误报告器](https://vinejs.dev/docs/error_reporter)。
 
 ```ts
 // title: start/validator.ts
@@ -349,7 +349,7 @@ import { JSONAPIErrorReporter } from '../app/validation_reporters.js'
 vine.errorReporter = () => new JSONAPIErrorReporter()
 ```
 
-## AdonisJS 贡献的规则
+## AdonisJS 贡献的验证规则
 
 以下是 AdonisJS 为 VineJS 贡献的规则列表。
 
