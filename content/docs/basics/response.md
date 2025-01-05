@@ -61,7 +61,7 @@ response.status(201).send('')
 
 `response.stream` 方法允许将流管道传输到响应中。该方法在流完成后会自动销毁流。
 
-`response.stream` 方法不会设置 `content-type` 和 `content-length` 头；您必须在流式传输内容之前显式设置它们。
+`response.stream` 方法不会设置 `content-type` 和 `content-length` 头；你必须在流式传输内容之前显式设置它们。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -73,7 +73,7 @@ router.get('/', async ({ response }) => {
 })
 ```
 
-如果出现错误，将向客户端发送 500 状态码。但是，您可以通过将回调作为第二个参数来自定义错误码和消息。
+如果出现错误，将向客户端发送 500 状态码。但是，你可以通过将回调作为第二个参数来自定义错误码和消息。
 
 ```ts
 const image = fs.createReadStream('./some-file.jpg')
@@ -88,7 +88,7 @@ response.stream(image, () => {
 
 ## 下载文件
 
-当您想从磁盘流式传输文件时，建议使用 `response.download` 方法而不是 `response.stream` 方法。这是因为 `download` 方法会自动设置 `content-type` 和 `content-length` 头。
+当你想从磁盘流式传输文件时，建议使用 `response.download` 方法而不是 `response.stream` 方法。这是因为 `download` 方法会自动设置 `content-type` 和 `content-length` 头。
 
 ```ts
 import app from '@adonisjs/core/services/app'
@@ -101,7 +101,7 @@ router.get('/uploads/:file', async ({ response, params }) => {
 })
 ```
 
-可选地，您可以为文件内容生成一个 [Etag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)。使用 Etag 将帮助浏览器重用之前请求中的缓存响应（如果有）。
+可选地，你可以为文件内容生成一个 [Etag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag)。使用 Etag 将帮助浏览器重用之前请求中的缓存响应（如果有）。
 
 ```ts
 const filePath = app.makePath(`uploads/${params.file}`)
@@ -110,7 +110,7 @@ const generateEtag = true
 response.download(filePath, generateEtag)
 ```
 
-与 `response.stream` 方法类似，您可以通过将回调作为最后一个参数来发送自定义错误消息和状态码。
+与 `response.stream` 方法类似，你可以通过将回调作为最后一个参数来发送自定义错误消息和状态码。
 
 ```ts
 const filePath = app.makePath(`uploads/${params.file}`)
@@ -226,7 +226,7 @@ router.get('/posts/:id', async ({ response, params }) => {
 
 ### 重定向回上一页
 
-在表单提交期间出现验证错误时，您可能希望将用户重定向回上一页。可以使用 `redirect.back` 方法实现这一点。
+在表单提交期间出现验证错误时，你可能希望将用户重定向回上一页。可以使用 `redirect.back` 方法实现这一点。
 
 ```ts
 response.redirect().back()
@@ -286,7 +286,7 @@ response.abort({ message: 'Cannot edit post' }, 403)
 
 ## 在响应完成后运行操作
 
-可以使用 `response.onFinish` 方法监听 Node.js 将响应写入 TCP 套接字的事件。在内部，我们使用 [on-finished](https://github.com/jshttp/on-finished) 包，因此您可以参考该包的 README 文件以获取深入的技术解释。
+可以使用 `response.onFinish` 方法监听 Node.js 将响应写入 TCP 套接字的事件。在内部，我们使用 [on-finished](https://github.com/jshttp/on-finished) 包，因此你可以参考该包的 README 文件以获取深入的技术解释。
 
 ```ts
 router.get('posts', ({ response }) => {
@@ -331,7 +331,7 @@ router.get('posts', ({ response }) => {
 
 ## 扩展 Response 类
 
-您可以使用宏或 getter 向 Response 类添加自定义属性。如果您对宏的概念不熟悉，请务必先阅读 [扩展 AdonisJS 指南](../concepts/extending_the_framework.md)。
+你可以使用宏或 getter 向 Response 类添加自定义属性。如果你对宏的概念不熟悉，请务必先阅读 [扩展 AdonisJS 指南](../concepts/extending_the_framework.md)。
 
 ```ts
 import { Response } from '@adonisjs/core/http'
@@ -344,7 +344,7 @@ Response.getter('property', function (this: Response) {
 })
 ```
 
-由于宏和 getter 是在运行时添加的，因此您必须向 TypeScript 告知它们的类型。
+由于宏和 getter 是在运行时添加的，因此你必须向 TypeScript 告知它们的类型。
 
 ```ts
 declare module '@adonisjs/core/http' {

@@ -216,7 +216,7 @@ router
 
 ### 获取已认证用户或失败
 
-如果您不喜欢在 `auth.user` 属性上使用[非空断言运算符](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-)，您可以使用 `auth.getUserOrFail` 方法。此方法将返回用户对象或抛出[E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) 异常。
+如果你不喜欢在 `auth.user` 属性上使用[非空断言运算符](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-)，你可以使用 `auth.getUserOrFail` 方法。此方法将返回用户对象或抛出[E_UNAUTHORIZED_ACCESS](../references/exceptions.md#e_unauthorized_access) 异常。
 
 ```ts
 import { middleware } from '#start/kernel'
@@ -233,7 +233,7 @@ router
 ```
 
 ### 在 Edge 模板中访问用户
-[InitializeAuthMiddleware](./introduction.md#the-initialize-auth-middleware) 还会与 Edge 模板共享 `ctx.auth` 属性。因此，您可以通过 `auth.user` 属性访问当前登录的用户。
+[InitializeAuthMiddleware](./introduction.md#the-initialize-auth-middleware) 还会与 Edge 模板共享 `ctx.auth` 属性。因此，你可以通过 `auth.user` 属性访问当前登录的用户。
 
 ```edge
 @if(auth.isAuthenticated)
@@ -241,7 +241,7 @@ router
 @end
 ```
 
-如果您想在未受保护的路由上获取已登录用户的信息，可以使用 `auth.check` 方法来检查用户是否已登录，然后访问 `auth.user` 属性。一个很好的用例是在公共页面的网站标题中显示已登录用户的信息。
+如果你想在未受保护的路由上获取已登录用户的信息，可以使用 `auth.check` 方法来检查用户是否已登录，然后访问 `auth.user` 属性。一个很好的用例是在公共页面的网站标题中显示已登录用户的信息。
 
 ```edge
 {{--
@@ -251,7 +251,7 @@ router
   为此，我们使用 `auth.check` 方法来静默检查用户是否已登录，
   然后在标题中显示他们的电子邮件。
 
-  您明白了吧！
+  你明白了吧！
 --}}
 
 @eval(await auth.check())
@@ -264,7 +264,7 @@ router
 ```
 
 ## 执行注销
-您可以使用 `guard.logout` 方法注销用户。在注销期间，用户状态将从会话存储中删除。当前有效的“记住我”令牌也将被删除（如果使用“记住我”令牌的话）。
+你可以使用 `guard.logout` 方法注销用户。在注销期间，用户状态将从会话存储中删除。当前有效的“记住我”令牌也将被删除（如果使用“记住我”令牌的话）。
 
 ```ts
 import { middleware } from '#start/kernel'
@@ -285,7 +285,7 @@ router
 
 ### 创建“记住我”令牌表
 
-“记住我”令牌保存在数据库中，因此您必须创建一个新的迁移来创建 `remember_me_tokens` 表。
+“记住我”令牌保存在数据库中，因此你必须创建一个新的迁移来创建 `remember_me_tokens` 表。
 
 ```sh
 node ace make:migration remember_me_tokens
@@ -322,7 +322,7 @@ export default class extends BaseSchema {
 ```
 
 ### 配置令牌提供者
-为了读写令牌，您需要将[DbRememberMeTokensProvider](https://github.com/adonisjs/auth/blob/main/modules/session_guard/token_providers/db.ts) 分配给 User 模型。
+为了读写令牌，你需要将[DbRememberMeTokensProvider](https://github.com/adonisjs/auth/blob/main/modules/session_guard/token_providers/db.ts) 分配给 User 模型。
 
 ```ts
 import { BaseModel } from '@adonisjs/lucid/orm'
@@ -365,7 +365,7 @@ export default authConfig
 ```
 
 ### 登录时记住用户
-设置完成后，您可以使用 `guard.login` 方法生成“记住我”令牌和 cookie，如下所示。
+设置完成后，你可以使用 `guard.login` 方法生成“记住我”令牌和 cookie，如下所示。
 
 ```ts
 import User from '#models/user'
@@ -392,7 +392,7 @@ export default class SessionController {
 ```
 
 ## 使用访客中间件
-auth 包附带了一个访客中间件，您可以使用它来重定向已登录用户，防止其访问 `/login` 页面。这样做是为了避免在同一设备的同一用户上创建多个会话。
+auth 包附带了一个访客中间件，你可以使用它来重定向已登录用户，防止其访问 `/login` 页面。这样做是为了避免在同一设备的同一用户上创建多个会话。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -403,7 +403,7 @@ router
   .use(middleware.guest())
 ```
 
-默认情况下，访客中间件将使用 `default` 守卫（如在配置文件中定义）检查用户的登录状态。但是，在分配 `guest` 中间件时，您可以指定一个守卫数组。
+默认情况下，访客中间件将使用 `default` 守卫（如在配置文件中定义）检查用户的登录状态。但是，在分配 `guest` 中间件时，你可以指定一个守卫数组。
 
 ```ts
 router
@@ -413,7 +413,7 @@ router
   }))
 ```
 
-最后，您可以在 `./app/middleware/guest_middleware.ts` 文件中为已登录用户配置重定向路由。
+最后，你可以在 `./app/middleware/guest_middleware.ts` 文件中为已登录用户配置重定向路由。
 
 ## 事件
 

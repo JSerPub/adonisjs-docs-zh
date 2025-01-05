@@ -15,9 +15,9 @@ AdonisJS使用结构化和存储方式如下的不透明访问令牌。
 - 前缀和CRC32校验和后缀有助于[秘密扫描工具](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning)识别令牌，并防止它们在代码库中泄漏。
 
 ## 配置用户模型
-在使用访问令牌守卫之前，您必须为用户模型设置令牌提供者。**令牌提供者用于创建、列出和验证访问令牌**。
+在使用访问令牌守卫之前，你必须为用户模型设置令牌提供者。**令牌提供者用于创建、列出和验证访问令牌**。
 
-auth包附带了一个数据库令牌提供者，该提供者将令牌持久化到SQL数据库中。您可以按如下方式配置它。
+auth包附带了一个数据库令牌提供者，该提供者将令牌持久化到SQL数据库中。你可以按如下方式配置它。
 
 ```ts
 import { BaseModel } from '@adonisjs/lucid/orm'
@@ -60,9 +60,9 @@ expiresIn
 
 <dd>
 
-令牌过期的时间长度。您可以传递以秒为单位的数值或作为字符串的[时间表达式](https://github.com/poppinss/utils?tab=readme-ov-file#secondsparseformat)。
+令牌过期的时间长度。你可以传递以秒为单位的数值或作为字符串的[时间表达式](https://github.com/poppinss/utils?tab=readme-ov-file#secondsparseformat)。
 
-默认情况下，令牌是长期有效的，不会过期。此外，您可以在生成令牌时指定其过期时间。
+默认情况下，令牌是长期有效的，不会过期。此外，你可以在生成令牌时指定其过期时间。
 
 </dd>
 
@@ -102,7 +102,7 @@ type
 
 <dd>
 
-用于标识一组令牌的唯一类型。如果您在单个应用程序中发出多种类型的令牌，则必须为它们全部定义唯一的类型。
+用于标识一组令牌的唯一类型。如果你在单个应用程序中发出多种类型的令牌，则必须为它们全部定义唯一的类型。
 
 默认为`auth_token`。
 
@@ -124,18 +124,18 @@ tokenSecretLength
 
 ---
 
-一旦配置了令牌提供者，您就可以代表用户开始[发出令牌](#issuing-a-token)。发出令牌不需要设置身份验证守卫。守卫用于验证令牌。
+一旦配置了令牌提供者，你就可以代表用户开始[发出令牌](#issuing-a-token)。发出令牌不需要设置身份验证守卫。守卫用于验证令牌。
 
 ## 创建访问令牌数据库表
 在初始设置期间，我们为`auth_access_tokens`表创建迁移文件。迁移文件存储在`database/migrations`目录中。
 
-您可以通过执行`migration:run`命令来创建数据库表。
+你可以通过执行`migration:run`命令来创建数据库表。
 
 ```sh
 node ace migration:run
 ```
 
-但是，如果您出于某种原因手动配置auth包，则可以手动创建迁移文件，并将以下代码片段复制粘贴到其中。
+但是，如果你出于某种原因手动配置auth包，则可以手动创建迁移文件，并将以下代码片段复制粘贴到其中。
 
 ```sh
 node ace make:migration auth_access_tokens
@@ -176,7 +176,7 @@ export default class extends BaseSchema {
 ```
 
 ## 发出令牌
-根据您的应用程序，您可能会在登录时或登录后从应用程序仪表板发出令牌。在这两种情况下，发出令牌都需要一个用户对象（为其生成令牌），并且您可以直接使用`User`模型生成它们。
+根据你的应用程序，你可能会在登录时或登录后从应用程序仪表板发出令牌。在这两种情况下，发出令牌都需要一个用户对象（为其生成令牌），并且你可以直接使用`User`模型生成它们。
 
 在以下示例中，我们使用`User.accessTokens.create`方法**通过ID查找用户**并**为其发出访问令牌**。当然，在实际应用程序中，此端点将受身份验证保护，但我们现在保持简单。
 
@@ -199,7 +199,7 @@ router.post('users/:id/tokens', ({ params }) => {
 })
 ```
 
-您还可以直接在响应中返回`token`，它将被序列化为以下JSON对象。
+你还可以直接在响应中返回`token`，它将被序列化为以下JSON对象。
 
 ```ts
 router.post('users/:id/tokens', ({ params }) => {
@@ -227,11 +227,11 @@ router.post('users/:id/tokens', ({ params }) => {
 ```
 
 ### 定义权限
-根据您正在构建的应用程序，您可能希望限制访问令牌仅执行特定任务。例如，发出一个令牌，允许读取和列出项目，但不允许创建或删除它们。
+根据你正在构建的应用程序，你可能希望限制访问令牌仅执行特定任务。例如，发出一个令牌，允许读取和列出项目，但不允许创建或删除它们。
 
 在以下示例中，我们将权限数组作为第二个参数定义。权限被序列化为JSON字符串并持久化到数据库中。
 
-对于auth包，权限没有实际意义。在执行给定操作之前，检查令牌权限是由您的应用程序负责的。
+对于auth包，权限没有实际意义。在执行给定操作之前，检查令牌权限是由你的应用程序负责的。
 
 ```ts
 await User.accessTokens.create(user, ['server:create', 'server:read'])
@@ -457,7 +457,7 @@ Bouncer.ability((user: User) => {
 ```
 
 ## 列出所有令牌
-您可以使用令牌提供者通过 `accessTokens.all` 方法获取所有令牌的列表。返回值将是 `AccessToken` 类实例的数组。
+你可以使用令牌提供者通过 `accessTokens.all` 方法获取所有令牌的列表。返回值将是 `AccessToken` 类实例的数组。
 
 ```ts
 router
@@ -471,7 +471,7 @@ router
   )
 ```
 
-`all` 方法还会返回已过期的令牌。在呈现列表之前，您可能希望对其进行过滤，或者在令牌旁边显示 **“Token expired”**（令牌已过期）消息。例如：
+`all` 方法还会返回已过期的令牌。在呈现列表之前，你可能希望对其进行过滤，或者在令牌旁边显示 **“Token expired”**（令牌已过期）消息。例如：
 
 ```edge
 @each(token in tokens)
@@ -485,7 +485,7 @@ router
 ```
 
 ## 删除令牌
-您可以使用 `accessTokens.delete` 方法删除令牌。该方法接受用户作为第一个参数，令牌 ID 作为第二个参数。
+你可以使用 `accessTokens.delete` 方法删除令牌。该方法接受用户作为第一个参数，令牌 ID 作为第二个参数。
 
 ```ts
 await User.accessTokens.delete(user, token.identifier)

@@ -47,7 +47,7 @@ npm i -D playwright @japa/browser-client
 
 ### 配置插件
 
-在开始编写测试之前，您必须在 `tests/bootstrap.ts` 文件中注册 `browserClient` 插件。
+在开始编写测试之前，你必须在 `tests/bootstrap.ts` 文件中注册 `browserClient` 插件。
 
 ```ts
 import { browserClient } from '@japa/browser-client'
@@ -66,7 +66,7 @@ export const plugins: Config['plugins'] = [
 
 ## 基本示例
 
-让我们创建一个示例测试，该测试将打开您的 AdonisJS 应用程序的主页，并验证页面内容。[`visit`](https://japa.dev/docs/plugins/browser-client#browser-api) 助手会打开一个新页面并访问一个 URL。返回值是 [page 对象](https://playwright.dev/docs/api/class-page)。
+让我们创建一个示例测试，该测试将打开你的 AdonisJS 应用程序的主页，并验证页面内容。[`visit`](https://japa.dev/docs/plugins/browser-client#browser-api) 助手会打开一个新页面并访问一个 URL。返回值是 [page 对象](https://playwright.dev/docs/api/class-page)。
 
 另请参阅：[断言方法列表](https://japa.dev/docs/plugins/browser-client#assertions)
 
@@ -87,7 +87,7 @@ test.group('Home page', () => {
 })
 ```
 
-最后，让我们使用 `test` 命令运行上述测试。您可以使用 `--watch` 标志创建一个文件监视器，并在每次文件更改时重新运行测试。
+最后，让我们使用 `test` 命令运行上述测试。你可以使用 `--watch` 标志创建一个文件监视器，并在每次文件更改时重新运行测试。
 
 ```sh
 node ace test browser
@@ -142,7 +142,7 @@ test.group('Home page', () => {
 })
 ```
 
-您可以使用以下方法读取/写入加密和普通的 Cookie。
+你可以使用以下方法读取/写入加密和普通的 Cookie。
 
 ```ts
 // 写入
@@ -156,7 +156,7 @@ await browserContext.getPlainCookie('cartTotal')
 
 ## 填充会话存储
 
-如果您使用 [`@adonisjs/session`](../basics/session.md) 包在应用程序中读取/写入会话数据，您可能还希望使用 `sessionBrowserClient` 插件在编写测试时填充会话存储。
+如果你使用 [`@adonisjs/session`](../basics/session.md) 包在应用程序中读取/写入会话数据，你可能还希望使用 `sessionBrowserClient` 插件在编写测试时填充会话存储。
 
 ### 设置
 
@@ -185,7 +185,7 @@ SESSION_DRIVER=memory
 
 ### 编写会话数据
 
-您可以使用 `browserContext.setSession` 方法为当前的浏览器上下文定义会话数据。
+你可以使用 `browserContext.setSession` 方法为当前的浏览器上下文定义会话数据。
 
 所有使用相同浏览器上下文的页面访问都将能够访问相同的会话数据。但是，当浏览器或上下文关闭时，会话数据将被移除。
 
@@ -210,7 +210,7 @@ test('checkout with cart items', async ({ browserContext, visit }) => {
 })
 ```
 
-与 `setSession` 方法类似，您可以使用 `browser.setFlashMessages` 方法来定义闪现消息。
+与 `setSession` 方法类似，你可以使用 `browser.setFlashMessages` 方法来定义闪现消息。
 
 ```ts
 /**
@@ -233,7 +233,7 @@ await page.assertExists(page.locator(
 
 ### 读取会话数据
 
-您可以使用 `browserContext.getSession` 和 `browser.getFlashMessages` 方法读取会话存储中的数据。这些方法将返回与特定浏览器上下文实例关联的会话 ID 的所有数据。
+你可以使用 `browserContext.getSession` 和 `browser.getFlashMessages` 方法读取会话存储中的数据。这些方法将返回与特定浏览器上下文实例关联的会话 ID 的所有数据。
 
 ```ts
 const session = await browserContext.getSession()
@@ -242,7 +242,7 @@ const flashMessages = await browserContext.getFlashMessages()
 
 ## 用户认证
 
-如果您在应用程序中使用 `@adonisjs/auth` 包来认证用户，您可以使用 `authBrowserClient` Japa 插件在对应用程序进行 HTTP 请求时认证用户。
+如果你在应用程序中使用 `@adonisjs/auth` 包来认证用户，你可以使用 `authBrowserClient` Japa 插件在对应用程序进行 HTTP 请求时认证用户。
 
 第一步是在 `tests/bootstrap.ts` 文件中注册插件。
 
@@ -261,9 +261,9 @@ export const plugins: Config['plugins'] = [
 ]
 ```
 
-如果您使用的是基于会话的认证，请确保也设置会话插件。请参阅[填充会话存储 - 设置](#setup-1)。
+如果你使用的是基于会话的认证，请确保也设置会话插件。请参阅[填充会话存储 - 设置](#setup-1)。
 
-就这样。现在，您可以使用 `loginAs` 方法登录用户。该方法接受用户对象作为唯一参数，并将用户标记为在当前浏览器上下文中已登录。
+就这样。现在，你可以使用 `loginAs` 方法登录用户。该方法接受用户对象作为唯一参数，并将用户标记为在当前浏览器上下文中已登录。
 
 所有使用相同浏览器上下文的页面访问都将能够访问已登录的用户。但是，当浏览器或上下文关闭时，用户会话将被销毁。
 
@@ -280,7 +280,7 @@ test('get payments list', async ({ browserContext, visit }) => {
 })
 ```
 
-`loginAs` 方法使用 `config/auth.ts` 文件中配置的默认守卫进行认证。但是，您可以使用 `withGuard` 方法指定自定义守卫。例如：
+`loginAs` 方法使用 `config/auth.ts` 文件中配置的默认守卫进行认证。但是，你可以使用 `withGuard` 方法指定自定义守卫。例如：
 
 ```ts
 const user = await User.create(payload)
@@ -291,7 +291,7 @@ await browserContext
 
 ## 路由辅助函数
 
-您可以使用 TestContext 中的 `route` 辅助函数为路由创建 URL。使用路由辅助函数可以确保每当您更新路由时，无需返回并修复测试中的所有 URL。
+你可以使用 TestContext 中的 `route` 辅助函数为路由创建 URL。使用路由辅助函数可以确保每当你更新路由时，无需返回并修复测试中的所有 URL。
 
 `route` 辅助函数接受与全局模板方法 [route](../basics/routing.md#url-builder) 相同的参数集。
 

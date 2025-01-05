@@ -1,16 +1,16 @@
 ---
-summary: 使用 @adonisjs/session 包在您的 AdonisJS 应用程序中管理用户会话。
+summary: 使用 @adonisjs/session 包在你的 AdonisJS 应用程序中管理用户会话。
 ---
 
 # 会话
 
-您可以使用 `@adonisjs/session` 包在您的 AdonisJS 应用程序中管理用户会话。会话包提供了一个统一的 API，用于在不同的存储提供者之间存储会话数据。
+你可以使用 `@adonisjs/session` 包在你的 AdonisJS 应用程序中管理用户会话。会话包提供了一个统一的 API，用于在不同的存储提供者之间存储会话数据。
 
 **以下是捆绑的存储列表**：
 
 - `cookie`：会话数据存储在加密的 cookie 中。cookie 存储在多服务器部署中效果很好，因为数据存储在客户端。
 
-- `file`：会话数据保存在服务器上的文件中。文件存储只能在您通过负载均衡器实现粘性会话时扩展到多服务器部署。
+- `file`：会话数据保存在服务器上的一个文件中。只有通过负载均衡器实现粘性会话，文件存储才能扩展至多服务器部署。
 
 - `redis`：会话数据存储在 Redis 数据库中。对于会话数据量大的应用程序，建议使用 redis 存储，并且可以扩展到多服务器部署。
 
@@ -18,7 +18,7 @@ summary: 使用 @adonisjs/session 包在您的 AdonisJS 应用程序中管理用
 
 - `memory`：会话数据存储在全局内存存储中。内存存储用于测试期间。
 
-除了内置的后端存储，您还可以创建和 [注册自定义会话存储](#creating-a-custom-session-store)。
+除了内置的后端存储，你还可以创建和 [注册自定义会话存储](#creating-a-custom-session-store)。
 
 ## 安装
 
@@ -176,7 +176,7 @@ export default defineConfig({
 
 `stores` 对象用于配置一个或多个后端存储。
 
-大多数应用程序将使用单个存储。但是，您可以配置多个存储，并根据应用程序运行的环境在它们之间切换。
+大多数应用程序将使用单个存储。但是，你可以配置多个存储，并根据应用程序运行的环境在它们之间切换。
 
 </dd>
 
@@ -263,7 +263,7 @@ export default defineConfig({
 
 <dd>
 
-定义 `dynamodb` 存储的配置。您可以通过 `clientConfig` 属性传递 [DynamoDB 配置](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-dynamodb/Interface/DynamoDBClientConfig/)，或者通过 `client` 属性传递 DynamoDB 的实例。
+定义 `dynamodb` 存储的配置。你可以通过 `clientConfig` 属性传递 [DynamoDB 配置](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-dynamodb/Interface/DynamoDBClientConfig/)，或者通过 `client` 属性传递 DynamoDB 的实例。
 
 ```ts
 // title: 使用 client 配置
@@ -289,7 +289,7 @@ stores.dynamodb({
 })
 ```
 
-此外，您可以定义自定义表名和键属性名。
+此外，你可以定义自定义表名和键属性名。
 
 ```ts
 stores.dynamodb({
@@ -306,7 +306,7 @@ stores.dynamodb({
 
 ### 更新环境变量验证
 
-如果您决定使用除默认存储以外的会话存储，请确保也更新 `SESSION_DRIVER` 环境变量的验证。
+如果你决定使用除默认存储以外的会话存储，请确保也更新 `SESSION_DRIVER` 环境变量的验证。
 
 在以下示例中，我们配置了 `cookie`、`redis` 和 `dynamodb` 存储。因此，我们也应该允许 `SESSION_DRIVER` 环境变量是其中之一。
 
@@ -335,7 +335,7 @@ export default defineConfig({
 ```
 
 ## 基本示例
-一旦会话包注册后，您可以从 [HTTP 上下文](../concepts/http_context.md) 中访问 `session` 属性。`session` 属性暴露了用于读写会话存储数据的 API。
+一旦会话包注册后，你可以从 [HTTP 上下文](../concepts/http_context.md) 中访问 `session` 属性。`session` 属性暴露了用于读写会话存储数据的 API。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -358,7 +358,7 @@ router.get('/', async ({ session }) => {
 请求开始时从会话存储中读取会话数据，并在请求结束时写回存储。因此，所有更改在请求完成前都保存在内存中。
 
 ## 支持的数据类型
-会话数据使用 `JSON.stringify` 序列化为字符串；因此，您可以将以下 JavaScript 数据类型用作会话值。
+会话数据使用 `JSON.stringify` 序列化为字符串；因此，你可以将以下 JavaScript 数据类型用作会话值。
 
 - string
 - number
@@ -395,14 +395,14 @@ session.put('visited_at', new Date())
 以下是可以用于与 `session` 对象中的数据交互的方法列表。
 
 ### get
-从存储中返回键的值。您可以使用点符号读取嵌套值。
+从存储中返回键的值。你可以使用点符号读取嵌套值。
 
 ```ts
 session.get('key')
 session.get('user.email')
 ```
 
-您还可以定义第二个参数作为默认值。如果键在存储中不存在，将返回默认值。
+你还可以定义第二个参数作为默认值。如果键在存储中不存在，将返回默认值。
 
 ```ts
 session.get('visits', 0)
@@ -424,7 +424,7 @@ session.all()
 ```
 
 ### put
-向会话存储中添加键值对。您可以使用点符号创建具有嵌套值的对象。
+向会话存储中添加键值对。你可以使用点符号创建具有嵌套值的对象。
 
 ```ts
 session.put('user', { email: 'foo@bar.com' })
@@ -483,7 +483,7 @@ AdonisJS 在第一个 HTTP 请求时创建一个空的会话存储，并将其�
 
 在每次后续请求中，我们更新会话 ID cookie 的 `maxAge` 属性，以确保其不会过期。会话存储也会被通知任何更改（如果有），以便更新和持久化它们。
 
-您可以使用 `sessionId` 属性访问唯一的会话 ID。访问者的会话 ID 在其过期前保持不变。
+你可以使用 `sessionId` 属性访问唯一的会话 ID。访问者的会话 ID 在其过期前保持不变。
 
 ```ts
 console.log(session.sessionId)
@@ -492,7 +492,7 @@ console.log(session.sessionId)
 ### 重新生成会话 ID
 重新生成会话 ID 有助于防止应用程序中的 [会话固定](https://owasp.org/www-community/attacks/Session_fixation) 攻击。在将匿名会话与登录用户关联时，必须重新生成会话 ID。
 
-`@adonisjs/auth` 包会自动重新生成会话 ID，因此您无需手动执行此操作。
+`@adonisjs/auth` 包会自动重新生成会话 ID，因此你无需手动执行此操作。
 
 ```ts
 /**
@@ -528,7 +528,7 @@ router.get('/contact', ({ view }) => {
 })
 ```
 
-您可以在 Edge 模板中使用 `flashMessage` 标签或 `flashMessages` 属性访问闪存消息。
+你可以在 Edge 模板中使用 `flashMessage` 标签或 `flashMessages` 属性访问闪存消息。
 
 ```edge
 @flashMessage('notification')
@@ -542,7 +542,7 @@ router.get('/contact', ({ view }) => {
 </form>
 ```
 
-您可以在控制器中使用 `session.flashMessages` 属性访问闪存消息。
+你可以在控制器中使用 `session.flashMessages` 属性访问闪存消息。
 
 ```ts
 router.get('/contact', ({ view, session }) => {
@@ -554,7 +554,7 @@ router.get('/contact', ({ view, session }) => {
 ```
 
 ### 验证错误和闪存消息
-会话中间件会自动捕获 [验证异常](./validation.md#error-handling)，并将用户重定向回表单。验证错误和表单输入数据保存在闪存消息中，您可以在 Edge 模板中访问它们。
+会话中间件会自动捕获 [验证异常](./validation.md#error-handling)，并将用户重定向回表单。验证错误和表单输入数据保存在闪存消息中，你可以在 Edge 模板中访问它们。
 
 在以下示例中：
 
@@ -591,7 +591,7 @@ session.flash({
 })
 ```
 
-您可以使用以下方法之一来快速闪存表单数据，而不是手动读取请求数据并将其存储在闪存消息中。
+你可以使用以下方法之一来快速闪存表单数据，而不是手动读取请求数据并将其存储在闪存消息中。
 
 ```ts
 // title: flashAll
@@ -632,7 +632,7 @@ session.flashExcept(['password'])
 session.flash(request.except(['password']))
 ```
 
-最后，您可以使用 `session.reflash` 方法重新闪存当前的闪存消息。
+最后，你可以使用 `session.reflash` 方法重新闪存当前的闪存消息。
 
 ```ts
 session.reflash()
@@ -642,7 +642,7 @@ session.reflashExcept(['errors'])
 
 ### 读取闪存消息
 
-闪存消息仅在重定向后的后续请求中可用。您可以通过 `session.flashMessages` 属性访问它们。
+闪存消息仅在重定向后的后续请求中可用。你可以通过 `session.flashMessages` 属性访问它们。
 
 ```ts
 console.log(session.flashMessages.all())
@@ -660,7 +660,7 @@ console.log(session.flashMessages.has('key'))
 {{ flashMessages.has('key') }}
 ```
 
-最后，您可以使用以下 Edge 标签访问特定的闪存消息或验证错误。
+最后，你可以使用以下 Edge 标签访问特定的闪存消息或验证错误。
 
 ```edge
 {{-- 通过键读取任何闪存消息 --}}
@@ -693,7 +693,7 @@ import {
 } from '@adonisjs/session/types'
 
 /**
- * 您希望接受的配置
+ * 你希望接受的配置
  */
 export type MongoDBConfig = {}
 
@@ -743,7 +743,7 @@ export function mongoDbStore (config: MongoDbConfig): SessionStoreFactory {
 
 在上面的代码示例中，我们导出了以下值：
 
-- `MongoDBConfig`：您希望接受的配置的 TypeScript 类型。
+- `MongoDBConfig`：你希望接受的配置的 TypeScript 类型。
 
 - `MongoDBStore`：作为类的存储实现。它必须遵循 `SessionStoreContract` 接口。
 
@@ -751,7 +751,7 @@ export function mongoDbStore (config: MongoDbConfig): SessionStoreFactory {
 
 ### 使用存储
 
-创建存储后，您可以在配置文件中使用 `mongoDbStore` 工厂函数引用它。
+创建存储后，你可以在配置文件中使用 `mongoDbStore` 工厂函数引用它。
 
 ```ts
 // title: config/session.ts
@@ -769,4 +769,4 @@ export default defineConfig({
 
 ### 关于数据序列化的说明
 
-`write` 方法接收的会话数据是一个对象，您可能需要在保存之前将其转换为字符串。您可以使用任何序列化包，或者使用 AdonisJS 辅助模块提供的 [MessageBuilder](../references/helpers.md#message-builder) 辅助函数。有关更多信息，请参阅官方的 [session stores](https://github.com/adonisjs/session/blob/main/src/stores/redis.ts#L59)。
+`write` 方法接收的会话数据是一个对象，你可能需要在保存之前将其转换为字符串。你可以使用任何序列化包，或者使用 AdonisJS 辅助模块提供的 [MessageBuilder](../references/helpers.md#message-builder) 辅助函数。有关更多信息，请参阅官方的 [session stores](https://github.com/adonisjs/session/blob/main/src/stores/redis.ts#L59)。

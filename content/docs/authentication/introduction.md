@@ -1,20 +1,20 @@
 ---
-summary: 了解 AdonisJS 中的认证系统以及如何在您的应用程序中对用户进行身份验证。
+summary: 了解 AdonisJS 中的认证系统以及如何在你的应用程序中对用户进行身份验证。
 ---
 
 # Authentication（认证）
 
-AdonisJS 提供了一个强大且安全的认证系统，您可以使用它来登录并验证应用程序的用户。无论是服务器端渲染的应用程序、SPA 客户端还是移动应用，您都可以为它们设置认证。
+AdonisJS 提供了一个强大且安全的认证系统，你可以使用它来登录并验证应用程序的用户。无论是服务器端渲染的应用程序、SPA 客户端还是移动应用，你都可以为它们设置认证。
 
 认证包是围绕 **guards（守卫）** 和 **providers（提供者）** 构建的。
 
-- Guards 是特定登录类型的端到端实现。例如，`session` 守卫允许您使用 cookie 和会话来验证用户身份。同时，`access_tokens` 守卫将允许您使用令牌来验证客户端。
+- Guards 是特定登录类型的端到端实现。例如，`session` 守卫允许你使用 cookie 和会话来验证用户身份。同时，`access_tokens` 守卫将允许你使用令牌来验证客户端。
 
-- Providers 用于从数据库中查找用户和令牌。您可以使用内置的提供者，也可以实现自己的提供者。
+- Providers 用于从数据库中查找用户和令牌。你可以使用内置的提供者，也可以实现自己的提供者。
 
 :::note
 
-为了确保您应用程序的安全性，我们会对用户密码和令牌进行适当的哈希处理。此外，AdonisJS 的安全原语受到 [timing attacks](https://en.wikipedia.org/wiki/Timing_attack) 和 [session fixation attacks](https://owasp.org/www-community/attacks/Session_fixation) 的保护。
+为了确保你应用程序的安全性，我们会对用户密码和令牌进行适当的哈希处理。此外，AdonisJS 的安全原语受到 [timing attacks](https://en.wikipedia.org/wiki/Timing_attack) 和 [session fixation attacks](https://owasp.org/www-community/attacks/Session_fixation) 的保护。
 
 :::
 
@@ -24,7 +24,7 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 - 用户注册功能，如 **注册表单**、**电子邮件验证** 和 **帐户激活**。
 - 帐户管理功能，如 **密码恢复** 或 **电子邮件更新**。
-- 分配角色或验证权限。相反，[use bouncer](../security/authorization.md) 来在您的应用程序中实现授权检查。
+- 分配角色或验证权限。相反，[use bouncer](../security/authorization.md) 来在你的应用程序中实现授权检查。
 
 <!-- :::note
 
@@ -38,7 +38,7 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 ## 选择认证守卫
 
-以下内置认证守卫为您提供了最直接的工作流程，用于在不牺牲应用程序安全性的情况下对用户进行身份验证。此外，您可以 [build your authentication guards](./custom_auth_guard.md) 根据自定义需求构建您的认证守卫。
+以下内置认证守卫为你提供了最直接的工作流程，用于在不牺牲应用程序安全性的情况下对用户进行身份验证。此外，你可以 [build your authentication guards](./custom_auth_guard.md) 根据自定义需求构建你的认证守卫。
 
 ### Session（会话）
 
@@ -46,12 +46,12 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 会话和 cookie 在互联网上已经存在很长时间，并且适用于大多数应用程序。我们建议使用会话守卫：
 
-- 如果您正在创建一个服务器端渲染的 Web 应用程序。
+- 如果你正在创建一个服务器端渲染的 Web 应用程序。
 - 或者，一个与其客户端位于同一顶级域名的 AdonisJS API。例如，`api.example.com` 和 `example.com`。
 
 ### Access tokens（访问令牌）
 
-访问令牌是登录成功后颁发给用户的加密安全随机令牌（也称为不透明访问令牌）。您可以在 AdonisJS 服务器无法写入/读取 cookie 的应用程序中使用访问令牌。例如：
+访问令牌是登录成功后颁发给用户的加密安全随机令牌（也称为不透明访问令牌）。你可以在 AdonisJS 服务器无法写入/读取 cookie 的应用程序中使用访问令牌。例如：
 
 - 一个原生移动应用。
 - 一个托管在与 AdonisJS API 服务器不同域名的 Web 应用程序。
@@ -62,7 +62,7 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 基本认证守卫是 [HTTP authentication framework](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，其中客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。
 
-有比基本认证更好的方法来实现安全的登录系统。然而，在您的应用程序处于积极开发阶段时，您可以暂时使用它。
+有比基本认证更好的方法来实现安全的登录系统。然而，在你的应用程序处于积极开发阶段时，你可以暂时使用它。
 
 ## 选择用户提供者
 
@@ -72,11 +72,11 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 我们为内置守卫提供了一个 Lucid 用户提供者，它使用 Lucid 模型来查找用户、生成令牌和验证令牌。
 
-<!-- 如果您不使用 Lucid，则必须 [implement a custom user provider]()。 -->
+<!-- 如果你不使用 Lucid，则必须 [implement a custom user provider]()。 -->
 
 ## 安装
 
-认证系统预配置在 `web` 和 `api` 启动套件中。然而，您可以按照以下步骤在应用程序中手动安装和配置它。
+认证系统预配置在 `web` 和 `api` 启动套件中。然而，你可以按照以下步骤在应用程序中手动安装和配置它。
 
 ```sh
 # 使用会话守卫（默认）进行配置
@@ -127,11 +127,11 @@ node ace add @adonisjs/auth --guard=basic_auth
 
 ## 初始化认证中间件
 
-在设置过程中，我们会在您的应用程序中注册 `@adonisjs/auth/initialize_auth_middleware`。该中间件负责创建 [Authenticator](https://github.com/adonisjs/auth/blob/main/src/authenticator.ts) 类的实例，并通过 `ctx.auth` 属性与请求的其余部分共享它。
+在设置过程中，我们会在你的应用程序中注册 `@adonisjs/auth/initialize_auth_middleware`。该中间件负责创建 [Authenticator](https://github.com/adonisjs/auth/blob/main/src/authenticator.ts) 类的实例，并通过 `ctx.auth` 属性与请求的其余部分共享它。
 
-请注意，初始化认证中间件不会对请求进行认证或保护路由。它仅用于初始化认证器并与请求的其余部分共享。您必须使用 [auth](./session_guard.md#protecting-routes) 中间件来保护路由。
+请注意，初始化认证中间件不会对请求进行认证或保护路由。它仅用于初始化认证器并与请求的其余部分共享。你必须使用 [auth](./session_guard.md#protecting-routes) 中间件来保护路由。
 
-此外，如果您的应用程序使用 Edge，则相同的认证器实例会与 Edge 模板共享，您可以使用 `auth` 属性访问它。例如：
+此外，如果你的应用程序使用 Edge，则相同的认证器实例会与 Edge 模板共享，你可以使用 `auth` 属性访问它。例如：
 
 ```edge
 @if(auth.isAuthenticated)
@@ -141,7 +141,7 @@ node ace add @adonisjs/auth --guard=basic_auth
 
 ## 创建 users 表
 
-`configure` 命令会在 `database/migrations` 目录中为 `users` 表创建一个数据库迁移。您可以随意打开此文件并根据应用程序需求进行修改。
+`configure` 命令会在 `database/migrations` 目录中为 `users` 表创建一个数据库迁移。你可以随意打开此文件并根据应用程序需求进行修改。
 
 默认情况下，会创建以下列：
 
@@ -169,7 +169,7 @@ export default class extends BaseSchema {
 }
 ```
 
-此外，如果您在 `users` 表中定义、重命名或删除列，请更新 `User` 模型。
+此外，如果你在 `users` 表中定义、重命名或删除列，请更新 `User` 模型。
 
 ## 后续步骤
 

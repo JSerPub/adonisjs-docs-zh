@@ -1,24 +1,24 @@
 ---
-summary: "AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。您可以使用它来创建全栈Web应用程序或 JSON API 服务器。"
+summary: "AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。你可以使用它来创建全栈Web应用程序或 JSON API 服务器。"
 ---
 
 # 介绍
 
 ## AdonisJS 是什么?
 
-AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。您可以使用它来创建全栈 Web 应用程序或 JSON API 服务器。
+AdonisJS 是一个以 TypeScript 优先的 Node.js Web 框架。你可以使用它来创建全栈 Web 应用程序或 JSON API 服务器。
 
-在基础层面，AdonisJS [为您的应用程序提供结构](../getting_started/folder_structure.md)，配置了一个[无缝的 TypeScript 开发环境](../concepts/typescript_build_process.md)，为你的后端代码配置了热模块替换（[HMR](../concepts/hmr.md)），并提供了一个庞大且维护良好、文档详尽的包集合。
+在基础层面，AdonisJS [为你的应用程序提供结构](../getting_started/folder_structure.md)，配置了一个[无缝的 TypeScript 开发环境](../concepts/typescript_build_process.md)，为你的后端代码配置了热模块替换（[HMR](../concepts/hmr.md)），并提供了一个庞大且维护良好、文档详尽的包集合。
 
 我们设想，使用 AdonisJS 的团队将**花费更少的时间**在琐碎的决定上，比如为每个小功能精挑细选 npm 包、编写粘合代码、争论完美的文件夹结构，而**将更多的时间**投入到实现满足业务需求的实际功能上。
 
 ### 前端无关
 
-AdonisJS 专注于后端，并允许您选择自己喜欢的前端技术栈。
+AdonisJS 专注于后端，并允许你选择自己喜欢的前端技术栈。
 
-如果您喜欢保持简洁，可以将 `AdonisJS` 与[传统模板引擎](../views-and-templates/introduction.md)结合使用，在服务器上生成静态 `HTML`，为您的前端 `Vue/React` 应用创建一个 `JSON API`，或者使用 `Inertia` 让您喜欢的前端框架完美协同工作。
+如果你喜欢保持简洁，可以将 `AdonisJS` 与[传统模板引擎](../views-and-templates/introduction.md)结合使用，在服务器上生成静态 `HTML`，为你的前端 `Vue/React` 应用创建一个 `JSON API`，或者使用 `Inertia` 让你喜欢的前端框架完美协同工作。
 
-AdonisJS 旨在为您提供一套完整的工具，让您能够从头开始创建一个强大的后端应用。无论是发送电子邮件、验证用户输入、执行 CRUD 操作，还是用户身份验证，我们都已为您妥善处理。
+AdonisJS 旨在为你提供一套完整的工具，让你能够从头开始创建一个强大的后端应用。无论是发送电子邮件、验证用户输入、执行 CRUD 操作，还是用户身份验证，我们都已为你妥善处理。
 
 
 ### 现代和类型安全
@@ -34,7 +34,7 @@ AdonisJS 建立在现代 JavaScript 基础之上。我们使用 ES 模块、Node
 
 ### 拥抱 MVC
 
-AdonisJS 采用了经典的 `MVC` 设计模式。您首先使用功能性 JavaScript API 定义路由，将控制器绑定到这些路由上，并在控制器内编写处理 HTTP 请求的逻辑。
+AdonisJS 采用了经典的 `MVC` 设计模式。你首先使用功能性 JavaScript API 定义路由，将控制器绑定到这些路由上，并在控制器内编写处理 HTTP 请求的逻辑。
 
 ```ts
 // title: start/routes.ts
@@ -59,7 +59,7 @@ export default class PostsController {
 }
 ```
 
-如果您正在构建 `API` 服务器，您可以用 `JSON` 响应来替换视图层。但是，处理和响应 `HTTP` 请求的流程保持不变。
+如果你正在构建 `API` 服务器，你可以用 `JSON` 响应来替换视图层。但是，处理和响应 `HTTP` 请求的流程保持不变。
 
 ```ts
 // title: app/controllers/posts_controller.ts

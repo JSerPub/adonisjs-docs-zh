@@ -4,11 +4,11 @@ summary: "了解如何在 AdonisJS 中测试与数据库交互的代码：设置
 
 # 数据库测试
 
-数据库测试指的是测试您的应用程序如何与数据库进行交互。这包括测试写入数据库的内容、如何在测试前运行迁移，以及如何在测试之间保持数据库清洁。
+数据库测试指的是测试你的应用程序如何与数据库进行交互。这包括测试写入数据库的内容、如何在测试前运行迁移，以及如何在测试之间保持数据库清洁。
 
 ## 数据库迁移
 
-在执行与数据库交互的测试之前，您需要先运行迁移。在 `testUtils` 服务中，我们有两个钩子可供使用，您可以在 `tests/bootstrap.ts` 文件中进行配置。
+在执行与数据库交互的测试之前，你需要先运行迁移。在 `testUtils` 服务中，我们有两个钩子可供使用，你可以在 `tests/bootstrap.ts` 文件中进行配置。
 
 ### 每个运行周期后重置数据库
 
@@ -52,7 +52,7 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 
 ## 数据库填充
 
-如果您需要填充数据库，可以使用 `testUtils.db().seed()` 钩子。这个钩子将在运行测试之前运行所有填充数据。
+如果你需要填充数据库，可以使用 `testUtils.db().seed()` 钩子。这个钩子将在运行测试之前运行所有填充数据。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -69,7 +69,7 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
 
 ### 全局事务
 
-在运行测试时，您可能希望在每个测试之间保持数据库清洁。为此，您可以使用 `testUtils.db().withGlobalTransaction()` 钩子。这个钩子将在每个测试之前启动一个事务，并在测试结束时回滚。
+在运行测试时，你可能希望在每个测试之间保持数据库清洁。为此，你可以使用 `testUtils.db().withGlobalTransaction()` 钩子。这个钩子将在每个测试之前启动一个事务，并在测试结束时回滚。
 
 ```ts
 // title: tests/unit/user.spec.ts
@@ -81,11 +81,11 @@ test.group('User', (group) => {
 })
 ```
 
-请注意，如果您在测试代码中使用了任何事务，这将不起作用，因为事务不能嵌套。在这种情况下，您可以使用 `testUtils.db().migrate()` 或 `testUtils.db().truncate()` 钩子。
+请注意，如果你在测试代码中使用了任何事务，这将不起作用，因为事务不能嵌套。在这种情况下，你可以使用 `testUtils.db().migrate()` 或 `testUtils.db().truncate()` 钩子。
 
 ### 截断表
 
-如上所述，如果您在测试代码中使用了事务，全局事务将不起作用。在这种情况下，您可以使用 `testUtils.db().truncate()` 钩子。这个钩子将在每个测试后截断所有表。
+如上所述，如果你在测试代码中使用了事务，全局事务将不起作用。在这种情况下，你可以使用 `testUtils.db().truncate()` 钩子。这个钩子将在每个测试后截断所有表。
 
 ```ts
 // title: tests/unit/user.spec.ts

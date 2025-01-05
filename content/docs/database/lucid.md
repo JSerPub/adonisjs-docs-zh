@@ -23,15 +23,15 @@ Lucid 的文档可在 [https://lucid.adonisjs.com](https://lucid.adonisjs.com) �
 
 除此之外，以下是在 AdonisJS 应用中使用 Lucid 的其他原因。
 
-- 我们为 Lucid 提供了与 Auth 包和验证器的顶级集成。因此，您无需自行编写这些集成。
+- 我们为 Lucid 提供了与 Auth 包和验证器的顶级集成。因此，你无需自行编写这些集成。
 
-- Lucid 预配置在 `api` 和 `web` 初学者工具包中，为您的应用程序提供良好开端。
+- Lucid 预配置在 `api` 和 `web` 初学者工具包中，为你的应用程序提供良好开端。
 
 - Lucid 的主要目标之一是充分发挥 SQL 的潜力，并支持许多高级 SQL 操作，如 **窗口函数**、**递归 CTE**、**JSON 操作**、**基于行的锁**等。
 
 - Lucid 和 Knex 已经存在多年。因此，与许多其他新的 ORM 相比，它们更加成熟且经过实战考验。
 
-话虽如此，AdonisJS 并不强制您使用 Lucid。您可以卸载该包并安装您选择的 ORM。
+话虽如此，AdonisJS 并不强制你使用 Lucid。你可以卸载该包并安装你选择的 ORM。
 
 ## 安装
 
@@ -73,9 +73,9 @@ node ace add @adonisjs/lucid
 
 :::
 
-## 创建您的第一个模型
+## 创建你的第一个模型
 
-配置完成后，您可以使用以下命令创建第一个模型。
+配置完成后，你可以使用以下命令创建第一个模型。
 
 ```sh
 node ace make:model User
@@ -103,7 +103,7 @@ export default class User extends BaseModel {
 
 ## 迁移
 
-迁移是一种使用增量更改集修改数据库模式和数据的方法。您可以使用以下命令创建新的迁移。
+迁移是一种使用增量更改集修改数据库模式和数据的方法。你可以使用以下命令创建新的迁移。
 
 ```sh
 node ace make:migration users
@@ -131,7 +131,7 @@ export default class extends BaseSchema {
 }
 ```
 
-您可以使用以下命令运行所有待处理的迁移。
+你可以使用以下命令运行所有待处理的迁移。
 
 ```sh
 node ace migration:run
@@ -141,7 +141,7 @@ node ace migration:run
 
 ## 查询构建器
 
-Lucid 附带了一个基于 Knex 构建的流畅查询构建器。您可以使用查询构建器对数据库执行 CRUD 操作。
+Lucid 附带了一个基于 Knex 构建的流畅查询构建器。你可以使用查询构建器对数据库执行 CRUD 操作。
 
 ```ts
 import db from '@adonisjs/lucid/services/db'

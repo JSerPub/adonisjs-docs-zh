@@ -8,8 +8,8 @@ summary: 了解 AdonisJS 中的 HTTP 上下文，以及如何在路由处理器�
 
 HTTP 上下文包含与 HTTP 请求相关的所有信息。例如：
 
-- 您可以使用 [ctx.request](../basics/request.md) 属性访问请求体、请求头和查询参数。
-- 您可以使用 [ctx.response](../basics/response.md) 属性响应 HTTP 请求。
+- 你可以使用 [ctx.request](../basics/request.md) 属性访问请求体、请求头和查询参数。
+- 你可以使用 [ctx.response](../basics/response.md) 属性响应 HTTP 请求。
 - 使用 [ctx.auth](../authentication/introduction.md) 属性访问已登录用户。
 - 使用 [ctx.bouncer](../security/authorization.md) 属性对用户操作进行授权。
 - 等等。
@@ -18,7 +18,7 @@ HTTP 上下文包含与 HTTP 请求相关的所有信息。例如：
 
 ## 访问 HTTP 上下文
 
-HTTP 上下文通过引用传递给路由处理器、中间件和异常处理器，您可以按以下方式访问它。
+HTTP 上下文通过引用传递给路由处理器、中间件和异常处理器，你可以按以下方式访问它。
 
 ### 路由处理器
 
@@ -96,7 +96,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
 ## 使用依赖注入注入 HTTP 上下文
 
-如果您的应用程序中使用了依赖注入，可以通过类型提示 `HttpContext` 类，将 HTTP 上下文注入到类或方法中。
+如果你的应用程序中使用了依赖注入，可以通过类型提示 `HttpContext` 类，将 HTTP 上下文注入到类或方法中。
 
 :::warning
 
@@ -121,7 +121,7 @@ export default class UserService {
 }
 ```
 
-为了使自动依赖解析生效，您必须在控制器中注入 `UserService`。记住，控制器方法的第一个参数始终是上下文，其余参数将通过 IoC 容器注入。
+为了使自动依赖解析生效，你必须在控制器中注入 `UserService`。记住，控制器方法的第一个参数始终是上下文，其余参数将通过 IoC 容器注入。
 
 ```ts
 import { inject } from '@adonisjs/core'
@@ -136,13 +136,13 @@ export default class UsersController {
 }
 ```
 
-完成！`UserService` 现在将自动接收当前 HTTP 请求的实例。您也可以对嵌套依赖重复此过程。
+完成！`UserService` 现在将自动接收当前 HTTP 请求的实例。你也可以对嵌套依赖重复此过程。
 
 ## 在应用程序中的任何地方访问 HTTP 上下文
 
-依赖注入是一种将 HTTP 上下文作为类构造函数或方法依赖项接受的方式，然后依靠容器为您解析它。
+依赖注入是一种将 HTTP 上下文作为类构造函数或方法依赖项接受的方式，然后依靠容器为你解析它。
 
-然而，这并不是重构应用程序并在各处使用依赖注入的硬性要求。您还可以使用 Node.js 提供的 [异步本地存储](https://nodejs.org/dist/latest-v21.x/docs/api/async_context.html#class-asynclocalstorage) 在应用程序中的任何地方访问 HTTP 上下文。
+然而，这并不是重构应用程序并在各处使用依赖注入的硬性要求。你还可以使用 Node.js 提供的 [异步本地存储](https://nodejs.org/dist/latest-v21.x/docs/api/async_context.html#class-asynclocalstorage) 在应用程序中的任何地方访问 HTTP 上下文。
 
 我们有一个[专门指南](./async_local_storage.md)介绍异步本地存储的工作原理，以及 AdonisJS 如何使用它提供对 HTTP 上下文的全局访问。
 
@@ -176,7 +176,7 @@ export default class UsersController {
 
 ## HTTP 上下文属性
 
-以下是通过 HTTP 上下文可以访问的属性列表。随着您安装新的包，它们可能会向上下文添加额外的属性。
+以下是通过 HTTP 上下文可以访问的属性列表。随着你安装新的包，它们可能会向上下文添加额外的属性。
 
 <dl>
 <dt>
@@ -295,7 +295,7 @@ ctx.ally
 
 <dd>
 
-对 [Ally Manager 类](https://github.com/adonisjs/ally/blob/main/src/ally_manager.ts) 实例的引用，用于在您的应用程序中实现社交登录。了解更多关于 [Ally](../authentication/social_authentication.md) 的信息。
+对 [Ally Manager 类](https://github.com/adonisjs/ally/blob/main/src/ally_manager.ts) 实例的引用，用于在你的应用程序中实现社交登录。了解更多关于 [Ally](../authentication/social_authentication.md) 的信息。
 
 </dd>
 

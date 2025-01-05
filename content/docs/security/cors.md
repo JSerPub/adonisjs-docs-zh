@@ -1,14 +1,14 @@
 ---
-summary: 了解如何在 AdonisJS 中实现 CORS 以保护您的应用程序。
+summary: 了解如何在 AdonisJS 中实现 CORS 以保护你的应用程序。
 ---
 
 # CORS
 
-[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 帮助您保护应用程序免受浏览器环境中脚本触发的恶意请求的攻击。
+[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 帮助你保护应用程序免受浏览器环境中脚本触发的恶意请求的攻击。
 
-例如，如果从不同域向您的服务器发送 AJAX 或 fetch 请求，浏览器会阻止该请求并报告 CORS 错误，同时期望您实现一个 CORS 策略（如果您认为该请求应该被允许）。
+例如，如果从不同域向你的服务器发送 AJAX 或 fetch 请求，浏览器会阻止该请求并报告 CORS 错误，同时期望你实现一个 CORS 策略（如果你认为该请求应该被允许）。
 
-在 AdonisJS 中，您可以使用 `@adonisjs/cors` 包来实现 CORS 策略。该包附带了一个 HTTP 中间件，用于拦截传入请求并返回正确的 CORS 头。
+在 AdonisJS 中，你可以使用 `@adonisjs/cors` 包来实现 CORS 策略。该包附带了一个 HTTP 中间件，用于拦截传入请求并返回正确的 CORS 头。
 
 ## 安装
 
@@ -97,7 +97,7 @@ origin
 }
 ```
 
-您可以指定一个硬编码的源列表，以允许一组域名。
+你可以指定一个硬编码的源列表，以允许一组域名。
 
 ```ts
 {
@@ -115,7 +115,7 @@ origin
 }
 ```
 
-您可以在 HTTP 请求期间使用函数计算 `origin` 值。例如：
+你可以在 HTTP 请求期间使用函数计算 `origin` 值。例如：
 
 ```ts
 {
@@ -163,7 +163,7 @@ headers
 }
 ```
 
-您可以通过定义字符串数组来指定允许的头列表。
+你可以通过定义字符串数组来指定允许的头列表。
 
 ```ts
 {
@@ -175,7 +175,7 @@ headers
 }
 ```
 
-您可以在 HTTP 请求期间使用函数计算 `headers` 配置值。例如：
+你可以在 HTTP 请求期间使用函数计算 `headers` 配置值。例如：
 
 ```ts
 {
@@ -256,7 +256,7 @@ maxAge
 ## 调试 CORS 错误
 调试 CORS 问题是一项具有挑战性的任务。然而，除了理解 CORS 的规则并调试响应头以确保一切就绪之外，没有捷径可走。
 
-以下是一些文章链接，您可以阅读以更好地理解 CORS 的工作原理。
+以下是一些文章链接，你可以阅读以更好地理解 CORS 的工作原理。
 
 - [How to Debug Any CORS Error](https://httptoolkit.com/blog/how-to-debug-cors-errors/)
 - [Will it CORS?](https://httptoolkit.com/will-it-cors/)

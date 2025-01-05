@@ -9,7 +9,7 @@ summary: 了解 AdonisJS 框架核心和官方包引发的异常。
 <div style="--prose-h2-font-size: 22px;">
 
 ## E_ROUTE_NOT_FOUND
-当 HTTP 服务器收到对不存在路由的请求时，会引发此异常。默认情况下，客户端将收到 404 响应，并且您可以选择使用 [状态页面](../basics/exception_handling.md#status-pages) 渲染 HTML 页面。
+当 HTTP 服务器收到对不存在路由的请求时，会引发此异常。默认情况下，客户端将收到 404 响应，并且你可以选择使用 [状态页面](../basics/exception_handling.md#status-pages) 渲染 HTML 页面。
 
 - **状态码**：404
 - **自处理**：否
@@ -60,7 +60,7 @@ if (error instanceof shieldErrors.E_BAD_CSRF_TOKEN) {
 }
 ```
 
-`E_BAD_CSRF_TOKEN` 异常是[自处理的](https://github.com/adonisjs/shield/blob/main/src/errors.ts#L20)，用户将被重定向回表单，并且您可以使用闪存消息访问错误。
+`E_BAD_CSRF_TOKEN` 异常是[自处理的](https://github.com/adonisjs/shield/blob/main/src/errors.ts#L20)，用户将被重定向回表单，并且你可以使用闪存消息访问错误。
 
 ```edge
 @error('E_BAD_CSRF_TOKEN')
@@ -123,7 +123,7 @@ if (error instanceof authErrors.E_INVALID_CREDENTIALS) {
 ```
 
 ## E_CANNOT_LOOKUP_ROUTE
-当您尝试使用 [URL 构建器](../basics/routing.md#url-builder) 为路由创建 URL 时，会引发此异常。
+当你尝试使用 [URL 构建器](../basics/routing.md#url-builder) 为路由创建 URL 时，会引发此异常。
 
 - **状态码**：500
 - **自处理**：否
@@ -136,7 +136,7 @@ if (error instanceof errors.E_CANNOT_LOOKUP_ROUTE) {
 ```
 
 ## E_HTTP_EXCEPTION
-`E_HTTP_EXCEPTION` 是在 HTTP 请求期间抛出错误的通用异常。您可以直接使用此异常或创建扩展它的自定义异常。
+`E_HTTP_EXCEPTION` 是在 HTTP 请求期间抛出错误的通用异常。你可以直接使用此异常或创建扩展它的自定义异常。
 
 - **状态码**：在引发异常时定义
 - **自处理**：是
@@ -172,7 +172,7 @@ if (error instanceof errors.E_HTTP_REQUEST_ABORTED) {
 ```
 
 ## E_INSECURE_APP_KEY
-当 `appKey` 的长度小于 16 个字符时，会引发此异常。您可以使用 [generate:key](./commands.md#generatekey) ace 命令生成一个安全的应用程序密钥。
+当 `appKey` 的长度小于 16 个字符时，会引发此异常。你可以使用 [generate:key](./commands.md#generatekey) ace 命令生成一个安全的应用程序密钥。
 
 - **状态码**：500
 - **自处理**：否
@@ -328,7 +328,7 @@ if (error instanceof errors.E_INVALID_FLAG) {
 ```
 
 ## E_MULTIPLE_REDIS_SUBSCRIPTIONS
-当您尝试多次[订阅给定的发布/订阅频道](../database/redis.md#pubsub)时，`@adonisjs/redis` 包会抛出此异常。
+当你尝试多次[订阅给定的发布/订阅频道](../database/redis.md#pubsub)时，`@adonisjs/redis` 包会抛出此异常。
 
 - **状态码**：500
 - **自行处理**：否
@@ -340,7 +340,7 @@ if (error instanceof redisErrors.E_MULTIPLE_REDIS_SUBSCRIPTIONS) {
 ```
 
 ## E_MULTIPLE_REDIS_PSUBSCRIPTIONS
-当您尝试多次[订阅给定的发布/订阅模式](../database/redis.md#pubsub)时，`@adonisjs/redis` 包会抛出此异常。
+当你尝试多次[订阅给定的发布/订阅模式](../database/redis.md#pubsub)时，`@adonisjs/redis` 包会抛出此异常。
 
 - **状态码**：500
 - **自行处理**：否
@@ -354,7 +354,7 @@ if (error instanceof redisErrors.E_MULTIPLE_REDIS_PSUBSCRIPTIONS) {
 ## E_MAIL_TRANSPORT_ERROR
 当 `@adonisjs/mail` 包无法使用给定的传输方式发送电子邮件时，会抛出此异常。这通常发生在电子邮件服务的 HTTP API 返回非 200 HTTP 响应时。
 
-您可以使用 `error.cause` 属性访问网络请求错误。`cause` 属性是 `got`（npm 包）返回的[错误对象](https://github.com/sindresorhus/got/blob/main/documentation/8-errors.md)。
+你可以使用 `error.cause` 属性访问网络请求错误。`cause` 属性是 `got`（npm 包）返回的[错误对象](https://github.com/sindresorhus/got/blob/main/documentation/8-errors.md)。
 
 - **状态码**：400
 - **自行处理**：否
@@ -380,7 +380,7 @@ if (error instanceof sessionErrors.E_SESSION_NOT_MUTABLE) {
 ```
 
 ## E_SESSION_NOT_READY
-当会话存储尚未启动时，`@adonisjs/session` 包会抛出此异常。如果您未使用会话中间件，则会出现这种情况。
+当会话存储尚未启动时，`@adonisjs/session` 包会抛出此异常。如果你未使用会话中间件，则会出现这种情况。
 
 - **状态码**：500
 - **自行处理**：否

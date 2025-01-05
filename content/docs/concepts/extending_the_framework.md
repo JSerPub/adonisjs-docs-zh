@@ -6,15 +6,15 @@ summary: 了解如何使用宏和 getter 扩展 AdonisJS 框架。
 
 AdonisJS 的架构使得扩展框架变得非常容易。我们使用框架的核心 API 来构建一个第一方包生态系统。
 
-在本指南中，我们将探讨不同的 API，您可以使用这些 API 通过包或在您的应用程序代码库中扩展框架。
+在本指南中，我们将探讨不同的 API，你可以使用这些 API 通过包或在你的应用程序代码库中扩展框架。
 
 ## 宏和 getter
 
-宏和 getter 提供了一种 API，用于向类的原型添加属性。您可以将它们视为 `Object.defineProperty` 的语法糖。在底层，我们使用 [macroable](https://github.com/poppinss/macroable) 包，您可以参考其 README 以获取深入的技术解释。
+宏和 getter 提供了一种 API，用于向类的原型添加属性。你可以将它们视为 `Object.defineProperty` 的语法糖。在底层，我们使用 [macroable](https://github.com/poppinss/macroable) 包，你可以参考其 README 以获取深入的技术解释。
 
-由于宏和 getter 是在运行时添加的，因此您需要使用 [声明合并](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) 向 TypeScript 告知添加属性的类型信息。
+由于宏和 getter 是在运行时添加的，因此你需要使用 [声明合并](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) 向 TypeScript 告知添加属性的类型信息。
 
-您可以将添加宏的代码写入一个专用文件（如 `extensions.ts`），并在服务提供者的 `boot` 方法中导入它。
+你可以将添加宏的代码写入一个专用文件（如 `extensions.ts`），并在服务提供者的 `boot` 方法中导入它。
 
 ```ts
 // title: providers/app_provider.ts
@@ -55,7 +55,7 @@ declare module '@adonisjs/core/http' {
 
 ### Getter
 
-Getter 是添加到类的惰性求值属性。您可以使用 `Class.getter` 方法添加 getter。第一个参数是 getter 名称，第二个参数是用于计算属性值的回调函数。
+Getter 是添加到类的惰性求值属性。你可以使用 `Class.getter` 方法添加 getter。第一个参数是 getter 名称，第二个参数是用于计算属性值的回调函数。
 
 Getter 回调函数不能是异步的，因为 JavaScript 中的 [getter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) 不能是异步的。
 
@@ -66,7 +66,7 @@ Request.getter('hasRequestId', function (this: Request) {
   return this.header('x-request-id')
 })
 
-// 您可以如下使用此属性。
+// 你可以如下使用此属性。
 if (ctx.request.hasRequestId) {
 }
 ```

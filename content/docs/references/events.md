@@ -196,7 +196,7 @@ emitter.on('session_auth:login_attempted', (event) => {
 
 用户成功登录后，`@adonisjs/auth` 包的 [SessionGuard](https://github.com/adonisjs/auth/blob/main/src/guards/session/guard.ts) 实现会分发此事件。
 
-您可以使用此事件来跟踪与给定用户关联的会话。
+你可以使用此事件来跟踪与给定用户关联的会话。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -224,7 +224,7 @@ emitter.on('session_auth:authentication_attempted', (event) => {
 
 ## session_auth\:authentication_succeeded
 
-请求会话验证通过且用户已登录后，`@adonisjs/auth` 包会分发此事件。您可以通过 `event.user` 属性访问已登录用户。
+请求会话验证通过且用户已登录后，`@adonisjs/auth` 包会分发此事件。你可以通过 `event.user` 属性访问已登录用户。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -286,7 +286,7 @@ emitter.on('access_tokens_auth:authentication_attempted', (event) => {
 
 ## access_tokens_auth\:authentication_succeeded
 
-访问令牌验证通过后，`@adonisjs/auth` 包会分发此事件。您可以通过 `event.user` 属性访问已验证用户。
+访问令牌验证通过后，`@adonisjs/auth` 包会分发此事件。你可以通过 `event.user` 属性访问已验证用户。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -313,7 +313,7 @@ emitter.on('access_tokens_auth:authentication_failed', (event) => {
 
 ## authorization\:finished
 
-授权检查执行后，`@adonisjs/bouncer` 包会分发此事件。事件负载包括最终响应，您可以检查该响应以了解检查的状态。
+授权检查执行后，`@adonisjs/bouncer` 包会分发此事件。事件负载包括最终响应，你可以检查该响应以了解检查的状态。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'

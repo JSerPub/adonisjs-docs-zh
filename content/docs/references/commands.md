@@ -4,7 +4,7 @@ summary: 了解 AdonisJS 框架核心和官方包附带的命令。
 
 # 命令参考
 
-在本指南中，我们将介绍框架核心和官方包附带的所有命令的使用方法。您还可以使用 `node ace list` 命令或 `node ace <command-name> --help` 命令查看命令帮助。
+在本指南中，我们将介绍框架核心和官方包附带的所有命令的使用方法。你还可以使用 `node ace list` 命令或 `node ace <command-name> --help` 命令查看命令帮助。
 
 ```sh
 node ace list
@@ -19,19 +19,19 @@ node ace list
 :::
 
 ## serve
-`serve` 命令使用 [@adonisjs/assembler](https://github.com/adonisjs/assembler?tab=readme-ov-file#dev-server) 包在开发环境中启动 AdonisJS 应用程序。您可以选择监视文件更改，并在每次文件更改时重启 HTTP 服务器。
+`serve` 命令使用 [@adonisjs/assembler](https://github.com/adonisjs/assembler?tab=readme-ov-file#dev-server) 包在开发环境中启动 AdonisJS 应用程序。你可以选择监视文件更改，并在每次文件更改时重启 HTTP 服务器。
 
 ```sh
 node ace serve --hmr
 ```
 
-`serve` 命令作为子进程启动开发服务器（通过 `bin/server.ts` 文件）。如果您想向子进程传递 [node 参数](https://nodejs.org/api/cli.html#options)，可以在命令名称之前定义它们。
+`serve` 命令作为子进程启动开发服务器（通过 `bin/server.ts` 文件）。如果你想向子进程传递 [node 参数](https://nodejs.org/api/cli.html#options)，可以在命令名称之前定义它们。
 
 ```sh
 node ace --no-warnings --inspect serve --hmr
 ```
 
-以下是您可以传递给 `serve` 命令的可用选项列表。或者，使用 `--help` 标志查看命令帮助。
+以下是你可以传递给 `serve` 命令的可用选项列表。或者，使用 `--help` 标志查看命令帮助。
 
 <dl>
 
@@ -67,7 +67,7 @@ node ace --no-warnings --inspect serve --hmr
 
 <dd>
 
-使用轮询检测文件系统更改。在使用 Docker 容器进行开发时，您可能希望使用轮询。
+使用轮询检测文件系统更改。在使用 Docker 容器进行开发时，你可能希望使用轮询。
 
 </dd>
 
@@ -103,7 +103,7 @@ node ace --no-warnings --inspect serve --hmr
 
 <dd>
 
-向资源管理器子进程传递命令行参数。例如，如果您使用 vite，可以如下定义其选项：
+向资源管理器子进程传递命令行参数。例如，如果你使用 vite，可以如下定义其选项：
 
 ```sh
 node ace serve --hmr --assets-args="--cors --open"
@@ -114,7 +114,7 @@ node ace serve --hmr --assets-args="--cors --open"
 </dl>
 
 ## build
-`build` 命令使用 [@adonisjs/assembler](https://github.com/adonisjs/assembler?tab=readme-ov-file#bundler) 包创建您的 AdonisJS 应用程序的生产版本。生成构建时会执行以下步骤。
+`build` 命令使用 [@adonisjs/assembler](https://github.com/adonisjs/assembler?tab=readme-ov-file#bundler) 包创建你的 AdonisJS 应用程序的生产版本。生成构建时会执行以下步骤。
 
 另请参阅：[TypeScript 构建过程](../concepts/typescript_build_process.md)。
 
@@ -122,7 +122,7 @@ node ace serve --hmr --assets-args="--cors --open"
 node ace build
 ```
 
-以下是您可以传递给 `build` 命令的可用选项列表。或者，使用 `--help` 标志查看命令帮助。
+以下是你可以传递给 `build` 命令的可用选项列表。或者，使用 `--help` 标志查看命令帮助。
 
 <dl>
 
@@ -134,7 +134,7 @@ node ace build
 
 <dd>
 
-当您的项目存在 TypeScript 错误时，构建命令会终止构建过程。但是，您可以使用 `--ignore-ts-errors` 标志忽略这些错误并完成构建。
+当你的项目存在 TypeScript 错误时，构建命令会终止构建过程。但是，你可以使用 `--ignore-ts-errors` 标志忽略这些错误并完成构建。
 
 </dd>
 
@@ -146,9 +146,9 @@ node ace build
 
 <dd>
 
-构建命令会复制 `package.json` 文件以及您的应用程序所使用的包管理器的锁文件。
+构建命令会复制 `package.json` 文件以及你的应用程序所使用的包管理器的锁文件。
 
-我们使用 [@antfu/install-pkg](https://github.com/antfu/install-pkg) 包检测包管理器。但是，您可以显式提供包管理器的名称以关闭检测。
+我们使用 [@antfu/install-pkg](https://github.com/antfu/install-pkg) 包检测包管理器。但是，你可以显式提供包管理器的名称以关闭检测。
 
 </dd>
 
@@ -172,7 +172,7 @@ node ace build
 
 <dd>
 
-向资源管理器子进程传递命令行参数。例如，如果您使用 vite，可以如下定义其选项：
+向资源管理器子进程传递命令行参数。例如，如果你使用 vite，可以如下定义其选项：
 
 ```sh
 node ace build --assets-args="--sourcemap --debug"
@@ -184,9 +184,9 @@ node ace build --assets-args="--sourcemap --debug"
 
 ## add
 
-`add` 命令结合了 `npm install <package-name>` 和 `node ace configure` 命令。因此，您可以使用 `add` 命令一次性安装和配置包，而无需运行两个单独的命令。
+`add` 命令结合了 `npm install <package-name>` 和 `node ace configure` 命令。因此，你可以使用 `add` 命令一次性安装和配置包，而无需运行两个单独的命令。
 
-`add` 命令会自动检测您的应用程序所使用的包管理器，并使用它来安装包。但是，您始终可以使用 `--package-manager` CLI 标志选择特定的包管理器。
+`add` 命令会自动检测你的应用程序所使用的包管理器，并使用它来安装包。但是，你始终可以使用 `--package-manager` CLI 标志选择特定的包管理器。
 
 ```sh
 # 安装并配置 @adonisjs/lucid 包
@@ -196,7 +196,7 @@ node ace add @adonisjs/lucid
 node ace add my-dev-package --dev
 ```
 
-如果包可以使用标志进行配置，您可以直接将标志传递给 `add` 命令。所有未知的标志都将传递给 `configure` 命令。
+如果包可以使用标志进行配置，你可以直接将标志传递给 `add` 命令。所有未知的标志都将传递给 `configure` 命令。
 
 ```sh
 node ace add @adonisjs/lucid --db=sqlite
@@ -281,9 +281,9 @@ node ace configure @adonisjs/lucid
 
 <dd>
 
-AdonisJS 的存根系统不会覆盖现有文件。例如，如果您配置 `@adonisjs/lucid` 包，而您的应用程序已经有一个 `config/database.ts` 文件，配置过程将不会覆盖现有的配置文件。
+AdonisJS 的存根系统不会覆盖现有文件。例如，如果你配置 `@adonisjs/lucid` 包，而你的应用程序已经有一个 `config/database.ts` 文件，配置过程将不会覆盖现有的配置文件。
 
-但是，您可以使用 `--force` 标志强制覆盖文件。
+但是，你可以使用 `--force` 标志强制覆盖文件。
 
 </dd>
 
@@ -334,7 +334,7 @@ node ace generate:key
 
 <dd>
 
-在生产环境中运行应用程序时，`generate:key` 命令不会将密钥写入 `.env` 文件。但是，您可以使用 `--force` 标志来覆盖此行为。
+在生产环境中运行应用程序时，`generate:key` 命令不会将密钥写入 `.env` 文件。但是，你可以使用 `--force` 标志来覆盖此行为。
 
 </dd>
 
@@ -353,7 +353,7 @@ node ace generate:key
 node ace make:controller users
 ```
 
-您还可以生成具有自定义操作名称的控制器，如下所示。
+你还可以生成具有自定义操作名称的控制器，如下所示。
 
 ```sh
 # 生成包含 "index"、"show" 和 "store" 方法的控制器
@@ -439,7 +439,7 @@ node ace make:middleware bodyparser --stack=router
 - 后缀：`N/A`
 - 类名示例：`OrderShipped`
 - 文件名示例：`order_shipped.ts`
-- 建议：您应根据动作的生命周期来命名事件。例如：`MailSending`、`MailSent`、`RequestCompleted` 等。
+- 建议：你应根据动作的生命周期来命名事件。例如：`MailSending`、`MailSent`、`RequestCompleted` 等。
 
 ```sh
 node ace make:event orderShipped
@@ -451,7 +451,7 @@ node ace make:event orderShipped
 - 形式：`单数`
 - 后缀：`N/A`
 - 文件名示例：`user.ts`
-- 建议：您应围绕应用程序的资源创建验证器文件。
+- 建议：你应围绕应用程序的资源创建验证器文件。
 
 ```sh
 # 管理用户的验证器
@@ -521,7 +521,7 @@ node ace make:listener sendShipmentNotification --event=shipment_received
 
 :::note
 
-服务没有预定义的含义，您可以使用它来提取应用程序中的业务逻辑。例如，如果您的应用程序生成大量 PDF，您可以创建一个名为 `PdfGeneratorService` 的服务，并在多个地方重用它。
+服务没有预定义的含义，你可以使用它来提取应用程序中的业务逻辑。例如，如果你的应用程序生成大量 PDF，你可以创建一个名为 `PdfGeneratorService` 的服务，并在多个地方重用它。
 
 :::
 
@@ -551,7 +551,7 @@ node ace make:exception commandValidation
 
 创建一个新的 Ace 命令。默认情况下，命令存储在应用程序根目录的 `commands` 目录中。
 
-当您尝试执行任何 Ace 命令时，AdonisJS 会自动导入此目录中的命令。您可以在文件名前加上 `_` 以在此目录中存储不是 Ace 命令的附加文件。
+当你尝试执行任何 Ace 命令时，AdonisJS 会自动导入此目录中的命令。你可以在文件名前加上 `_` 以在此目录中存储不是 Ace 命令的附加文件。
 
 - 形式：`N/A`
 - 后缀：`N/A`
@@ -569,7 +569,7 @@ node ace make:command listRoutes
 - 形式：`N/A`
 - 后缀：`N/A`
 - 文件名示例：`posts/view.edge`
-- 建议：您应将资源的模板分组在子目录中。例如：`posts/list.edge`、`posts/create.edge` 等。
+- 建议：你应将资源的模板分组在子目录中。例如：`posts/list.edge`、`posts/create.edge` 等。
 
 ```sh
 node ace make:view posts/create
@@ -659,7 +659,7 @@ node ace make:test --suite=unit
 
 <dd>
 
-定义您要为其创建测试文件的套件。否则，命令将显示用于选择套件的提示。
+定义你要为其创建测试文件的套件。否则，命令将显示用于选择套件的提示。
 
 </dd>
 
@@ -667,7 +667,7 @@ node ace make:test --suite=unit
 
 ## make\:mail
 
-在 `app/mails` 目录中创建一个新的邮件类。邮件类以 `Notification` 关键字作为后缀。但是，您可以使用 `--intent` CLI 标志定义自定义后缀。
+在 `app/mails` 目录中创建一个新的邮件类。邮件类以 `Notification` 关键字作为后缀。但是，你可以使用 `--intent` CLI 标志定义自定义后缀。
 
 - 表单：不适用
 - 后缀：`Intent`
@@ -718,7 +718,7 @@ node ace make:policy post
 
 ## inspect\:rcfile
 
-查看合并默认值后的 `adonisrc.ts` 文件内容。您可以使用此命令查看可用的配置选项，并根据您的应用程序需求进行覆盖。
+查看合并默认值后的 `adonisrc.ts` 文件内容。你可以使用此命令查看可用的配置选项，并根据你的应用程序需求进行覆盖。
 
 另请参阅：[AdonisRC 文件](../concepts/adonisrc_file.md)
 
@@ -728,13 +728,13 @@ node ace inspect:rcfile
 
 ## list\:routes
 
-查看您的应用程序注册的路由列表。此命令将在 `console` 环境中启动您的 AdonisJS 应用程序。
+查看你的应用程序注册的路由列表。此命令将在 `console` 环境中启动你的 AdonisJS 应用程序。
 
 ```sh
 node ace list:routes
 ```
 
-此外，如果您正在使用我们的 [官方 VSCode 扩展](https://marketplace.visualstudio.com/items?itemName=jripouteau.adonis-vscode-extension)，您还可以从 VSCode 活动栏中查看路由列表。
+此外，如果你正在使用我们的 [官方 VSCode 扩展](https://marketplace.visualstudio.com/items?itemName=jripouteau.adonis-vscode-extension)，你还可以从 VSCode 活动栏中查看路由列表。
 
 `![](../basics/vscode_routes_list.png)`
 
@@ -772,7 +772,7 @@ node ace list:routes
 
 <dd>
 
-过滤路由列表，并包含使用指定中间件的路由。您可以使用 `*` 关键字来包含使用一个或多个中间件的路由。
+过滤路由列表，并包含使用指定中间件的路由。你可以使用 `*` 关键字来包含使用一个或多个中间件的路由。
 
 </dd>
 
@@ -784,7 +784,7 @@ node ace list:routes
 
 <dd>
 
-过滤路由列表，并包含不使用指定中间件的路由。您可以使用 `*` 关键字来包含不使用任何中间件的路由。
+过滤路由列表，并包含不使用指定中间件的路由。你可以使用 `*` 关键字来包含不使用任何中间件的路由。
 
 </dd>
 
@@ -792,9 +792,9 @@ node ace list:routes
 
 ## env\:add
 
-`env:add` 命令允许您向 `.env`、`.env.example` 文件添加新的环境变量，并在 `start/env.ts` 文件中定义验证规则。
+`env:add` 命令允许你向 `.env`、`.env.example` 文件添加新的环境变量，并在 `start/env.ts` 文件中定义验证规则。
 
-您可以直接运行命令，系统将提示您输入变量名、值和验证规则。或者，您可以将它们作为参数传递。
+你可以直接运行命令，系统将提示你输入变量名、值和验证规则。或者，你可以将它们作为参数传递。
 
 ```sh
 # 将提示输入变量名、值和验证规则

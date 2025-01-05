@@ -1,10 +1,10 @@
 ---
-summary: AdonisJS 将其实用工具打包到 `helpers` 模块中，并使它们可在您的应用程序代码中使用。
+summary: AdonisJS 将其实用工具打包到 `helpers` 模块中，并使它们可在你的应用程序代码中使用。
 ---
 
 # 实用工具参考
 
-AdonisJS 将其实用工具打包到 `helpers` 模块中，并使它们可在您的应用程序代码中使用。由于这些实用工具已由框架安装和使用，因此 `helpers` 模块不会给您的 `node_modules` 增加任何额外的负担。
+AdonisJS 将其实用工具打包到 `helpers` 模块中，并使它们可在你的应用程序代码中使用。由于这些实用工具已由框架安装和使用，因此 `helpers` 模块不会给你的 `node_modules` 增加任何额外的负担。
 
 实用工具方法从以下模块中导出。
 
@@ -25,7 +25,7 @@ string.escapeHTML('<p> foo © bar </p>')
 // &lt;p&gt; foo © bar &lt;/p&gt;
 ```
 
-可选地，您可以使用 `encodeSymbols` 选项对非 ASCII 符号进行编码。
+可选地，你可以使用 `encodeSymbols` 选项对非 ASCII 符号进行编码。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -38,7 +38,7 @@ string.escapeHTML('<p> foo © bar </p>', {
 
 ## encodeSymbols
 
-您可以使用 `encodeSymbols` 实用工具对字符串值中的非 ASCII 符号进行编码。在底层，我们使用 [he.encode](https://www.npmjs.com/package/he#heencodetext-options) 方法。
+你可以使用 `encodeSymbols` 实用工具对字符串值中的非 ASCII 符号进行编码。在底层，我们使用 [he.encode](https://www.npmjs.com/package/he#heencodetext-options) 方法。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -84,7 +84,7 @@ string.truncate('This is a very long, maybe not that long title', 12)
 // 输出: This is a ve...
 ```
 
-默认情况下，字符串在给定索引处被精确截断。但是，您可以指示该方法等待单词完成。
+默认情况下，字符串在给定索引处被精确截断。但是，你可以指示该方法等待单词完成。
 
 ```ts
 string.truncate('This is a very long, maybe not that long title', 12, {
@@ -93,7 +93,7 @@ string.truncate('This is a very long, maybe not that long title', 12, {
 // 输出: This is a very...
 ```
 
-您可以使用 `suffix` 选项自定义后缀。
+你可以使用 `suffix` 选项自定义后缀。
 
 ```ts
 string.truncate('This is a very long, maybe not that long title', 12, {
@@ -127,7 +127,7 @@ console.log(string.slug('hello ♥ world'))
 // hello-love-world
 ```
 
-您可以如下为 Unicode 值添加自定义替换。
+你可以如下为 Unicode 值添加自定义替换。
 
 ```ts
 string.slug.extend({ '☢': 'radioactive' })
@@ -623,7 +623,7 @@ isCuid(id) // true
 
 ## compose
 
-`compose` 助手允许您使用更简洁的 API 使用 TypeScript 类混入。以下是没有 `compose` 助手的混入用法示例。
+`compose` 助手允许你使用更简洁的 API 使用 TypeScript 类混入。以下是没有 `compose` 助手的混入用法示例。
 
 ```ts
 class User extends UserWithAttributes(UserWithAge(UserWithPassword(UserWithEmail(BaseModel)))) {}
@@ -657,7 +657,7 @@ base64.encode('hello world')
 // aGVsbG8gd29ybGQ=
 ```
 
-与 `encode` 方法类似，您可以使用 `urlEncode` 生成可在 URL 中安全传递的 base64 字符串。
+与 `encode` 方法类似，你可以使用 `urlEncode` 生成可在 URL 中安全传递的 base64 字符串。
 
 `urlEncode` 方法执行以下替换。
 
@@ -670,7 +670,7 @@ base64.urlEncode('hello world')
 // aGVsbG8gd29ybGQ
 ```
 
-您可以使用 `decode` 和 `urlDecode` 方法解码之前编码的 base64 字符串。
+你可以使用 `decode` 和 `urlDecode` 方法解码之前编码的 base64 字符串。
 
 ```ts
 base64.decode(base64.encode('hello world'))
@@ -680,7 +680,7 @@ base64.urlDecode(base64.urlEncode('hello world'))
 // hello world
 ```
 
-当输入值是无效的 base64 字符串时，`decode` 和 `urlDecode` 方法返回 `null`。您可以启用 `strict` 模式以抛出异常。
+当输入值是无效的 base64 字符串时，`decode` 和 `urlDecode` 方法返回 `null`。你可以启用 `strict` 模式以抛出异常。
 
 ```ts
 base64.decode('hello world') // null
@@ -698,7 +698,7 @@ const files = await fsReadAll(new URL('./config', import.meta.url), { pathType: 
 await Promise.all(files.map((file) => import(file)))
 ```
 
-您还可以将选项作为第二个参数与目录路径一起传递。
+你还可以将选项作为第二个参数与目录路径一起传递。
 
 ```ts
 type Options = {
@@ -756,7 +756,7 @@ await fsImportAll(location, options)
 
 ## 字符串构建器
 
-`StringBuilder` 类提供了一个流畅的 API 来对字符串值进行转换。您可以使用 `string.create` 方法获取字符串构建器的实例。
+`StringBuilder` 类提供了一个流畅的 API 来对字符串值进行转换。你可以使用 `string.create` 方法获取字符串构建器的实例。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -773,7 +773,7 @@ const value = string
 
 ## 消息构建器
 
-`MessageBuilder` 类提供了一个 API 来序列化带有过期时间和用途的 JavaScript 数据类型。您可以将序列化输出存储在安全存储中（如应用程序数据库），或对其进行加密（以防止篡改）并公开共享。
+`MessageBuilder` 类提供了一个 API 来序列化带有过期时间和用途的 JavaScript 数据类型。你可以将序列化输出存储在安全存储中（如应用程序数据库），或对其进行加密（以防止篡改）并公开共享。
 
 在下面的示例中，我们对一个包含 `token` 属性的对象进行序列化，并将其过期时间设置为 `1 hour`。
 
@@ -800,9 +800,9 @@ const encoded = builder.build(
  */
 ```
 
-一旦您获得了带有过期时间和用途的 JSON 字符串，您可以对其进行加密（以防止篡改）并与客户端共享。
+一旦你获得了带有过期时间和用途的 JSON 字符串，你可以对其进行加密（以防止篡改）并与客户端共享。
 
-在令牌验证期间，您可以解密之前加密的值，并使用 `MessageBuilder` 来验证有效载荷并将其转换为 JavaScript 对象。
+在令牌验证期间，你可以解密之前加密的值，并使用 `MessageBuilder` 来验证有效载荷并将其转换为 JavaScript 对象。
 
 ```ts
 import { MessageBuilder } from '@adonisjs/core/helpers'
@@ -818,9 +818,9 @@ console.log(decoded.token)
 
 ## 密钥
 
-`Secret` 类允许您在应用程序中持有敏感值，而不会意外地在日志和控制台语句中泄露它们。
+`Secret` 类允许你在应用程序中持有敏感值，而不会意外地在日志和控制台语句中泄露它们。
 
-例如，`config/app.ts` 文件中定义的 `appKey` 值是 `Secret` 类的一个实例。如果您尝试将此值记录到控制台，您将看到 `[redacted]` 而不是原始值。
+例如，`config/app.ts` 文件中定义的 `appKey` 值是 `Secret` 类的一个实例。如果你尝试将此值记录到控制台，你将看到 `[redacted]` 而不是原始值。
 
 为了演示，让我们启动一个 REPL 会话并尝试一下。
 
@@ -846,11 +846,11 @@ node ace repl
 # [redacted]
 ```
 
-您可以调用 `config.appKey.release` 方法来读取原始值。`Secret` 类的目的并不是阻止您的代码访问原始值。相反，它提供了一个安全网，以防止在日志中暴露敏感数据。
+你可以调用 `config.appKey.release` 方法来读取原始值。`Secret` 类的目的并不是阻止你的代码访问原始值。相反，它提供了一个安全网，以防止在日志中暴露敏感数据。
 
 ### 使用 Secret 类
 
-您可以如下将自定义值包装在 `Secret` 类中。
+你可以如下将自定义值包装在 `Secret` 类中。
 
 ```ts
 import { Secret } from '@adonisjs/core/helpers'
@@ -862,7 +862,7 @@ console.log(value.release()) // some-secret-value
 
 ## 类型检测
 
-我们从 `helpers/is` 导入路径导出了 [@sindresorhus/is](https://github.com/sindresorhus/is) 模块，您可以使用它在您的应用程序中进行类型检测。
+我们从 `helpers/is` 导入路径导出了 [@sindresorhus/is](https://github.com/sindresorhus/is) 模块，你可以使用它在你的应用程序中进行类型检测。
 
 ```ts
 import is from '@adonisjs/core/helpers/is'

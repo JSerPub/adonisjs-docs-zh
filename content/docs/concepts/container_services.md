@@ -6,9 +6,9 @@ summary: 了解容器服务及其如何帮助保持代码库的整洁和可测�
 
 正如我们在[ IoC 容器指南](./dependency_injection.md#container-bindings)中所讨论的，容器绑定是 AdonisJS 中 IoC 容器存在的主要原因之一。
 
-容器绑定使您的代码库免于在使用对象之前需要编写的样板代码，从而保持其整洁。
+容器绑定使你的代码库免于在使用对象之前需要编写的样板代码，从而保持其整洁。
 
-在以下示例中，在使用 `Database` 类之前，您必须创建其实例。根据您正在构造的类，您可能需要编写大量样板代码来获取其所有依赖项。
+在以下示例中，在使用 `Database` 类之前，你必须创建其实例。根据你正在构造的类，你可能需要编写大量样板代码来获取其所有依赖项。
 
 ```ts
 import { Database } from '@adonisjs/lucid'
@@ -17,7 +17,7 @@ export const db = new Database(
 )
 ```
 
-然而，当使用 IoC 容器时，您可以将构造类的任务丢给容器，并获取一个预构建的实例。
+然而，当使用 IoC 容器时，你可以将构造类的任务丢给容器，并获取一个预构建的实例。
 
 ```ts
 import app from '@adonisjs/core/services/app'
@@ -28,11 +28,11 @@ const db = await app.container.make('lucid.db')
 
 使用容器来解析预配置的对象是很好的。然而，使用 `container.make` 方法也有其缺点。
 
-- 编辑器擅长自动导入。如果您尝试使用一个变量，并且编辑器可以猜测该变量的导入路径，那么它将为您编写导入语句。**但是，这不能用于 `container.make` 调用。**
+- 编辑器擅长自动导入。如果你尝试使用一个变量，并且编辑器可以猜测该变量的导入路径，那么它将为你编写导入语句。**但是，这不能用于 `container.make` 调用。**
 
 - 与使用统一的语法来导入/使用模块相比，混合使用导入语句和 `container.make` 调用显得不直观。
 
-为了克服这些缺点，我们将 `container.make` 调用包装在一个常规的JavaScript模块中，这样您就可以使用 `import` 语句来获取它们。
+为了克服这些缺点，我们将 `container.make` 调用包装在一个常规的JavaScript模块中，这样你就可以使用 `import` 语句来获取它们。
 
 例如，`@adonisjs/lucid` 包有一个名为 `services/db.ts` 的文件，该文件大致包含以下内容。
 
@@ -41,7 +41,7 @@ const db = await app.container.make('lucid.db')
 export { db as default }
 ```
 
-在您的应用程序中，您可以将 `container.make` 调用替换为指向 `services/db.ts` 文件的导入。
+在你的应用程序中，你可以将 `container.make` 调用替换为指向 `services/db.ts` 文件的导入。
 
 ```ts
 // delete-start
@@ -53,13 +53,13 @@ import db from '@adonisjs/lucid/services/db'
 // insert-end
 ```
 
-如您所见，我们仍然依赖容器来为我们解析 `Database` 类的实例。然而，通过一层间接，我们可以用常规的 `import` 语句替换 `container.make` 调用。
+如你所见，我们仍然依赖容器来为我们解析 `Database` 类的实例。然而，通过一层间接，我们可以用常规的 `import` 语句替换 `container.make` 调用。
 
 **包装 `container.make` 调用的 JavaScript 模块被称为容器服务。** 几乎每个与容器交互的包都会附带一个或多个容器服务。
 
 ## 容器服务与依赖注入
 
-容器服务是依赖注入的一种替代方案。例如，您不是将 `Disk` 类作为依赖项接受，而是请求 `drive` 服务为您提供一个磁盘实例。让我们看一些代码示例。
+容器服务是依赖注入的一种替代方案。例如，你不是将 `Disk` 类作为依赖项接受，而是请求 `drive` 服务为你提供一个磁盘实例。让我们看一些代码示例。
 
 在以下示例中，我们使用 `@inject` 装饰器来注入 `Disk` 类的实例。
 
@@ -109,7 +109,7 @@ export class PostService {
 
 容器服务有助于保持代码简洁。而依赖注入则在不同应用程序部分之间创建了松耦合。
 
-选择哪一个取决于您的个人偏好以及您希望采用的代码结构方法。
+选择哪一个取决于你的个人偏好以及你希望采用的代码结构方法。
 
 // test: 
 

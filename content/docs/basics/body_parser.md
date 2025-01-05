@@ -6,7 +6,7 @@ summary: 学习如何使用 BodyParser 中间件解析请求体。
 
 请求数据使用在 `start/kernel.ts` 文件中注册的 `BodyParser` 中间件进行解析。
 
-中间件的配置存储在 `config/bodyparser.ts` 文件中。在此文件中，您可以配置解析器以解析 **JSON 有效负载**、**带有文件上传的多部分表单** 和 **URL 编码的表单**。
+中间件的配置存储在 `config/bodyparser.ts` 文件中。在此文件中，你可以配置解析器以解析 **JSON 有效负载**、**带有文件上传的多部分表单** 和 **URL 编码的表单**。
 
 另请参阅：[读取请求体](./request.md#request-body)\
 另请参阅：[文件上传](./file_uploads.md)
@@ -37,7 +37,7 @@ export const defineConfig({
 
 ## 允许的方法
 
-您可以定义一个 `allowedMethods` 数组，指定 `BodyParser` 中间件应尝试解析请求体的方法。默认情况下，配置了以下方法。但您可以随意删除或添加新方法。
+你可以定义一个 `allowedMethods` 数组，指定 `BodyParser` 中间件应尝试解析请求体的方法。默认情况下，配置了以下方法。但你可以随意删除或添加新方法。
 
 ```ts
 {
@@ -49,9 +49,9 @@ export const defineConfig({
 
 当输入字段没有值时，HTML 表单会在请求体中发送一个空字符串。HTML 表单的这种行为使得在数据库层进行数据规范化变得更加困难。
 
-例如，如果您有一个可空的数据库列 `country`，当用户不选择国家时，您希望在该列中存储 `null` 作为值。
+例如，如果你有一个可空的数据库列 `country`，当用户不选择国家时，你希望在该列中存储 `null` 作为值。
 
-然而，使用 HTML 表单时，后端接收到的是一个空字符串，您可能会将空字符串插入到数据库中，而不是将该列留空为 `null`。
+然而，使用 HTML 表单时，后端接收到的是一个空字符串，你可能会将空字符串插入到数据库中，而不是将该列留空为 `null`。
 
 当配置中的 `convertEmptyStringsToNull` 标志启用时，`BodyParser` 中间件可以处理这种不一致性，将所有空字符串值转换为 `null`。
 
@@ -103,7 +103,7 @@ encoding
 
 <dd>
 
-将请求体 Buffer 转换为字符串时使用的编码。最常用的是 `utf-8`。但是，您可以使用 [iconv-lite 包](https://www.npmjs.com/package/iconv-lite#readme) 支持的任何编码。
+将请求体 Buffer 转换为字符串时使用的编码。最常用的是 `utf-8`。但是，你可以使用 [iconv-lite 包](https://www.npmjs.com/package/iconv-lite#readme) 支持的任何编码。
 
 </dd>
 
@@ -169,7 +169,7 @@ encoding
 
 <dd>
 
-将请求体 Buffer 转换为字符串时使用的编码。最常用的是 `utf-8`。但是，您可以使用 [iconv-lite 包](https://www.npmjs.com/package/iconv-lite#readme) 支持的任何编码。
+将请求体 Buffer 转换为字符串时使用的编码。最常用的是 `utf-8`。但是，你可以使用 [iconv-lite 包](https://www.npmjs.com/package/iconv-lite#readme) 支持的任何编码。
 
 </dd>
 
@@ -193,7 +193,7 @@ queryString
 
 <dd>
 
-使用 [qs 包](https://www.npmjs.com/package/qs) 解析 URL 编码的请求体。您可以使用 `queryString` 属性定义该包的选项。
+使用 [qs 包](https://www.npmjs.com/package/qs) 解析 URL 编码的请求体。你可以使用 `queryString` 属性定义该包的选项。
 
 ```ts
   form: {
@@ -238,11 +238,11 @@ autoProcess
 
 启用 `autoProcess` 会将所有用户上传的文件移动到操作系统的 `tmp` 目录。
 
-之后，在控制器中，您可以验证文件并将其移动到持久位置或云服务。
+之后，在控制器中，你可以验证文件并将其移动到持久位置或云服务。
 
 如果禁用 `autoProcess` 标志，则需要手动处理流并从请求体中读取文件/字段。另请参阅：[自处理多部分流](./file_uploads.md#self-processing-multipart-stream)。
 
-您可以定义一个路由数组，用于自动处理这些路由的文件。值 **必须是路由模式**，而不是 URL。
+你可以定义一个路由数组，用于自动处理这些路由的文件。值 **必须是路由模式**，而不是 URL。
 
 ```ts
 {
@@ -263,7 +263,7 @@ processManually
 
 <dd>
 
-`processManually` 数组允许您为选定的路由关闭文件的自动处理。值 **必须是路由模式**，而不是 URL。
+`processManually` 数组允许你为选定的路由关闭文件的自动处理。值 **必须是路由模式**，而不是 URL。
 
 ```ts
 multipart: {
@@ -285,7 +285,7 @@ encoding
 
 <dd>
 
-将请求体 Buffer 转换为字符串时使用的编码。最常用的是 `utf-8`。但是，您可以使用 [iconv-lite 包](https://www.npmjs.com/package/iconv-lite#readme) 支持的任何编码。
+将请求体 Buffer 转换为字符串时使用的编码。最常用的是 `utf-8`。但是，你可以使用 [iconv-lite 包](https://www.npmjs.com/package/iconv-lite#readme) 支持的任何编码。
 
 </dd>
 
@@ -297,7 +297,7 @@ limit
 
 <dd>
 
-处理所有文件时允许的最大字节限制。您可以使用 [request.file](./file_uploads.md) 方法定义单个文件大小限制。
+处理所有文件时允许的最大字节限制。你可以使用 [request.file](./file_uploads.md) 方法定义单个文件大小限制。
 
 </dd>
 

@@ -1,5 +1,5 @@
 ---
-summary: 使用 `@adonisjs/lock` 包在您的 AdonisJS 应用程序中管理原子锁。
+summary: 使用 `@adonisjs/lock` 包在你的 AdonisJS 应用程序中管理原子锁。
 ---
 
 # 原子锁
@@ -91,7 +91,7 @@ stores
 
 <dd>
 
-您计划在应用程序中使用的存储集合。我们建议始终配置 `memory` 存储，以便在测试期间使用。
+你计划在应用程序中使用的存储集合。我们建议始终配置 `memory` 存储，以便在测试期间使用。
 
 </dd>
 
@@ -101,7 +101,7 @@ stores
 
 ### 环境变量
 
-默认锁存储通过 `LOCK_STORE` 环境变量定义，因此您可以在不同环境中切换不同的存储。例如，在测试期间使用 `memory` 存储，在开发和生产环境中使用 `redis` 存储。
+默认锁存储通过 `LOCK_STORE` 环境变量定义，因此你可以在不同环境中切换不同的存储。例如，在测试期间使用 `memory` 存储，在开发和生产环境中使用 `redis` 存储。
 
 此外，必须验证环境变量以允许预配置存储中的一个。验证在 `start/env.ts` 文件中使用 `Env.schema.enum` 规则定义。
 
@@ -113,7 +113,7 @@ stores
 
 ### Redis 存储
 
-`redis` 存储对 `@adonisjs/redis` 包有对等依赖；因此，在使用 Redis 存储之前，您必须配置此包。
+`redis` 存储对 `@adonisjs/redis` 包有对等依赖；因此，在使用 Redis 存储之前，你必须配置此包。
 
 以下是 Redis 存储接受的选项列表：
 
@@ -138,7 +138,7 @@ connectionName
 
 ### 数据库存储
 
-`database` 存储对 `@adonisjs/lucid` 包有对等依赖，因此，在使用数据库存储之前，您必须配置此包。
+`database` 存储对 `@adonisjs/lucid` 包有对等依赖，因此，在使用数据库存储之前，你必须配置此包。
 
 以下是数据库存储接受的选项列表：
 
@@ -181,7 +181,7 @@ tableName
 
 ### 内存存储
 
-`memory` 存储是一个简单的内存存储，可用于测试目的，但不仅限于此。有时，对于某些用例，您可能希望有一个仅对当前进程有效的锁，而不是在多个进程之间共享。
+`memory` 存储是一个简单的内存存储，可用于测试目的，但不仅限于此。有时，对于某些用例，你可能希望有一个仅对当前进程有效的锁，而不是在多个进程之间共享。
 
 内存存储基于 [`async-mutex`](https://www.npmjs.com/package/async-mutex) 包构建。
 
@@ -193,7 +193,7 @@ tableName
 
 ## 锁定资源
 
-配置好锁存储后，您可以在应用程序中的任何地方开始使用锁来保护资源。
+配置好锁存储后，你可以在应用程序中的任何地方开始使用锁来保护资源。
 
 以下是一个如何使用锁来保护资源的简单示例。
 
@@ -271,15 +271,15 @@ export default class OrderController {
 
 ### 
 
-这是一个如何在您的应用程序中使用锁的快速示例。
+这是一个如何在你的应用程序中使用锁的快速示例。
 
 还有许多其他方法来管理锁，例如使用 `extend` 来延长锁的持续时间，使用 `getRemainingTime` 来获取锁到期前的剩余时间，配置锁的选项等等。
 
-**为此，请务必阅读 [Verrou 文档](https://verrou.dev/docs/introduction) 以获取更多详细信息**。提醒一下，`@adonisjs/lock` 包是基于 `Verrou` 包的，因此您在 Verrou 文档中读到的所有内容也适用于 `@adonisjs/lock` 包。
+**为此，请务必阅读 [Verrou 文档](https://verrou.dev/docs/introduction) 以获取更多详细信息**。提醒一下，`@adonisjs/lock` 包是基于 `Verrou` 包的，因此你在 Verrou 文档中读到的所有内容也适用于 `@adonisjs/lock` 包。
 
 ## 使用另一个存储
 
-如果您在 `config/lock.ts` 文件中定义了多个存储，可以使用 `use` 方法为特定锁使用不同的存储。
+如果你在 `config/lock.ts` 文件中定义了多个存储，可以使用 `use` 方法为特定锁使用不同的存储。
 
 ```ts
 import locks from '@adonisjs/lock/services/main'
@@ -297,10 +297,10 @@ const lock = locks.createLock('order.processing.1')
 
 ## 跨多个进程管理锁
 
-有时，您可能希望一个进程创建并获取锁，而另一个进程释放锁。例如，您可能希望在 Web 请求中获取锁，并在后台作业中释放锁。这可以通过使用 `restoreLock` 方法实现。
+有时，你可能希望一个进程创建并获取锁，而另一个进程释放锁。例如，你可能希望在 Web 请求中获取锁，并在后台作业中释放锁。这可以通过使用 `restoreLock` 方法实现。
 
 ```ts
-// title: 您的主服务器
+// title: 你的主服务器
 import locks from '@adonisjs/lock/services/main'
 
 export class OrderController {
@@ -324,7 +324,7 @@ export class OrderController {
 ```
 
 ```ts
-// title: 您的后台作业
+// title: 你的后台作业
 import locks from '@adonisjs/lock/services/main'
 
 export class ProcessOrder {
@@ -349,7 +349,7 @@ export class ProcessOrder {
 
 ## 测试
 
-在测试期间，您可以使用 `memory` 存储来避免发出获取锁的实际网络请求。您可以通过在 `.env.testing` 文件中将 `LOCK_STORE` 环境变量设置为 `memory` 来实现这一点。
+在测试期间，你可以使用 `memory` 存储来避免发出获取锁的实际网络请求。你可以通过在 `.env.testing` 文件中将 `LOCK_STORE` 环境变量设置为 `memory` 来实现这一点。
 
 ```env
 // title: .env.test
@@ -417,7 +417,7 @@ class NoopStore implements LockStore {
 
 ### 定义存储工厂
 
-创建存储后，必须定义一个简单的工厂函数，`@adonisjs/lock` 将使用该函数来创建您存储的实例。
+创建存储后，必须定义一个简单的工厂函数，`@adonisjs/lock` 将使用该函数来创建你存储的实例。
 
 ```ts
 function noopStore(options: MyNoopStoreConfig) {
@@ -427,7 +427,7 @@ function noopStore(options: MyNoopStoreConfig) {
 
 ### 使用自定义存储
 
-完成后，您可以按如下方式使用 `noopStore` 函数：
+完成后，你可以按如下方式使用 `noopStore` 函数：
 
 ```ts
 import { defineConfig } from '@adonisjs/lock'

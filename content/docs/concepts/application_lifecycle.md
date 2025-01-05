@@ -1,10 +1,10 @@
 ---
-summary: 了解 AdonisJS 如何启动您的应用程序，以及在应用程序被认为准备就绪之前，您可以使用哪些生命周期钩子来更改应用程序状态。
+summary: 了解 AdonisJS 如何启动你的应用程序，以及在应用程序被认为准备就绪之前，你可以使用哪些生命周期钩子来更改应用程序状态。
 ---
 
 # Application 生命周期
 
-在本指南中，我们将了解 AdonisJS 如何启动您的应用程序，以及在应用程序被认为准备就绪之前，您可以使用哪些生命周期钩子来更改应用程序状态。
+在本指南中，我们将了解 AdonisJS 如何启动你的应用程序，以及在应用程序被认为准备就绪之前，你可以使用哪些生命周期钩子来更改应用程序状态。
 
 应用程序的生命周期取决于其运行的环境。例如，一个用于处理 HTTP 请求的长期运行进程与一个短命的 ace 命令的管理方式是不同的。
 
@@ -13,11 +13,11 @@ summary: 了解 AdonisJS 如何启动您的应用程序，以及在应用程序�
 ## AdonisJS 应用程序如何启动
 AdonisJS 应用程序有多个入口点，每个入口点都会在特定环境中启动应用程序。以下入口点文件存储在 `bin` 目录中。
 
-- `bin/server.ts` 入口点启动 AdonisJS 应用程序以处理 HTTP 请求。当您运行 `node ace serve` 命令时，我们在后台将此文件作为子进程运行。
+- `bin/server.ts` 入口点启动 AdonisJS 应用程序以处理 HTTP 请求。当你运行 `node ace serve` 命令时，我们在后台将此文件作为子进程运行。
 - `bin/console.ts` 入口点启动 AdonisJS 应用程序以处理 CLI 命令。此文件在底层使用了 [Ace](../ace/introduction.md)。
 - `bin/test.ts` 入口点启动 AdonisJS 应用程序以使用 Japa 运行测试。
 
-如果您打开这些文件中的任何一个，您会发现我们使用 [Ignitor](https://github.com/adonisjs/core/blob/main/src/ignitor/main.ts#L23) 模块来连接各个部分，然后启动应用程序。
+如果你打开这些文件中的任何一个，你会发现我们使用 [Ignitor](https://github.com/adonisjs/core/blob/main/src/ignitor/main.ts#L23) 模块来连接各个部分，然后启动应用程序。
 
 Ignitor 模块封装了启动 AdonisJS 应用程序的逻辑。在底层，它执行以下操作：
 
@@ -31,7 +31,7 @@ Ignitor 模块封装了启动 AdonisJS 应用程序的逻辑。在底层，它�
 
 除了 `console` 环境外，所有环境的启动阶段都是相同的。在 `console` 环境中，执行的命令决定是否启动应用程序。
 
-只有在应用程序启动后，您才能使用容器绑定和服务。
+只有在应用程序启动后，你才能使用容器绑定和服务。
 
 ![](./boot_phase_flow_chart.png)
 
@@ -84,7 +84,7 @@ export default class GreetCommand extends BaseCommand {
 
 ### 响应进程信号
 
-在所有环境中，当应用程序接收到 `SIGTERM` 信号时，我们开始一个优雅的关闭过程。如果您使用 [pm2](https://pm2.keymetrics.io/docs/usage/signals-clean-restart/) 启动了您的应用程序，则在接收到 `SIGINT` 事件后将进行优雅的关闭。
+在所有环境中，当应用程序接收到 `SIGTERM` 信号时，我们开始一个优雅的关闭过程。如果你使用 [pm2](https://pm2.keymetrics.io/docs/usage/signals-clean-restart/) 启动了你的应用程序，则在接收到 `SIGINT` 事件后将进行优雅的关闭。
 
 ### 在 Web 环境中
 
@@ -120,15 +120,15 @@ export default class GreetCommand extends BaseCommand {
 
 ## 生命周期钩子
 
-生命周期钩子允许您在应用程序引导过程中插入并执行操作，随着应用程序进入不同的状态。
+生命周期钩子允许你在应用程序引导过程中插入并执行操作，随着应用程序进入不同的状态。
 
-您可以使用服务提供者类来监听钩子，或者在 Application 类上内联定义它们。
+你可以使用服务提供者类来监听钩子，或者在 Application 类上内联定义它们。
 
 ### 内联回调
 
-您应在创建 Application 实例后立即注册生命周期钩子。
+你应在创建 Application 实例后立即注册生命周期钩子。
 
-入口点文件 `bin/server.ts`、`bin/console.ts` 和 `bin/test.ts` 为不同环境创建了新的 Application 实例，您可以在这些文件中注册内联回调。
+入口点文件 `bin/server.ts`、`bin/console.ts` 和 `bin/test.ts` 为不同环境创建了新的 Application 实例，你可以在这些文件中注册内联回调。
 
 ```ts
 const app = new Application(new URL('../', import.meta.url))
@@ -188,7 +188,7 @@ export default class AppProvider {
 ```
 
 - `register`：register 方法在容器中注册绑定。此方法设计为同步的。
-- `boot`：boot 方法用于启动或初始化您在容器中注册的绑定。
-- `start`：start 方法在 `ready` 方法之前运行。它允许您执行 `ready` 钩子操作可能需要的操作。
+- `boot`：boot 方法用于启动或初始化你在容器中注册的绑定。
+- `start`：start 方法在 `ready` 方法之前运行。它允许你执行 `ready` 钩子操作可能需要的操作。
 - `ready`：ready 方法在应用程序被认为准备就绪后运行。
-- `shutdown`：当应用程序开始优雅的关闭时，调用 shutdown 方法。您可以使用此方法关闭数据库连接或结束打开的流。
+- `shutdown`：当应用程序开始优雅的关闭时，调用 shutdown 方法。你可以使用此方法关闭数据库连接或结束打开的流。

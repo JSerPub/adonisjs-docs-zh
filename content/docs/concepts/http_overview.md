@@ -32,7 +32,7 @@ AdonisJS 应用程序中的 HTTP 层由以下模块组成。值得一提的是�
 
 <dd>
 
-控制器是 JavaScript 类，您可以将其绑定到路由以处理 HTTP 请求。控制器作为组织层，帮助您将应用程序的业务逻辑分布在不同的文件/类中。
+控制器是 JavaScript 类，你可以将其绑定到路由以处理 HTTP 请求。控制器作为组织层，帮助你将应用程序的业务逻辑分布在不同的文件/类中。
 
 </dd>
 
@@ -56,7 +56,7 @@ AdonisJS 会为每个传入的 HTTP 请求创建一个 [HttpContext](https://git
 
 <dd>
 
-AdonisJS 中的中间件管道是[责任链](https://refactoring.guru/design-patterns/chain-of-responsibility)设计模式的实现。您可以使用中间件来拦截 HTTP 请求，并在它们到达路由处理器之前对它们进行响应。
+AdonisJS 中的中间件管道是[责任链](https://refactoring.guru/design-patterns/chain-of-responsibility)设计模式的实现。你可以使用中间件来拦截 HTTP 请求，并在它们到达路由处理器之前对它们进行响应。
 
 </dd>
 
@@ -68,7 +68,7 @@ AdonisJS 中的中间件管道是[责任链](https://refactoring.guru/design-pat
 
 <dd>
 
-全局异常处理器在一个中心位置处理 HTTP 请求期间抛出的异常。您可以使用全局异常处理器将异常转换为 HTTP 响应或报告给外部日志服务。
+全局异常处理器在一个中心位置处理 HTTP 请求期间抛出的异常。你可以使用全局异常处理器将异常转换为 HTTP 响应或报告给外部日志服务。
 
 </dd>
 
@@ -80,7 +80,7 @@ AdonisJS 中的中间件管道是[责任链](https://refactoring.guru/design-pat
 
 <dd>
 
-[服务器模块](https://github.com/adonisjs/http-server/blob/main/src/server/main.ts)将路由器、中间件、全局异常处理器连接起来，并导出[一个 `handle` 函数](https://github.com/adonisjs/http-server/blob/main/src/server/main.ts#L330)，您可以将其绑定到 Node.js HTTP 服务器以处理请求。
+[服务器模块](https://github.com/adonisjs/http-server/blob/main/src/server/main.ts)将路由器、中间件、全局异常处理器连接起来，并导出[一个 `handle` 函数](https://github.com/adonisjs/http-server/blob/main/src/server/main.ts#L330)，你可以将其绑定到 Node.js HTTP 服务器以处理请求。
 
 </dd>
 

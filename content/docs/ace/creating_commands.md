@@ -4,7 +4,7 @@ summary: 了解如何在 AdonisJS 中创建自定义 Ace 命令
 
 # 创建命令
 
-除了使用 Ace 命令外，您还可以创建自定义命令作为应用程序代码库的一部分。命令存储在根级别的 `commands` 目录中。您可以通过运行以下命令来创建一个命令。
+除了使用 Ace 命令外，你还可以创建自定义命令作为应用程序代码库的一部分。命令存储在根级别的 `commands` 目录中。你可以通过运行以下命令来创建一个命令。
 
 另请参阅：[Make command](../references/commands.md#makecommand)
 
@@ -53,7 +53,7 @@ export default class GreetCommand extends BaseCommand {
 
 <dd>
 
-命令描述显示在命令列表中以及命令帮助屏幕上。您必须保持描述简短，并使用 **帮助文本** 提供更长的描述。
+命令描述显示在命令列表中以及命令帮助屏幕上。你必须保持描述简短，并使用 **帮助文本** 提供更长的描述。
 
 </dd>
 
@@ -86,7 +86,7 @@ export default class GreetCommand extends BaseCommand {
 
 <dd>
 
-您可以使用 `aliases` 属性为命令名称定义一个或多个别名。
+你可以使用 `aliases` 属性为命令名称定义一个或多个别名。
 
 ```ts
 export default class GreetCommand extends BaseCommand {
@@ -105,7 +105,7 @@ export default class GreetCommand extends BaseCommand {
 
 默认情况下，AdonisJS 在运行 Ace 命令时不会启动应用程序。这确保了命令运行迅速，并且不需要经过应用程序启动阶段来执行简单任务。
 
-然而，如果您的命令依赖于应用程序状态，您可以告诉 Ace 在执行命令之前启动应用程序。
+然而，如果你的命令依赖于应用程序状态，你可以告诉 Ace 在执行命令之前启动应用程序。
 
 ```ts
 import { BaseCommand } from '@adonisjs/core/ace'
@@ -128,7 +128,7 @@ export default class GreetCommand extends BaseCommand {
 
 <dd>
 
-默认情况下，如果您向命令传递了未知标志，Ace 会打印错误。然而，您可以使用 `options.allowUnknownFlags` 属性在命令级别禁用严格标志解析。
+默认情况下，如果你向命令传递了未知标志，Ace 会打印错误。然而，你可以使用 `options.allowUnknownFlags` 属性在命令级别禁用严格标志解析。
 
 ```ts
 import { BaseCommand } from '@adonisjs/core/ace'
@@ -151,7 +151,7 @@ export default class GreetCommand extends BaseCommand {
 
 <dd>
 
-AdonisJS 在执行命令的 `run` 方法后会隐式终止应用程序。然而，如果您希望在命令中启动一个长时间运行的过程，您必须告诉 Ace 不要终止该过程。
+AdonisJS 在执行命令的 `run` 方法后会隐式终止应用程序。然而，如果你希望在命令中启动一个长时间运行的过程，你必须告诉 Ace 不要终止该过程。
 
 另请参阅：[Terminating app](#terminating-application) 和 [cleaning up before the app terminates](#cleaning-up-before-the-app-terminates) 部分。
 
@@ -172,7 +172,7 @@ export default class GreetCommand extends BaseCommand {
 
 ## 命令生命周期方法
 
-您可以在命令类上定义以下生命周期方法，Ace 将按预定义顺序执行它们。
+你可以在命令类上定义以下生命周期方法，Ace 将按预定义顺序执行它们。
 
 ```ts
 import { BaseCommand, args, flags } from '@adonisjs/core/ace'

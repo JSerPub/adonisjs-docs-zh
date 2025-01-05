@@ -4,11 +4,11 @@ summary: 使用 @adonisjs/static 包从给定目录提供静态文件服务。
 
 # 静态文件服务器
 
-您可以使用 `@adonisjs/static` 包从给定目录提供静态文件服务。该包附带了一个中间件，您必须在 [服务器中间件堆栈](./middleware.md#server-middleware-stack) 中注册它，以拦截 HTTP 请求并提供文件服务。
+你可以使用 `@adonisjs/static` 包从给定目录提供静态文件服务。该包附带了一个中间件，你必须在 [服务器中间件堆栈](./middleware.md#server-middleware-stack) 中注册它，以拦截 HTTP 请求并提供文件服务。
 
 ## 安装
 
-该包在 `web` 初学者工具包中已预配置。但是，您可以按照以下步骤在其他初学者工具包中安装和配置它。
+该包在 `web` 初学者工具包中已预配置。但是，你可以按照以下步骤在其他初学者工具包中安装和配置它。
 
 使用以下命令安装和配置该包：
 
@@ -115,7 +115,7 @@ export default staticServerConfig
 
 <dd>
 
-定义如何处理 `public` 目录中对点文件的请求。您可以设置以下选项之一。
+定义如何处理 `public` 目录中对点文件的请求。你可以设置以下选项之一。
 
 - `allow`：像其他文件一样提供点文件服务。
 - `deny`：使用 `403` 状态码拒绝请求。
@@ -177,7 +177,7 @@ export default staticServerConfig
 
 启用或禁用 `Cache-Control` 头的 [immutable](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#immutable) 指令。默认情况下，`immutable` 属性是禁用的。
 
-如果启用了 `immutable` 属性，您必须定义 `maxAge` 属性以启用缓存。
+如果启用了 `immutable` 属性，你必须定义 `maxAge` 属性以启用缓存。
 
 ```ts
 {
@@ -234,9 +234,9 @@ export default staticServerConfig
 
 ## 提供静态文件服务
 
-注册中间件后，您可以在 `public` 目录中创建文件，并通过浏览器使用文件路径访问它们。例如，可以通过 `http://localhost:3333/css/style.css` URL 访问 `./public/css/style.css` 文件。
+注册中间件后，你可以在 `public` 目录中创建文件，并通过浏览器使用文件路径访问它们。例如，可以通过 `http://localhost:3333/css/style.css` URL 访问 `./public/css/style.css` 文件。
 
-`public` 目录中的文件不会使用资源打包工具进行编译或构建。如果您想编译前端资源，必须将它们放置在 `resources` 目录中，并使用 [资源打包工具](../basics/vite.md)。
+`public` 目录中的文件不会使用资源打包工具进行编译或构建。如果你想编译前端资源，必须将它们放置在 `resources` 目录中，并使用 [资源打包工具](../basics/vite.md)。
 
 ## 将静态文件复制到生产构建中
 

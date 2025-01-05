@@ -4,7 +4,7 @@ summary: 学习如何为 AdonisJS 创建自定义身份验证守卫。
 
 # 创建自定义身份验证守卫
 
-auth 包使您能够为内置守卫无法满足的用例创建自定义身份验证守卫。在本指南中，我们将创建一个使用 JWT 令牌进行身份验证的守卫。
+auth 包使你能够为内置守卫无法满足的用例创建自定义身份验证守卫。在本指南中，我们将创建一个使用 JWT 令牌进行身份验证的守卫。
 
 身份验证守卫围绕以下概念展开。
 
@@ -153,7 +153,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 接受用户提供者
-守卫必须接受一个用户提供者，以便在身份验证期间查找用户。您可以将其作为构造函数参数接受，并存储一个私有引用。
+守卫必须接受一个用户提供者，以便在身份验证期间查找用户。你可以将其作为构造函数参数接受，并存储一个私有引用。
 
 ```ts
 export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>

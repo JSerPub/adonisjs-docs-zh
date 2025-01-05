@@ -36,7 +36,7 @@ router.get('posts/:slug/comments/:id', async ({ request }) => {
 })
 ```
 
-您可以使用 `request.param` 方法访问单个参数。
+你可以使用 `request.param` 方法访问单个参数。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -51,7 +51,7 @@ router.get('posts/:slug/comments/:id', async ({ request }) => {
 
 AdonisJS 使用在 `start/kernel.ts` 文件中注册的 [body-parser 中间件](../basics/body_parser.md) 解析请求体。
 
-您可以使用 `request.body()` 方法访问请求体。它返回解析后的请求体作为对象。
+你可以使用 `request.body()` 方法访问请求体。它返回解析后的请求体作为对象。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -99,7 +99,7 @@ router.post('register', async ({ request }) => {
 })
 ```
 
-`request.input` 方法返回特定属性的值。可选地，您可以传递一个默认值作为第二个参数。当实际值缺失时，将返回默认值。
+`request.input` 方法返回特定属性的值。可选地，你可以传递一个默认值作为第二个参数。当实际值缺失时，将返回默认值。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -114,11 +114,11 @@ router.post('comments', async ({ request }) => {
 
 默认情况下，AdonisJS 不强制为 `request.all`、`request.body` 或挑选方法的数据类型，因为它无法提前知道请求体的预期内容。
 
-为了确保类型安全，您可以使用 [验证器](./validation.md) 来验证和解析请求体，确保所有值都是正确的并匹配预期的类型。
+为了确保类型安全，你可以使用 [验证器](./validation.md) 来验证和解析请求体，确保所有值都是正确的并匹配预期的类型。
 
 ## 请求 URL
 
-`request.url` 方法返回相对于主机名的请求 URL。默认情况下，返回值不包括查询字符串。但是，您可以通过调用 `request.url(true)` 来获取包含查询字符串的 URL。
+`request.url` 方法返回相对于主机名的请求 URL。默认情况下，返回值不包括查询字符串。但是，你可以通过调用 `request.url(true)` 来获取包含查询字符串的 URL。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -161,7 +161,7 @@ router.get('/', async ({ request }) => {
 })
 ```
 
-您可以使用 `request.header` 方法访问单个请求头的值。
+你可以使用 `request.header` 方法访问单个请求头的值。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -176,7 +176,7 @@ router.get('/', async ({ request }) => {
 
 ## 请求方法
 
-`request.method` 方法返回当前请求的 HTTP 方法。当启用 [表单方法伪造](#form-method-spoofing) 时，该方法返回用于路由匹配的欺骗方法，您可以使用 `request.intended` 方法获取原始请求方法。
+`request.method` 方法返回当前请求的 HTTP 方法。当启用 [表单方法伪造](#form-method-spoofing) 时，该方法返回用于路由匹配的欺骗方法，你可以使用 `request.intended` 方法获取原始请求方法。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -200,7 +200,7 @@ router.patch('posts', async ({ request }) => {
 
 :::note
 
-阅读 [配置受信任的代理](#configuring-trusted-proxies) 部分，以配置您的应用程序应信任的代理。
+阅读 [配置受信任的代理](#configuring-trusted-proxies) 部分，以配置你的应用程序应信任的代理。
 
 :::
 
@@ -224,7 +224,7 @@ router.get('/', async ({ request }) => {
 
 ### 定义自定义 `getIp` 方法
 
-如果受信任的代理设置不足以确定正确的 IP 地址，您可以实现自定义的 `getIp` 方法。
+如果受信任的代理设置不足以确定正确的 IP 地址，你可以实现自定义的 `getIp` 方法。
 
 该方法在 `config/app.ts` 文件的 `http` 设置对象中定义。
 
@@ -243,7 +243,7 @@ export const http = defineConfig({
 
 ## 内容协商
 
-AdonisJS 通过解析所有常用支持的 `Accept` 头，提供了多种 [内容协商](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation#server-driven_content_negotiation) 方法。例如，您可以使用 `request.types` 方法获取给定请求接受的所有内容类型的列表。
+AdonisJS 通过解析所有常用支持的 `Accept` 头，提供了多种 [内容协商](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation#server-driven_content_negotiation) 方法。例如，你可以使用 `request.types` 方法获取给定请求接受的所有内容类型的列表。
 
 `request.types` 方法的返回值按客户端的偏好顺序排序（最优先的排在前面）。
 
@@ -264,9 +264,9 @@ router.get('/', async ({ request }) => {
 | encodings | [Accept-encoding](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) |
 | charsets  | [Accept-charset](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Charset)   |
 
-有时，您想根据服务器支持的内容类型找到首选内容类型。
+有时，你想根据服务器支持的内容类型找到首选内容类型。
 
-为此，您可以使用 `request.accepts` 方法。该方法接受一个支持的内容类型数组，并在检查 `Accept` 头后返回最优先的内容类型。如果找不到匹配项，则返回 `null` 值。
+为此，你可以使用 `request.accepts` 方法。该方法接受一个支持的内容类型数组，并在检查 `Accept` 头后返回最优先的内容类型。如果找不到匹配项，则返回 `null` 值。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -306,7 +306,7 @@ const charset = request.charset(['utf-8', 'hex', 'ascii'])
 
 ## 生成请求 ID
 
-请求 ID 可帮助您通过为每个 HTTP 请求分配唯一 ID 来从日志中 [调试和跟踪应用程序问题](https://blog.heroku.com/http_request_id_s_improve_visibility_across_the_application_stack)。默认情况下，请求 ID 的创建是禁用的。但是，您可以在 `config/app.ts` 文件中启用它。
+请求 ID 可帮助你通过为每个 HTTP 请求分配唯一 ID 来从日志中 [调试和跟踪应用程序问题](https://blog.heroku.com/http_request_id_s_improve_visibility_across_the_application_stack)。默认情况下，请求 ID 的创建是禁用的。但是，你可以在 `config/app.ts` 文件中启用它。
 
 :::note
 
@@ -321,7 +321,7 @@ export const http = defineConfig({
 })
 ```
 
-启用后，您可以使用 `request.id` 方法访问 ID。
+启用后，你可以使用 `request.id` 方法访问 ID。
 
 ```ts
 router.get('/', ({ request }) => {
@@ -343,9 +343,9 @@ router.get('/', ({ logger }) => {
 
 大多数 Node.js 应用程序部署在 Nginx 或 Caddy 等代理服务器后面。因此，我们必须依赖 HTTP 头（如 `X-Forwarded-Host`、`X-Forwarded-For` 和 `X-Forwarded-Proto`）来了解实际发出 HTTP 请求的终端客户端。
 
-这些头仅在您的 AdonisJS 应用程序可以信任源 IP 地址时才使用。
+这些头仅在你的 AdonisJS 应用程序可以信任源 IP 地址时才使用。
 
-您可以在 `config/app.ts` 文件中使用 `http.trustProxy` 配置选项配置要信任的 IP 地址。
+你可以在 `config/app.ts` 文件中使用 `http.trustProxy` 配置选项配置要信任的 IP 地址。
 
 ```ts
 import proxyAddr from 'proxy-addr'
@@ -365,7 +365,7 @@ export const http = defineConfig({
 })
 ```
 
-如果您的应用程序代码与 Nginx 在同一台服务器上运行，您需要信任回环 IP 地址，即 (127.0.0.1)。
+如果你的应用程序代码与 Nginx 在同一台服务器上运行，你需要信任回环 IP 地址，即 (127.0.0.1)。
 
 ```ts
 import proxyAddr from 'proxy-addr'
@@ -378,7 +378,7 @@ export const http = defineConfig({
 
 ## 配置受信任的代理
 
-假设您的应用程序只能通过负载均衡器访问，并且您没有该负载均衡器的 IP 地址列表。那么，您可以通过定义一个始终返回 `true` 的回调来信任代理服务器。
+假设你的应用程序只能通过负载均衡器访问，并且你没有该负载均衡器的 IP 地址列表。那么，你可以通过定义一个始终返回 `true` 的回调来信任代理服务器。
 
 ```ts
 export const http = defineConfig({
@@ -388,7 +388,7 @@ export const http = defineConfig({
 
 ## 配置查询字符串解析器
 
-请求 URL 中的查询字符串使用 [qs](http://npmjs.com/qs) 模块进行解析。您可以在 `config/app.ts` 文件中配置解析器设置。
+请求 URL 中的查询字符串使用 [qs](http://npmjs.com/qs) 模块进行解析。你可以在 `config/app.ts` 文件中配置解析器设置。
 
 [查看所有可用选项的列表](https://github.com/adonisjs/http-server/blob/main/src/types/qs.ts#L11)。
 
@@ -405,9 +405,9 @@ export const http = defineConfig({
 
 HTML 表单的表单方法只能设置为 `GET` 或 `POST`，这使得无法利用 [RESTful HTTP 方法](https://restfulapi.net/http-methods/)。
 
-然而，AdonisJS 允许您使用 **表单方法伪造** 表单方法伪造 `_method` 查询字符串指定表单方法。
+然而，AdonisJS 允许你使用 **表单方法伪造** 表单方法伪造 `_method` 查询字符串指定表单方法。
 
-要使方法欺骗生效，您必须将表单操作设置为 `POST`，并在 `config/app.ts` 文件中启用该功能。
+要使方法欺骗生效，你必须将表单操作设置为 `POST`，并在 `config/app.ts` 文件中启用该功能。
 
 ```ts
 // title: config/app.ts
@@ -416,7 +416,7 @@ export const http = defineConfig({
 })
 ```
 
-启用后，您可以按以下方式欺骗表单方法。
+启用后，你可以按以下方式欺骗表单方法。
 
 ```html
 <form method="POST" action="/articles/1?_method=PUT">
@@ -432,7 +432,7 @@ export const http = defineConfig({
 
 ## 扩展 Request 类
 
-您可以使用宏或 getter 向 Request 类添加自定义属性。如果您对宏的概念不熟悉，请务必先阅读 [扩展 AdonisJS 指南](../concepts/extending_the_framework.md)。
+你可以使用宏或 getter 向 Request 类添加自定义属性。如果你对宏的概念不熟悉，请务必先阅读 [扩展 AdonisJS 指南](../concepts/extending_the_framework.md)。
 
 ```ts
 import { Request } from '@adonisjs/core/http'
@@ -445,7 +445,7 @@ Request.getter('property', function (this: Request) {
 })
 ```
 
-由于宏和 getter 是在运行时添加的，因此您必须向 TypeScript 告知它们的类型。
+由于宏和 getter 是在运行时添加的，因此你必须向 TypeScript 告知它们的类型。
 
 ```ts
 declare module '@adonisjs/core/http' {

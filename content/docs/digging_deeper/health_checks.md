@@ -1,16 +1,16 @@
 ---
-summary: 了解如何在生产环境中监控您的应用程序并确保其顺利运行
+summary: 了解如何在生产环境中监控你的应用程序并确保其顺利运行
 ---
 
 # 健康检查
 
-健康检查用于确保您的应用程序在生产环境中运行时处于健康状态。这可能包括监控服务器上的**可用磁盘空间**、**应用程序消耗的内存**或**测试数据库连接**。
+健康检查用于确保你的应用程序在生产环境中运行时处于健康状态。这可能包括监控服务器上的**可用磁盘空间**、**应用程序消耗的内存**或**测试数据库连接**。
 
 AdonisJS 提供了一些内置的 [health checks](#available-health-checks)，以及创建和注册 [custom health checks](#creating-a-custom-health-check) 的能力。
 
 ## 配置健康检查
 
-您可以通过执行以下命令在应用程序中配置健康检查。该命令将创建一个 `start/health.ts` 文件，并为**内存使用**和**已用磁盘空间**配置健康检查。您可以随意修改此文件，并添加或删除其他健康检查。
+你可以通过执行以下命令在应用程序中配置健康检查。该命令将创建一个 `start/health.ts` 文件，并为**内存使用**和**已用磁盘空间**配置健康检查。你可以随意修改此文件，并添加或删除其他健康检查。
 
 :::note
 
@@ -160,7 +160,7 @@ debugInfo
 调试信息可用于识别进程及其运行时长。它包括以下属性。
 
 - `pid`：进程 ID。
-- `ppid`：管理您的 AdonisJS 应用程序进程的父进程 ID。
+- `ppid`：管理你的 AdonisJS 应用程序进程的父进程 ID。
 - `platform`：应用程序运行的平台。
 - `uptime`：应用程序运行的时长（以秒为单位）。
 - `version`：Node.js 版本。
@@ -171,7 +171,7 @@ debugInfo
 
 ### 保护端点
 
-您可以使用身份验证中间件或创建自定义中间件来检查请求头中的特定 API 密钥，从而保护 `/health` 端点免受公共访问。例如：
+你可以使用身份验证中间件或创建自定义中间件来检查请求头中的特定 API 密钥，从而保护 `/health` 端点免受公共访问。例如：
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -205,7 +205,7 @@ export const healthChecks = new HealthChecks().register([
 ])
 ```
 
-默认情况下，警告阈值设置为 75%，失败阈值设置为 80%。但是，您也可以定义自定义阈值。
+默认情况下，警告阈值设置为 75%，失败阈值设置为 80%。但是，你也可以定义自定义阈值。
 
 ```ts
 export const healthChecks = new HealthChecks().register([
@@ -229,7 +229,7 @@ export const healthChecks = new HealthChecks().register([
 ])
 ```
 
-默认情况下，警告阈值设置为 **250MB**，故障阈值设置为 **300MB**。不过，您也可以定义自定义阈值。
+默认情况下，警告阈值设置为 **250MB**，故障阈值设置为 **300MB**。不过，你也可以定义自定义阈值。
 
 ```ts
 export const healthChecks = new HealthChecks().register([
@@ -253,7 +253,7 @@ export const healthChecks = new HealthChecks().register([
 ])
 ```
 
-默认情况下，警告阈值设置为 **320MB**，故障阈值设置为 **350MB**。不过，您也可以定义自定义阈值。
+默认情况下，警告阈值设置为 **320MB**，故障阈值设置为 **350MB**。不过，你也可以定义自定义阈值。
 
 ```ts
 export const healthChecks = new HealthChecks().register([
@@ -267,7 +267,7 @@ export const healthChecks = new HealthChecks().register([
 
 ### DbCheck
 
-`DbCheck` 由 `@adonisjs/lucid` 包提供，用于监控与 SQL 数据库的连接。您可以按如下方式导入和使用它。
+`DbCheck` 由 `@adonisjs/lucid` 包提供，用于监控与 SQL 数据库的连接。你可以按如下方式导入和使用它。
 
 ```ts
 // insert-start
@@ -304,7 +304,7 @@ export const healthChecks = new HealthChecks().register([
 }
 ```
 
-`DbCheck` 类接受一个数据库连接以进行监控。如果您想监控多个连接，请为每个连接多次注册此检查。例如：
+`DbCheck` 类接受一个数据库连接以进行监控。如果你想监控多个连接，请为每个连接多次注册此检查。例如：
 
 ```ts
 // title: Monitoring multiple connections
@@ -364,7 +364,7 @@ export const healthChecks = new HealthChecks().register([
 }
 ```
 
-默认情况下，警告阈值设置为 **10 个连接**，故障阈值设置为 **15 个连接**。不过，您也可以定义自定义阈值。
+默认情况下，警告阈值设置为 **10 个连接**，故障阈值设置为 **15 个连接**。不过，你也可以定义自定义阈值。
 
 ```ts
 new DbConnectionCountCheck(db.connection())
@@ -374,7 +374,7 @@ new DbConnectionCountCheck(db.connection())
 
 ### RedisCheck
 
-`RedisCheck` 由 `@adonisjs/redis` 包提供，用于监控与 Redis 数据库（包括集群）的连接。您可以按如下方式导入和使用它。
+`RedisCheck` 由 `@adonisjs/redis` 包提供，用于监控与 Redis 数据库（包括集群）的连接。你可以按如下方式导入和使用它。
 
 ```ts
 // insert-start
@@ -411,7 +411,7 @@ export const healthChecks = new HealthChecks().register([
 }
 ```
 
-`RedisCheck` 类接受一个 Redis 连接以进行监控。如果您想监控多个连接，请为每个连接多次注册此检查。例如：
+`RedisCheck` 类接受一个 Redis 连接以进行监控。如果你想监控多个连接，请为每个连接多次注册此检查。例如：
 
 ```ts
 // title: Monitoring multiple connections
@@ -471,7 +471,7 @@ export const healthChecks = new HealthChecks().register([
 }
 ```
 
-默认情况下，警告阈值设置为 **100MB**，失败阈值设置为 **120MB**。但是，您也可以定义自定义阈值。
+默认情况下，警告阈值设置为 **100MB**，失败阈值设置为 **120MB**。但是，你也可以定义自定义阈值。
 
 ```ts
 new RedisMemoryUsageCheck(db.connection())
@@ -481,11 +481,11 @@ new RedisMemoryUsageCheck(db.connection())
 
 ## 缓存结果
 
-每次调用 `healthChecks.run` 方法（即访问 `/health` 端点）时，都会执行健康检查。您可能希望频繁地 ping `/health` 端点，但希望避免每次访问都执行某些检查。
+每次调用 `healthChecks.run` 方法（即访问 `/health` 端点）时，都会执行健康检查。你可能希望频繁地 ping `/health` 端点，但希望避免每次访问都执行某些检查。
 
 例如，每分钟监控磁盘空间并不是很有用，但每分钟跟踪内存可能很有帮助。
 
-因此，我们允许您在注册单个健康检查时缓存其结果。例如：
+因此，我们允许你在注册单个健康检查时缓存其结果。例如：
 
 ```ts
 import {
@@ -506,7 +506,7 @@ export const healthChecks = new HealthChecks().register([
 
 ## 创建自定义健康检查
 
-您可以创建一个自定义健康检查，作为遵循 [HealthCheckContract](https://github.com/adonisjs/health/blob/develop/src/types.ts#L98) 接口的 JavaScript 类。您可以在项目或包的任何位置定义健康检查，并在 `start/health.ts` 文件中导入它以进行注册。
+你可以创建一个自定义健康检查，作为遵循 [HealthCheckContract](https://github.com/adonisjs/health/blob/develop/src/types.ts#L98) 接口的 JavaScript 类。你可以在项目或包的任何位置定义健康检查，并在 `start/health.ts` 文件中导入它以进行注册。
 
 ```ts
 import { Result, BaseCheck } from '@adonisjs/core/health'
@@ -530,7 +530,7 @@ export class ExampleCheck extends BaseCheck {
 }
 ```
 
-如上述示例所示，您可以使用 [Result](https://github.com/adonisjs/health/blob/develop/src/result.ts) 类来创建健康检查结果。此外，您还可以按如下方式合并结果的元数据。
+如上述示例所示，你可以使用 [Result](https://github.com/adonisjs/health/blob/develop/src/result.ts) 类来创建健康检查结果。此外，你还可以按如下方式合并结果的元数据。
 
 ```ts
 Result.ok('数据库连接正常').mergeMetaData({
@@ -543,7 +543,7 @@ Result.ok('数据库连接正常').mergeMetaData({
 
 ### 注册自定义健康检查
 
-您可以在 `start/health.ts` 文件中导入自定义健康检查类，并通过创建新的类实例来注册它。
+你可以在 `start/health.ts` 文件中导入自定义健康检查类，并通过创建新的类实例来注册它。
 
 ```ts
 // highlight-start

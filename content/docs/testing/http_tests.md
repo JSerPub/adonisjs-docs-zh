@@ -8,7 +8,7 @@ HTTP 测试指的是通过向应用程序端点发送实际的 HTTP 请求，并
 
 HTTP 测试是使用 Japa 的 [API 客户端插件](https://japa.dev/docs/plugins/api-client) 进行的。API 客户端插件是一个无状态的请求库，类似于 `Axios` 或 `fetch`，但更适合用于测试。
 
-如果您想在真实的浏览器中测试您的 Web 应用程序，并以编程方式与它们交互，我们建议使用 [浏览器客户端](./browser_tests.md)，它使用 Playwright 进行测试。
+如果你想在真实的浏览器中测试你的 Web 应用程序，并以编程方式与它们交互，我们建议使用 [浏览器客户端](./browser_tests.md)，它使用 Playwright 进行测试。
 
 ## 设置
 
@@ -54,9 +54,9 @@ export const plugins: Config['plugins'] = [
 
 ## 基本示例
 
-注册 `apiClient` 插件后，您可以从 [TestContext](https://japa.dev/docs/test-context) 访问 `client` 对象以发起 HTTP 请求。
+注册 `apiClient` 插件后，你可以从 [TestContext](https://japa.dev/docs/test-context) 访问 `client` 对象以发起 HTTP 请求。
 
-HTTP 测试必须写在为 `functional` 测试套件配置的文件夹中。您可以使用以下命令创建一个新的测试文件。
+HTTP 测试必须写在为 `functional` 测试套件配置的文件夹中。你可以使用以下命令创建一个新的测试文件。
 
 ```sh
 node ace make:test users/list --suite=functional
@@ -86,15 +86,15 @@ test.group('Users list', () => {
 
 ## OpenAPI 测试
 
-断言和 API 客户端插件允许您使用 OpenAPI 规范文件来编写断言。您可以使用规范文件来测试 HTTP 响应的结构，而不是手动将响应与固定负载进行测试。
+断言和 API 客户端插件允许你使用 OpenAPI 规范文件来编写断言。你可以使用规范文件来测试 HTTP 响应的结构，而不是手动将响应与固定负载进行测试。
 
-这是保持您的 OpenAPI 规范和服务器响应同步的好方法。因为如果您从规范文件中删除某个端点或更改响应数据结构，您的测试将会失败。
+这是保持你的 OpenAPI 规范和服务器响应同步的好方法。因为如果你从规范文件中删除某个端点或更改响应数据结构，你的测试将会失败。
 
 ### 注册模式
 
-AdonisJS 不提供从代码生成 OpenAPI 模式文件的工具。您可以手动编写，或使用图形化工具来创建它。
+AdonisJS 不提供从代码生成 OpenAPI 模式文件的工具。你可以手动编写，或使用图形化工具来创建它。
 
-一旦您有了规范文件，请将其保存在 `resources` 目录中（如果该目录不存在，请创建它），并在 `tests/bootstrap.ts` 文件中使用 `assert` 插件进行注册。
+一旦你有了规范文件，请将其保存在 `resources` 目录中（如果该目录不存在，请创建它），并在 `tests/bootstrap.ts` 文件中使用 `assert` 插件进行注册。
 
 ```ts
 // title: tests/bootstrap.ts
@@ -115,7 +115,7 @@ export const plugins: Config['plugins'] = [
 
 ### 编写断言
 
-注册模式后，您可以使用 `response.assertAgainstApiSpec` 方法来根据 API 规范进行断言。
+注册模式后，你可以使用 `response.assertAgainstApiSpec` 方法来根据 API 规范进行断言。
 
 ```ts
 test('paginate posts', async ({ client }) => {
@@ -127,7 +127,7 @@ test('paginate posts', async ({ client }) => {
 - `response.assertAgainstApiSpec` 方法将使用 **请求方法**、**端点** 和 **响应状态码** 来查找预期的响应模式。
 - 如果找不到响应模式，将抛出异常。否则，将根据模式验证响应体。
 
-仅测试响应的结构，而不测试实际值。因此，您可能需要编写额外的断言。例如：
+仅测试响应的结构，而不测试实际值。因此，你可能需要编写额外的断言。例如：
 
 ```ts
 // 断言响应符合模式
@@ -141,7 +141,7 @@ response.assertBodyContains({
 
 ## 读取/写入 Cookie
 
-您可以使用 `withCookie` 方法在 HTTP 请求期间发送 Cookie。该方法接受 Cookie 名称作为第一个参数，值作为第二个参数。
+你可以使用 `withCookie` 方法在 HTTP 请求期间发送 Cookie。该方法接受 Cookie 名称作为第一个参数，值作为第二个参数。
 
 ```ts
 await client
@@ -149,7 +149,7 @@ await client
   .withCookie('user_preferences', { limit: 10 })
 ```
 
-`withCookie` 方法定义了一个 [签名 Cookie](../basics/cookies.md#signed-cookies)。此外，您可以使用 `withEncryptedCookie` 或 `withPlainCookie` 方法向服务器发送其他类型的 Cookie。
+`withCookie` 方法定义了一个 [签名 Cookie](../basics/cookies.md#signed-cookies)。此外，你可以使用 `withEncryptedCookie` 或 `withPlainCookie` 方法向服务器发送其他类型的 Cookie。
 
 ```ts
 await client
@@ -165,14 +165,14 @@ await client
 
 ### 从响应中读取 Cookie
 
-您可以使用 `response.cookies` 方法访问 AdonisJS 服务器设置的 Cookie。该方法返回一个包含 Cookie 的键值对对象。
+你可以使用 `response.cookies` 方法访问 AdonisJS 服务器设置的 Cookie。该方法返回一个包含 Cookie 的键值对对象。
 
 ```ts
 const response = await client.get('/users')
 console.log(response.cookies())
 ```
 
-您可以使用 `response.cookie` 方法通过名称访问单个 Cookie 的值。或者使用 `assertCookie` 方法来断言 Cookie 的值。
+你可以使用 `response.cookie` 方法通过名称访问单个 Cookie 的值。或者使用 `assertCookie` 方法来断言 Cookie 的值。
 
 ```ts
 const response = await client.get('/users')
@@ -184,7 +184,7 @@ response.assertCookie('user_preferences')
 
 ## 填充会话存储
 
-如果您在应用程序中使用 [`@adonisjs/session`](../basics/session.md) 包来读取/写入会话数据，那么在编写测试时，您可能还想使用 `sessionApiClient` 插件来填充会话存储。
+如果你在应用程序中使用 [`@adonisjs/session`](../basics/session.md) 包来读取/写入会话数据，那么在编写测试时，你可能还想使用 `sessionApiClient` 插件来填充会话存储。
 
 ### 设置
 
@@ -214,9 +214,9 @@ SESSION_DRIVER=memory
 
 ### 使用会话数据发起请求
 
-您可以在 Japa API 客户端上使用 `withSession` 方法，以一些预定义的会话数据发起 HTTP 请求。
+你可以在 Japa API 客户端上使用 `withSession` 方法，以一些预定义的会话数据发起 HTTP 请求。
 
-`withSession` 方法将创建一个新的会话 ID，并用数据填充内存存储，您的 AdonisJS 应用程序代码可以像平常一样读取会话数据。
+`withSession` 方法将创建一个新的会话 ID，并用数据填充内存存储，你的 AdonisJS 应用程序代码可以像平常一样读取会话数据。
 
 请求完成后，会话 ID 及其数据将被销毁。
 

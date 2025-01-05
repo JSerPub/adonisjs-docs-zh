@@ -6,7 +6,7 @@ summary: 学习如何在 AdonisJS 应用程序中使用环境变量。
 
 环境变量用于在应用程序代码库之外存储机密信息，如数据库密码、应用程序密钥或 API 密钥。
 
-此外，环境变量还可以用于为不同环境提供不同的配置。例如，您可能在测试期间使用内存邮件发送器，在开发期间使用 SMTP 邮件发送器，而在生产环境中使用第三方服务。
+此外，环境变量还可以用于为不同环境提供不同的配置。例如，你可能在测试期间使用内存邮件发送器，在开发期间使用 SMTP 邮件发送器，而在生产环境中使用第三方服务。
 
 由于所有操作系统、部署平台和 CI/CD 管道都支持环境变量，它们已成为存储机密信息和特定于环境的配置的实际标准。
 
@@ -14,7 +14,7 @@ summary: 学习如何在 AdonisJS 应用程序中使用环境变量。
 
 ## 读取环境变量
 
-Node.js 通过 [`process.env` 全局属性](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) 原生地将所有环境变量作为一个对象暴露出来，您可以通过以下方式访问它们：
+Node.js 通过 [`process.env` 全局属性](https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_env) 原生地将所有环境变量作为一个对象暴露出来，你可以通过以下方式访问它们：
 
 ```dotenv
 process.env.NODE_ENV
@@ -30,7 +30,7 @@ process.env.PORT
 - 在应用程序启动时立即验证环境变量。
 - 为经过验证的环境变量提供静态类型安全性。
 
-env 模块在 `start/env.ts` 文件中实例化，您可以在应用程序中的其他地方按如下方式访问它。
+env 模块在 `start/env.ts` 文件中实例化，你可以在应用程序中的其他地方按如下方式访问它。
 
 ```ts
 import env from '#start/env'
@@ -45,9 +45,9 @@ env.get('PORT', 3333)
 
 ### 在 Edge 模板中共享 env 模块
 
-如果您想在Edge模板中访问环境变量，那么您必须将 `env` 模块作为全局变量与 Edge 模板共享。
+如果你想在Edge模板中访问环境变量，那么你必须将 `env` 模块作为全局变量与 Edge 模板共享。
 
-您可以在 `start` 目录中 [创建一个 `view.ts` 作为预加载文件](../concepts/adonisrc_file.md#preloads)，并在其中编写以下代码行。
+你可以在 `start` 目录中 [创建一个 `view.ts` 作为预加载文件](../concepts/adonisrc_file.md#preloads)，并在其中编写以下代码行。
 
 ```ts
 // title: start/view.ts
@@ -61,7 +61,7 @@ edge.global('env', env)
 
 环境变量的验证规则是在 `start/env.ts` 文件中使用 `Env.create` 方法定义的。
 
-当您首次导入此文件时，验证会自动执行。通常，`start/env.ts` 文件是由您项目中的某个配置文件导入的。如果不是，那么 AdonisJS 会在[启动应用程序之前](https://github.com/adonisjs/slim-starter-kit/blob/main/bin/server.ts#L34-L36)隐式地导入此文件。
+当你首次导入此文件时，验证会自动执行。通常，`start/env.ts` 文件是由你项目中的某个配置文件导入的。如果不是，那么 AdonisJS 会在[启动应用程序之前](https://github.com/adonisjs/slim-starter-kit/blob/main/bin/server.ts#L34-L36)隐式地导入此文件。
 
 `Env.create` 方法接受一个键值对作为验证模式。
 
@@ -131,7 +131,7 @@ export default await Env.create(APP_ROOT, {
 
 #### url
 
-验证该值是否为有效的 URL。可选地，您可以通过允许没有 `protocol` 或 `tld` 的 URL 来放宽验证的严格性。
+验证该值是否为有效的 URL。可选地，你可以通过允许没有 `protocol` 或 `tld` 的 URL 来放宽验证的严格性。
 
 ```ts
 {
@@ -257,9 +257,9 @@ CACHE_VIEWS=false
 
 ### 在生产环境中
 
-建议在生产环境中使用您的部署平台来定义环境变量。大多数现代的部署平台都支持通过其 Web UI 来定义环境变量。
+建议在生产环境中使用你的部署平台来定义环境变量。大多数现代的部署平台都支持通过其 Web UI 来定义环境变量。
 
-如果您的部署平台不提供定义环境变量的方式。您可以在项目根目录或生产服务器上的其他位置创建一个 `.env` 文件。
+如果你的部署平台不提供定义环境变量的方式。你可以在项目根目录或生产服务器上的其他位置创建一个 `.env` 文件。
 
 AdonisJS 会自动从项目根目录读取 `.env` 文件。但是，如果`.env` 文件存储在其他位置，则必须设置 `ENV_PATH` 变量。
 
@@ -298,7 +298,7 @@ env.get('SESSION_DRIVER') // memory
 
 ## 所有其他 dot-env 文件
 
-除了 `.env` 文件外，AdonisJS 还会处理以下点环境文件中的环境变量。因此，您可以根据需要选择性地创建这些文件。
+除了 `.env` 文件外，AdonisJS 还会处理以下点环境文件中的环境变量。因此，你可以根据需要选择性地创建这些文件。
 
 排名最靠前的文件会覆盖排名较低的文件中的值。
 
@@ -340,7 +340,7 @@ env.get('SESSION_DRIVER') // memory
 
 ## 在 dot-env 文件中使用变量
 
-在 dot-env 文件中，您可以使用变量替换语法引用其他环境变量。
+在 dot-env 文件中，你可以使用变量替换语法引用其他环境变量。
 
 在以下示例中，我们根据 HOST 和 PORT 属性计算 APP_URL。
 

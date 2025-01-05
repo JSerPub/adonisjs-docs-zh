@@ -1,12 +1,12 @@
 ---
-summary: 了解如何使用 @adonisjs/shield 包保护您的服务器端渲染应用程序。
+summary: 了解如何使用 @adonisjs/shield 包保护你的服务器端渲染应用程序。
 ---
 
 # 保护服务器端渲染应用程序
 
-如果您正在使用 AdonisJS 创建服务器端渲染的应用程序，那么您必须使用 `@adonisjs/shield` 包来保护您的应用程序免受常见的网络攻击，如 **CSRF**、**XSS**、**内容嗅探**等。
+如果你正在使用 AdonisJS 创建服务器端渲染的应用程序，那么你必须使用 `@adonisjs/shield` 包来保护你的应用程序免受常见的网络攻击，如 **CSRF**、**XSS**、**内容嗅探**等。
 
-该包在 **web 入门套件** 中预配置。但是，您可以按以下方式手动安装和配置该包。
+该包在 **web 入门套件** 中预配置。但是，你可以按以下方式手动安装和配置该包。
 
 :::note
 `@adonisjs/shield` 包对 `@adonisjs/session` 包有同等依赖，因此请确保首先 [配置 session 包](../basics/session.md)。
@@ -43,13 +43,13 @@ node ace add @adonisjs/shield
 
 ## CSRF 保护
 
-[CSRF（跨站请求伪造）](https://owasp.org/www-community/attacks/csrf) 是一种攻击，恶意网站诱骗您的网页应用用户在没有明确同意的情况下执行表单提交。
+[CSRF（跨站请求伪造）](https://owasp.org/www-community/attacks/csrf) 是一种攻击，恶意网站诱骗你的网页应用用户在没有明确同意的情况下执行表单提交。
 
-为了防范 CSRF 攻击，您应该定义一个隐藏的输入字段来保存 CSRF 令牌值，该值只有您的网站可以生成和验证。因此，由恶意网站触发的表单提交将失败。
+为了防范 CSRF 攻击，你应该定义一个隐藏的输入字段来保存 CSRF 令牌值，该值只有你的网站可以生成和验证。因此，由恶意网站触发的表单提交将失败。
 
 ### 保护表单
 
-一旦配置了 `@adonisjs/shield` 包，所有没有 CSRF 令牌的表单提交将自动失败。因此，您必须使用 `csrfField` 边缘助手来定义一个包含 CSRF 令牌的隐藏输入字段。
+一旦配置了 `@adonisjs/shield` 包，所有没有 CSRF 令牌的表单提交将自动失败。因此，你必须使用 `csrfField` 边缘助手来定义一个包含 CSRF 令牌的隐藏输入字段。
 
 :::caption{for="info"}
 **边缘助手**
@@ -86,7 +86,7 @@ node ace add @adonisjs/shield
 
 当 CSRF 令牌缺失或无效时，Shield 会引发 `E_BAD_CSRF_TOKEN` 异常。默认情况下，AdonisJS 会捕获该异常并将用户重定向回表单，并附带错误闪存消息。
 
-您可以在边缘模板中按以下方式访问闪存消息。
+你可以在边缘模板中按以下方式访问闪存消息。
 
 ```edge
 // highlight-start
@@ -102,7 +102,7 @@ node ace add @adonisjs/shield
 </form>
 ```
 
-您还可以在 [全局异常处理程序](../basics/exception_handling.md#handling-exceptions) 中自行处理 `E_BAD_CSRF_TOKEN` 异常，如下所示。
+你还可以在 [全局异常处理程序](../basics/exception_handling.md#handling-exceptions) 中自行处理 `E_BAD_CSRF_TOKEN` 异常，如下所示。
 
 ```ts
 import app from '@adonisjs/core/services/app'
@@ -164,9 +164,9 @@ exceptRoutes
 
 <dd>
 
-免于 CSRF 保护的路由模式数组。如果您的应用程序有通过 API 接受表单提交的路由，您可能希望免除它们。
+免于 CSRF 保护的路由模式数组。如果你的应用程序有通过 API 接受表单提交的路由，你可能希望免除它们。
 
-对于更高级的使用场景，您可以注册一个函数来动态免除特定路由。
+对于更高级的使用场景，你可以注册一个函数来动态免除特定路由。
 
 ```ts
 {
@@ -191,7 +191,7 @@ enableXsrfCookie
 
 这允许前端请求库（如 Axios）自动读取 `XSRF-TOKEN` 并在发起 Ajax 请求时将其作为 `X-XSRF-TOKEN` 标头设置，而无需服务器渲染的表单。
 
-如果您不是通过编程方式触发 Ajax 请求，则必须禁用 `enableXsrfCookie`。
+如果你不是通过编程方式触发 Ajax 请求，则必须禁用 `enableXsrfCookie`。
 
 </dd>
 
@@ -222,9 +222,9 @@ cookieOptions
 </dl>
 
 ## 定义 CSP 策略
-[CSP (Content security policy)](https://web.dev/csp/) 通过定义加载 JavaScript、CSS、字体、图像等的可信来源，保护您的应用程序免受 XSS 攻击。
+[CSP (Content security policy)](https://web.dev/csp/) 通过定义加载 JavaScript、CSS、字体、图像等的可信来源，保护你的应用程序免受 XSS 攻击。
 
-CSP 防护默认是禁用的。然而，我们建议您启用它，并在 `config/shield.ts` 文件中配置策略指令。
+CSP 防护默认是禁用的。然而，我们建议你启用它，并在 `config/shield.ts` 文件中配置策略指令。
 
 ```ts
 import { defineConfig } from '@adonisjs/shield'
@@ -264,7 +264,7 @@ directives
 
 <dd>
 
-配置 CSP 指令。您可以在 [https://content-security-policy.com/](https://content-security-policy.com/#directive) 查看可用指令的列表。
+配置 CSP 指令。你可以在 [https://content-security-policy.com/](https://content-security-policy.com/#directive) 查看可用指令的列表。
 
 ```ts
 const shieldConfig = defineConfig({
@@ -325,7 +325,7 @@ router.post('/csp-report', async ({ request }) => {
 </dl>
 
 ### 使用 Nonce
-您可以通过在 `script` 和 `style` 标签上定义 [nonce 属性](https://content-security-policy.com/nonce/) 来允许内联标签。在 Edge 模板中，可以使用 `cspNonce` 属性访问 nonce 属性的值。
+你可以通过在 `script` 和 `style` 标签上定义 [nonce 属性](https://content-security-policy.com/nonce/) 来允许内联标签。在 Edge 模板中，可以使用 `cspNonce` 属性访问 nonce 属性的值。
 
 ```edge
 <script nonce="{{ cspNonce }}">
@@ -349,7 +349,7 @@ const shieldConfig = defineConfig({
 ```
 
 ### 从 Vite Dev 服务器加载资源
-如果您正在使用 [Vite 集成](../basics/vite.md)，可以使用以下 CSP 关键字来允许由 Vite Dev 服务器提供的资源。
+如果你正在使用 [Vite 集成](../basics/vite.md)，可以使用以下 CSP 关键字来允许由 Vite Dev 服务器提供的资源。
 
 - `@viteDevUrl` 将 Vite dev 服务器 URL 添加到允许列表中。
 - `@viteHmrUrl` 将 Vite HMR websocket 服务器 URL 添加到允许列表中。
@@ -365,7 +365,7 @@ const shieldConfig = defineConfig({
 })
 ```
 
-如果您将 Vite 打包的输出部署到 CDN 服务器，则必须用 `@viteUrl` 关键字替换 `@viteDevUrl`，以允许来自开发服务器和 CDN 服务器的资源。
+如果你将 Vite 打包的输出部署到 CDN 服务器，则必须用 `@viteUrl` 关键字替换 `@viteDevUrl`，以允许来自开发服务器和 CDN 服务器的资源。
 
 ```ts
 directives: {
@@ -385,7 +385,7 @@ directives: {
 ## 配置 HSTS
 [**Strict-Transport-Security (HSTS)**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) 响应头指示浏览器始终使用 HTTPS 加载网站。
 
-您可以使用 `config/shield.ts` 文件配置头指令。
+你可以使用 `config/shield.ts` 文件配置头指令。
 
 ```ts
 import { defineConfig } from '@adonisjs/shield'
@@ -458,11 +458,11 @@ includeSubDomains
 
 :::note
 
-如果您已配置 CSP，则可以使用 [frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) 指令，并禁用 `xFrame` 防护。
+如果你已配置 CSP，则可以使用 [frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors) 指令，并禁用 `xFrame` 防护。
 
 :::
 
-您可以使用 `config/shield.ts` 文件配置头指令。
+你可以使用 `config/shield.ts` 文件配置头指令。
 
 ```ts
 import { defineConfig } from '@adonisjs/shield'
@@ -505,7 +505,7 @@ action
 }
 ```
 
-在 `ALLOW-FROM` 的情况下，您还必须定义 `domain` 属性。
+在 `ALLOW-FROM` 的情况下，你还必须定义 `domain` 属性。
 
 ```ts
 {

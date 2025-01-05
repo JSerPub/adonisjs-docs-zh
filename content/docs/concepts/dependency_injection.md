@@ -252,7 +252,7 @@ console.log(cache.get('foo')) // 返回 foo!
 
 容器绑定用于特定的用例，例如注册包导出的单例服务或在自动依赖注入不足时自我构造类实例。
 
-我们建议您不要通过将所有内容都注册到容器中而使应用程序变得不必要的复杂。相反，在考虑使用容器绑定之前，请在应用程序代码中寻找特定的用例。
+我们建议你不要通过将所有内容都注册到容器中而使应用程序变得不必要的复杂。相反，在考虑使用容器绑定之前，请在应用程序代码中寻找特定的用例。
 
 以下是框架包中使用容器绑定的一些示例。
 
@@ -261,13 +261,13 @@ console.log(cache.get('foo')) // 返回 foo!
 
 :::important
 
-容器绑定的概念在JavaScript生态系统中并不常用。因此，欢迎[加入我们的 Discord 社区](https://discord.gg/vDcEjq6)来澄清您的疑问。
+容器绑定的概念在JavaScript生态系统中并不常用。因此，欢迎[加入我们的 Discord 社区](https://discord.gg/vDcEjq6)来澄清你的疑问。
 
 :::
 
 ### 在工厂函数内解析绑定
 
-您可以在绑定工厂函数内从容器中解析其他绑定。例如，如果 `MyFakeCache` 类需要从 `config/cache.ts` 文件中获取配置，您可以按以下方式访问它。
+你可以在绑定工厂函数内从容器中解析其他绑定。例如，如果 `MyFakeCache` 类需要从 `config/cache.ts` 文件中获取配置，你可以按以下方式访问它。
 
 ```ts
 this.app.container.bind('cache', async (resolver) => {
@@ -282,7 +282,7 @@ this.app.container.bind('cache', async (resolver) => {
 
 单例是那些工厂函数只被调用一次的绑定，其返回值在应用程序的生命周期内被缓存。
 
-您可以使用`container.singleton`方法注册单例绑定。
+你可以使用`container.singleton`方法注册单例绑定。
 
 ```ts
 this.app.container.singleton('cache', async (resolver) => {
@@ -295,7 +295,7 @@ this.app.container.singleton('cache', async (resolver) => {
 
 ### 绑定值
 
-您可以使用`container.bindValue`方法直接将值绑定到容器中。
+你可以使用`container.bindValue`方法直接将值绑定到容器中。
 
 ```ts
 this.app.container.bindValue('cache', new MyFakeCache())
@@ -303,7 +303,7 @@ this.app.container.bindValue('cache', new MyFakeCache())
 
 ### 别名
 
-您可以使用`alias`方法为绑定定义别名。该方法接受别名名称作为第一个参数，并将对现有绑定或类构造函数的引用作为别名值。
+你可以使用`alias`方法为绑定定义别名。该方法接受别名名称作为第一个参数，并将对现有绑定或类构造函数的引用作为别名值。
 
 ```ts
 this.app.container.singleton(MyFakeCache, async () => {
@@ -315,7 +315,7 @@ this.app.container.alias('cache', MyFakeCache)
 
 ### 为绑定定义静态类型
 
-您可以使用[TypeScript声明合并](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)为绑定定义静态类型信息。
+你可以使用[TypeScript声明合并](https://www.typescriptlang.org/docs/handbook/declaration-merging.html)为绑定定义静态类型信息。
 
 类型在`ContainerBindings`接口上定义为键值对。
 
@@ -327,19 +327,19 @@ declare module '@adonisjs/core/types' {
 }
 ```
 
-如果您创建一个包，可以在服务提供者文件中编写上述代码块。
+如果你创建一个包，可以在服务提供者文件中编写上述代码块。
 
-在您的 AdonisJS 应用程序中，您可以在 `types/container.ts` 文件中编写上述代码块。
+在你的 AdonisJS 应用程序中，你可以在 `types/container.ts` 文件中编写上述代码块。
 
 ## 创建抽象层
 
-容器允许您为应用程序创建抽象层。您可以为接口定义绑定，并将其解析为具体实现。
+容器允许你为应用程序创建抽象层。你可以为接口定义绑定，并将其解析为具体实现。
 
 :::note
-当您希望将六边形架构（也称为端口和适配器原则）应用于应用程序时，此方法非常有用。
+当你希望将六边形架构（也称为端口和适配器原则）应用于应用程序时，此方法非常有用。
 :::
 
-由于 TypeScript 接口在运行时不存在，因此您必须使用抽象类构造函数作为接口。
+由于 TypeScript 接口在运行时不存在，因此你必须使用抽象类构造函数作为接口。
 
 ```ts
 export abstract class PaymentService {
@@ -348,7 +348,7 @@ export abstract class PaymentService {
 }
 ```
 
-接下来，您可以创建`PaymentService`接口的具体实现。
+接下来，你可以创建`PaymentService`接口的具体实现。
 
 ```ts
 import { PaymentService } from '#contracts/payment_service'
@@ -364,7 +364,7 @@ export class StripePaymentService implements PaymentService {
 }
 ```
 
-现在，您可以在`AppProvider`中的容器内注册`PaymentService`接口和`StripePaymentService`具体实现。
+现在，你可以在`AppProvider`中的容器内注册`PaymentService`接口和`StripePaymentService`具体实现。
 
 ```ts
 // 标题：providers/app_provider.ts
@@ -381,7 +381,7 @@ export default class AppProvider {
 }
 ```
 
-最后，您可以从容器中解析`PaymentService`接口，并在应用程序中使用它。
+最后，你可以从容器中解析`PaymentService`接口，并在应用程序中使用它。
 
 ```ts
 import { PaymentService } from '#contracts/payment_service'
@@ -401,7 +401,7 @@ export default class PaymentController {
 
 ## 测试期间替换实现
 
-当您依赖容器来解析依赖树时，您对该树中的类控制较少或无控制。因此，模拟/伪造这些类可能会变得更难。
+当你依赖容器来解析依赖树时，你对该树中的类控制较少或无控制。因此，模拟/伪造这些类可能会变得更难。
 
 在下面的示例中，`UsersController.index`方法接受`UserService`类的一个实例，并且我们使用`@inject`装饰器来解析依赖并将其传递给`index`方法。
 
@@ -415,9 +415,9 @@ export default class UsersController {
 }
 ```
 
-假设在测试期间，您不想使用实际的`UserService`，因为它会发出外部HTTP请求。相反，您想使用一个伪造的实现。
+假设在测试期间，你不想使用实际的`UserService`，因为它会发出外部HTTP请求。相反，你想使用一个伪造的实现。
 
-但首先，看看您可能会编写的用于测试`UsersController`的代码。
+但首先，看看你可能会编写的用于测试`UsersController`的代码。
 
 ```ts
 import UserService from '#services/user_service'
@@ -433,9 +433,9 @@ test('获取所有用户', async ({ client }) => {
 
 在上面的测试中，我们通过HTTP请求与`UsersController`进行交互，并且无法直接控制它。
 
-容器提供了一个简单的API来用伪造实现替换类。您可以使用`container.swap`方法定义替换。
+容器提供了一个简单的API来用伪造实现替换类。你可以使用`container.swap`方法定义替换。
 
-`container.swap`方法接受您想要替换的类构造函数，然后是一个工厂函数来返回替代实现。
+`container.swap`方法接受你想要替换的类构造函数，然后是一个工厂函数来返回替代实现。
 
 ```ts
 import UserService from '#services/user_service'
@@ -463,7 +463,7 @@ test('获取所有用户', async ({ client }) => {
 })
 ```
 
-一旦定义了替换，容器将使用它而不是实际类。您可以使用 `container.restore` 方法恢复原始实现。
+一旦定义了替换，容器将使用它而不是实际类。你可以使用 `container.restore` 方法恢复原始实现。
 
 ```ts
 app.container.restore(UserService)
@@ -477,7 +477,7 @@ app.container.restoreAll()
 
 ## 上下文依赖
 
-上下文依赖允许您定义如何为给定类解析依赖。例如，您有两个服务依赖于 Drive Disk 类。
+上下文依赖允许你定义如何为给定类解析依赖。例如，你有两个服务依赖于 Drive Disk 类。
 
 ```ts
 import { Disk } from '@adonisjs/drive'
@@ -495,7 +495,7 @@ export default class PostService {
 }
 ```
 
-您希望`UserService`接收一个带有GCS驱动程序的磁盘实例，而`PostService`接收一个带有S3驱动程序的磁盘实例。您可以使用上下文依赖来实现这一点。
+你希望`UserService`接收一个带有GCS驱动程序的磁盘实例，而`PostService`接收一个带有S3驱动程序的磁盘实例。你可以使用上下文依赖来实现这一点。
 
 以下代码必须编写在服务提供者的`register`方法中。
 

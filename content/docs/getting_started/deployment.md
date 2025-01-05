@@ -4,13 +4,13 @@ summary: 了解在生产环境中部署 AdonisJS 应用程序的一般指南。
 
 # 部署
 
-部署 AdonisJS 应用程序与部署标准 Node.js 应用程序没有区别。您需要一台运行 `Node.js >= 20.6` 的服务器，以及 `npm` 来安装生产依赖项。
+部署 AdonisJS 应用程序与部署标准 Node.js 应用程序没有区别。你需要一台运行 `Node.js >= 20.6` 的服务器，以及 `npm` 来安装生产依赖项。
 
 本指南将介绍在生产环境中部署和运行 AdonisJS 应用程序的一般指南。
 
 ## 创建生产构建
 
-作为第一步，您必须通过运行 `build` 命令来创建 AdonisJS 应用程序的生产构建。
+作为第一步，你必须通过运行 `build` 命令来创建 AdonisJS 应用程序的生产构建。
 
 另请参阅：[TypeScript 构建过程](../concepts/typescript_build_process.md)
 
@@ -18,13 +18,13 @@ summary: 了解在生产环境中部署 AdonisJS 应用程序的一般指南。
 node ace build
 ```
 
-编译输出将写入 `./build` 目录。如果您使用 Vite，其输出将写入 `./build/public` 目录。
+编译输出将写入 `./build` 目录。如果你使用 Vite，其输出将写入 `./build/public` 目录。
 
-创建生产构建后，您可以将 `./build` 文件夹复制到生产服务器。**从现在开始，构建文件夹将是您应用程序的根目录**。
+创建生产构建后，你可以将 `./build` 文件夹复制到生产服务器。**从现在开始，构建文件夹将是你应用程序的根目录**。
 
 ### 创建 Docker 镜像
 
-如果您使用 Docker 来部署应用程序，可以使用以下 `Dockerfile` 创建一个 Docker 镜像。
+如果你使用 Docker 来部署应用程序，可以使用以下 `Dockerfile` 创建一个 Docker 镜像。
 
 ```dockerfile
 FROM node:20.12.2-alpine3.18 AS base
@@ -62,9 +62,9 @@ CMD ["node", "./bin/server.js"]
 
 ## 配置反向代理
 
-Node.js 应用程序通常部署在像 Nginx 这样的反向代理服务器后面。因此，端口 `80` 和 `443` 上的传入流量将由 Nginx 首先处理，然后转发到您的 Node.js 应用程序。
+Node.js 应用程序通常部署在像 Nginx 这样的反向代理服务器后面。因此，端口 `80` 和 `443` 上的传入流量将由 Nginx 首先处理，然后转发到你的 Node.js 应用程序。
 
-以下是一个 Nginx 配置文件示例，您可以将其作为基础。
+以下是一个 Nginx 配置文件示例，你可以将其作为基础。
 
 :::warning
 请确保替换尖括号 `<>` 内的值。
@@ -93,13 +93,13 @@ server {
 
 ## 定义环境变量
 
-如果您在裸机服务器（如 DigitalOcean Droplet 或 EC2 实例）上部署应用程序，可以使用 `.env` 文件来定义环境变量。请确保安全存储该文件，并且只有授权用户可以访问它。
+如果你在裸机服务器（如 DigitalOcean Droplet 或 EC2 实例）上部署应用程序，可以使用 `.env` 文件来定义环境变量。请确保安全存储该文件，并且只有授权用户可以访问它。
 
 :::note
-如果您使用 Heroku 或 Cleavr 等部署平台，可以使用它们的控制面板来定义环境变量。
+如果你使用 Heroku 或 Cleavr 等部署平台，可以使用它们的控制面板来定义环境变量。
 :::
 
-假设您已在 `/etc/secrets` 目录中创建了 `.env` 文件，您必须以如下方式启动生产服务器。
+假设你已在 `/etc/secrets` 目录中创建了 `.env` 文件，你必须以如下方式启动生产服务器。
 
 ```sh
 ENV_PATH=/etc/secrets node build/bin/server.js
@@ -109,13 +109,13 @@ ENV_PATH=/etc/secrets node build/bin/server.js
 
 ## 启动生产服务器
 
-您可以通过运行 `node server.js` 文件来启动生产服务器。但是，建议使用像 [pm2](https://pm2.keymetrics.io/docs/usage/quick-start) 这样的进程管理器。
+你可以通过运行 `node server.js` 文件来启动生产服务器。但是，建议使用像 [pm2](https://pm2.keymetrics.io/docs/usage/quick-start) 这样的进程管理器。
 
-- PM2 将在后台运行您的应用程序，而不会阻塞当前终端会话。
-- 如果您的应用程序在处理请求时崩溃，它将重新启动应用程序。
-- 此外，PM2 使在 [集群模式](https://nodejs.org/api/cluster.html#cluster) 下运行您的应用程序变得非常简单。
+- PM2 将在后台运行你的应用程序，而不会阻塞当前终端会话。
+- 如果你的应用程序在处理请求时崩溃，它将重新启动应用程序。
+- 此外，PM2 使在 [集群模式](https://nodejs.org/api/cluster.html#cluster) 下运行你的应用程序变得非常简单。
 
-以下是一个示例 [pm2 生态系统文件](https://pm2.keymetrics.io/docs/usage/application-declaration)，您可以将其作为基础。
+以下是一个示例 [pm2 生态系统文件](https://pm2.keymetrics.io/docs/usage/application-declaration)，你可以将其作为基础。
 
 ```js
 // title: ecosystem.config.js
@@ -139,9 +139,9 @@ pm2 start ecosystem.config.js
 
 ## 迁移数据库
 
-如果您使用 SQL 数据库，必须在生产服务器上运行数据库迁移以创建所需的表。
+如果你使用 SQL 数据库，必须在生产服务器上运行数据库迁移以创建所需的表。
 
-如果您使用 Lucid，可以运行以下命令。
+如果你使用 Lucid，可以运行以下命令。
 
 ```sh
 node ace migration:run --force
@@ -153,7 +153,7 @@ node ace migration:run --force
 
 此外，最好在重新启动服务器之前运行迁移。如果迁移失败，请不要重新启动服务器。
 
-使用像 Cleavr 或 Heroku 这样的托管服务时，它们可以自动处理这种情况。否则，您需要在 CI/CD 管道中运行迁移脚本，或者通过 SSH 手动运行它。
+使用像 Cleavr 或 Heroku 这样的托管服务时，它们可以自动处理这种情况。否则，你需要在 CI/CD 管道中运行迁移脚本，或者通过 SSH 手动运行它。
 
 ### 不要在生产环境中回滚
 
@@ -176,31 +176,31 @@ node ace migration:run --force
 
 ### 并发迁移
 
-如果您在多实例服务器上运行迁移，必须确保只有一个实例运行迁移。
+如果你在多实例服务器上运行迁移，必须确保只有一个实例运行迁移。
 
 对于 MySQL 和 PostgreSQL，Lucid 将获得咨询锁以确保不允许并发迁移。但是，最好从一开始就避免从多个服务器运行迁移。
 
 ## 文件上传的持久存储
 
-像 Amazon EKS、Google Kubernetes、Heroku、DigitalOcean Apps 等环境在 [临时文件系统](https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem) 中运行您的应用程序代码，这意味着每次部署时，默认情况下会销毁现有文件系统并创建一个新的。
+像 Amazon EKS、Google Kubernetes、Heroku、DigitalOcean Apps 等环境在 [临时文件系统](https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem) 中运行你的应用程序代码，这意味着每次部署时，默认情况下会销毁现有文件系统并创建一个新的。
 
-如果您的应用程序允许用户上传文件，必须使用像 Amazon S3、Google Cloud Storage 或 DigitalOcean Spaces 这样的持久存储服务，而不是依赖本地文件系统。
+如果你的应用程序允许用户上传文件，必须使用像 Amazon S3、Google Cloud Storage 或 DigitalOcean Spaces 这样的持久存储服务，而不是依赖本地文件系统。
 
 ## 写入日志
 
-AdonisJS 默认使用 [`pino` 日志器](../digging_deeper/logger.md)，以 JSON 格式将日志写入控制台。您可以设置一个外部日志服务从 stdout/stderr 读取日志，或者将它们转发到同一服务器上的本地文件。
+AdonisJS 默认使用 [`pino` 日志器](../digging_deeper/logger.md)，以 JSON 格式将日志写入控制台。你可以设置一个外部日志服务从 stdout/stderr 读取日志，或者将它们转发到同一服务器上的本地文件。
 
 ## 提供静态资源
 
-有效地提供静态资源对于应用程序的性能至关重要。无论您的 AdonisJS 应用程序速度有多快，静态资源的交付对于提升用户体验都起着至关重要的作用。
+有效地提供静态资源对于应用程序的性能至关重要。无论你的 AdonisJS 应用程序速度有多快，静态资源的交付对于提升用户体验都起着至关重要的作用。
 
 ### 使用 CDN
 
 提供静态资源的最佳方法是使用 CDN（内容分发网络）。
 
-使用 [Vite](../basics/vite.md) 编译的前端资源默认会带有版本哈希，这意味着文件名会根据其内容进行哈希处理。这允许您永久缓存资源并从 CDN 提供它们。
+使用 [Vite](../basics/vite.md) 编译的前端资源默认会带有版本哈希，这意味着文件名会根据其内容进行哈希处理。这允许你永久缓存资源并从 CDN 提供它们。
 
-根据您使用的 CDN 服务和部署技术，您可能需要在部署过程中添加一个步骤，将静态文件移动到 CDN 服务器。这是大致的工作流程。
+根据你使用的 CDN 服务和部署技术，你可能需要在部署过程中添加一个步骤，将静态文件移动到 CDN 服务器。这是大致的工作流程。
 
 1. 更新 `vite.config.js` 和 `config/vite.ts` 配置以 [使用 CDN URL](../basics/vite.md#deploying-assets-to-a-cdn)。
 
@@ -210,7 +210,7 @@ AdonisJS 默认使用 [`pino` 日志器](../digging_deeper/logger.md)，以 JSON
 
 ### 使用 Nginx 提供静态资源
 
-另一个选择是将提供资产的任务卸载给 Nginx。如果您使用 Vite 编译前端资产，必须积极缓存所有静态文件，因为它们都带有版本哈希。
+另一个选择是将提供资产的任务卸载给 Nginx。如果你使用 Vite 编译前端资产，必须积极缓存所有静态文件，因为它们都带有版本哈希。
 
 在 Nginx 配置文件中添加以下块。**请确保替换尖括号 `<>` 内的值**。
 
@@ -226,9 +226,9 @@ location ~ \.(jpg|png|css|js|gif|ico|woff|woff2) {
 
 ### 使用 AdonisJS 内置静态文件服务器
 
-您也可以依靠 [AdonisJS 内置的静态文件服务器](../basics/static_file_server.md) 从 `public` 目录提供静态资源，以保持简洁。
+你也可以依靠 [AdonisJS 内置的静态文件服务器](../basics/static_file_server.md) 从 `public` 目录提供静态资源，以保持简洁。
 
-无需进行额外配置。只需像往常一样部署您的 AdonisJS 应用程序，静态资源的请求就会自动得到处理。
+无需进行额外配置。只需像往常一样部署你的 AdonisJS 应用程序，静态资源的请求就会自动得到处理。
 
 :::warning
 不建议在生产环境中使用静态文件服务器。最好使用 CDN 或 Nginx 来提供静态资源。

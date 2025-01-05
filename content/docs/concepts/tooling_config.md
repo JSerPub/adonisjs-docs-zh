@@ -8,7 +8,7 @@ AdonisJS 在很大程度上依赖 TypeScript 、 Prettier 和 ESLint 来确保�
 
 我们已将所有配置选项提炼到可供所有官方包和官方入门套件使用的即用型配置预设中。
 
-如果您想在使用TypeScript编写的Node.js应用程序中使用相同的配置预设，请继续阅读本指南。
+如果你想在使用TypeScript编写的Node.js应用程序中使用相同的配置预设，请继续阅读本指南。
 
 ## TSConfig（TypeScript配置）
 
@@ -16,7 +16,7 @@ AdonisJS 在很大程度上依赖 TypeScript 、 Prettier 和 ESLint 来确保�
 
 可随意查看[基础配置文件](https://github.com/adonisjs/tooling-config/blob/main/packages/typescript-config/tsconfig.base.json)、[应用程序配置文件](https://github.com/adonisjs/tooling-config/blob/main/packages/typescript-config/tsconfig.app.json)以及[包开发配置文件](https://github.com/adonisjs/tooling-config/blob/main/packages/typescript-config/tsconfig.package.json)中的选项。
 
-您可以按以下方式安装该包并使用它。
+你可以按以下方式安装该包并使用它。
 
 ```sh
 npm i -D @adonisjs/tsconfig
@@ -53,7 +53,7 @@ npm i -D typescript ts-node @swc/core
 
 [`@adonisjs/prettier-config`](https://github.com/adonisjs/tooling-config/tree/main/packages/prettier-config) 包包含了用于自动格式化源代码以保持样式一致的基础配置。可随意查看[`index.json`文件](https://github.com/adonisjs/tooling-config/blob/main/packages/prettier-config/index.json)中的配置选项。
 
-您可以按以下方式安装该包并使用它。
+你可以按以下方式安装该包并使用它。
 
 ```sh
 npm i -D @adonisjs/prettier-config
@@ -82,7 +82,7 @@ node_modules
 
 [`@adonisjs/eslint-config`](https://github.com/adonisjs/tooling-config/tree/main/packages/eslint-config) 包包含了应用代码检查规则的基础配置。可随意查看[基础配置文件](https://github.com/adonisjs/tooling-config/blob/main/packages/eslint-config/presets/ts_base.js)、[应用程序配置文件](https://github.com/adonisjs/tooling-config/blob/main/packages/eslint-config/presets/ts_app.js)以及[包开发配置文件](https://github.com/adonisjs/tooling-config/blob/main/packages/eslint-config/presets/ts_package.js)中的选项。
 
-您可以按以下方式安装该包并使用它。
+你可以按以下方式安装该包并使用它。
 
 :::note
 

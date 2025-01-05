@@ -1,10 +1,10 @@
 ---
-summary: 使用 @adonisjs/limiter 包实现速率限制，以保护您的 Web 应用程序或 API 服务器免受滥用。
+summary: 使用 @adonisjs/limiter 包实现速率限制，以保护你的 Web 应用程序或 API 服务器免受滥用。
 ---
 
 # 速率限制
 
-AdonisJS 提供了一个官方包，用于在您的 Web 应用程序或 API 服务器中实现速率限制。速率限制器提供 `redis`、`mysql`、`postgresql` 和 `memory` 作为存储选项，并具备 [创建自定义存储提供者](#creating-a-custom-storage-provider) 的能力。
+AdonisJS 提供了一个官方包，用于在你的 Web 应用程序或 API 服务器中实现速率限制。速率限制器提供 `redis`、`mysql`、`postgresql` 和 `memory` 作为存储选项，并具备 [创建自定义存储提供者](#creating-a-custom-storage-provider) 的能力。
 
 `@adonisjs/limiter` 包建立在 [node-rate-limiter-flexible](https://github.com/animir/node-rate-limiter-flexible) 包之上，该包提供了最快的速率限制 API 之一，并使用原子递增来避免竞态条件。
 
@@ -96,7 +96,7 @@ stores
 
 <dd>
 
-您计划在应用程序中使用的存储集合。我们建议在测试期间始终配置 `memory` 存储。
+你计划在应用程序中使用的存储集合。我们建议在测试期间始终配置 `memory` 存储。
 
 </dd>
 
@@ -106,7 +106,7 @@ stores
 
 ### 环境变量
 
-默认速率限制器使用 `LIMITER_STORE` 环境变量定义，因此您可以在不同的环境中切换不同的存储。例如，在测试期间使用 `memory` 存储，在开发和生产环境中使用 `redis` 存储。
+默认速率限制器使用 `LIMITER_STORE` 环境变量定义，因此你可以在不同的环境中切换不同的存储。例如，在测试期间使用 `memory` 存储，在开发和生产环境中使用 `redis` 存储。
 
 此外，环境变量必须经过验证，以允许使用预配置的存储之一。验证在 `start/env.ts` 文件中使用 `Env.schema.enum` 规则定义。
 
@@ -144,7 +144,7 @@ execEvenly
 
 `execEvenly` 选项在节流请求时添加延迟，以便所有请求在提供的持续时间结束时耗尽。
 
-例如，如果您允许用户每分钟进行 **10 次请求**，所有请求都将有一个人为延迟，以便第十个请求在 1 分钟结束时完成。阅读 `rate-limiter-flexible` 存储库上的 [smooth out traffic peaks](https://github.com/animir/node-rate-limiter-flexible/wiki/Smooth-out-traffic-peaks) 文章，以了解更多关于 `execEvenly` 选项的信息。
+例如，如果你允许用户每分钟进行 **10 次请求**，所有请求都将有一个人为延迟，以便第十个请求在 1 分钟结束时完成。阅读 `rate-limiter-flexible` 存储库上的 [smooth out traffic peaks](https://github.com/animir/node-rate-limiter-flexible/wiki/Smooth-out-traffic-peaks) 文章，以了解更多关于 `execEvenly` 选项的信息。
 
 </dd>
 
@@ -156,11 +156,11 @@ inMemoryBlockOnConsumed
 
 <dd>
 
-定义在内存中阻塞键的请求数量。例如，您允许用户每分钟进行 **10 次请求**，并且他们在前 10 秒内消耗了所有请求。
+定义在内存中阻塞键的请求数量。例如，你允许用户每分钟进行 **10 次请求**，并且他们在前 10 秒内消耗了所有请求。
 
 然而，他们继续向服务器发出请求，因此，速率限制器必须在拒绝请求之前与数据库进行检查。
 
-为了减少数据库负载，您可以定义在停止查询数据库并在内存中阻塞键之前应允许的请求数量。
+为了减少数据库负载，你可以定义在停止查询数据库并在内存中阻塞键之前应允许的请求数量。
 
 ```ts
 {
@@ -333,9 +333,9 @@ clearExpiredByTimeout
 
 ## 节流 HTTP 请求
 
-配置好速率限制器后，您可以使用 `limiter.define` 方法创建 HTTP 节流中间件。`limiter` 服务是使用 `config/limiter.ts` 文件中定义的配置创建的 [LimiterManager](https://github.com/adonisjs/limiter/blob/main/src/limiter_manager.ts) 类的单例实例。
+配置好速率限制器后，你可以使用 `limiter.define` 方法创建 HTTP 节流中间件。`limiter` 服务是使用 `config/limiter.ts` 文件中定义的配置创建的 [LimiterManager](https://github.com/adonisjs/limiter/blob/main/src/limiter_manager.ts) 类的单例实例。
 
-如果您打开 `start/limiter.ts` 文件，会发现一个预定义的全局节流中间件，您可以将其应用于路由或路由组。类似地，您可以在应用程序中根据需要创建任意数量的节流中间件。
+如果你打开 `start/limiter.ts` 文件，会发现一个预定义的全局节流中间件，你可以将其应用于路由或路由组。类似地，你可以在应用程序中根据需要创建任意数量的节流中间件。
 
 在以下示例中，全局节流中间件允许用户根据他们的 IP 地址每分钟进行 **10 次请求**。
 
@@ -348,7 +348,7 @@ export const throttle = limiter.define('global', () => {
 })
 ```
 
-您可以将 `throttle` 中间件应用于路由，如下所示。
+你可以将 `throttle` 中间件应用于路由，如下所示。
 
 ```ts
 // title: start/routes.ts
@@ -402,7 +402,7 @@ router
 
 ### 切换后端存储
 
-您可以使用 `store` 方法为节流中间件指定特定的后端存储。例如：
+你可以使用 `store` 方法为节流中间件指定特定的后端存储。例如：
 
 ```ts
 limiter
@@ -415,7 +415,7 @@ limiter
 
 ### 使用自定义键
 
-默认情况下，请求会根据用户的 IP 地址进行速率限制。但是，您可以使用 `usingKey` 方法指定自定义键。
+默认情况下，请求会根据用户的 IP 地址进行速率限制。但是，你可以使用 `usingKey` 方法指定自定义键。
 
 ```ts
 limiter
@@ -428,7 +428,7 @@ limiter
 
 ### 阻塞用户
 
-如果用户在使用完配额后继续发出请求，您可以使用 `blockFor` 方法将其阻塞指定的持续时间。该方法接受以秒为单位的时间表达式或持续时间。
+如果用户在使用完配额后继续发出请求，你可以使用 `blockFor` 方法将其阻塞指定的持续时间。该方法接受以秒为单位的时间表达式或持续时间。
 
 ```ts
 limiter
@@ -450,9 +450,9 @@ limiter
 
 - 带有 `Accept=application/vnd.api+json` 头的 HTTP 请求将收到一个根据 JSON API 规范格式化的错误消息数组。
 
-- 所有其他请求将收到纯文本响应消息。但是，您可以使用 [status pages](../basics/exception_handling.md#status-pages) 为速率限制器错误显示自定义错误页面。
+- 所有其他请求将收到纯文本响应消息。但是，你可以使用 [status pages](../basics/exception_handling.md#status-pages) 为速率限制器错误显示自定义错误页面。
 
-您也可以在 [global exception handler](../basics/exception_handling.md#handling-exceptions) 中自行处理该错误。
+你也可以在 [global exception handler](../basics/exception_handling.md#handling-exceptions) 中自行处理该错误。
 
 ```ts
 import { errors } from '@adonisjs/limiter'
@@ -483,7 +483,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 ### 自定义错误消息
 
-您可以使用 `limitExceeded` 钩子而不是全局处理异常，来自定义错误消息、状态和响应头。
+你可以使用 `limitExceeded` 钩子而不是全局处理异常，来自定义错误消息、状态和响应头。
 
 ```ts
 import limiter from '@adonisjs/limiter/services/main'
@@ -504,7 +504,7 @@ export const throttle = limiter.define('global', () => {
 
 ### 为错误消息使用翻译
 
-如果您已配置 [@adonisjs/i18n](../digging_deeper/i18n.md) 包，可以使用 `errors.E_TOO_MANY_REQUESTS` 键为错误消息定义翻译。例如：
+如果你已配置 [@adonisjs/i18n](../digging_deeper/i18n.md) 包，可以使用 `errors.E_TOO_MANY_REQUESTS` 键为错误消息定义翻译。例如：
 
 ```json
 // title: resources/lang/fr/errors.json
@@ -513,7 +513,7 @@ export const throttle = limiter.define('global', () => {
 }
 ```
 
-最后，您可以使用 `error.t` 方法定义自定义翻译键。
+最后，你可以使用 `error.t` 方法定义自定义翻译键。
 
 ```ts
 limitExceeded((error) => {
@@ -526,11 +526,11 @@ limitExceeded((error) => {
 
 ## 直接使用
 
-除了节流 HTTP 请求外，您还可以将速率限制器用于应用程序的其他部分。例如，如果用户多次提供无效的凭据，则在登录时阻塞用户。或者限制用户可以运行的并发作业数量。
+除了节流 HTTP 请求外，你还可以将速率限制器用于应用程序的其他部分。例如，如果用户多次提供无效的凭据，则在登录时阻塞用户。或者限制用户可以运行的并发作业数量。
 
 ### 创建速率限制器
 
-在将速率限制应用于操作之前，您必须使用 `limiter.use` 方法获取 [Limiter](https://github.com/adonisjs/limiter/blob/main/src/limiter.ts) 类的实例。`use` 方法接受后端存储的名称和以下速率限制选项。
+在将速率限制应用于操作之前，你必须使用 `limiter.use` 方法获取 [Limiter](https://github.com/adonisjs/limiter/blob/main/src/limiter.ts) 类的实例。`use` 方法接受后端存储的名称和以下速率限制选项。
 
 - `requests`：在给定持续时间内允许的请求数。
 - `duration`：以秒为单位的时间表达式或 [time expression](../references/helpers.md#seconds) 字符串。
@@ -601,7 +601,7 @@ return '报告已生成'
 - 用于速率限制的唯一键。
 - 要执行的回调函数。如果函数抛出错误，将消耗一次请求。
 
-`penalize` 方法返回回调函数的结果或 `ThrottleException` 的实例。您可以使用异常来查找直到下一次尝试剩余的时间。
+`penalize` 方法返回回调函数的结果或 `ThrottleException` 的实例。你可以使用异常来查找直到下一次尝试剩余的时间。
 
 ```ts
 import User from '#models/user'
@@ -653,7 +653,7 @@ export default class SessionController {
 
 ## 手动消耗请求
 
-除了 `attempt` 和 `penalize` 方法外，您还可以直接与速率限制器交互，以检查剩余请求并手动消耗它们。
+除了 `attempt` 和 `penalize` 方法外，你还可以直接与速率限制器交互，以检查剩余请求并手动消耗它们。
 
 在以下示例中，我们使用 `remaining` 方法检查给定键是否已消耗所有请求。否则，使用 `increment` 方法消耗一次请求。
 
@@ -675,7 +675,7 @@ if (await requestsLimiter.remaining('unique_key') > 0) {
 // highlight-end
 ```
 
-在上面的示例中，调用 `remaining` 和 `increment` 方法之间可能会出现竞态条件。因此，您可能希望使用 `consume` 方法。`consume` 方法将增加请求计数，并在所有请求被消耗时抛出异常。
+在上面的示例中，调用 `remaining` 和 `increment` 方法之间可能会出现竞态条件。因此，你可能希望使用 `consume` 方法。`consume` 方法将增加请求计数，并在所有请求被消耗时抛出异常。
 
 ```ts
 import { errors } from '@adonisjs/limiter'
@@ -692,7 +692,7 @@ try {
 
 ## 阻塞键
 
-除了消耗请求外，如果用户在所有尝试耗尽后继续发出请求，您还可以将键阻塞更长时间。
+除了消耗请求外，如果用户在所有尝试耗尽后继续发出请求，你还可以将键阻塞更长时间。
 
 在创建带有 `blockDuration` 选项的速率限制器实例时，`consume`、`attempt` 和 `penalize` 方法会自动执行阻塞。例如：
 
@@ -725,7 +725,7 @@ await requestLimiter.penalize('a_unique_key', () => {
 })
 ```
 
-最后，您可以使用 `block` 方法将键阻塞给定持续时间。
+最后，你可以使用 `block` 方法将键阻塞给定持续时间。
 
 ```ts
 const requestsLimiter = limiter.use({
@@ -738,7 +738,7 @@ await requestsLimiter.block('a_unique_key', '30 mins')
 
 ## 重置尝试
 
-您可以使用以下方法之一减少请求数量或从存储中删除整个键。
+你可以使用以下方法之一减少请求数量或从存储中删除整个键。
 
 `decrement` 方法将请求计数减少 1，`delete` 方法删除键。请注意，`decrement` 方法不是原子的，当并发性过高时，可能会将请求计数设置为 `-1`。
 
@@ -777,14 +777,14 @@ await requestsLimiter.delete('unique_key')
 
 ## 测试
 
-如果您使用单个（即默认）存储进行速率限制，可以在 `.env.test` 文件中定义 `LIMITER_STORE` 环境变量，在测试期间切换到 `memory` 存储。
+如果你使用单个（即默认）存储进行速率限制，可以在 `.env.test` 文件中定义 `LIMITER_STORE` 环境变量，在测试期间切换到 `memory` 存储。
 
 ```dotenv
 // title: .env.test
 LIMITER_STORE=memory
 ```
 
-您可以使用 `limiter.clear` 方法在测试之间清除速率限制存储。`clear` 方法接受一个存储名称数组并刷新数据库。
+你可以使用 `limiter.clear` 方法在测试之间清除速率限制存储。`clear` 方法接受一个存储名称数组并刷新数据库。
 
 在使用 Redis 时，建议使用单独的数据库进行速率限制。否则，`clear` 方法将刷新整个数据库，这可能会影响应用程序的其他部分。
 
@@ -800,7 +800,7 @@ test.group('Reports', (group) => {
 })
 ```
 
-或者，您可以不带任何参数调用 `clear` 方法，所有配置的存储都将被清除。
+或者，你可以不带任何参数调用 `clear` 方法，所有配置的存储都将被清除。
 
 ```ts
 test.group('Reports', (group) => {
@@ -816,7 +816,7 @@ test.group('Reports', (group) => {
 
 自定义存储提供者必须实现 [LimiterStoreContract](https://github.com/adonisjs/limiter/blob/main/src/types.ts#L163) 接口，并定义以下属性/方法。
 
-您可以在任何文件/文件夹中编写实现。创建自定义存储不需要服务提供者。
+你可以在任何文件/文件夹中编写实现。创建自定义存储不需要服务提供者。
 
 ```ts
 import string from '@adonisjs/core/helpers/string'
@@ -827,7 +827,7 @@ import {
 } from '@adonisjs/limiter/types'
 
 /**
- * 您想要接受的自定义选项集。
+ * 你想要接受的自定义选项集。
  */
 export type MongoDbLimiterConfig = {
   client: MongoDBConnection
@@ -901,7 +901,7 @@ export class MongoDbLimiterStore implements LimiterStoreContract {
 
 编写完实现后，必须创建一个配置助手，以便在 `config/limiter.ts` 文件中使用提供者。配置助手应返回一个 `LimiterManagerStoreFactory` 函数。
 
-您可以在与 `MongoDbLimiterStore` 实现相同的文件中编写以下函数。
+你可以在与 `MongoDbLimiterStore` 实现相同的文件中编写以下函数。
 
 ```ts
 import { LimiterManagerStoreFactory } from '@adonisjs/limiter/types'
@@ -946,7 +946,7 @@ const limiterConfig = defineConfig({
 
 ### 包装 rate-limiter-flexible 驱动
 
-如果您计划包装 [node-rate-limiter-flexible](https://github.com/animir/node-rate-limiter-flexible?tab=readme-ov-file#docs-and-examples) 包中的现有驱动，则可以使用 [RateLimiterBridge](https://github.com/adonisjs/limiter/blob/main/src/stores/bridge.ts) 进行实现。
+如果你计划包装 [node-rate-limiter-flexible](https://github.com/animir/node-rate-limiter-flexible?tab=readme-ov-file#docs-and-examples) 包中的现有驱动，则可以使用 [RateLimiterBridge](https://github.com/adonisjs/limiter/blob/main/src/stores/bridge.ts) 进行实现。
 
 这次让我们使用桥接重新实现相同的 `MongoDbLimiterStore`。
 

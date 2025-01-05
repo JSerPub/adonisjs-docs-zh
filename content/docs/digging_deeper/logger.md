@@ -8,7 +8,7 @@ AdonisJS 内置了一个日志器，支持将日志写入 **文件**、**标准�
 
 ## 使用方法
 
-首先，您可以导入 Logger 服务，以便在应用程序中的任何位置写入日志。日志将被写入 `stdout`，并显示在终端上。
+首先，你可以导入 Logger 服务，以便在应用程序中的任何位置写入日志。日志将被写入 `stdout`，并显示在终端上。
 
 ```ts
 import logger from '@adonisjs/core/services/logger'
@@ -31,7 +31,7 @@ router.get('/users/:id', async ({ logger, params }) => {
 
 ## 配置
 
-日志器的配置存储在 `config/logger.ts` 文件中。默认情况下，只配置了一个日志器。但是，如果您想在应用程序中使用多个日志器，可以定义多个日志器的配置。
+日志器的配置存储在 `config/logger.ts` 文件中。默认情况下，只配置了一个日志器。但是，如果你想在应用程序中使用多个日志器，可以定义多个日志器的配置。
 
 
 ```ts
@@ -83,7 +83,7 @@ loggers
 
 
 ## 传输目标
-在 pino 中，传输扮演着将日志写入目标的重要角色。您可以在配置文件中配置 [多个目标](https://getpino.io/#/docs/api?id=transport-object)，pino 会将日志传递给所有这些目标。每个目标还可以指定一个级别，用于接收日志。
+在 pino 中，传输扮演着将日志写入目标的重要角色。你可以在配置文件中配置 [多个目标](https://getpino.io/#/docs/api?id=transport-object)，pino 会将日志传递给所有这些目标。每个目标还可以指定一个级别，用于接收日志。
 
 :::note
 
@@ -177,7 +177,7 @@ loggers: {
 }
 ```
 
-因此，您可以使用 `targets` 辅助工具，通过流畅的 API 定义条件数组项。在下面的示例中，我们使用 `targets.pushIf` 方法表达了相同的条件。
+因此，你可以使用 `targets` 辅助工具，通过流畅的 API 定义条件数组项。在下面的示例中，我们使用 `targets.pushIf` 方法表达了相同的条件。
 
 ```ts
 import { targets, defineConfig } from '@adonisjs/core/logger'
@@ -200,7 +200,7 @@ loggers: {
 }
 ```
 
-为了进一步简化代码，您可以使用 `targets.pretty` 和 `targets.file` 方法为 `pino/file` 和 `pino-pretty` 目标定义配置对象。
+为了进一步简化代码，你可以使用 `targets.pretty` 和 `targets.file` 方法为 `pino/file` 和 `pino-pretty` 目标定义配置对象。
 
 ```ts
 import { targets, defineConfig } from '@adonisjs/core/logger'
@@ -242,7 +242,7 @@ export default defineConfig({
 })
 ```
 
-配置完成后，您可以使用 `logger.use` 方法访问命名日志器。
+配置完成后，你可以使用 `logger.use` 方法访问命名日志器。
 
 ```ts
 import logger from '@adonisjs/core/services/logger'

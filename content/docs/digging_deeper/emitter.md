@@ -14,13 +14,13 @@ AdonisJS 通过附加功能进一步增强了 emittery。
 
 ## 基本用法
 
-事件监听器在 `start/events.ts` 文件中定义。您可以使用 `make:preload` ace 命令创建此文件。
+事件监听器在 `start/events.ts` 文件中定义。你可以使用 `make:preload` ace 命令创建此文件。
 
 ```sh
 node ace make:preload events
 ```
 
-您必须使用 `emitter.on` 来监听事件。该方法将事件名称作为第一个参数，将监听器作为第二个参数。
+你必须使用 `emitter.on` 来监听事件。该方法将事件名称作为第一个参数，将监听器作为第二个参数。
 
 ```ts
 // title: start/events.ts
@@ -31,7 +31,7 @@ emitter.on('user:registered', function (user) {
 })
 ```
 
-定义事件监听器后，您可以使用 `emitter.emit` 方法触发 `user:registered` 事件。该方法将事件名称作为第一个参数，将事件数据作为第二个参数。
+定义事件监听器后，你可以使用 `emitter.emit` 方法触发 `user:registered` 事件。该方法将事件名称作为第一个参数，将事件数据作为第二个参数。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -44,7 +44,7 @@ export default class UsersController {
 }
 ```
 
-您可以使用 `emitter.once` 来监听一次事件。
+你可以使用 `emitter.once` 来监听一次事件。
 
 ```ts
 emitter.once('user:registered', function (user) {
@@ -54,13 +54,13 @@ emitter.once('user:registered', function (user) {
 
 ## 使事件类型安全
 
-AdonisJS 要求为您在应用程序中希望触发的每个事件定义静态类型。类型在 `types/events.ts` 文件中注册。
+AdonisJS 要求为你在应用程序中希望触发的每个事件定义静态类型。类型在 `types/events.ts` 文件中注册。
 
 在以下示例中，我们将 `User` 模型注册为 `user:registered` 事件的数据类型。
 
 :::note
 
-如果您觉得为每个事件定义类型很繁琐，可以切换到[基于类的事件](#class-based-events)。
+如果你觉得为每个事件定义类型很繁琐，可以切换到[基于类的事件](#class-based-events)。
 
 :::
 
@@ -76,7 +76,7 @@ declare module '@adonisjs/core/types' {
 
 ## 基于类的监听器
 
-与 HTTP 控制器类似，监听器类提供了一个抽象层，用于将内联事件监听器移动到专用文件中。监听器类存储在 `app/listeners` 目录中，您可以使用 `make:listener` 命令创建新的监听器。
+与 HTTP 控制器类似，监听器类提供了一个抽象层，用于将内联事件监听器移动到专用文件中。监听器类存储在 `app/listeners` 目录中，你可以使用 `make:listener` 命令创建新的监听器。
 
 另请参阅：[Make listener 命令](../references/commands.md#makelistener)
 
@@ -84,7 +84,7 @@ declare module '@adonisjs/core/types' {
 node ace make:listener sendVerificationEmail
 ```
 
-监听器文件使用 `class` 声明和 `handle` 方法进行构建。在此类中，您可以定义附加方法来监听多个事件（如果需要）。
+监听器文件使用 `class` 声明和 `handle` 方法进行构建。在此类中，你可以定义附加方法来监听多个事件（如果需要）。
 
 ```ts
 import User from '#models/user'
@@ -96,7 +96,7 @@ export default class SendVerificationEmail {
 }
 ```
 
-作为最后一步，您必须在 `start/events.ts` 文件中将监听器类绑定到事件。您可以使用 `#listeners` 别名导入监听器。别名是使用 [Node.js 的子路径导入功能](../getting_started/folder_structure.md#the-sub-path-imports) 定义的。
+作为最后一步，你必须在 `start/events.ts` 文件中将监听器类绑定到事件。你可以使用 `#listeners` 别名导入监听器。别名是使用 [Node.js 的子路径导入功能](../getting_started/folder_structure.md#the-sub-path-imports) 定义的。
 
 ```ts
 // title: start/events.ts
@@ -126,11 +126,11 @@ emitter.on('user:registered', [SendVerificationEmail, 'handle'])
 
 :::warning
 
-您不能在监听器类中注入 `HttpContext`。因为事件是异步处理的，监听器可能在 HTTP 请求完成后才运行。
+你不能在监听器类中注入 `HttpContext`。因为事件是异步处理的，监听器可能在 HTTP 请求完成后才运行。
 
 :::
 
-监听器类是使用 [IoC 容器](../concepts/dependency_injection.md) 实例化的；因此，您可以在类构造函数或处理事件的方法中对依赖项进行类型提示。
+监听器类是使用 [IoC 容器](../concepts/dependency_injection.md) 实例化的；因此，你可以在类构造函数或处理事件的方法中对依赖项进行类型提示。
 
 在以下示例中，我们将 `TokensService` 作为构造函数参数进行类型提示。在调用此监听器时，IoC 容器将注入 `TokensService` 类的实例。
 
@@ -174,7 +174,7 @@ export default class SendVerificationEmail {
 
 基于类的事件将事件标识符和事件数据封装在同一个类中。类构造函数作为标识符，而类的实例保存事件数据。
 
-您可以使用 `make:event` 命令创建事件类。
+你可以使用 `make:event` 命令创建事件类。
 
 另请参阅：[Make event 命令](../references/commands.md#makeevent)
 
@@ -182,7 +182,7 @@ export default class SendVerificationEmail {
 node ace make:event UserRegistered
 ```
 
-事件类没有行为，而是事件的数据容器。您可以通过类构造函数接受事件数据，并将其作为实例属性提供。
+事件类没有行为，而是事件的数据容器。你可以通过类构造函数接受事件数据，并将其作为实例属性提供。
 
 ```ts
 // title: app/events/user_registered.ts
@@ -196,7 +196,7 @@ export default class UserRegistered extends BaseEvent {
 
 ### 监听基于类的事件
 
-您可以使用 `emitter.on` 方法为基于类的事件附加监听器。第一个参数是事件类引用，后面是监听器。
+你可以使用 `emitter.on` 方法为基于类的事件附加监听器。第一个参数是事件类引用，后面是监听器。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -220,7 +220,7 @@ emitter.on(UserRegistered, [SendVerificationEmail])
 
 ### 触发基于类的事件
 
-您可以使用 `static dispatch` 方法触发基于类的事件。`dispatch` 方法接受事件类构造函数所接受的参数。
+你可以使用 `static dispatch` 方法触发基于类的事件。`dispatch` 方法接受事件类构造函数所接受的参数。
 
 ```ts
 import User from '#models/user'
@@ -240,7 +240,7 @@ export default class UsersController {
 
 ## 简化事件监听体验
 
-如果您决定使用基于类的事件和监听器，可以使用 `emitter.listen` 方法来简化绑定监听器的过程。
+如果你决定使用基于类的事件和监听器，可以使用 `emitter.listen` 方法来简化绑定监听器的过程。
 
 `emitter.listen` 方法接受事件类作为第一个参数，接受基于类的监听器数组作为第二个参数。此外，注册的监听器必须具有 `handle` 方法来处理事件。
 
@@ -270,7 +270,7 @@ emitter.onError((event, error, eventData) => {
 
 ## 监听所有事件
 
-您可以使用 `emitter.onAny` 方法监听所有事件。该方法接受监听器回调函数作为唯一参数。
+你可以使用 `emitter.onAny` 方法监听所有事件。该方法接受监听器回调函数作为唯一参数。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -283,7 +283,7 @@ emitter.onAny((name, event) => {
 
 ## 取消订阅事件
 
-`emitter.on` 方法返回一个取消订阅函数，您可以调用该函数来移除事件监听器订阅。
+`emitter.on` 方法返回一个取消订阅函数，你可以调用该函数来移除事件监听器订阅。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -294,7 +294,7 @@ const unsubscribe = emitter.on('user:registered', () => {})
 unsubscribe()
 ```
 
-您也可以使用 `emitter.off` 方法来移除事件监听器订阅。该方法接受事件名称/类作为第一个参数，接受监听器的引用作为第二个参数。
+你也可以使用 `emitter.off` 方法来移除事件监听器订阅。该方法接受事件名称/类作为第一个参数，接受监听器的引用作为第二个参数。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -344,9 +344,9 @@ emitter.clearAllListeners()
 
 事件监听器通常用于在给定操作后执行副作用。例如：向新注册的用户发送电子邮件，或在订单状态更新后发送通知。
 
-在编写测试时，您可能希望避免向测试期间创建的用户发送电子邮件。
+在编写测试时，你可能希望避免向测试期间创建的用户发送电子邮件。
 
-您可以通过模拟事件触发器来禁用事件监听器。在以下示例中，我们在发出 HTTP 请求以注册用户之前调用 `emitter.fake`。请求发出后，我们使用 `events.assertEmitted` 方法确保 `SignupController` 触发了特定事件。
+你可以通过模拟事件触发器来禁用事件监听器。在以下示例中，我们在发出 HTTP 请求以注册用户之前调用 `emitter.fake`。请求发出后，我们使用 `events.assertEmitted` 方法确保 `SignupController` 触发了特定事件。
 
 ```ts
 import emitter from '@adonisjs/core/services/emitter'
@@ -376,12 +376,12 @@ test.group('User signup', () => {
 })
 ```
 
-- `event.fake` 方法返回 [EventBuffer](https://github.com/adonisjs/events/blob/main/src/events_buffer.ts) 类的实例，您可以使用它进行断言和查找触发的事件。
+- `event.fake` 方法返回 [EventBuffer](https://github.com/adonisjs/events/blob/main/src/events_buffer.ts) 类的实例，你可以使用它进行断言和查找触发的事件。
 - `emitter.restore` 方法恢复模拟。恢复模拟后，事件将正常触发。
 
 ### 模拟特定事件
 
-如果您在调用 `emitter.fake` 方法时不传递任何参数，该方法将模拟所有事件。如果您希望模拟特定事件，请将事件名称或类作为第一个参数传递。
+如果你在调用 `emitter.fake` 方法时不传递任何参数，该方法将模拟所有事件。如果你希望模拟特定事件，请将事件名称或类作为第一个参数传递。
 
 ```ts
 // 仅模拟 user:registered 事件
@@ -395,7 +395,7 @@ emitter.fake([UserRegistered, OrderUpdated])
 
 ### 事件断言
 
-您可以使用 `assertEmitted`、`assertNotEmitted`、`assertNoneEmitted` 和 `assertEmittedCount` 方法为模拟的事件编写断言。
+你可以使用 `assertEmitted`、`assertNotEmitted`、`assertNoneEmitted` 和 `assertEmittedCount` 方法为模拟的事件编写断言。
 
 `assertEmitted` 和 `assertNotEmitted` 方法接受事件名称或类构造函数作为第一个参数，并接受一个可选的查找函数，该函数必须返回布尔值以标记事件是否已触发。
 

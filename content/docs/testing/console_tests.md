@@ -94,7 +94,7 @@ test.group('Commands greet', (group) => {
 })
 ```
 
-定义好钩子后，您可以按如下方式更新测试。
+定义好钩子后，你可以按如下方式更新测试。
 
 ```ts
 test('should greet the user and finish with exit code 1', async () => {
@@ -124,14 +124,14 @@ test('should greet the user and finish with exit code 1', async () => {
 
 ## 测试表格输出
 
-与测试日志消息类似，您可以通过将 UI 库切换到 `raw` 模式来为表格输出编写断言。
+与测试日志消息类似，你可以通过将 UI 库切换到 `raw` 模式来为表格输出编写断言。
 
 ```ts
 async run() {
   const table = this.ui.table()
   table.head(['Name', 'Email'])
 
-给定上述表格，您可以按如下方式为其编写断言。
+给定上述表格，你可以按如下方式为其编写断言。
 
 ```ts
 const command = await ace.create(Greet, [])
@@ -140,7 +140,7 @@ await command.exec()
 command.assertTableRows([
   ['Harminder Virk', 'virk@adonisjs.com'],
   ['Romain Lanz', 'romain@adonisjs.com'],
-由于 [prompts](../ace/prompts.md) 会阻塞终端，等待手动输入，因此在编写测试时，您必须以编程方式捕获并响应它们。
+由于 [prompts](../ace/prompts.md) 会阻塞终端，等待手动输入，因此在编写测试时，你必须以编程方式捕获并响应它们。
 
 使用 `prompt.trap` 方法捕获提示。该方法接受提示标题（区分大小写），并提供一个可链式调用的 API 来配置其他行为。
 
@@ -164,7 +164,7 @@ command.assertSucceeded()
 
 ### 选择选项
 
-您可以使用 `chooseOption` 和 `chooseOptions` 方法通过选择或多项选择提示选择选项。
+你可以使用 `chooseOption` 和 `chooseOptions` 方法通过选择或多项选择提示选择选项。
 
 ```ts
 command.prompt
@@ -180,7 +180,7 @@ command.prompt
 
 ### 接受或拒绝确认提示
 
-您可以使用 `toggle` 和 `confirm` 方法接受或拒绝显示的提示。
+你可以使用 `toggle` 和 `confirm` 方法接受或拒绝显示的提示。
 
 ```ts
 command.prompt
@@ -196,7 +196,7 @@ command.prompt
 
 ### 对验证进行断言
 
-要测试提示的验证行为，您可以使用 `assertPasses` 和 `assertFails` 方法。这些方法接受提示的值，并使用 [prompt's validate](../ace/prompts.md#prompt-options) 方法对其进行测试。
+要测试提示的验证行为，你可以使用 `assertPasses` 和 `assertFails` 方法。这些方法接受提示的值，并使用 [prompt's validate](../ace/prompts.md#prompt-options) 方法对其进行测试。
 
 ```ts
 command.prompt
@@ -261,7 +261,7 @@ command.assertNotExitCode(0)
 
 ### assertLog
 
-断言命令使用 `this.logger` 属性写入日志消息。您可以选择性地断言输出流为 `stdout` 或 `stderr`。
+断言命令使用 `this.logger` 属性写入日志消息。你可以选择性地断言输出流为 `stdout` 或 `stderr`。
 
 ```ts
 await command.exec()
@@ -282,7 +282,7 @@ command.assertLogMatches(/Hello world/)
 
 ### assertTableRows
 
-断言命令将表格打印到 `stdout`。您可以提供表格行作为列数组。列表示为单元格数组。
+断言命令将表格打印到 `stdout`。你可以提供表格行作为列数组。列表示为单元格数组。
 
 ```ts
 await command.exec()

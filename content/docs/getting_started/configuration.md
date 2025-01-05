@@ -4,9 +4,9 @@ summary: 了解如何在 AdonisJS 中读取和更新配置值。
 
 # 配置
 
-您的 AdonisJS 应用程序的配置文件存储在 `config` 目录中。一个新的 AdonisJS 应用程序会附带一些由框架核心和已安装包使用的预置文件。
+你的 AdonisJS 应用程序的配置文件存储在 `config` 目录中。一个新的 AdonisJS 应用程序会附带一些由框架核心和已安装包使用的预置文件。
 
-请随意在 `config` 目录中创建您的应用程序所需的额外文件。
+请随意在 `config` 目录中创建你的应用程序所需的额外文件。
 
 :::note
 
@@ -16,7 +16,7 @@ summary: 了解如何在 AdonisJS 中读取和更新配置值。
 
 ## 导入配置文件
 
-您可以使用标准的 JavaScript `import` 语句在应用程序代码库中导入配置文件。例如：
+你可以使用标准的 JavaScript `import` 语句在应用程序代码库中导入配置文件。例如：
 
 ```ts
 import { appKey } from '#config/app'
@@ -48,9 +48,9 @@ config.get('app.http.cookie') // 读取嵌套值
 
 ### 在外部包中读取配置
 
-如果您正在创建一个第三方包，不应直接从用户应用程序中导入配置文件，因为这会使您的包与宿主应用程序的文件夹结构紧密耦合。
+如果你正在创建一个第三方包，不应直接从用户应用程序中导入配置文件，因为这会使你的包与宿主应用程序的文件夹结构紧密耦合。
 
-相反，您应该使用配置服务在服务提供者中访问配置值。例如：
+相反，你应该使用配置服务在服务提供者中访问配置值。例如：
 
 ```ts
 import { ApplicationService } from '@adonisjs/core/types'
@@ -71,13 +71,13 @@ export default class DriveServiceProvider {
 
 ### 在 Edge 模板中读取配置
 
-您可以使用 `config` 全局方法在 Edge 模板中访问配置值。
+你可以使用 `config` 全局方法在 Edge 模板中访问配置值。
 
 ```edge
 <a href="{{ config('app.appUrl') }}"> Home </a>
 ```
 
-您可以使用 `config.has` 方法来检查给定键是否存在配置值。如果值为 `undefined`，则该方法返回 `false`。
+你可以使用 `config.has` 方法来检查给定键是否存在配置值。如果值为 `undefined`，则该方法返回 `false`。
 
 ```edge
 @if(config.has('app.appUrl'))
@@ -89,7 +89,7 @@ export default class DriveServiceProvider {
 
 ## 更改配置位置
 
-您可以通过修改 `adonisrc.ts` 文件来更新配置目录的位置。更改后，将从新位置导入配置文件。
+你可以通过修改 `adonisrc.ts` 文件来更新配置目录的位置。更改后，将从新位置导入配置文件。
 
 ```ts
 directories: {
@@ -111,13 +111,13 @@ directories: {
 
 在应用程序的启动阶段导入存储在 `config` 目录中的配置文件。因此，配置文件不能依赖应用程序代码。
 
-例如，如果您尝试在 `config/app.ts` 文件中导入和使用路由服务，应用程序将无法启动。这是因为路由服务直到应用程序处于 `booted` 状态时才会配置。
+例如，如果你尝试在 `config/app.ts` 文件中导入和使用路由服务，应用程序将无法启动。这是因为路由服务直到应用程序处于 `booted` 状态时才会配置。
 
-从根本上说，这一限制对您的代码库有积极影响，因为应用程序代码应该依赖配置，而不是相反。
+从根本上说，这一限制对你的代码库有积极影响，因为应用程序代码应该依赖配置，而不是相反。
 
 ## 在运行时更新配置
 
-您可以使用配置服务在运行时更改配置值。`config.set` 更新内存中的值，不会对磁盘上的文件进行任何更改。
+你可以使用配置服务在运行时更改配置值。`config.set` 更新内存中的值，不会对磁盘上的文件进行任何更改。
 
 :::note
 

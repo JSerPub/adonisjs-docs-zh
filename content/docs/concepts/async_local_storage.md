@@ -14,7 +14,7 @@ summary: 了解 AsyncLocalStorage 以及如何在 AdonisJS 中使用它。
 
 :::note
 
-您可以在 [als-basic-example](https://github.com/thetutlage/als-basic-example) GitHub 仓库中找到此示例的最终代码。
+你可以在 [als-basic-example](https://github.com/thetutlage/als-basic-example) GitHub 仓库中找到此示例的最终代码。
 
 :::
 

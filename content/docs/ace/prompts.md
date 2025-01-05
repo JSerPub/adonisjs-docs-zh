@@ -4,7 +4,7 @@ summary: Prompts 是用于用户输入的终端小部件，使用 @poppinss/prom
 
 # Prompts
 
-Prompts 是交互式终端小部件，您可以使用它们来接受用户输入。Ace prompts 由 [@poppinss/prompts](https://github.com/poppinss/prompts) 包提供支持，该包支持以下提示类型。
+Prompts 是交互式终端小部件，你可以使用它们来接受用户输入。Ace prompts 由 [@poppinss/prompts](https://github.com/poppinss/prompts) 包提供支持，该包支持以下提示类型。
 
 - input
 - list
@@ -15,13 +15,13 @@ Prompts 是交互式终端小部件，您可以使用它们来接受用户输入
 - multi-select
 - autocomplete
 
-Ace prompts 在设计时考虑了测试。在编写测试时，您可以捕获提示并以编程方式响应它们。
+Ace prompts 在设计时考虑了测试。在编写测试时，你可以捕获提示并以编程方式响应它们。
 
 另请参阅：[Testing ace commands](../testing/console_tests.md)
 
 ## 显示提示
 
-您可以使用所有 Ace 命令上可用的 `this.prompt` 属性来显示提示。
+你可以使用所有 Ace 命令上可用的 `this.prompt` 属性来显示提示。
 
 ```ts
 import { BaseCommand } from '@adonisjs/core/ace'
@@ -37,7 +37,7 @@ export default class GreetCommand extends BaseCommand {
 
 ## 提示选项
 
-以下是提示接受的选项列表。您可以将此表作为唯一可靠的信息来源。
+以下是提示接受的选项列表。你可以将此表作为唯一可靠的信息来源。
 
 <table>
 <tr>
@@ -192,7 +192,7 @@ export default class GreetCommand extends BaseCommand {
 
 <td>
 
-限制显示的选项数量。您将需要滚动查看其余选项。
+限制显示的选项数量。你将需要滚动查看其余选项。
 
 </td>
 </tr>
@@ -200,7 +200,7 @@ export default class GreetCommand extends BaseCommand {
 
 ## 文本输入
 
-您可以使用 `prompt.ask` 方法呈现提示以接受文本输入。该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
+你可以使用 `prompt.ask` 方法呈现提示以接受文本输入。该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
 
 ```ts
 await this.prompt.ask('Enter the model name')
@@ -224,7 +224,7 @@ await this.prompt.ask('Enter the model name', {
 
 ## 掩码输入
 
-顾名思义，掩码输入提示会在终端中屏蔽用户输入。您可以使用 `prompt.secure` 方法显示掩码提示。
+顾名思义，掩码输入提示会在终端中屏蔽用户输入。你可以使用 `prompt.secure` 方法显示掩码提示。
 
 该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
 
@@ -244,7 +244,7 @@ await this.prompt.secure('Enter account password', {
 
 ## 选择列表
 
-您可以使用 `prompt.choice` 方法显示单个选择的选择列表。该方法接受以下参数。
+你可以使用 `prompt.choice` 方法显示单个选择的选择列表。该方法接受以下参数。
 
 1. 提示消息。
 2. 选择数组。
@@ -279,7 +279,7 @@ await this.prompt.choice('Select database driver', [
 
 ## 多选
 
-您可以使用 `prompt.multiple` 方法允许在选择列表中进行多项选择。接受的参数与 `choice` 提示相同。
+你可以使用 `prompt.multiple` 方法允许在选择列表中进行多项选择。接受的参数与 `choice` 提示相同。
 
 ```ts
 await this.prompt.multiple('Select database drivers', [
@@ -300,7 +300,7 @@ await this.prompt.multiple('Select database drivers', [
 
 ## 确认操作
 
-您可以使用 `prompt.confirm` 方法显示带有 `Yes/No` 选项的确认提示。该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
+你可以使用 `prompt.confirm` 方法显示带有 `Yes/No` 选项的确认提示。该方法接受提示消息作为第一个参数，并将 [选项对象](#prompt-options) 作为第二个参数。
 
 `confirm` 提示返回一个布尔值。
 

@@ -1,10 +1,10 @@
 ---
-summary: 了解如何使用 @adonisjs/mail 包从您的 AdonisJS 应用程序发送电子邮件。
+summary: 了解如何使用 @adonisjs/mail 包从你的 AdonisJS 应用程序发送电子邮件。
 ---
 
 # 邮件
 
-您可以使用 `@adonisjs/mail` 包从您的 AdonisJS 应用程序发送电子邮件。该邮件包基于 [Nodemailer](https://nodemailer.com/) 构建，与 Nodemailer 相比，带来了以下生活质量提升：
+你可以使用 `@adonisjs/mail` 包从你的 AdonisJS 应用程序发送电子邮件。该邮件包基于 [Nodemailer](https://nodemailer.com/) 构建，与 Nodemailer 相比，带来了以下生活质量提升：
 
 - 流畅的 API 用于配置邮件消息。
 - 能够将电子邮件定义为类，以便更好地组织和更容易测试。
@@ -50,7 +50,7 @@ node ace add @adonisjs/mail --transports=resend --transports=smtp
 
 ## 配置
 
-邮件包的配置存储在 `config/mail.ts` 文件中。在此文件中，您可以配置多个电子邮件服务作为 `mailers`，以便在您的应用程序中使用它们。
+邮件包的配置存储在 `config/mail.ts` 文件中。在此文件中，你可以配置多个电子邮件服务作为 `mailers`，以便在你的应用程序中使用它们。
 
 另请参阅：[配置存根](https://github.com/adonisjs/mail/blob/main/stubs/config/mail.stub)
 
@@ -143,7 +143,7 @@ mailers
 
 <dd>
 
-`mailers` 对象用于配置您想要用于发送电子邮件的一个或多个邮件发送器。您可以在运行时使用 `mail.use` 方法在邮件发送器之间切换。
+`mailers` 对象用于配置你想要用于发送电子邮件的一个或多个邮件发送器。你可以在运行时使用 `mail.use` 方法在邮件发送器之间切换。
 
 </dd>
 
@@ -325,7 +325,7 @@ mailers
 
 ## 基本示例
 
-完成初始配置后，您可以使用 `mail.send` 方法发送电子邮件。邮件服务是使用配置文件创建的 [MailManager](https://github.com/adonisjs/mail/blob/main/src/mail_manager.ts) 类的单例实例。
+完成初始配置后，你可以使用 `mail.send` 方法发送电子邮件。邮件服务是使用配置文件创建的 [MailManager](https://github.com/adonisjs/mail/blob/main/src/mail_manager.ts) 类的单例实例。
 
 `mail.send` 方法将 [Message](https://github.com/adonisjs/mail/blob/main/src/message.ts) 类的实例传递给回调函数，并使用配置文件中配置的 `default` 邮件发送器发送电子邮件。
 
@@ -341,7 +341,7 @@ import mail from '@adonisjs/mail/services/main'
 export default class UsersController {
   async store({ request }: HttpContext) {
     /**
-     * 仅用于演示。您应在将数据存储在数据库之前
+     * 仅用于演示。你应在将数据存储在数据库之前
      * 验证数据。
      */
     const user = await User.create(request.all())
@@ -360,7 +360,7 @@ export default class UsersController {
 ```
 
 ## 队列化电子邮件
-由于发送电子邮件可能很耗时，您可能希望将它们推送到队列中并在后台发送电子邮件。您可以使用 `mail.sendLater` 方法来实现这一点。
+由于发送电子邮件可能很耗时，你可能希望将它们推送到队列中并在后台发送电子邮件。你可以使用 `mail.sendLater` 方法来实现这一点。
 
 `sendLater` 方法与 `send` 方法接受相同的参数。但是，它不会立即发送电子邮件，而是使用 **Mail messenger** 将其排队。
 
@@ -379,7 +379,7 @@ await mail.sendLater((message) => {
 })
 ```
 
-默认情况下，**mail messenger 使用内存队列**，这意味着如果您的进程在有待处理作业时终止，队列将丢弃这些作业。如果您的应用程序 UI 允许手动操作重新发送电子邮件，这可能不是什么大问题。但是，您可以随时配置自定义 messenger 并使用数据库支持的队列。
+默认情况下，**mail messenger 使用内存队列**，这意味着如果你的进程在有待处理作业时终止，队列将丢弃这些作业。如果你的应用程序 UI 允许手动操作重新发送电子邮件，这可能不是什么大问题。但是，你可以随时配置自定义 messenger 并使用数据库支持的队列。
 
 ### 使用 bullmq 队列化电子邮件
 
@@ -414,7 +414,7 @@ mail.setMessenger((mailer) => {
 // highlight-end
 ```
 
-最后，让我们编写队列 Worker 的代码。根据您的应用程序工作流程，您可能需要为 Worker 启动另一个进程来处理作业。
+最后，让我们编写队列 Worker 的代码。根据你的应用程序工作流程，你可能需要为 Worker 启动另一个进程来处理作业。
 
 在以下示例中：
 
@@ -441,10 +441,10 @@ new Worker('emails', async (job) => {
 })
 ```
 
-就这样！您可以继续使用 `mail.sendLater` 方法。但是，这次电子邮件将被排队到 redis 数据库中。
+就这样！你可以继续使用 `mail.sendLater` 方法。但是，这次电子邮件将被排队到 redis 数据库中。
 
 ## 切换邮件发送器
-您可以使用 `mail.use` 方法在配置的邮件发送器之间切换。`mail.use` 方法接受邮件发送器的名称（如配置文件中定义）并返回 [Mailer](https://github.com/adonisjs/mail/blob/main/src/mailer.ts) 类的实例。
+你可以使用 `mail.use` 方法在配置的邮件发送器之间切换。`mail.use` 方法接受邮件发送器的名称（如配置文件中定义）并返回 [Mailer](https://github.com/adonisjs/mail/blob/main/src/mailer.ts) 类的实例。
 
 ```ts
 import mail from '@adonisjs/mail/services/main'
@@ -453,7 +453,7 @@ mail.use() // 默认邮件发送器的实例
 mail.use('mailgun') // Mailgun 邮件发送器实例
 ```
 
-您可以调用 `mailer.send` 或 `mailer.sendLater` 方法来使用邮件发送器实例发送电子邮件。例如：
+你可以调用 `mailer.send` 或 `mailer.sendLater` 方法来使用邮件发送器实例发送电子邮件。例如：
 
 ```ts
 await mail
@@ -469,7 +469,7 @@ await mail
   })
 ```
 
-邮件发送器实例在进程的生命周期内被缓存。您可以使用 `mail.close` 方法销毁现有实例并从头开始重新创建一个新实例。
+邮件发送器实例在进程的生命周期内被缓存。你可以使用 `mail.close` 方法销毁现有实例并从头开始重新创建一个新实例。
 
 ```ts
 import mail from '@adonisjs/mail/services/main'
@@ -489,7 +489,7 @@ mail.use('mailgun')
 
 默认情况下，邮件包配置为使用 [Edge 模板引擎](../views-and-templates/introduction.md#configuring-edge) 来定义电子邮件的 **HTML** 和 **纯文本** 内容。
 
-但是，如以下示例所示，您也可以通过覆盖 `Message.templateEngine` 属性来注册自定义模板引擎。
+但是，如以下示例所示，你也可以通过覆盖 `Message.templateEngine` 属性来注册自定义模板引擎。
 
 另请参阅：[定义电子邮件内容](#defining-email-contents)
 
@@ -534,7 +534,7 @@ await mail.sendLater((message) => {
 await mail.send((message) => {
   message
   // highlight-start
-    .subject('验证您的电子邮件地址')
+    .subject('验证你的电子邮件地址')
     .from('info@example.org')
   // highlight-end
 })
@@ -632,7 +632,7 @@ await mail.send((message) => {
    */
   message.html(`
     <h1> 验证电子邮件地址 </h1>
-    <p> <a href="https://myapp.com">点击这里</a> 以验证您的电子邮件地址 </a>
+    <p> <a href="https://myapp.com">点击这里</a> 以验证你的电子邮件地址 </a>
   `)
 
   /**
@@ -640,7 +640,7 @@ await mail.send((message) => {
    */
   message.text(`
     验证电子邮件地址
-    请访问 https://myapp.com 以验证您的电子邮件地址
+    请访问 https://myapp.com 以验证你的电子邮件地址
   `)
 })
 ```
@@ -757,7 +757,7 @@ message.attach(app.makePath('uploads/invoice.pdf'), {
 </table>
 
 #### 从流和缓冲区附加文件
-您可以使用 `message.attachData` 方法从流和缓冲区创建电子邮件附件。该方法接受一个可读流或缓冲区作为第一个参数，并将选项对象作为第二个参数。
+你可以使用 `message.attachData` 方法从流和缓冲区创建电子邮件附件。该方法接受一个可读流或缓冲区作为第一个参数，并将选项对象作为第二个参数。
 
 :::note
 
@@ -780,7 +780,7 @@ message.attachData(Buffer.from('aGVsbG8gd29ybGQh'), {
 ```
 
 ### 嵌入图片
-您可以使用 `embedImage` 视图助手在电子邮件内容中嵌入图片。`embedImage` 方法在底层使用 [CID](https://sendgrid.com/en-us/blog/embedding-images-emails-facts#1-cid-embedded-images-inline-images) 标记图片为附件，并使用其内容 ID 作为图片的来源。
+你可以使用 `embedImage` 视图助手在电子邮件内容中嵌入图片。`embedImage` 方法在底层使用 [CID](https://sendgrid.com/en-us/blog/embedding-images-emails-facts#1-cid-embedded-images-inline-images) 标记图片为附件，并使用其内容 ID 作为图片的来源。
 
 ```edge
 <img src="{{
@@ -808,7 +808,7 @@ message.attachData(Buffer.from('aGVsbG8gd29ybGQh'), {
 
 #### 从缓冲区嵌入图片
 
-与 `embedImage` 方法类似，您可以使用 `embedImageData` 方法从原始数据中嵌入图片。
+与 `embedImage` 方法类似，你可以使用 `embedImageData` 方法从原始数据中嵌入图片。
 
 ```edge
 <img src="{{
@@ -817,7 +817,7 @@ message.attachData(Buffer.from('aGVsbG8gd29ybGQh'), {
 ```
 
 ### 附加日历事件
-您可以使用 `message.icalEvent` 方法将日历事件附加到电子邮件中。`icalEvent` 方法接受事件内容作为第一个参数，并将 `options` 对象作为第二个参数。
+你可以使用 `message.icalEvent` 方法将日历事件附加到电子邮件中。`icalEvent` 方法接受事件内容作为第一个参数，并将 `options` 对象作为第二个参数。
 
 ```ts
 const contents = 'BEGIN:VCALENDAR\r\nPRODID:-//ACME/DesktopCalendar//EN\r\nMETHOD:REQUEST\r\n...'
@@ -830,7 +830,7 @@ await mail.send((message) => {
 })
 ```
 
-由于手动定义事件文件内容可能很繁琐，您可以向 `icalEvent` 方法传递一个回调函数，并使用 JavaScript API 生成邀请内容。
+由于手动定义事件文件内容可能很繁琐，你可以向 `icalEvent` 方法传递一个回调函数，并使用 JavaScript API 生成邀请内容。
 
 提供给回调函数的 `calendar` 对象是 [ical-generator](https://www.npmjs.com/package/ical-generator) npm 包的引用，因此请务必浏览该包的 README 文件。
 
@@ -851,7 +851,7 @@ message.icalEvent((calendar) => {
 ```
 
 #### 从文件或 URL 读取邀请内容
-您可以使用 `icalEventFromFile` 或 `icalEventFromUrl` 方法从文件或 HTTP URL 定义邀请内容。
+你可以使用 `icalEventFromFile` 或 `icalEventFromUrl` 方法从文件或 HTTP URL 定义邀请内容。
 
 ```ts
 message.icalEventFromFile(
@@ -874,7 +874,7 @@ message.icalEventFromFile(
 ```
 
 ### 定义电子邮件头
-您可以使用 `message.header` 方法定义额外的电子邮件头。该方法接受头键作为第一个参数，并将值作为第二个参数。
+你可以使用 `message.header` 方法定义额外的电子邮件头。该方法接受头键作为第一个参数，并将值作为第二个参数。
 
 ```ts
 message.header('x-my-key', 'header value')
@@ -885,7 +885,7 @@ message.header('x-my-key', 'header value')
 message.header('x-my-key', ['header value', 'another value'])
 ```
 
-默认情况下，电子邮件头会被编码和折叠，以满足拥有不超过 78 字节行的纯 ASCII 消息的要求。但是，如果您想绕过编码规则，可以使用 `message.preparedHeader` 方法设置头。
+默认情况下，电子邮件头会被编码和折叠，以满足拥有不超过 78 字节行的纯 ASCII 消息的要求。但是，如果你想绕过编码规则，可以使用 `message.preparedHeader` 方法设置头。
 
 ```ts
 message.preparedHeader(
@@ -895,7 +895,7 @@ message.preparedHeader(
 ```
 
 ### 定义 `List` 头
-消息类包括辅助方法，可以轻松定义复杂的头，如 [List-Unsubscribe](https://sendgrid.com/en-us/blog/list-unsubscribe) 或 [List-Help](https://support.optimizely.com/hc/en-us/articles/4413200569997-Setting-up-the-List-Help-header#heading-2)。您可以在 [nodemailer 网站](https://nodemailer.com/message/list-headers/) 上了解 `List` 头的编码规则。
+消息类包括辅助方法，可以轻松定义复杂的头，如 [List-Unsubscribe](https://sendgrid.com/en-us/blog/list-unsubscribe) 或 [List-Help](https://support.optimizely.com/hc/en-us/articles/4413200569997-Setting-up-the-List-Help-header#heading-2)。你可以在 [nodemailer 网站](https://nodemailer.com/message/list-headers/) 上了解 `List` 头的编码规则。
 
 ```ts
 message.listHelp('admin@example.com?subject=help')
@@ -923,7 +923,7 @@ message.listSubscribe({
 // List-Subscribe: <http://example.com> (Subscribe)
 ```
 
-对于所有其他任意的 `List` 头，您可以使用 `addListHeader` 方法。
+对于所有其他任意的 `List` 头，你可以使用 `addListHeader` 方法。
 
 ```ts
 message.addListHeader('post', 'http://example.com/post')
@@ -932,9 +932,9 @@ message.addListHeader('post', 'http://example.com/post')
 
 ## 基于类的电子邮件
 
-您可以将电子邮件从 `mail.send` 方法闭包中移出，放到专用的邮件类中，以便更好地组织和 [更容易测试](#testing-mail-classes)。
+你可以将电子邮件从 `mail.send` 方法闭包中移出，放到专用的邮件类中，以便更好地组织和 [更容易测试](#testing-mail-classes)。
 
-邮件类存储在 `./app/mails` 目录中，每个文件代表一封电子邮件。您可以通过运行 `make:mail` ace 命令来创建邮件类。
+邮件类存储在 `./app/mails` 目录中，每个文件代表一封电子邮件。你可以通过运行 `make:mail` ace 命令来创建邮件类。
 
 另请参阅：[Make mail 命令](../references/commands.md#makemail)
 
@@ -942,7 +942,7 @@ message.addListHeader('post', 'http://example.com/post')
 node ace make:mail verify_email
 ```
 
-邮件类扩展了 [BaseMail](https://github.com/adonisjs/mail/blob/main/src/base_mail.ts) 类，并带有以下属性和方法。您可以在 `prepare` 方法中使用 `this.message` 属性配置邮件消息。
+邮件类扩展了 [BaseMail](https://github.com/adonisjs/mail/blob/main/src/base_mail.ts) 类，并带有以下属性和方法。你可以在 `prepare` 方法中使用 `this.message` 属性配置邮件消息。
 
 ```ts
 import User from '#models/user'
@@ -1006,7 +1006,7 @@ prepare
 
 `build` 方法会自动调用 `prepare` 方法来准备要发送的邮件消息。
 
-您必须在此方法中定义电子邮件内容、附件、收件人等。
+你必须在此方法中定义电子邮件内容、附件、收件人等。
 
 </dd>
 
@@ -1020,7 +1020,7 @@ build :span[Inherited]{class="badge"}
 
 `build` 方法是从 `BaseMail` 类继承而来的。在发送电子邮件时，该方法会自动被调用。
 
-如果您决定重写此方法，请务必参考 [原始实现](https://github.com/adonisjs/mail/blob/main/src/base_mail.ts#L81)。
+如果你决定重写此方法，请务必参考 [原始实现](https://github.com/adonisjs/mail/blob/main/src/base_mail.ts#L81)。
 
 </dd>
 
@@ -1028,7 +1028,7 @@ build :span[Inherited]{class="badge"}
 
 ### 使用 mail 类发送电子邮件
 
-您可以调用 `mail.send` 方法，并传递一个 mail 类的实例来发送电子邮件。例如：
+你可以调用 `mail.send` 方法，并传递一个 mail 类的实例来发送电子邮件。例如：
 
 ```ts
 // title: 发送邮件
@@ -1046,7 +1046,7 @@ import VerifyEmailNotification from '#mails/verify_email'
 await mail.sendLater(new VerifyEmailNotification())
 ```
 
-您可以使用构造函数参数与 mail 类共享数据。例如：
+你可以使用构造函数参数与 mail 类共享数据。例如：
 
 ```ts
 /**
@@ -1064,7 +1064,7 @@ await mail.send(
 
 ### 测试 mail 类
 
-使用 [Mail 类](#class-based-emails) 的主要好处之一是获得更好的测试体验。您可以构建邮件类而不发送它们，并为消息属性编写断言。
+使用 [Mail 类](#class-based-emails) 的主要好处之一是获得更好的测试体验。你可以构建邮件类而不发送它们，并为消息属性编写断言。
 
 ```ts
 import { test } from '@japa/runner'
@@ -1092,7 +1092,7 @@ test.group('验证电子邮件通知', () => {
 })
 ```
 
-您可以按如下方式为消息内容编写断言。
+你可以按如下方式为消息内容编写断言。
 
 ```ts
 const email = new VerifyEmailNotification()
@@ -1106,7 +1106,7 @@ email.message.assertTextIncludes('验证电子邮件地址')
 // highlight-end
 ```
 
-此外，您还可以为附件编写断言。断言仅适用于基于文件的附件，而不适用于流或原始内容。
+此外，你还可以为附件编写断言。断言仅适用于基于文件的附件，而不适用于流或原始内容。
 
 ```ts
 const email = new VerifyEmailNotification()
@@ -1123,7 +1123,7 @@ email.message.assertAttachment(
 
 ## 虚拟邮件程序
 
-在测试期间，您可能希望使用虚拟邮件程序来防止应用程序发送电子邮件。虚拟邮件程序会在内存中收集所有外发电子邮件，并提供一个易于使用的 API 来编写针对它们的断言。
+在测试期间，你可能希望使用虚拟邮件程序来防止应用程序发送电子邮件。虚拟邮件程序会在内存中收集所有外发电子邮件，并提供一个易于使用的 API 来编写针对它们的断言。
 
 在以下示例中：
 
@@ -1167,7 +1167,7 @@ test.group('用户 | 注册', () => {
 })
 ```
 
-编写完测试后，您必须使用 `mail.restore` 方法恢复虚拟邮件程序。
+编写完测试后，你必须使用 `mail.restore` 方法恢复虚拟邮件程序。
 
 ```ts
 test('创建新的用户帐户', async ({ client, route, cleanup }) => {
@@ -1195,9 +1195,9 @@ const { mails } = mail.fake()
 mails.assertSent(VerifyEmailNotification)
 ```
 
-您可以向 `assertSent` 方法传递一个回调函数，以进一步检查电子邮件是否已发送给预期的收件人或具有正确的主题。
+你可以向 `assertSent` 方法传递一个回调函数，以进一步检查电子邮件是否已发送给预期的收件人或具有正确的主题。
 
-回调函数会接收一个 mail 类的实例，您可以使用 `.message` 属性来访问 [message](#configuring-message) 对象。
+回调函数会接收一个 mail 类的实例，你可以使用 `.message` 属性来访问 [message](#configuring-message) 对象。
 
 ```ts
 mails.assertSent(VerifyEmailNotification, (email) => {
@@ -1205,13 +1205,13 @@ mails.assertSent(VerifyEmailNotification, (email) => {
 })
 ```
 
-您可以在回调中对 `message` 对象运行断言。例如：
+你可以在回调中对 `message` 对象运行断言。例如：
 
 ```ts
 mails.assertSent(VerifyEmailNotification, (email) => {
   email.message.assertTo(userData.email)
   email.message.assertFrom('info@example.org')
-  email.message.assertSubject('验证您的电子邮件地址')
+  email.message.assertSubject('验证你的电子邮件地址')
 
   /**
    * 所有断言均通过，因此返回 true 以认为
@@ -1223,7 +1223,7 @@ mails.assertSent(VerifyEmailNotification, (email) => {
 
 #### 断言未发送电子邮件
 
-您可以使用 `mails.assertNotSent` 方法来断言在测试期间未发送电子邮件。此方法与 `assertSent` 方法相反，并接受相同的参数。
+你可以使用 `mails.assertNotSent` 方法来断言在测试期间未发送电子邮件。此方法与 `assertSent` 方法相反，并接受相同的参数。
 
 ```ts
 const { mails } = mail.fake()

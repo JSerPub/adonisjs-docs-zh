@@ -10,7 +10,7 @@ AdonisJS 是由 [Harminder Virk](https://twitter.com/AmanVirk1) 于 2015 年创�
 
 框架的创建者（Harminder Virk）是项目负责人，并全职从事框架的开发工作。
 
-该项目通过 GitHub Sponsors 获得资助。如果您或您的企业从 AdonisJS 中受益，请考虑 [赞助我们以支持框架的开发](https://github.com/sponsors/thetutlage)。
+该项目通过 GitHub Sponsors 获得资助。如果你或你的企业从 AdonisJS 中受益，请考虑 [赞助我们以支持框架的开发](https://github.com/sponsors/thetutlage)。
 
 ## AdonisJS 的许可协议是什么？
 
@@ -37,7 +37,7 @@ AdonisJS 被 [Marie Claire](https://www.marieclaire.com/)、[Cleavr](https://cle
 
 ## 你们提供付费支持吗？
 
-是的！在我们的网站上，您可以了解更多关于 [优先支持计划](https://adonisjs.com/support_program) 的信息。
+是的！在我们的网站上，你可以了解更多关于 [优先支持计划](https://adonisjs.com/support_program) 的信息。
 
 ## 如何及时了解 AdonisJS 的最新动态？
 

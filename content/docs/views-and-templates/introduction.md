@@ -4,21 +4,21 @@ summary: AdonisJS 中渲染视图和模板的可用选项
 
 # 视图和模板
 
-AdonisJS 非常适合在 Node.js 中创建传统的服务器端渲染应用程序。如果您喜欢使用后端模板引擎来输出 HTML，而无需虚拟 DOM 和构建工具的任何开销，那么本指南非常适合您。
+AdonisJS 非常适合在 Node.js 中创建传统的服务器端渲染应用程序。如果你喜欢使用后端模板引擎来输出 HTML，而无需虚拟 DOM 和构建工具的任何开销，那么本指南非常适合你。
 
 在 AdonisJS 中，服务器端渲染应用程序的典型工作流程如下：
 
 - 选择一个模板引擎来动态渲染 HTML。
 - 使用 [Vite](../basics/vite.md) 来捆绑 CSS 和前端 JavaScript。
-- 可选地，您可以选择像 [HTMX](https://htmx.org/) 或 [Unpoly](https://unpoly.com/) 这样的库来逐步增强您的应用程序，并实现像 SPA 一样的导航。
+- 可选地，你可以选择像 [HTMX](https://htmx.org/) 或 [Unpoly](https://unpoly.com/) 这样的库来逐步增强你的应用程序，并实现像 SPA 一样的导航。
 
 :::note
-AdonisJS 核心团队创建了一个与框架无关的模板引擎，称为 [Edge.js](https://edgejs.dev)，但不强制您使用它。您可以在 AdonisJS 应用程序中使用任何您喜欢的其他模板引擎。
+AdonisJS 核心团队创建了一个与框架无关的模板引擎，称为 [Edge.js](https://edgejs.dev)，但不强制你使用它。你可以在 AdonisJS 应用程序中使用任何你喜欢的其他模板引擎。
 :::
 
 ## 流行选项
 
-以下是您可以在 AdonisJS 应用程序中使用的流行模板引擎列表（就像在其他 Node.js 应用程序中一样）。
+以下是你可以在 AdonisJS 应用程序中使用的流行模板引擎列表（就像在其他 Node.js 应用程序中一样）。
 
 - [**EdgeJS**](https://edgejs.dev) 是一个简单、现代且功能齐全的模板引擎，由 AdonisJS 核心团队为 Node.js 创建和维护。
 - [**Pug**](https://pugjs.org) 是一个受 Haml 影响的模板引擎。

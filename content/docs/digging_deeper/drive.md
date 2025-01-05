@@ -6,7 +6,7 @@ summary: 在本地文件系统和云存储服务（如S3、GCS、R2和Digital Oc
 
 AdonisJS Drive (`@adonisjs/drive`) 是 [flydrive.dev](https://flydrive.dev/) 上的一个轻量级封装。FlyDrive 是一个用于 Node.js 的文件存储库。它提供了一个统一的API来与本地文件系统和云存储解决方案（如S3、R2和GCS）进行交互。
 
-使用 FlyDrive，您可以在各种云存储服务（包括本地文件系统）上管理用户上传的文件，而无需更改任何代码。
+使用 FlyDrive，你可以在各种云存储服务（包括本地文件系统）上管理用户上传的文件，而无需更改任何代码。
 
 ## 安装
 
@@ -41,7 +41,7 @@ node ace add @adonisjs/drive
 
 ## 配置
 
-`@adonisjs/drive` 包的配置存储在 `config/drive.ts` 文件中。您可以在单个配置文件中为多个服务定义配置。
+`@adonisjs/drive` 包的配置存储在 `config/drive.ts` 文件中。你可以在单个配置文件中为多个服务定义配置。
 
 另请参阅：[配置存根](https://github.com/adonisjs/drive/blob/main/stubs/config/drive.stub)
 
@@ -87,15 +87,15 @@ export default driveConfig
 
 存储服务的凭据/设置作为环境变量存储在 `.env` 文件中。在使用 Drive 之前，请确保更新这些值。
 
-此外，`DRIVE_DISK` 环境变量定义了管理文件的默认磁盘/服务。例如，您可能希望在开发中使用 `fs` 磁盘，在生产中使用 `spaces` 磁盘。
+此外，`DRIVE_DISK` 环境变量定义了管理文件的默认磁盘/服务。例如，你可能希望在开发中使用 `fs` 磁盘，在生产中使用 `spaces` 磁盘。
 
 ## 使用
 
-配置好 Drive 后，您可以导入 `drive` 服务来与其API进行交互。在下面的示例中，我们使用 Drive 处理文件上传操作。
+配置好 Drive 后，你可以导入 `drive` 服务来与其API进行交互。在下面的示例中，我们使用 Drive 处理文件上传操作。
 
 :::note
 
-由于 AdonisJS 集成是 FlyDrive 上的一个轻量级封装。为了更好地理解其API，您应该阅读 [FlyDrive 文档](https://flydrive.dev)。
+由于 AdonisJS 集成是 FlyDrive 上的一个轻量级封装。为了更好地理解其API，你应该阅读 [FlyDrive 文档](https://flydrive.dev)。
 
 :::
 
@@ -139,13 +139,13 @@ router.put('/me', async ({ request, response }) => {
 
 - Drive 包为 [MultipartFile](https://github.com/adonisjs/drive/blob/develop/providers/drive_provider.ts#L110) 添加了 `moveToDisk` 方法。此方法将文件从其 `tmpPath` 复制到配置的存储提供者。
 
-- `drive.use().getUrl()` 方法返回文件的公共URL。对于私有文件，您必须使用 `getSignedUrl` 方法。
+- `drive.use().getUrl()` 方法返回文件的公共URL。对于私有文件，你必须使用 `getSignedUrl` 方法。
 
 ## Drive 服务
 
 由 `@adonisjs/drive/services/main` 路径导出的 Drive 服务是使用 `config/drive.ts` 文件导出的配置创建的 [DriveManager](https://flydrive.dev/docs/drive_manager) 类的单例实例。
 
-您可以导入此服务以与 DriveManager 和配置的文件存储服务进行交互。例如：
+你可以导入此服务以与 DriveManager 和配置的文件存储服务进行交互。例如：
 
 ```ts
 import drive from '@adonisjs/drive/services/main'
@@ -168,7 +168,7 @@ const disk = drive.use('r2')
 const disk = drive.use('spaces')
 ```
 
-一旦您获得了磁盘的实例，就可以使用它来管理文件。
+一旦你获得了磁盘的实例，就可以使用它来管理文件。
 
 另请参阅：[磁盘API](https://flydrive.dev/docs/disk_api)
 
@@ -194,7 +194,7 @@ await disk.moveFromFs(source, destination)
 
 AdonisJS 集成增强了 FlyDrive 的本地文件系统驱动程序，并添加了URL生成和使用 AdonisJS HTTP 服务器提供文件服务的能力。
 
-以下是您可能用于配置文件系统驱动程序的选项列表。
+以下是你可能用于配置文件系统驱动程序的选项列表。
 
 ```ts
 {
@@ -221,7 +221,7 @@ location
 
 <dd>
 
-`location` 属性定义了存储文件的目录。此目录应添加到 `.gitignore` 中，以便您不会将开发期间上传的文件推送到生产服务器。
+`location` 属性定义了存储文件的目录。此目录应添加到 `.gitignore` 中，以便你不会将开发期间上传的文件推送到生产服务器。
 
 </dd>
 
@@ -245,7 +245,7 @@ serveFiles
 
 <dd>
 
-`serveFiles` 选项会自动注册一个路由以从本地文件系统提供文件服务。您可以使用 [list\:routes](../references/commands.md#listroutes) ace 命令查看此路由。
+`serveFiles` 选项会自动注册一个路由以从本地文件系统提供文件服务。你可以使用 [list\:routes](../references/commands.md#listroutes) ace 命令查看此路由。
 
 </dd>
 
@@ -269,7 +269,7 @@ appUrl
 
 <dd>
 
-您可以选择定义 `appUrl` 属性，以创建包含应用程序完整域名的URL。否则，将创建相对URL。
+你可以选择定义 `appUrl` 属性，以创建包含应用程序完整域名的URL。否则，将创建相对URL。
 
 </dd>
 
@@ -277,7 +277,7 @@ appUrl
 </dl>
 
 ## 边缘辅助函数
-在 Edge 模板中，您可以使用以下辅助方法来生成 URL。这两种方法都是异步的，因此请确保使用 `await` 调用它们。
+在 Edge 模板中，你可以使用以下辅助方法来生成 URL。这两种方法都是异步的，因此请确保使用 `await` 调用它们。
 
 ```edge
 <img src="{{ await driveUrl(user.avatar) }}" />

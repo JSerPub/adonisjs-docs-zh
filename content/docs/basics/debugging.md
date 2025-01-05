@@ -289,25 +289,25 @@ export const dumper = dumperConfig({
 </dl>
 
 ## 框架调试日志
-您可以使用 `NODE_DEBUG` 环境变量查看框架调试日志。`NODE_DEBUG` 标志由 Node.js 运行时支持，您可以使用它查看一个或多个模块的日志，方法是使用模块名称。
+你可以使用 `NODE_DEBUG` 环境变量查看框架调试日志。`NODE_DEBUG` 标志由 Node.js 运行时支持，你可以使用它查看一个或多个模块的日志，方法是使用模块名称。
 
-例如，您可以使用 `NODE_DEBUG="adonisjs:*"` 值查看所有 AdonisJS 包的日志。
+例如，你可以使用 `NODE_DEBUG="adonisjs:*"` 值查看所有 AdonisJS 包的日志。
 
 ```sh
 NODE_DEBUG="adonisjs:*" node ace serve --hmr
 ```
 
-同样，您可以使用 `NODE_DEBUG` 环境变量查看来自 Node.js 原生模块的日志，如 `fs`、`net`、`module` 等。
+同样，你可以使用 `NODE_DEBUG` 环境变量查看来自 Node.js 原生模块的日志，如 `fs`、`net`、`module` 等。
 
 ```sh
 NODE_DEBUG="adonisjs:*,net,fs" node ace serve --hmr
 ```
 
 <!-- ## 观察活动
-观察应用程序不同部分执行的操作可以提供一些有意义的见解，并帮助您调试和理解框架的内部工作原理。
+观察应用程序不同部分执行的操作可以提供一些有意义的见解，并帮助你调试和理解框架的内部工作原理。
 
 ### Lucid 查询
-您可以通过在 `config/database.ts` 文件中启用 `debug` 标志来调试 Lucid 查询。此外，您还必须在同一文件中启用 `prettyPrintDebugQueries` 以在终端中打印 SQL 查询。
+你可以通过在 `config/database.ts` 文件中启用 `debug` 标志来调试 Lucid 查询。此外，你还必须在同一文件中启用 `prettyPrintDebugQueries` 以在终端中打印 SQL 查询。
 
 ```ts
 // title: config/database.ts
