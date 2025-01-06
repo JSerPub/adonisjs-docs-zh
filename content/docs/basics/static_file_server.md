@@ -4,11 +4,11 @@ summary: 使用 @adonisjs/static 包从给定目录提供静态文件服务。
 
 # 静态文件服务器
 
-你可以使用 `@adonisjs/static` 包从给定目录提供静态文件服务。该包附带了一个中间件，你必须在 [服务器中间件堆栈](./middleware.md#server-middleware-stack) 中注册它，以拦截 HTTP 请求并提供文件服务。
+你可以使用 `@adonisjs/static` 包从指定目录提供静态文件服务。该包附带了一个中间件，你必须在 [服务器中间件堆栈](./middleware.md#server-middleware-stack) 中注册它，以便拦截 HTTP 请求并提供文件服务。
 
 ## 安装
 
-该包在 `web` 初学者工具包中已预配置。但是，你可以按照以下步骤在其他初学者工具包中安装和配置它。
+该包在 `web` 启动套件中已预配置。但是，你可以按照以下步骤在其他启动套件中安装和配置它。
 
 使用以下命令安装和配置该包：
 
@@ -76,7 +76,7 @@ export default staticServerConfig
 
 <dt>
 
-  acceptRanges
+  acceptRange
 
 </dt>
 

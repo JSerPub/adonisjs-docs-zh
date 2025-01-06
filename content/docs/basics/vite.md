@@ -4,14 +4,14 @@ summary: 了解如何在 AdonisJS 应用程序中使用 Vite 来打包前端资�
 
 # Vite
 
-AdonisJS 使用 [Vite](https://vitejs.dev/) 来打包你应用程序的前端资源。我们提供了一个官方集成，它执行了将 Vite 与 AdonisJS 这样的后端框架集成所需的所有繁重工作。它包括：
+AdonisJS 使用 [Vite](https://vitejs.dev/) 来打包前端资源。我们提供了官方集成方案，轻松实现 Vite 与 AdonisJS 等后端框架的无缝对接。它包括：
 
-- 将 Vite 开发服务器嵌入到 AdonisJS 中。
+- 将 Vite 开发服务器集成到 AdonisJS 中。
 - 一个专用的 Vite 插件，以简化配置选项。
 - Edge 辅助函数和标签，用于生成由 Vite 处理过的资源的 URL。
-- 访问 [Vite 运行时 API](https://vitejs.dev/guide/api-vite-runtime.html#vite-runtime-api) 以执行服务器端渲染（SSR）。
+- 使用 [Vite 运行时 API](https://vitejs.dev/guide/api-vite-runtime.html#vite-runtime-api) 进行行服务器端渲染（SSR）。
 
-Vite 被嵌入在 AdonisJS 开发服务器中，每个应由 Vite 处理的请求都通过 AdonisJS 中间件代理给它。这允许我们直接访问 Vite 的运行时 API 以执行服务器端渲染（SSR）并管理一个单一的开发服务器。这也意味着资源由 AdonisJS 直接提供，而不是由单独的进程提供。
+Vite 被嵌入到 AdonisJS 开发服务器中，所有应由 Vite 处理的请求都通过 AdonisJS 中间件来代理。这使我们能直接访问 Vite 的运行时 API，以执行服务器端渲染（SSR）并管理统一的开发服务器。这也意味着资源由 AdonisJS 直接提供，而不是由单独的进程提供。
 
 :::tip
 仍在使用 @adonisjs/vite 2.x？ [查看迁移指南](https://github.com/adonisjs/vite/releases/tag/v3.0.0) 以升级到最新版本。
@@ -67,7 +67,7 @@ export default defineConfig({
 
 将 `assetsBundler` 属性设置为 `false`，以关闭 AdonisJS Assembler 所做的资源打包器管理。
 
-`hooks` 属性注册了 `@adonisjs/vite/build_hook` 以执行 Vite 构建过程。有关更多信息，请参阅 [Assembler hooks](../concepts/assembler_hooks.md)。
+`hooks` 属性注册了 `@adonisjs/vite/build_hook`，用于执行 Vite 构建过程。有关更多信息，请参阅 [Assembler hooks](../concepts/assembler_hooks.md)。
 
 ## 配置
 
@@ -138,9 +138,9 @@ assetsUrl
 
 <dd>
 
-它包含在生成生产环境中资源的链接时要添加的前缀 URL。如果你将 Vite 输出上传到 CDN，则此属性的值应为 CDN 服务器 URL。
+该属性用于指定在生产环境中生成资源链接时的（URL）前缀。如果你将 Vite 构建结果文件上传到 CDN，则此属性的值应为 CDN 服务器的 URL。
 
-确保你更新后端配置以使用相同的 `assetsUrl` 值。
+要确保后端配置中的 assetsUrl 值与前端保持一致。
 
 </dd>
 </dl>
@@ -149,7 +149,7 @@ assetsUrl
 
 ### AdonisJS 配置文件
 
-AdonisJS 在后端使用 `config/vite.ts` 文件来了解 Vite 构建过程的输出路径。
+AdonisJS 在后端使用 `config/vite.ts` 文件来获取 Vite 构建过程的输出路径。
 
 ```ts
 // title: config/vite.ts
@@ -181,7 +181,7 @@ assetsUrl
 
 <dd>
 
-在生成生产环境中资源的链接时要添加的前缀 URL。如果你将 Vite 输出上传到 CDN，则此属性的值应为 CDN 服务器 URL。
+在生成生产环境中资源的链接时要添加的（URL）前缀。如果你将 Vite 输出上传到 CDN，则此属性的值应为 CDN 服务器的 URL。
 
 </dd>
 
@@ -222,7 +222,7 @@ defineConfig({
 })
 ```
 
-你还可以通过为 `styleAttributes` 选项分配一个函数来有条件地应用属性。
+你还可以通过为 `styleAttributes` 选项分配一个函数来条件地使用属性。
 
 ```ts
 defineConfig({
@@ -302,7 +302,7 @@ import '../css/app.css'
 
 ## 在 Edge 模板中引用资源
 
-Vite 会为入口点导入的文件创建一个依赖图，并根据打包输出自动更新它们的路径。然而，Vite 并不了解 Edge 模板，也无法检测到它们引用的资源。
+Vite 会为入口点导入的文件创建一个依赖关系图，并自动更新这些文件的路径以符合打包后的输出。不过，Vite 并不支持 Edge 模板，也无法识别它们所引用的资源。
 
 因此，我们提供了一个 Edge 辅助函数，你可以使用它来创建由 Vite 处理的文件的 URL。在以下示例中：
 
@@ -327,7 +327,7 @@ Vite 会为入口点导入的文件创建一个依赖图，并根据打包输出
 
 Vite 会忽略前端代码未导入的静态资源。这些可能是仅在 Edge 模板中引用的静态图像、字体或 SVG 图标。
 
-因此，你需要使用 Vite 的 [Glob 导入](https://vitejs.dev/guide/features.html#glob-import) API 来通知 Vite 这些资源的存在。
+因此，你需要使用 Vite 的 [Glob 导入](https://vitejs.dev/guide/features.html#glob-import) API 让 Vite 知道这些资源的存在。
 
 在以下示例中，我们要求 Vite 处理 `resources/images` 目录中的所有文件。此代码应写在入口点文件中。
 
@@ -363,7 +363,7 @@ import.meta.glob(['../images/**'])
 
 ## 在 React 中启用 HMR
 
-要在开发期间启用 [react-refresh](https://www.npmjs.com/package/react-refresh)，你必须使用 `@viteReactRefresh` Edge 标签。它应写在你使用 `@vite` 标签包含入口点之前。
+要在开发期间启用 [react-refresh](https://www.npmjs.com/package/react-refresh)，你必须使用 `@viteReactRefresh` Edge 标签。该标签需置于 `@vite` 标签（引入入口点）之前。
 
 ```edge
 <!DOCTYPE html>
@@ -403,9 +403,9 @@ export default defineConfig({
 
 ## 将资源部署到 CDN
 
-使用 Vite 创建生产构建后，你可以将打包输出上传到 CDN 服务器以提供文件服务。
+使用 Vite 创建生产构建后，你可以将打包输出上传到 CDN 服务器来提供文件服务。
 
-然而，在此之前，你必须在 Vite 和 AdonisJS 中注册你的 CDN 服务器的 URL，以便 `manifest.json` 文件中的输出 URL 或懒加载块应指向你的 CDN 服务器。
+不过，在此之前，你必须在 Vite 和 AdonisJS 中注册你的 CDN 服务器的 URL，这样 manifest.json 文件里的 URL 或懒加载的模块才能正确指向您的 CDN 服务器。
 
 你必须在 `vite.config.ts` 和 `config/vite.ts` 文件中定义 `assetsUrl`。
 
@@ -447,7 +447,7 @@ export default viteBackendConfig
 
 在旧版本的 AdonisJS 中，Vite 是作为一个单独的进程启动的，并拥有自己的开发服务器。
 
-在 3.x 版本中，Vite 被嵌入到 AdonisJS 开发服务器中，并且应由 Vite 处理的每个请求都通过 AdonisJS 中间件代理给它。
+在 3.x 版本中，Vite 被嵌入到 AdonisJS 开发服务器中，并且应由 Vite 处理的每个请求都通过 AdonisJS 中间件来代理。
 
 中间件模式的优势在于，我们可以直接访问 Vite 的运行时 API 来执行服务器端渲染 (SSR)，并且只需管理一个开发服务器。
 
@@ -455,6 +455,6 @@ export default viteBackendConfig
 
 ### Manifest 文件
 
-Vite 会为你的资产生产构建生成一个 [manifest 文件](https://vitejs.dev/guide/backend-integration.html)。
+Vite 在创建生产版本的资源时，同时生成 [manifest 文件](https://vitejs.dev/guide/backend-integration.html)。
 
-manifest 文件包含由 Vite 处理的资产的 URL，AdonisJS 使用此文件为 Edge 模板中引用的资产创建 URL，无论是使用 `asset` 辅助函数还是 `@vite` 标签。
+manifest 文件中记录了 Vite 处理过的资源的 URL 信息，AdonisJS 使用此文件，为 Edge 模板中引用的资源成相应的 URL，无论是使用 `asset` 辅助函数还是 `@vite` 标签。
