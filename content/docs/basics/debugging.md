@@ -12,7 +12,7 @@ summary: 探索调试 AdonisJS 应用程序的多种方法，包括使用 VSCode
 
 在下面的示例中，我们定义了一个配置来启动 AdonisJS 开发服务器，并将其置于调试模式，然后将 VSCode 调试器附加到它上面。
 
-另请参阅：[VSCode Debugging Docs](https://code.visualstudio.com/docs/editor/debugging)
+另请参阅：[VSCode 官方调试文档](https://code.visualstudio.com/docs/editor/debugging)
 
 ```json
 // title: .vscode/launch.json
@@ -33,7 +33,7 @@ summary: 探索调试 AdonisJS 应用程序的多种方法，包括使用 VSCode
 
 开始调试：
 
-- 使用 `(CMD + Shift + P)` 打开命令面板。
+- 使用 `(CMD + Shift + P)` 打开命令面板。（Windows 系统的快捷键为 `Ctrl + Shift + P`）
 - 搜索 **Debug: Select and Start Debugging**。你将从 `.vscode/launch.json` 文件中看到一系列启动选项。
 - 选择 **Dev server** 选项，以使用 VSCode 调试器运行 HTTP 服务器。
 
@@ -41,7 +41,7 @@ summary: 探索调试 AdonisJS 应用程序的多种方法，包括使用 VSCode
 
 ### 调试测试
 
-你可以定义另一个启动选项来在调试模式下运行测试。
+你可以定义另一个启动选项，用于在调试模式下运行测试。
 
 ```json
 // title: .vscode/launch.json
@@ -139,7 +139,7 @@ summary: 探索调试 AdonisJS 应用程序的多种方法，包括使用 VSCode
 @debugger
 ```
 
-## Dump and Die（倾倒并终止）
+## Dump and Die（输出并终止）
 
 Dump and Die（简称 `dd`）类似于最受欢迎的调试技术 `console.log`。然而，`dd` 辅助函数会通过抛出异常来中止执行，并在浏览器或终端中显示输出。
 
@@ -167,7 +167,7 @@ router.get('/users', async () => {
 
 `dd` 的输出与使用 `console.log` 时看到的输出略有不同。
 
-- 你可以看到倾倒值所在的源代码位置。
+- 你可以看到输出值所在的源代码位置。
 - 你可以查看类的静态属性和对象的原型属性。
 - 默认情况下，显示嵌套深度达 10 层的值。
 - 支持多种 HTML 输出主题。你可以选择 `nightOwl`、`catppuccin` 和 `minLight`。
@@ -196,12 +196,12 @@ router.get('/users', async () => {
 // title: config/app.ts
 /**
  * “dd” 辅助函数使用的全局配置。你可以
- * 分别为 “console” 和 “html” 打印机
+ * 分别为 “console” 和 “html” 渲染器输出
  * 配置设置。
  */
 export const dumper = dumperConfig({
   /**
-   * 控制台打印机的设置
+   * 控制台渲染器输出的设置
    */
   console: {
     depth: 10,
@@ -215,7 +215,7 @@ export const dumper = dumperConfig({
   },
 
   /**
-   * HTML 打印机的设置
+   * HTML 渲染器输出的设置
    */
   html: {
     depth: 10,
@@ -282,14 +282,15 @@ export const dumper = dumperConfig({
 <dt> collapse </dt>
 <dd>
 
-不应进一步检查的对象构造函数名称数组。
+一个包含不应进一步审查的对象构造函数名称的数组。
 
 </dd>
 
 </dl>
 
 ## 框架调试日志
-你可以使用 `NODE_DEBUG` 环境变量查看框架调试日志。`NODE_DEBUG` 标志由 Node.js 运行时支持，你可以使用它查看一个或多个模块的日志，方法是使用模块名称。
+
+你可以使用 `NODE_DEBUG` 环境变量查看框架的调试日志。Node.js 运行时支持 NODE_DEBUG 标志，你可以使用它查看一个或多个模块的日志，只需指定模块名称即可。
 
 例如，你可以使用 `NODE_DEBUG="adonisjs:*"` 值查看所有 AdonisJS 包的日志。
 
@@ -304,7 +305,7 @@ NODE_DEBUG="adonisjs:*,net,fs" node ace serve --hmr
 ```
 
 <!-- ## 观察活动
-观察应用程序不同部分执行的操作可以提供一些有意义的见解，并帮助你调试和理解框架的内部工作原理。
+观察应用程序不同部分执行的操作，可以获得一些有意义的见解，并帮助你调试和理解框架的内部工作原理。
 
 ### Lucid 查询
 你可以通过在 `config/database.ts` 文件中启用 `debug` 标志来调试 Lucid 查询。此外，你还必须在同一文件中启用 `prettyPrintDebugQueries` 以在终端中打印 SQL 查询。

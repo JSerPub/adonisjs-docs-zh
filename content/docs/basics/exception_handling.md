@@ -6,7 +6,7 @@ summary: 异常是在 HTTP 请求生命周期中引发的错误。AdonisJS 提�
 
 在 HTTP 请求期间引发的异常由 `./app/exceptions/handler.ts` 文件中定义的 `HttpExceptionHandler` 处理。在这个文件中，你可以决定如何将异常转换为响应，并使用日志器记录它们，或将它们报告给外部日志提供程序。
 
-`HttpExceptionHandler` 扩展了 [ExceptionHandler](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts) 类，该类负责处理错误的所有繁重工作，并提供高级 API 来调整报告和呈现行为。
+`HttpExceptionHandler` 扩展了 [ExceptionHandler](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts) 类，该类负责处理错误的主要工作，并为你提供高级 API 来调整报告和呈现行为。
 
 ```ts
 import app from '@adonisjs/core/services/app'
@@ -40,7 +40,7 @@ server.errorHandler(() => import('#exceptions/handler'))
 
 - 检查错误实例是否有 `handle` 方法。如果有，调用 [error.handle](#defining-the-handle-method) 方法并返回其响应。
 - 检查是否为 `error.status` 代码定义了状态页面。如果有，呈现状态页面。
-- 否则，使用内容协商呈现器呈现异常。
+- 否则，使用内容协商渲染器呈现异常。
 
 如果你想以不同的方式处理特定异常，可以在 `handle` 方法中执行此操作。确保使用 `ctx.response.send` 方法发送响应，因为 `handle` 方法的返回值会被丢弃。
 
@@ -61,11 +61,11 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 ### 状态页面
 
-状态页面是为给定状态码或一系列状态码要呈现的模板集合。
+状态页面是你要为给定状态码或一系列状态码要呈现的模板集合。
 
-状态码范围可以定义为字符串表达式。两个点分隔起始和结束状态码（`..`）。
+可以用字符串表达式来定义状态码的范围，其中起始状态码和结束状态码由两个点（`..`）分隔。
 
-如果你正在创建一个 JSON 服务器，可能不需要状态页面。
+如果你正在创建的是一个 JSON 服务器，可能不需要状态页面。
 
 ```ts
 import { StatusPageRange, StatusPageRenderer } from '@adonisjs/http-server/types'
@@ -80,11 +80,11 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 ### 调试模式
 
-内容协商呈现器处理未被自行处理且未转换为状态页面的异常。
+内容协商渲染器负责处理未被自行处理且未被转换为状态页的异常。
 
-内容协商呈现器支持调试模式。在调试模式下，它们可以使用 [Youch](https://www.npmjs.com/package/youch) npm 包解析和美化打印错误。
+内容协商渲染器支持调试模式。在调试模式下，它们可以使用 [Youch](https://www.npmjs.com/package/youch) npm 包解析和美化错误输出。
 
-你可以通过异常处理器类上的 `debug` 属性切换调试模式。但是，建议在生产环境中关闭调试模式，因为它会暴露应用程序的敏感信息。
+你可以通过异常处理器类上的 `debug` 属性开启或关闭调试模式。但是，建议在生产环境中关闭调试模式，以免泄露应用的敏感信息。
 
 ```ts
 export default class HttpExceptionHandler extends ExceptionHandler {
@@ -96,7 +96,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 异常处理器类中的 `report` 方法负责报告异常。
 
-该方法接收错误作为第一个参数，接收 [HTTP 上下文](../concepts/http_context.md) 作为第二个参数。你不应从 `report` 方法写入响应，并且应仅使用上下文来读取请求信息。
+该方法以错误作为第一个参数，以 [HTTP 上下文](../concepts/http_context.md) 作为第二个参数。你不应从 `report` 方法编写响应，并且应仅使用上下文来读取请求信息。
 
 ### 记录异常
 
@@ -137,7 +137,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 ### 忽略错误
 
-你还可以通过定义要忽略的错误代码或错误类数组来忽略异常。
+你也可以通过定义一个包含要忽略的错误代码或错误类的数组来忽略异常。
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -151,7 +151,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 }
 ```
 
-可以使用 `ignoreExceptions` 属性忽略异常类数组。
+通过 `ignoreExceptions` 数组属性，可以指定要忽略的异常类。
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -167,7 +167,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 ### 自定义 shouldReport 方法
 
-忽略状态码或异常的逻辑写在 [`shouldReport` 方法](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L155) 中。如果需要，你可以覆盖此方法，并定义忽略异常的自定义逻辑。
+忽略状态码或异常的逻辑写在 [`shouldReport` 方法](https://github.com/adonisjs/http-server/blob/main/src/exception_handler.ts#L155) 中。如果需要，你可以重写此方法来实现你自己的忽略异常逻辑。
 
 ```ts
 import { HttpError } from '@adonisjs/core/types/http'
@@ -181,7 +181,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
 
 ## 自定义异常
 
-你可以使用 `make:exception` ace 命令创建一个异常类。异常扩展自 `@adonisjs/core` 包中的 `Exception` 类。
+你可以使用 `make:exception` ace 命令创建一个异常类。一个继承自 `@adonisjs/core` 包中的 `Exception` 类。
 
 另请参阅：[Make exception command](../references/commands.md#makeexception)
 
@@ -195,7 +195,7 @@ import { Exception } from '@adonisjs/core/exceptions'
 export default class UnAuthorizedException extends Exception {}
 ```
 
-你可以通过创建异常的新实例来引发异常。引发异常时，可以为异常分配自定义的 **错误代码** 和 **状态代码**。
+你可以通过创建异常的新实例来跑出异常。在抛出异常时，你可以为异常分配自定义的 **错误代码** 和 **状态代码**。
 
 ```ts
 import UnAuthorizedException from '#exceptions/unauthorized_exception'
@@ -206,7 +206,7 @@ throw new UnAuthorizedException('You are not authorized', {
 })
 ```
 
-错误代码和状态代码也可以作为静态属性定义在异常类上。如果在引发异常时未定义自定义值，将使用静态值。
+错误代码和状态代码也可以作为静态属性定义在异常类上。如果在抛出异常时未定义自定义值，将使用静态值。
 
 ```ts
 import { Exception } from '@adonisjs/core/exceptions'
@@ -218,7 +218,7 @@ export default class UnAuthorizedException extends Exception {
 
 ### 定义 `handle` 方法
 
-要自行处理异常，可以在异常类上定义 `handle` 方法。此方法应使用 `ctx.response.send` 方法将错误转换为 HTTP 响应。
+若要在异常类内部处理异常，你可定义 `handle` 方法。该方法应使用 `ctx.response.send` 方法将错误转换为 HTTP 响应。
 
 `error.handle` 方法接收错误实例作为第一个参数，接收 HTTP 上下文作为第二个参数。
 
@@ -250,7 +250,7 @@ export default class UnAuthorizedException extends Exception {
 
 ## 缩小错误类型范围
 
-框架核心和其他官方包会导出它们抛出的异常。你可以使用 `instanceof` 检查来验证错误是否是特定异常的实例。例如：
+框架核心及官方其他包会抛出它们定义的异常。你可以使用 `instanceof` 来验证错误是否是特定异常的实例。例如：
 
 ```ts
 import { errors } from '@adonisjs/core'
@@ -266,4 +266,5 @@ try {
 
 ## 已知错误
 
-请查阅 [exceptions reference guide](../references/exceptions.md) 以查看已知错误列表。
+请查阅 [异常参考指南](../references/exceptions.md) 以查看已知错误列表。
+
