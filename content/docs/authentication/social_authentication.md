@@ -276,6 +276,7 @@ ally
 ```
 
 ## 定义重定向查询参数
+
 你可以在定义范围的同时，自定义重定向请求的查询参数。在下面的示例中，我们定义了适用于 [Google 提供者](https://developers.google.com/identity/protocols/oauth2/web-server#httprest) 的 `prompt` 和 `access_type` 参数。
 
 ```ts
@@ -309,6 +310,7 @@ router.get('/google/redirect', async ({ ally }) => {
 ```
 
 ## 从访问令牌获取用户详细信息
+
 有时，你可能希望从存储在数据库中或通过另一个 OAuth 流程提供的访问令牌中获取用户详细信息。例如，你通过移动应用使用了原生 OAuth 流程，并收到了一个访问令牌。
 
 你可以使用 `.userFromToken()` 方法获取用户详细信息。
@@ -328,6 +330,7 @@ const user = await ally
 ```
 
 ## 无状态认证
+
 许多 OAuth 提供者[建议使用 CSRF 状态令牌](https://developers.google.com/identity/openid-connect/openid-connect?hl=en#createxsrftoken)，以防止你的应用程序受到请求伪造攻击。
 
 Ally 会创建一个 CSRF 令牌并将其保存在加密的 cookie 中，在用户批准认证请求后会对其进行验证。
@@ -346,6 +349,7 @@ await gh.user()
 ```
 
 ## 完整配置参考
+
 以下是所有驱动程序的完整配置参考。你可以直接将以下对象复制粘贴到 `config/ally.ts` 文件中。
 
 <div class="disclosure_wrapper">
@@ -483,4 +487,5 @@ await gh.user()
 </div>
 
 ## 创建自定义社交驱动程序
+
 我们创建了一个[入门套件](https://github.com/adonisjs-community/ally-driver-boilerplate)，用于实现并在 npm 上发布自定义社交驱动程序。请参阅入门套件的 README 以获取进一步说明。

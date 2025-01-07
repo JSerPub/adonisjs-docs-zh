@@ -2,13 +2,15 @@
 summary: 了解如何在 AdonisJS 中使用 session guard 对用户进行身份验证。
 ---
 
-# Session guard
-session guard 使用 [@adonisjs/session](../basics/session.md) 包在 HTTP 请求期间登录和验证用户。
+# Session 守卫
 
-会话和 cookie 在互联网上已存在很长时间，并且适用于大多数应用程序。因此，我们建议对服务器渲染的应用程序或同一顶级域名下的 SPA 网页客户端使用 session guard。
+Session 守卫使用 [@adonisjs/session](../basics/session.md) 包在 HTTP 请求期间登录和验证用户。
+
+会话和 cookie 在互联网上已存在很长时间，并且适用于大多数应用程序。因此，我们建议对服务器渲染的应用程序或同一顶级域名下的 SPA 网页客户端使用 session 守卫。
 
 ## 配置 guard
-身份验证 guard 在 `config/auth.ts` 文件中定义。你可以在此文件的 `guards` 对象下配置多个 guard。
+
+身份验证守卫在 `config/auth.ts` 文件中定义。你可以在此文件的 `guards` 对象下配置多个守卫。
 
 ```ts
 // title: config/auth.ts
@@ -39,13 +41,14 @@ export default authConfig
 `sessionUserProvider` 方法创建 [SessionLucidUserProvider](https://github.com/adonisjs/auth/blob/main/modules/session_guard/user_providers/lucid.ts) 类的实例。它接受一个用于身份验证的模型引用。
 
 ## 执行登录
-你可以使用 guard 的 `login` 方法登录用户。该方法接受一个 User 模型的实例，并为用户创建一个登录会话。
+
+你可以使用守卫的 `login` 方法登录用户。该方法接受一个 User 模型的实例，并为用户创建一个登录会话。
 
 在以下示例中：
 
 - 我们使用 [AuthFinder mixin](./verifying_user_credentials.md#using-the-auth-finder-mixin) 中的 `verifyCredentials` 通过电子邮件和密码查找用户。
 
-- `auth.use('web')` 返回在 `config/auth.ts` 文件中配置的 [SessionGuard](https://github.com/adonisjs/auth/blob/main/modules/session_guard/guard.ts) 的实例（`web` 是你在配置中定义的 guard 名称）。
+- `auth.use('web')` 返回在 `config/auth.ts` 文件中配置的 [SessionGuard](https://github.com/adonisjs/auth/blob/main/modules/session_guard/guard.ts) 的实例（`web` 是你在配置中定义的守卫名称）。
 
 - 接下来，我们调用 `auth.use('web').login(user)` 方法为用户创建登录会话。
 
@@ -109,9 +112,9 @@ router
  // highlight-end
 ```
 
-默认情况下，auth 中间件将根据 `default` guard（如在配置文件中定义）对用户进行身份验证。但是，在分配 `auth` 中间件时，你可以指定一个 guard 数组。
+默认情况下，auth 中间件将根据 `default` 守卫（如在配置文件中定义）对用户进行身份验证。但是，在分配 `auth` 中间件时，你可以指定一个守卫数组。
 
-在以下示例中，auth 中间件将尝试使用 `web` 和 `api` guard 对请求进行身份验证。
+在以下示例中，auth 中间件将尝试使用 `web` 和 `api` 守卫对请求进行身份验证。
 
 ```ts
 import { middleware } from '#start/kernel'
@@ -136,7 +139,7 @@ router
 
 - 带有 `Accept=application/vnd.api+json` 头的请求将根据 [JSON API](https://jsonapi.org/format/#errors) 规范收到一个错误数组。
 
-- 对于服务器渲染的应用程序，用户将被重定向到 `/login` 页面。你可以在 `auth` 中间件类中配置重定向端点。
+- 对于服务器端渲染的应用程序，用户将被重定向到 `/login` 页面。你可以在 `auth` 中间件类中配置重定向端点。
 
 ## 访问已登录用户
 
@@ -392,6 +395,7 @@ export default class SessionController {
 ```
 
 ## 使用访客中间件
+
 auth 包附带了一个访客中间件，你可以使用它来重定向已登录用户，防止其访问 `/login` 页面。这样做是为了避免在同一设备的同一用户上创建多个会话。
 
 ```ts

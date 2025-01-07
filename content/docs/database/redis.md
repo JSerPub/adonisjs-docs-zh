@@ -76,7 +76,7 @@ connection
 
 <dd>
 
-`connection` 属性定义了默认使用的连接。当你运行 Redis 命令而没有选择明确的连接时，它们将在默认连接上执行。
+`connection` 属性定义了默认使用的连接。当你运行 Redis 命令而没有选择明确的连接时，它们使用默认连接来执行。
 
 </dd>
 
@@ -88,7 +88,7 @@ connections
 
 <dd>
 
-`connections` 属性是多个命名连接的集合。你可以在这个对象中定义一个或多个连接，并使用 `redis.connection()` 方法在它们之间切换。
+`connections` 属性是多个命名连接的集合。你可以在这个对象中定义一个或多个连接，并使用 `redis.connection()` 方法来切换它们。
 
 每个命名连接配置与 [ioredis 接受的配置](https://redis.github.io/ioredis/index.html#RedisOptions) 相同。
 

@@ -295,7 +295,7 @@
   },
   {
     "permalink": "authentication/social-authentication",
-    "title": "社交平台认证",
+    "title": "社交认证",
     "contentPath": "./authentication/social_authentication.md",
     "category": "身份认证"
   },

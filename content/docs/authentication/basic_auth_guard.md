@@ -1,14 +1,14 @@
 ---
-summary: 了解如何使用基本身份验证守护进程 (basic auth guard) 通过 HTTP 身份验证框架对用户进行身份验证。
+summary: 了解如何使用基本身份验证守卫 (basic auth guard) 通过 HTTP 身份验证框架对用户进行身份验证。
 ---
 
-# 基本身份验证守护进程
+# 基本身份验证守卫
 
-基本身份验证守护进程是 [HTTP 身份验证框架](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。如果凭据有效，服务器将允许请求。否则，将显示一个原生的网页提示，要求重新输入凭据。
+基本身份验证守卫是 [HTTP 身份验证框架](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。如果凭据有效，服务器将允许请求。否则，将显示一个原生的网页提示，要求重新输入凭据。
 
-## 配置守护进程
+## 配置守卫
 
-身份验证守护进程在 `config/auth.ts` 文件中定义。你可以在此文件的 `guards` 对象下配置多个守护进程。
+身份验证守卫在 `config/auth.ts` 文件中定义。你可以在此文件的 `guards` 对象下配置多个守卫。
 
 ```ts
 import { defineConfig } from '@adonisjs/auth'
@@ -81,7 +81,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
 ## 保护路由
 
-配置好守护进程后，你可以使用 `auth` 中间件来保护路由，防止未经验证的请求。该中间件在 `start/kernel.ts` 文件中注册，位于命名中间件集合下。
+配置好守卫后，你可以使用 `auth` 中间件来保护路由，防止未经验证的请求。该中间件在 `start/kernel.ts` 文件中注册，位于命名中间件集合下。
 
 ```ts
 import router from '@adonisjs/core/services/router'

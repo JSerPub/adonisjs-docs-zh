@@ -3,21 +3,23 @@ summary: 了解如何使用访问令牌守卫来通过访问令牌验证HTTP请�
 ---
 
 # 访问令牌守卫
-在API上下文中，当服务器无法在最终用户设备上持久保存cookie时，访问令牌用于验证HTTP请求，例如，第三方访问API或移动应用的身份验证。
 
-访问令牌可以生成为任何格式；例如，符合JWT标准的令牌称为JWT访问令牌，而专有格式的令牌称为不透明访问令牌。
+在 API 上下文中，当服务器无法在最终用户设备上持久保存 cookie 时，可用访问令牌来验证 HTTP 请求，例如，第三方访问 API 或移动应用的身份验证。
 
-AdonisJS使用结构化和存储方式如下的不透明访问令牌。
+可以生成为任何格式的访问令牌；例如，符合 JWT 标准的令牌称为 JWT 访问令牌，而专有格式的令牌称为不透明访问令牌。
 
-- 令牌由一个加密安全的随机值表示，后缀为CRC32校验和。
+AdonisJS 使用不透明访问令牌，结构化和存储方式如下。
+
+- 令牌由一个加密安全的随机值表示，后缀为 CRC32 校验码。
 - 令牌值的哈希存储在数据库中。此哈希用于在身份验证时验证令牌。
-- 最终的令牌值经过base64编码，并以`oat_`为前缀。前缀可以自定义。
-- 前缀和CRC32校验和后缀有助于[秘密扫描工具](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning)识别令牌，并防止它们在代码库中泄漏。
+- 最终的令牌值经过 base64 编码，并以 `oat_` 为前缀。前缀可以自定义。
+- 前缀和 CRC32 校验码后缀有助于[秘密扫描工具](https://docs.github.com/en/code-security/secret-scanning/about-secret-scanning)识别令牌，并防止它们在代码库中泄漏。
 
 ## 配置用户模型
+
 在使用访问令牌守卫之前，你必须为用户模型设置令牌提供者。**令牌提供者用于创建、列出和验证访问令牌**。
 
-auth包附带了一个数据库令牌提供者，该提供者将令牌持久化到SQL数据库中。你可以按如下方式配置它。
+auth 包附带了一个数据库令牌提供者，该提供者将令牌持久化到 SQL 数据库中。你可以按如下方式配置它。
 
 ```ts
 import { BaseModel } from '@adonisjs/lucid/orm'
@@ -34,7 +36,7 @@ export default class User extends BaseModel {
 }
 ```
 
-`DbAccessTokensProvider.forModel`接受用户模型作为第一个参数，接受一个选项对象作为第二个参数。
+`DbAccessTokensProvider.forModel` 接受用户模型作为第一个参数，接受一个选项对象作为第二个参数。
 
 ```ts
 export default class User extends BaseModel {
@@ -78,7 +80,7 @@ prefix
 
 在发出令牌后更改前缀将使它们无效。因此，请谨慎选择前缀，并且不要频繁更改。
 
-默认为`oat_`。
+默认为 `oat_`。
 
 </dd>
 
@@ -90,7 +92,7 @@ table
 
 <dd>
 
-用于存储访问令牌的数据库表名。默认为`auth_access_tokens`。
+用于存储访问令牌的数据库表名。默认为 `auth_access_tokens`。
 
 </dd>
 
@@ -104,7 +106,7 @@ type
 
 用于标识一组令牌的唯一类型。如果你在单个应用程序中发出多种类型的令牌，则必须为它们全部定义唯一的类型。
 
-默认为`auth_token`。
+默认为 `auth_token`。
 
 </dd>
 
@@ -116,7 +118,7 @@ tokenSecretLength
 
 <dd>
 
-随机令牌值的长度（以字符为单位）。默认为`40`。
+随机令牌值的长度（以字符为单位）。默认为 `40`。
 
 </dd>
 
@@ -124,18 +126,19 @@ tokenSecretLength
 
 ---
 
-一旦配置了令牌提供者，你就可以代表用户开始[发出令牌](#issuing-a-token)。发出令牌不需要设置身份验证守卫。守卫用于验证令牌。
+一旦配置了令牌提供者，你就可以代表用户开始[发放令牌](#issuing-a-token)。发放令牌不需要设置身份验证守卫。守卫用于验证令牌。
 
 ## 创建访问令牌数据库表
-在初始设置期间，我们为`auth_access_tokens`表创建迁移文件。迁移文件存储在`database/migrations`目录中。
 
-你可以通过执行`migration:run`命令来创建数据库表。
+在初始设置阶段，我们为 `auth_access_tokens` 表创建迁移文件。迁移文件存储在 `database/migrations` 目录中。
+
+你可以通过执行 `migration:run` 命令来创建数据库表。
 
 ```sh
 node ace migration:run
 ```
 
-但是，如果你出于某种原因手动配置auth包，则可以手动创建迁移文件，并将以下代码片段复制粘贴到其中。
+但是，如果你出于某种原因手动配置 auth 包，则可以手动创建迁移文件，并将以下代码片段复制粘贴到其中。
 
 ```sh
 node ace make:migration auth_access_tokens
@@ -175,14 +178,15 @@ export default class extends BaseSchema {
 }
 ```
 
-## 发出令牌
-根据你的应用程序，你可能会在登录时或登录后从应用程序仪表板发出令牌。在这两种情况下，发出令牌都需要一个用户对象（为其生成令牌），并且你可以直接使用`User`模型生成它们。
+## 发放令牌
 
-在以下示例中，我们使用`User.accessTokens.create`方法**通过ID查找用户**并**为其发出访问令牌**。当然，在实际应用程序中，此端点将受身份验证保护，但我们现在保持简单。
+根据你的应用程序，你可能会在登录时或登录后从应用程序仪表板发放令牌。在这两种情况下，发放令牌都需要一个用户对象（为其生成令牌），并且你可以直接使用 `User` 模型生成它们。
 
-`.create`方法接受一个`User`模型实例，并返回一个[AccessToken](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/access_token.ts)类实例。
+在以下示例中，我们使用 `User.accessTokens.create` 方法**通过ID查找用户**并**为其发出访问令牌**。当然，在实际应用程序中，此端点将受身份验证保护，但我们现在保持简单。
 
-`token.value`属性包含值（包装为必须与用户共享的[Secret](../references/helpers.md#secret))）。该值仅在生成令牌时可用，用户之后将无法再次查看它。
+`.create` 方法接受一个 `User` 模型实例，并返回一个 [AccessToken](https://github.com/adonisjs/auth/blob/main/modules/access_tokens_guard/access_token.ts) 类实例。
+
+`token.value` 属性包含值（包装为必须与用户共享的 [Secret](../references/helpers.md#secret)）。该值仅在生成令牌时可用，用户之后将无法再次查看它。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -199,7 +203,7 @@ router.post('users/:id/tokens', ({ params }) => {
 })
 ```
 
-你还可以直接在响应中返回`token`，它将被序列化为以下JSON对象。
+你还可以直接在响应中返回 `token`，它将被序列化为以下 JSON 对象。
 
 ```ts
 router.post('users/:id/tokens', ({ params }) => {
@@ -227,11 +231,12 @@ router.post('users/:id/tokens', ({ params }) => {
 ```
 
 ### 定义权限
+
 根据你正在构建的应用程序，你可能希望限制访问令牌仅执行特定任务。例如，发出一个令牌，允许读取和列出项目，但不允许创建或删除它们。
 
-在以下示例中，我们将权限数组作为第二个参数定义。权限被序列化为JSON字符串并持久化到数据库中。
+在以下示例中，我们将权限数组作为第二个参数定义。权限被序列化为 JSON 字符串并持久化到数据库中。
 
-对于auth包，权限没有实际意义。在执行给定操作之前，检查令牌权限是由你的应用程序负责的。
+对于 auth 包，权限没有实际意义。在执行给定操作之前，检查令牌权限是由你的应用程序负责的。
 
 ```ts
 await User.accessTokens.create(user, ['server:create', 'server:read'])
@@ -366,7 +371,7 @@ router.post('projects', async ({ auth }) => {
 
 你可以使用 `auth` 中间件来验证请求或抛出异常，而无需手动调用 `authenticate` 方法。
 
-auth 中间件接受一个守卫数组，用于验证请求。一旦其中一个提到的守卫验证了请求，身份验证过程就会停止。
+auth 中间件接受一个守卫数组，用于验证请求。其中任一守卫完成请求验证后，身份验证过程就会停止。
 
 ```ts
 import router from '@adonisjs/core/services/router'
@@ -457,6 +462,7 @@ Bouncer.ability((user: User) => {
 ```
 
 ## 列出所有令牌
+
 你可以使用令牌提供者通过 `accessTokens.all` 方法获取所有令牌的列表。返回值将是 `AccessToken` 类实例的数组。
 
 ```ts
@@ -485,6 +491,7 @@ router
 ```
 
 ## 删除令牌
+
 你可以使用 `accessTokens.delete` 方法删除令牌。该方法接受用户作为第一个参数，令牌 ID 作为第二个参数。
 
 ```ts

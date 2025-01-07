@@ -63,7 +63,7 @@ export default class SessionController {
 
 <div class="card">
 
-我们在上述示例中编写的代码容易受到 [timing attacks](https://en.wikipedia.org/wiki/Timing_attack) 的影响。在认证过程中，攻击者可以通过观察应用程序的响应时间来判断提供的凭据中电子邮件或密码是否正确。我们建议你使用 [AuthFinder mixin](#using-the-auth-finder-mixin) 来防止时间攻击，并获得更好的开发体验。
+我们在上述示例中编写的代码容易受到 [时序攻击](https://en.wikipedia.org/wiki/Timing_attack) 的影响。在认证过程中，攻击者可以通过观察应用程序的响应时间来判断提供的凭据中电子邮件或密码是否正确。我们建议你使用 [AuthFinder mixin](#using-the-auth-finder-mixin) 来防止时间攻击，并获得更好的开发体验。
 
 根据上述实现：
 
@@ -189,7 +189,7 @@ export default class SessionController {
 
 - 所有其他请求将以纯文本形式接收错误。
 
-但是，如果需要，你可以在 [global exception handler](../basics/exception_handling.md) 中处理异常，如下所示。
+但是，如果需要，你可以在 [全局异常处理](../basics/exception_handling.md) 中处理异常，如下所示。
 
 ```ts
 // highlight-start

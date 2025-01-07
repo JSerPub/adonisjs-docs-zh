@@ -4,7 +4,7 @@ summary: 了解 AdonisJS 中的认证系统以及如何在你的应用程序中�
 
 # Authentication（认证）
 
-AdonisJS 提供了一个强大且安全的认证系统，你可以使用它来登录并验证应用程序的用户。无论是服务器端渲染的应用程序、SPA 客户端还是移动应用，你都可以为它们设置认证。
+AdonisJS 提供了一个强大且安全的认证系统，你可以使用它来登录并验证你的应用程序的用户。无论是服务器端渲染的应用程序、SPA 客户端还是移动应用，你都可以为它们设置认证。
 
 认证包是围绕 **guards（守卫）** 和 **providers（提供者）** 构建的。
 
@@ -14,7 +14,7 @@ AdonisJS 提供了一个强大且安全的认证系统，你可以使用它来�
 
 :::note
 
-为了确保你应用程序的安全性，我们会对用户密码和令牌进行适当的哈希处理。此外，AdonisJS 的安全原语受到 [timing attacks](https://en.wikipedia.org/wiki/Timing_attack) 和 [session fixation attacks](https://owasp.org/www-community/attacks/Session_fixation) 的保护。
+为了确保你应用程序的安全性，我们会对用户密码和令牌进行适当的哈希处理。而且，AdonisJS 的安全机制具有防护能力，可以防止 [时序攻击](https://en.wikipedia.org/wiki/Timing_attack) 和 [会话固定攻击](https://owasp.org/www-community/attacks/Session_fixation) 。
 
 :::
 
@@ -24,7 +24,7 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 - 用户注册功能，如 **注册表单**、**电子邮件验证** 和 **帐户激活**。
 - 帐户管理功能，如 **密码恢复** 或 **电子邮件更新**。
-- 分配角色或验证权限。相反，[use bouncer](../security/authorization.md) 来在你的应用程序中实现授权检查。
+- 对于角色的分配或权限的验证，应该在你的应用程序中用 [bouncer](../security/authorization.md) 来进行授权验证。
 
 <!-- :::note
 
@@ -38,7 +38,7 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 
 ## 选择认证守卫
 
-以下内置认证守卫为你提供了最直接的工作流程，用于在不牺牲应用程序安全性的情况下对用户进行身份验证。此外，你可以 [build your authentication guards](./custom_auth_guard.md) 根据自定义需求构建你的认证守卫。
+以下内置认证守卫为你提供了最直接的工作流程，用于在不牺牲应用程序安全性的情况下对用户进行身份验证。另外，您也可以根据自己的需求[定制认证守卫](./custom_auth_guard.md)。
 
 ### Session（会话）
 
@@ -47,7 +47,7 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 会话和 cookie 在互联网上已经存在很长时间，并且适用于大多数应用程序。我们建议使用会话守卫：
 
 - 如果你正在创建一个服务器端渲染的 Web 应用程序。
-- 或者，一个与其客户端位于同一顶级域名的 AdonisJS API。例如，`api.example.com` 和 `example.com`。
+- 也可以是一个 AdonisJS API，其客户端位于同一个顶级域名下。例如，`api.example.com` 和 `example.com`。
 
 ### Access tokens（访问令牌）
 
@@ -56,19 +56,19 @@ auth 包专注于对 HTTP 请求进行认证，以下功能不在其范围内：
 - 一个原生移动应用。
 - 一个托管在与 AdonisJS API 服务器不同域名的 Web 应用程序。
 
-当使用访问令牌时，客户端应用程序有责任安全地存储它们。访问令牌代表用户提供对应用程序的无限制访问，泄露它们可能导致安全问题。
+当使用访问令牌时，客户端应用程序需要确保安全地存储它们。访问令牌代表用户提供对应用程序的无限制访问，若泄露则可能造成安全隐患。
 
 ### Basic auth（基本认证）
 
-基本认证守卫是 [HTTP authentication framework](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，其中客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。
+基本认证守卫是 [HTTP 身份验证框架](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication) 的一种实现，其中客户端必须通过 `Authorization` 头传递以 base64 编码的字符串形式的用户凭据。
 
-有比基本认证更好的方法来实现安全的登录系统。然而，在你的应用程序处于积极开发阶段时，你可以暂时使用它。
+有比基本认证更好的方法来实现安全的登录系统。然而，在应用程序开发活跃期时，你可以暂时使用它。
 
 ## 选择用户提供者
 
 如本指南前面所述，用户提供者在认证过程中负责查找用户。
 
-用户提供者是守卫特定的；例如，会话守卫的用户提供者负责通过用户 ID 查找用户，而访问令牌守卫的用户提供者则负责验证访问令牌。
+不同的守卫有各自的用户提供者；例如，会话守卫的用户提供者负责通过用户 ID 查找用户，而访问令牌守卫的用户提供者则负责验证访问令牌。
 
 我们为内置守卫提供了一个 Lucid 用户提供者，它使用 Lucid 模型来查找用户、生成令牌和验证令牌。
 
@@ -115,7 +115,7 @@ node ace add @adonisjs/auth --guard=basic_auth
     ```ts
     router.named({
       auth: () => import('#middleware/auth_middleware'),
-      // 仅在使用会话守卫时使用
+      // 仅在使用 session 守卫时使用
       guest: () => import('#middleware/guest_middleware')
     })
     ```
@@ -143,7 +143,7 @@ node ace add @adonisjs/auth --guard=basic_auth
 
 `configure` 命令会在 `database/migrations` 目录中为 `users` 表创建一个数据库迁移。你可以随意打开此文件并根据应用程序需求进行修改。
 
-默认情况下，会创建以下列：
+默认情况下，会创建以下的字段：
 
 ```ts
 import { BaseSchema } from '@adonisjs/lucid/schema'
@@ -173,6 +173,6 @@ export default class extends BaseSchema {
 
 ## 后续步骤
 
-- 了解如何在不牺牲应用程序安全性的情况下 [verify user credentials](./verifying_user_credentials.md)。
-- 使用 [session guard](./session_guard.md) 进行有状态认证。
-- 使用 [access tokens guard](./access_tokens_guard.md) 进行基于令牌的认证。
+- 了解如何在不牺牲应用程序安全性的情况下 [验证用户身份凭证](./verifying_user_credentials.md)。
+- 使用 [会话守卫](./session_guard.md) 进行有状态认证。
+- 使用 [访问令牌守卫](./access_tokens_guard.md) 进行基于令牌的认证。

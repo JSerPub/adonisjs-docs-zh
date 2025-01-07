@@ -75,9 +75,11 @@ export interface JwtUserProviderContract<RealUser> {
 总之，`JwtUserProviderContract` 将用户的数据类型留给 UserProvider 实现来决定。
 
 ### 理解 `JwtGuardUser` 类型
+
 `JwtGuardUser` 类型作为用户提供者和守卫之间的桥梁。守卫使用 `getId` 方法获取用户的唯一 ID，使用 `getOriginal` 方法在请求身份验证后获取用户的对象。
 
 ## 实现守卫
+
 让我们创建 `JwtGuard` 类，并定义 [`GuardContract`](https://github.com/adonisjs/auth/blob/main/src/types.ts#L30) 接口所需的方法/属性。最初，此文件中会有很多错误，但这没关系；随着我们的进展，所有错误都会消失。
 
 :::note
@@ -153,6 +155,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 接受用户提供者
+
 守卫必须接受一个用户提供者，以便在身份验证期间查找用户。你可以将其作为构造函数参数接受，并存储一个私有引用。
 
 ```ts
@@ -172,6 +175,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 生成令牌
+
 让我们实现 `generate` 方法，并为给定用户创建令牌。我们将从 npm 安装并使用 `jsonwebtoken` 包来生成令牌。
 
 ```sh
@@ -345,6 +349,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 实现 `check` 方法
+
 `check` 方法是 `authenticate` 方法的静默版本，你可以按如下方式实现它。
 
 ```ts
@@ -368,6 +373,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 实现 `getUserOrFail` 方法
+
 最后，让我们实现 `getUserOrFail` 方法。它应返回用户实例（如果用户不存在则抛出错误）。
 
 ```ts
@@ -392,6 +398,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 实现 `authenticateAsClient` 方法
+
 `authenticateAsClient` 方法在测试期间使用，当你希望通过 [`loginAs` 方法](../testing/http_tests.md#authenticating-users) 在测试中登录用户时。对于 JWT 实现，该方法应返回包含 JWT 令牌的 `authorization` 头。
 
 ```ts
@@ -418,6 +425,7 @@ export class JwtGuard<UserProvider extends JwtUserProviderContract<unknown>>
 ```
 
 ## 使用守卫
+
 让我们转到 `config/auth.ts` 并在 `guards` 列表中注册守卫。
 
 ```ts
@@ -457,7 +465,7 @@ export default authConfig
 
 ## 最终示例
 
-实现完成后，你可以像使用其他内置 guard 一样使用 `jwt` guard。以下是如何生成和验证 JWT 令牌的示例。
+实现完成后，你可以像使用其他内置守卫一样使用 `jwt` 守卫。以下是如何生成和验证 JWT 令牌的示例。
 
 ```ts
 import User from '#models/user'
