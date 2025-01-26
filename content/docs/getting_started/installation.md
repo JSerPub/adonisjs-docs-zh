@@ -15,7 +15,7 @@ node -v
 ```
 
 :::tip
-**你是视觉学习者吗？** - 查看我们朋友在 Adocasts 上的 [Let's Learn AdonisJS 6](https://adocasts.com/series/lets-learn-adonisjs-6) 免费屏幕录制系列。
+**你是不是更喜欢通过视频学习？** ——看看由Adocasts的朋友们提供的免费[Let's Learn AdonisJS 6](https://adocasts.com/series/lets-learn-adonisjs-6)视频教学系列。
 :::
 
 ## 创建新应用程序
