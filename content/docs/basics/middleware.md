@@ -201,7 +201,7 @@ router.get('payments', () => {}).use(
 
 ## 依赖注入
 
-中间件类是使用 [IoC容 器](../concepts/dependency_injection.md)实例化的；因此，你可以在中间件构造函数中类型提示依赖项，容器将为你注入它们。
+中间件类是使用 [IoC 容器](../concepts/dependency_injection.md)实例化的；因此，你可以在中间件构造函数中类型提示依赖项，容器将为你注入它们。
 
 假设你有一个 `GeoIpService` 类来根据请求IP查找用户位置，你可以使用 `@inject` 装饰器将其注入到中间件中。
 

@@ -483,7 +483,7 @@ export default class PostPolicy extends BasePolicy {
 
 ### 依赖注入
 
-策略类是使用 [IoC container](../concepts/dependency_injection.md) 创建的；因此，你可以在策略构造函数中使用 `@inject` 装饰器进行类型提示和依赖注入。
+策略类是使用 [IoC 容器](../concepts/dependency_injection.md) 创建的；因此，你可以在策略构造函数中使用 `@inject` 装饰器进行类型提示和依赖注入。
 
 ```ts
 import { inject } from '@adonisjs/core'
@@ -642,7 +642,7 @@ Bouncer.responseBuilder = (response: boolean | AuthorizationResponse) => {
 查看以下 Edge 模板的代码示例，一个预注册了策略，另一个没有。
 
 :::caption{for="error"}
-**未预注册。不，不是很整洁**
+**未预注册。不是很整洁**
 :::
 
 ```edge
