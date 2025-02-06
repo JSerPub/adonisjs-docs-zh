@@ -6,7 +6,7 @@ summary: 了解如何在 AdonisJS 中实现 CORS 以保护你的应用程序。
 
 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 帮助你保护应用程序免受浏览器环境中脚本触发的恶意请求的攻击。
 
-例如，如果从不同域向你的服务器发送 AJAX 或 fetch 请求，浏览器会阻止该请求并报告 CORS 错误，同时期望你实现一个 CORS 策略（如果你认为该请求应该被允许）。
+例如，如果从不同域向你的服务器发送 AJAX 或 fetch 请求，浏览器会因跨源资源共享（CORS）错误而阻止该请求，如果您认为该请求应被允许，则需要您设置 CORS 策略。。
 
 在 AdonisJS 中，你可以使用 `@adonisjs/cors` 包来实现 CORS 策略。该包附带了一个 HTTP 中间件，用于拦截传入请求并返回正确的 CORS 头。
 
@@ -107,7 +107,7 @@ origin
 
 使用通配符表达式 `*` 来允许所有源。阅读 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin#directives) 以了解通配符表达式的工作原理。
 
-当 `credentials` 属性设置为 `true` 时，我们将自动使通配符表达式表现为 `布尔值（true）`。
+当 `credentials` 属性设置为 `true` 时，通配符表达式会自动被当作 `布尔值（true）` 来处理。
 
 ```ts
 {
@@ -254,6 +254,7 @@ maxAge
 </dl>
 
 ## 调试 CORS 错误
+
 调试 CORS 问题是一项具有挑战性的任务。然而，除了理解 CORS 的规则并调试响应头以确保一切就绪之外，没有捷径可走。
 
 以下是一些文章链接，你可以阅读以更好地理解 CORS 的工作原理。
