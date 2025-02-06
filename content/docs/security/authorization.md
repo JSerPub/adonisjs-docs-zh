@@ -8,9 +8,9 @@ summary: 学习如何在 AdonisJS 应用程序中使用 `@adonisjs/bouncer` 包�
 
 能力和策略的目标是将授权操作的逻辑抽象到一个地方，并在代码库的其余部分中重用。
 
-- [能力](#defining-abilities) 被定义为函数，如果你的应用程序有较少且简单的授权检查，它们可能非常适合。
+- [能力](#定义能力) 被定义为函数，如果你的应用程序有较少且简单的授权检查，它们可能非常适合。
 
-- [策略](#defining-policies) 被定义为类，你必须为应用程序中的每个资源创建一个对应策略。策略还可以利用 [自动依赖注入](#dependency-injection) 的优势。
+- [策略](#定义策略) 被定义为类，你必须为应用程序中的每个资源创建一个对应策略。策略还可以利用 [自动依赖注入](#依赖注入) 的优势。
 
 :::note
 
@@ -221,7 +221,7 @@ if (await bouncer.allows(editPost, post)) {
 
 策略存储在 `./app/policies` 目录中，每个文件表示一个策略。你可以通过运行以下命令创建一个新策略。
 
-另请参阅：[Make policy command](../references/commands.md#makepolicy)
+另请参阅：[创建策略命令](../references/commands.md#makepolicy)
 
 ```sh
 node ace make:policy post
@@ -314,7 +314,7 @@ export default class PostsController {
 
 ### 允许访客用户
 
-[与能力类似](#allowing-guest-users)，策略也可以使用 `@allowGuest` 装饰器为访客用户定义授权检查。例如：
+与[能力](#定义能力)类似，策略也可以使用 `@allowGuest` 装饰器为访客用户定义授权检查。例如：
 
 ```ts
 import User from '#models/user'
@@ -666,7 +666,7 @@ export default class PostsController {
 
 ## 在 Edge 模板中进行授权检查
 
-在 Edge 模板中进行授权检查之前，请确保 [预注册能力和策略](#pre-registering-abilities-and-policies)。完成后，你可以使用 `@can` 和 `@cannot` 标签进行授权检查。
+在 Edge 模板中进行授权检查之前，请确保 [预注册能力和策略](#预注册能力和策略)。完成后，你可以使用 `@can` 和 `@cannot` 标签进行授权检查。
 
 这些标签接受 `ability` 名称或 `policy.method` 名称作为第一个参数，后跟能力或策略接受的其他参数。
 
@@ -694,4 +694,4 @@ export default class PostsController {
 
 ## 事件
 
-请查阅[事件参考指南](../references/events.md#authorizationfinished)，以查看 `@adonisjs/bouncer` 包发出的事件列表。
+请查阅[事件参考指南](../references/events.md#authorizationfinished)，以查看 `@adonisjs/bouncer` 包触发的事件列表。
