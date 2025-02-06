@@ -63,7 +63,7 @@ node ace add @adonisjs/bouncer
 
 :::tip
 
-**你是不是更喜欢通过视频学习？** ——看看由Adocasts的朋友们提供的免费 [AdonisJS Bouncer](https://adocasts.com/series/adonisjs-bouncer) 视频教学系列。
+**你是不是更喜欢通过视频学习？** ——看看由 Adocasts 的朋友们提供的免费 [AdonisJS Bouncer](https://adocasts.com/series/adonisjs-bouncer) 视频教学系列。
 :::
 
 ## 初始化 Bouncer 中间件
@@ -200,7 +200,7 @@ export const viewPost = Bouncer.ability(
 
 ### 为非当前登录用户授权
 
-如需授权给不同于当前登录用户的另一用户，你可利用 Bouncer 构造函数为特定用户创建一个bouncer新实例。
+如需授权给不同于当前登录用户的另一用户，你可利用 Bouncer 构造函数为特定用户创建一个 bouncer 新实例。
 
 ```ts
 import User from '#models/user'
@@ -364,119 +364,37 @@ export default class PostPolicy extends BasePolicy {
 - 如果返回值为 `undefined`，Bouncer 将执行操作方法以执行授权检查。
 
 ```ts
-// title: app/policies/post_policy.ts
-import User from '#models/user'
-import Post from '#models/post'
-import { BasePolicy } from '@adonisjs/bouncer'
+export default class PostPolicy extends BasePolicy {
+  async before(user: User | null, action: string, ...params: any[]) {
+    /**
+     * 始终允许管理员用户无需进行任何检查
+     */
+    if (user && user.isAdmin) {
+      return true
+    }
+  }
+}
+```
+
+`after` 方法接收来自行为方法的原始响应，并可以通过返回一个新值来覆盖之前的响应。对 `after` 方法的响应解释如下：
+
+- 返回 `true` 值将被视为授权成功，旧的响应将被丢弃。
+- 返回 `false` 值将被视为访问被拒绝，旧的响应将被丢弃。
+- 如果返回 `undefined` 值，则守卫将继续使用旧的响应。
+
+```ts
 import { AuthorizerResponse } from '@adonisjs/bouncer/types'
 
 export default class PostPolicy extends BasePolicy {
-  /**
-   * 每个已登录用户都可以创建帖子
-   */
-  create(user: User): AuthorizerResponse {
-    return true
-  }
-
-  /**
-   * 只有帖子的创建者才能编辑帖子
-   */
-  edit(user: User, post: Post): AuthorizerResponse {
-    return user.id === post.userId
-  }
-
-  /**
-   * 只有帖子的创建者才能删除帖子
-   */
-  delete(user: User, post: Post): AuthorizerResponse {
-    return user.id === post.userId
-  }
-}
-```
-
-### 执行授权
-
-创建策略后，你可以使用 `bouncer.with` 方法指定要用于授权的策略，然后使用 `bouncer.allows` 或 `bouncer.denies` 方法链执行授权检查。
-
-:::note
-
-在 `bouncer.with` 方法之后链式调用的 `allows` 和 `denies` 方法是类型安全的，并且会根据你在策略类中定义的方法显示一个完成列表。
-
-:::
-
-```ts
-import Post from '#models/post'
-import PostPolicy from '#policies/post_policy'
-import type { HttpContext } from '@adonisjs/core/http'
-
-export default class PostsController {
-  async create({ bouncer, response }: HttpContext) {
-    // highlight-start
-    if (await bouncer.with(PostPolicy).denies('create')) {
-      return response.forbidden('Cannot create a post')
-    }
-    // highlight-end
-
-    // 继续执行控制器逻辑
-  }
-
-  async edit({ bouncer, params, response }: HttpContext) {
-    const post = await Post.findOrFail(params.id)
-
-    // highlight-start
-    if (await bouncer.with(PostPolicy).denies('edit', post)) {
-      return response.forbidden('Cannot edit the post')
-    }
-    // highlight-end
-
-    // 继续执行控制器逻辑
-  }
-
-  async delete({ bouncer, params, response }: HttpContext) {
-    const post = await Post.findOrFail(params.id)
-
-    // highlight-start
-    if (await bouncer.with(PostPolicy).denies('delete', post)) {
-      return response.forbidden('Cannot delete the post')
-    }
-    // highlight-end
-
-    // 继续执行控制器逻辑
-  }
-}
-```
-
-### 允许访客用户
-
-[与能力类似](#allowing-guest-users)，策略也可以使用 `@allowGuest` 装饰器为访客用户定义授权检查。例如：
-
-```ts
-import User from '#models/user'
-import Post from '#models/post'
-import { BasePolicy, allowGuest } from '@adonisjs/bouncer'
-import type { AuthorizerResponse } from '@adonisjs/bouncer/types'
-
-export default class PostPolicy extends BasePolicy {
-  @allowGuest()
-  view(user: User | null, post: Post): AuthorizerResponse {
-    /**
-     * 允许每个人访问已发布的帖子
-     */
-    if (post.isPublished) {
+  async after(
+    user: User | null,
+    action: string,
+    response: AuthorizerResponse,
+    ...params: any[]
+  ) {
+    if (user && user.isAdmin) {
       return true
     }
-
-    /**
-     * 访客不能查看未发布的帖子
-     */
-    if (!user) {
-      return false
-    }
-
-    /**
-     * 帖子的创建者也可以查看未发布的帖子。
-     */
-    return user.id === post.userId
   }
 }
 ```
