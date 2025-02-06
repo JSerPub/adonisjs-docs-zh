@@ -331,7 +331,7 @@
   },
   {
     "permalink": "security/rate-limiting",
-    "title": "限速",
+    "title": "限流",
     "contentPath": "./security/rate_limiting.md",
     "category": "安全"
   },
