@@ -2,9 +2,9 @@
 summary: 了解如何使用 AdonisJS 哈希服务对值进行哈希处理。
 ---
 
-# Hashing（哈希处理）
+# 哈希处理
 
-你可以使用 `hash` 服务在应用程序中对用户密码进行哈希处理。AdonisJS 原生支持 `bcrypt`、`scrypt` 和 `argon2` 哈希算法，并且具备 [添加自定义驱动程序](#creating-a-custom-hash-driver) 的能力。
+你可以使用 `hash` 服务在应用程序中对用户密码进行哈希处理。AdonisJS 原生支持 `bcrypt`、`scrypt` 和 `argon2` 哈希算法，并且具备 [添加自定义驱动](#创建自定义哈希驱动程序) 的能力。
 
 哈希值以 [PHC 字符串格式](https://github.com/P-H-C/phc-string-format/blob/master/phc-sf-spec.md) 存储。PHC 是一种用于格式化哈希的确定性编码规范。
 
@@ -228,7 +228,7 @@ rounds（轮次）
 
 <dd>
 
-计算哈希的成本。建议阅读 Bcrypt 文档中的 [A Note on Rounds](https://github.com/kelektiv/node.bcrypt.js#a-note-on-rounds) 部分，以了解 `rounds` 值对计算哈希所需时间的影响。
+计算哈希的轮次。建议阅读 Bcrypt 文档中的 [A Note on Rounds](https://github.com/kelektiv/node.bcrypt.js#a-note-on-rounds) 部分，以了解 `rounds` 值对计算哈希所需时间的影响。
 
 默认值为 `10`。
 

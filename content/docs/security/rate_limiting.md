@@ -4,9 +4,9 @@ summary: 使用 @adonisjs/limiter 包实现速率限制，以保护你的 Web �
 
 # 速率限制
 
-AdonisJS 提供了一个官方包，用于在你的 Web 应用程序或 API 服务器中实现速率限制。速率限制器提供 `redis`、`mysql`、`postgresql` 和 `memory` 作为存储选项，并具备 [创建自定义存储提供者](#creating-a-custom-storage-provider) 的能力。
+AdonisJS 提供了一个官方包，用于在你的 Web 应用程序或 API 服务器中实现速率限制。速率限制器提供 `redis`、`mysql`、`postgresql` 和 `memory` 作为存储选项，并具备 [创建自定义存储提供者](#创建自定义存储提供者) 的能力。
 
-`@adonisjs/limiter` 包建立在 [node-rate-limiter-flexible](https://github.com/animir/node-rate-limiter-flexible) 包之上，该包提供了最快的速率限制 API 之一，并使用原子递增来避免竞态条件。
+`@adonisjs/limiter` 基于 [node-rate-limiter-flexible](https://github.com/animir/node-rate-limiter-flexible) 包，该包提供了最快的速率限制 API 之一，并使用原子递增来避免竞态条件。
 
 ## 安装
 
@@ -168,7 +168,7 @@ inMemoryBlockOnConsumed
   requests: 10,
 
   /**
-   * 在 12 个请求后，在内存中阻塞键并停止咨询数据库。
+   * 在 12 个请求后，在内存中阻塞键并停止查询数据库。
    */
   inMemoryBlockOnConsumed: 12,
 }

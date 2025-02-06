@@ -49,10 +49,10 @@ node ace add @adonisjs/shield
 
 ### 保护表单
 
-一旦配置了 `@adonisjs/shield` 包，所有没有 CSRF 令牌的表单提交将自动失败。因此，你必须使用 `csrfField` 边缘助手来定义一个包含 CSRF 令牌的隐藏输入字段。
+一旦配置了 `@adonisjs/shield` 包，所有没有 CSRF 令牌的表单提交将自动失败。因此，你必须使用 `csrfField` edge 辅助函数来定义一个包含 CSRF 令牌的隐藏输入字段。
 
 :::caption{for="info"}
-**边缘助手**
+**edge 助手**
 :::
 
 ```edge
@@ -222,6 +222,7 @@ cookieOptions
 </dl>
 
 ## 定义 CSP 策略
+
 [CSP (Content security policy)](https://web.dev/csp/) 通过定义加载 JavaScript、CSS、字体、图像等的可信来源，保护你的应用程序免受 XSS 攻击。
 
 CSP 防护默认是禁用的。然而，我们建议你启用它，并在 `config/shield.ts` 文件中配置策略指令。
@@ -325,6 +326,7 @@ router.post('/csp-report', async ({ request }) => {
 </dl>
 
 ### 使用 Nonce
+
 你可以通过在 `script` 和 `style` 标签上定义 [nonce 属性](https://content-security-policy.com/nonce/) 来允许内联标签。在 Edge 模板中，可以使用 `cspNonce` 属性访问 nonce 属性的值。
 
 ```edge
@@ -349,6 +351,7 @@ const shieldConfig = defineConfig({
 ```
 
 ### 从 Vite Dev 服务器加载资源
+
 如果你正在使用 [Vite 集成](../basics/vite.md)，可以使用以下 CSP 关键字来允许由 Vite Dev 服务器提供的资源。
 
 - `@viteDevUrl` 将 Vite dev 服务器 URL 添加到允许列表中。
