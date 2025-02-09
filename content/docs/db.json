@@ -379,7 +379,7 @@
   },
   {
     "permalink": "testing/database",
-    "title": "数据量",
+    "title": "数据库测试",
     "contentPath": "./testing/database.md",
     "category": "测试"
   },
