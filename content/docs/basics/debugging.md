@@ -157,7 +157,7 @@ router.get('/users', async () => {
   const users = await User.all()
   // highlight-start
   /**
-   * 访问 "/users" 端点以查看倾倒的值
+   * 访问 "/users" 端点以查看输出的值
    */
   dd(users)
   // highlight-end
@@ -181,10 +181,10 @@ router.get('/users', async () => {
 你可以在 Edge 模板中通过 `@dd` 标签使用 `dd` 辅助函数。此外，你还可以使用 `@dump` 辅助函数，它不会抛出异常，而是继续渲染模板的其余部分。
 
 ```edge
-{{-- 倾倒模板状态并终止 --}}
+{{-- 输出模板状态并终止 --}}
 @dd(state)
 
-{{-- 倾倒模板状态并继续渲染 --}}
+{{-- 输出模板状态并继续渲染 --}}
 @dump(state)
 ```
 

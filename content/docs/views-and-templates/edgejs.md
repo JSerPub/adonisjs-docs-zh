@@ -87,7 +87,7 @@ router.get('/', async ({ view }) => {
 
 ## 配置 Edge
 
-你可以通过在 `start` 目录中创建一个 [预加载文件](../concepts/adonisrc_file.md#preloads) 来使用 Edge 插件或向 Edge 添加全局助手。
+你可以通过在 `start` 目录中创建一个 [预加载文件](../concepts/adonisrc_file.md#预加载) 来使用 Edge 插件或向 Edge 添加全局助手。
 
 ```sh
 node ace make:preload view
